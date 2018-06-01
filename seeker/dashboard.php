@@ -1,5 +1,6 @@
 <?php 
 	require "../header-footer/seekerHeader.marvee";
+	require "modal/seekerModal.html";
 ?>
 <?php 
 $Name = 'Marvee Franco';
@@ -55,7 +56,7 @@ $ed = "Infinty";
 	<!-- start of 1st row -->
 	<div class="row">
 		<!-- 1st box -->
-		<div class="col bg-white border border rounded mx-5 shadowDiv" id="shortInfo">
+		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv" id="shortInfo">
 			<div class="d-flex justify-content-center">
 				<img class="fluid seekerProfile" src="../etc/images/user/dashboardSample.png" alt="Profile"></img>
 			</div>
@@ -112,7 +113,7 @@ $ed = "Infinty";
       		</div>
       		<hr>
       		<div class="container d-flex justify-content-center blue font-weight-bold">
-      			<span><i class="fas fa-plus-circle"></i></span>&nbsp;<label>Add Personal Details</label>
+      			<label class="text-center"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Personal Details</span></label>
       		</div>
 		</div>
 		<!-- end of second box -->
@@ -162,7 +163,7 @@ $ed = "Infinty";
       		</div>
       		<hr>
       		<div class="container d-flex justify-content-center blue font-weight-bold">
-      			<span><i class="fas fa-plus-circle"></i></span>&nbsp;<label>Add Company</label>
+      			<label class="text-center"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Company</span></label>
       		</div>
 		</div>
 		<!-- end of 2nd box 2nd row -->
@@ -187,7 +188,7 @@ $ed = "Infinty";
       		</div>
       		<hr>
       		<div class="container d-flex justify-content-center blue font-weight-bold">
-      			<span><i class="fas fa-plus-circle"></i></span>&nbsp;<label>Add your <abbr title="Add Job Offer form for your compliance">JO Form(s)</abbr></label>
+      			<label class="text-center" data-toggle="modal" data-target="#JOFormModal"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add your <abbr title="Add Job Offer form for your compliance">JO Form(s)</abbr></span></label>
       		</div>
 		</div>
 		<!-- end of 1st box 3rd row -->

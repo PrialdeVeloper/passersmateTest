@@ -4,6 +4,10 @@ body{
   padding:0!important;
 }
 
+.centerModalTitle{
+  margin-left: auto;
+}
+
 /*Navbar*/
 .header-image{
 	width: 250px;
@@ -41,6 +45,11 @@ a{
   nav[role=navigationWorks] li.pr-5, #navigationWorks{
     font-size: 1rem!important;
   }
+
+  #navWorks{
+  height: 125px!important;
+  }
+
 }
 
 @media screen and (max-width: 500px) /* Mobile lg*/ {
@@ -70,6 +79,7 @@ a{
   #myQuickLinks{
     height: 400px!important;
   }
+
 }
 
 @media screen and (max-width: 330px) /* Mobile sm*/ {
@@ -127,6 +137,10 @@ nav[role=navigationWorks] button.navbar-toggler{
   width: 100%;
   float: none;
   margin-right: 0;
+}
+
+label[data-toggle=modal]{
+  cursor: pointer;
 }
 
 .seekerProfile{
