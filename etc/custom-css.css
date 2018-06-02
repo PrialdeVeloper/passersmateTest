@@ -177,11 +177,6 @@ label[data-toggle=modal]{
   box-shadow: 2px 2px 4px grey;
 }
 
-.form-control{
-  border: none;
-  border-color: transparent;
-}
-
 .skyblue{
   background-color: #94B5F7;
 }

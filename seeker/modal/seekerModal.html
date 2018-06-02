@@ -9,12 +9,43 @@
 					<span>&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<!--  -->
+			<div class="modal-body bg-white">
+				<form>
+					<div class="form-row border">
+						<div class="col border">
+							<div class="form-group">
+								<label for="JOjobTitleModal">Job Title:</label>
+								<select id="JOjobTitleModal" class="form-control">
+									<option>...</option>
+									<option>...</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label>Work Materials provided:</label>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="JOworkSelection" id="JOmaterialsYesModal">
+									<label class="form-check-label" for="JOmaterialsYesModal">Yes</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="JOworkSelection" id="JOmaterialsNoModal">
+									<label class="form-check-label" for="JOmaterialsNoModal">No</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="JOdateModal">Start Date:</label>
+								<input type="date" name="startdate" id="JOdateModal">
+								<input type="text" name="">
+							</div>
+						</div>
+						<div class="col border">
+							qw
+						</div>
+					</div>
+				</form>
 			</div>
-			<div class="modal-footer">
+			<div class="modal-footer bg-light">
 				<button type="submit" class="btn btn-success"><span class="text-white">Submit</span></button>
-				<button type="button" class="btn btn-danger"><span class="text-white">Close</span></button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
 			</div>
 		</div>
 	</div>

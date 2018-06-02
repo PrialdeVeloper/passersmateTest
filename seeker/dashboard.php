@@ -180,9 +180,9 @@ $ed = "Infinty";
       		</div>
 
       		<div class="d-flex justify-content-center">
-      			<div class="row pt-1">
-					<div class="col-sm-auto">
-						<label">This will be the job form that you will offer to your chosen passer, Mate </label>
+      			<div class="row pt-1 tex">
+					<div class="col">
+						<label>This will be the job form that you will offer to your chosen passer, Mate </label>
 					</div>
 				</div>
       		</div>
