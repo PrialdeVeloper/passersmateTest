@@ -1,5 +1,7 @@
 <?php 
 $accountname = 'Marvee';
+require "../../app/controller/oop.php";
+$oop = new OOP();
 ?>
 <!DOCTYPE html>
 <html>

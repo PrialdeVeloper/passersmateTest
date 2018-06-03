@@ -30,9 +30,3 @@ $(function(){
 	});
 });
 // end of dashboard
-
-// dates
-$(function(){
-	$("input[type=text]").val(getDate());	
-});
-// end of dates
