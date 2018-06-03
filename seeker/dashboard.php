@@ -1,8 +1,4 @@
 <?php 
-	require "../header-footer/seekerHeader.marvee";
-	require "modal/seekerModal.html";
-?>
-<?php 
 $Name = 'Marvee Franco';
 $address = 'Sitio Gines (Wak Wak)';
 $birthdate = 'August 01, 1522';
@@ -10,6 +6,12 @@ $contact = '126-2634-252';
 $jtitle = "Asawa";
 $sd = "Nov 6, 2017";
 $ed = "Infinty";
+$reviewer = "Syrel Prialde";
+$rate = "Very Good!";
+?>
+<?php 
+	require "../header-footer/seekerHeader.marvee";
+	require "modal/dashboard/seekerModal.html";
 ?>
 <!-- jobs -->
 <div class="mt-4 d-flex justify-content-center">
@@ -138,7 +140,10 @@ $ed = "Infinty";
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-star text-white"></i></div>
-				<div class="col-md-auto"><label class="text-white">My Reviews and Ratings</label></div>
+				<div class="col-md-auto">
+					<label class="text-white" data-toggle="modal" data-target="#reviewAndRating">My Reviews and Ratings
+					</label>
+				</div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-handshake text-white"></i></div>
@@ -223,7 +228,7 @@ $ed = "Infinty";
 	      			<tbody>
 	      				<tr>
 	      					<td class="pt-5">
-	      						<img class="tableImage" src="../etc/images/user/marvee.jpg">
+	      						<img class="img-fluid tableImage" src="../etc/images/user/marvee.jpg">
 	      					</td>
 	      					<td class="pt-5">
 	      						<?=$Name;?>
@@ -250,7 +255,7 @@ $ed = "Infinty";
 	      				</tr>
 	      				<tr>
 	      					<td class="pt-5">
-	      						<img class="fluid tableImage" src="../etc/images/user/marvee.jpg">
+	      						<img class="img-fluid tableImage" src="../etc/images/user/marvee.jpg">
 	      					</td>
 	      					<td class="pt-5">
 	      						<?=$Name;?>

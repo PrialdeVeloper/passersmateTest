@@ -1,0 +1,7 @@
+need pa e responsive
+
+dashboard
+{ 
+table actions
+modal review and rating
+}

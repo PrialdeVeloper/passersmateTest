@@ -1,3 +1,14 @@
+// global
+$(function(){
+	$(".hoverRating").mouseover(function () {
+    	if($(this).hasClass("text-warning")){
+    		$(this).removeClass("text-warning");
+    	}
+    });
+});
+// end of global
+
+
 // navbar
 $(function(){
     $("ul.nav li a").on("mouseover mouseout", function(){
