@@ -206,6 +206,11 @@ label[data-toggle=modal]{
 /*modal*/
 /*seeker modal*/
 
+div.modal-footer{
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
 #paginationFooter{
   margin-left:65px;
 }
@@ -213,10 +218,6 @@ label[data-toggle=modal]{
 .imageReview{
   width: 200px;
   height: 200px;
-}
-
-.try{
-  position: absolute;
 }
 
 /*end of seeker modal*/

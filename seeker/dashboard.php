@@ -250,7 +250,7 @@ $rate = "Very Good!";
   								<button class="btn btn-outline-success" data-toggle="modal" data-target="#jobDone">Job Done</button>
   							</div>
   							<div class="row pt-1">
-  								<button class="btn btn-outline-danger">Report</button>
+  								<button class="btn btn-outline-danger" data-toggle="modal" data-target="#dispute">Dispute</button>
   							</div>
       					</td>
       				</tr>
