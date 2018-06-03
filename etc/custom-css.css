@@ -14,10 +14,15 @@ body{
 	margin-left: 125px
 }
 
-a{
+nav a{
 	font-family: 'Varela Round', sans-serif;
-	text-decoration: none!important;
+  text-decoration: none!important;
 }
+
+a{
+  text-decoration: none!important;
+}
+
 
 @media screen and (max-width: 990px) /* Mobile laptop*/ {
   .header-image {
@@ -31,6 +36,11 @@ a{
   nav[role=navigationWorks] li.pr-5, #navigationWorks{
     font-size: 11px!important;
   }
+
+  #myQuickLinks{
+    height: 250px!important;
+  }
+
 }
 
 @media screen and (max-width: 767px) /* Mobile xl*/ {
@@ -48,6 +58,10 @@ a{
 
   #navWorks{
   height: 125px!important;
+  }
+
+  #myQuickLinks{
+    height: 350px!important;
   }
 
 }
@@ -192,9 +206,18 @@ label[data-toggle=modal]{
 /*modal*/
 /*seeker modal*/
 
+#paginationFooter{
+  margin-left:65px;
+}
+
 .imageReview{
   width: 200px;
   height: 200px;
 }
+
+.try{
+  position: absolute;
+}
+
 /*end of seeker modal*/
 /*end of modal*/
