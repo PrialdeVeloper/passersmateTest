@@ -10,55 +10,18 @@ $reviewer = "Pablo";
 $rate = "Very Good!";
 ?>
 <?php 
-	require "../header-footer/seekerHeader.marvee";
+	require "../header-footer/seeker/seekerHeader.marvee";
 	require "modal/dashboardModal.html";
+	require "../header-footer/jobsNav.marvee";
 ?>
-<!-- jobs -->
-<div class="mt-4 d-flex justify-content-center">
-	<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigationWorks">
-			<button type="button" class="navbar-toggler" data-target="#navWorks" data-toggle="collapse">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navWorks">
-				<ul class="nav navbar-nav text-center">
-					<li class="navbar-item pr-5">
-						<a class="navbar-link text-dark" href="#">
-							Arts & Multimedia
-						</a>
-					</li>
-					<li class="navbar-item pr-5">
-						<a class="navbar-link text-dark" href="#">
-							Information Technology
-						</a>
-					</li>
-					<li class="navbar-item pr-5">
-						<a class="navbar-link text-dark" href="#">
-							Carpentry, Engineering & Automotive
-						</a>
-					</li>
-					<li class="navbar-item pr-5">
-						<a class="navbar-link text-dark" href="#">
-							Lifestyle & Entertainment
-						</a>
-					</li>
-					<li class="navbar-item" id="navigationWorks">
-						<a class="navbar-link text-dark" href="#">
-							Others
-						</a>
-					</li>
-				</ul>	
-			</div>
-		</nav>
-</div>
 
-<!-- jobs -->
 
 <!-- content -->
 <div class="container-fluid mt-5">
 	<!-- start of 1st row -->
 	<div class="row">
 		<!-- 1st box -->
-		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv" id="shortInfo">
+		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv">
 			<div class="d-flex justify-content-center">
 				<img class="fluid seekerProfile" src="../etc/images/user/dashboardSample.png" alt="Profile"></img>
 			</div>
@@ -266,5 +229,5 @@ $rate = "Very Good!";
 
 <!-- content -->
 <?php
-	require "../header-footer/seekerFooter.marvee";
+	require "../header-footer/seeker/seekerFooter.marvee";
 ?>

@@ -8,6 +8,10 @@ body{
   margin-left: auto;
 }
 
+.green{
+  color: #009688;
+}
+
 /*Navbar*/
 .header-image{
 	width: 250px;
@@ -222,3 +226,14 @@ div.modal-footer{
 
 /*end of seeker modal*/
 /*end of modal*/
+
+
+
+/*passer*/
+/*dashboard*/
+div.container label.profileTitle{
+  font-size: 2rem;
+}
+
+/*end of dashboard*/
+/*end of passer*/
