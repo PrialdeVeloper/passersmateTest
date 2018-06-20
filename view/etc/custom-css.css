@@ -124,7 +124,7 @@ footer{
 }
 
 .footer{
-  position:relative;
+  position:absolute;
 	bottom: 0;
 	width: 100%;
 	height: auto;
@@ -236,4 +236,16 @@ div.container label.profileTitle{
 }
 
 /*end of dashboard*/
+
+
+/*all*/
+div#sidebar{
+  height: 100%;
+  left: 0;
+  top: 0;
+  bottom: 45px;
+  overflow:hidden;
+}
+/*end of all*/
+
 /*end of passer*/
