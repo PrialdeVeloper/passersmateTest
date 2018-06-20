@@ -18,6 +18,7 @@ body{
 	margin-left: 125px
 }
 
+
 nav a{
 	font-family: 'Varela Round', sans-serif;
   text-decoration: none!important;
@@ -119,12 +120,9 @@ a{
 /*End of navbar*/
 
 /*footer*/
-footer{
-  bottom: 0;
-}
 
 .footer{
-  position:absolute;
+  position:relative;
 	bottom: 0;
 	width: 100%;
 	height: auto;
@@ -239,12 +237,41 @@ div.container label.profileTitle{
 
 
 /*all*/
+.georgiaFonts{
+  font-family: Georgia, Times, Times New Roman, serif;
+  font-size: 27px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.4px;
+}
+
+.trebuchet{
+  font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 500;
+  line-height: 26.4px;
+}
+
+div#moreOptionSearches{
+  display: none;
+}
+
 div#sidebar{
   height: 100%;
   left: 0;
   top: 0;
   bottom: 45px;
   overflow:hidden;
+}
+
+.profile{
+  width: 150px;
+  height: 150px;
+  border: 1px solid #576275;
+  border-radius: 50%;
 }
 /*end of all*/
 

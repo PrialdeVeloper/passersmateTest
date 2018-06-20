@@ -41,3 +41,23 @@ $(function(){
 	});
 });
 // end of dashboard
+
+// search
+
+	$(function(){
+		$("#otherOptions").click(function(event){
+			event.preventDefault();
+			$("#moreOptionSearches").animate({
+            	height: 'toggle'
+        	},function(){
+        		if($("#moreOptionSearches").css("display") == "none"){
+        			$("#otherOptions").html("Show Advanced Options");
+        		}
+        		else{
+        			$("#otherOptions").html("Hide Advanced Options");
+        		}
+        	});	
+		});
+	});
+
+// end of search
