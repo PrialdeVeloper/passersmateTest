@@ -4,19 +4,19 @@
 	<title>$title</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="etc/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="etc/custom-css.css">
-	<script type="text/javascript" src="etc/bootstrap/js/jquery-3.3.1.js"></script>
-	<script type="text/javascript" src="etc/bootstrap/js/popper.min.js"></script>
-	<script type="text/javascript" src="etc/bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="etc/custom-js.js"></script>
+	<link rel="stylesheet" type="text/css" href="../etc/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../etc/custom-css.css">
+	<script type="text/javascript" src="../etc/bootstrap/js/jquery-3.3.1.js"></script>
+	<script type="text/javascript" src="../etc/bootstrap/js/popper.min.js"></script>
+	<script type="text/javascript" src="../etc/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../etc/custom-js.js"></script>
 </head>
-<body>
+<body class="bg-light">
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigation">
 			<a class="navbar-brand" href="#">
-				<img src="etc/images/header-logo.png" class="img-fluid header-image">
+				<img src="../etc/images/dashboard/header/header-logo.png" class="img-fluid header-image">
 			</a>
 			<button type="button" class="navbar-toggler" data-target="#navbar-header" data-toggle="collapse">
 				<span class="navbar-toggler-icon"></span>

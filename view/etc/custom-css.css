@@ -246,6 +246,8 @@ div.container label.profileTitle{
   line-height: 26.4px;
 }
 
+
+
 .trebuchet{
   font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;
   font-size: 18px;
@@ -273,6 +275,32 @@ div#sidebar{
   border: 1px solid #576275;
   border-radius: 50%;
 }
+
+.customTextSignup{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.customSecondaryTextSignup{
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 13px;
+}
+
+.otherText{
+  font-size: 23px;
+}
+
+.terms{
+  font-size: 15px;
+}
+
+#tesdaLogoSignup{
+  width: 150px;
+  height: 150px;
+}
+
 /*end of all*/
 
 /*end of passer*/
