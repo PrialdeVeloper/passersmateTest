@@ -128,7 +128,7 @@ $rate = "Very Good!";
       		<div class="d-flex justify-content-center">
       			<div class="row pt-1">
 					<div class="col-sm-auto">
-						<label">PassersMate will help your company to find a trusted and skilled passer</label>
+						<label>PassersMate will help your company to find a trusted and skilled passer</label>
 					</div>
 				</div>
       		</div>
@@ -174,7 +174,7 @@ $rate = "Very Good!";
   		<div class="d-flex justify-content-center">
   			<div class="row pt-1 ">
 				<div class="col-sm-auto">
-					<label">Pending Actions</label>
+					<label>Pending Actions</label>
 				</div>
 			</div>
   		</div>
