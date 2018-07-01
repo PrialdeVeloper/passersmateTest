@@ -1,5 +1,4 @@
-
-
+<?php include_once "../public/etc/etcCompile.marvee"; ?>
 	<body class="bg-light">
 		<header>
 			<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigation">

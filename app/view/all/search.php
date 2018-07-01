@@ -1,8 +1,8 @@
 <?php
 	require_once "../public/header-footer/seeker/seekerHeader.marvee";
 	require_once "../public/header-footer/jobsNav.marvee";
-	if(isset($data)){
-		print_r($data);
+	if(isset($data) && !empty($data)){
+		// print_r($data);
 	}
 ?>
 

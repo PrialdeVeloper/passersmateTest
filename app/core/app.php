@@ -2,10 +2,9 @@
 	
 	class App{
 
-		protected $controller = 'homeController';
+		protected $controller = 'home';
 		protected $method = 'index';
 		protected $params = [];
-		protected $sc = null;
 
 		public function __construct(){
 			 $url = $this->parseUrl();
@@ -39,6 +38,10 @@
 			if(isset($_GET['url'])){
 				return $url = explode('/',filter_var(trim($_GET['url'], '/')));
 			}
+			else{
+				header("location: home/index");
+			}
+			
 		}
 	}
 ?>

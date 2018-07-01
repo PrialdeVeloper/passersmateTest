@@ -1,15 +1,16 @@
 <?php 
-	class homeController extends Controller{
-
-		protected $model = null;
-		protected $controller = null;
-		protected $data = [];
+	class home extends Controller{
 
 		public function __construct(){
-			include_once "../public/etc/etcCompile.marvee";
 			$this->controller = new Controller();
 			$this->model = $this->controller->model("dbModel");
 			$this->data = [];
+		}
+
+		public function __destruct(){
+			$this->model = null;
+			$this->controller = null;
+			$this->data = array();
 		}
 
 		public function index(){
@@ -17,7 +18,8 @@
 		}
 
 		public function search(){
-			$this->controller->view("all/search",['qwe'=>'qwesxee']);
+			$data = array("title"=>"Search");
+			$this->controller->view("all/search",$data);
 		}
 	}
 
