@@ -24,6 +24,14 @@
 				 	unset($url[1]);
 				 }
 			 }
+			 elseif(($this->controller instanceof passer) && (!isset($url[1]))){
+			 	header("location:passer/index");
+			 }
+			  elseif(($this->controller instanceof seeker) && (!isset($url[1]))){
+			 	header("location:seeker/index");
+			 }
+
+
 
 			 // params
 			 $this->params = $url ? array_values($url) : [];

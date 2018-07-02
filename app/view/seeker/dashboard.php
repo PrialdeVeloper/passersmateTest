@@ -10,9 +10,9 @@ $reviewer = "Pablo";
 $rate = "Very Good!";
 ?>
 <?php 
-	require "../header-footer/seeker/seekerHeader.marvee";
+	require "../public/header-footer/seeker/seekerHeader.marvee";
 	require "modal/dashboardModal.html";
-	require "../header-footer/jobsNav.marvee";
+	require "../public/header-footer/jobsNav.marvee";
 ?>
 
 
@@ -23,7 +23,7 @@ $rate = "Very Good!";
 		<!-- 1st box -->
 		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv">
 			<div class="d-flex justify-content-center">
-				<img class="fluid seekerProfile" src="../etc/images/user/dashboardSample.png" alt="Profile"></img>
+				<img class="fluid seekerProfile" src="../../public/etc/images/user/dashboardSample.png" alt="Profile"></img>
 			</div>
 			<hr>
 			<div class="container">
@@ -194,7 +194,7 @@ $rate = "Very Good!";
       			<tbody>
       				<tr>
       					<td class="pt-5">
-      						<img class="img-fluid tableImage" src="../etc/images/user/marvee.jpg">
+      						<img class="img-fluid tableImage" src="../../public/etc/images/user/marvee.jpg" alt="image">
       					</td>
       					<td class="pt-5">
       						<?=$Name;?>
@@ -229,5 +229,5 @@ $rate = "Very Good!";
 
 <!-- content -->
 <?php
-	require "../header-footer/seeker/seekerFooter.marvee";
+	require "../public/header-footer/seeker/seekerFooter.marvee";
 ?>

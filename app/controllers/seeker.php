@@ -1,6 +1,5 @@
 <?php 
-	class passer extends Controller{
-		
+	class seeker extends Controller{
 		public function __construct(){
 			$this->controller = new Controller();
 			$this->model = $this->controller->model("dbModel");
@@ -8,8 +7,11 @@
 		}
 
 		public function index(){
-			$this->controller->view("passer/dashboard");
+			$this->controller->view("seeker/dashboard");
+		}
+
+		public function profile(){
+			$this->controller->view("seeker/profile");
 		}
 	}
-
 ?>
