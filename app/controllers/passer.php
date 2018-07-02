@@ -10,6 +10,10 @@
 		public function index(){
 			$this->controller->view("passer/dashboard");
 		}
+
+		public function register(){
+			$this->controller->view("passer/register");
+		}
 	}
 
 ?>
