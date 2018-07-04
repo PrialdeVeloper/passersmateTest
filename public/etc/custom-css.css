@@ -28,6 +28,28 @@ a{
   text-decoration: none!important;
 }
 
+@media only screen and (min-width: 768px){
+
+    ul>li>a:hover:after{
+      width: 100%;
+    }
+
+    ul>li>a:hover{
+      background: transparent;
+      color: #6195FF;
+    }
+
+    ul>li>a:after {
+      content: "";
+      display: block;
+      background-color: #6195FF;
+      height: 2px;
+      width: 0%;
+      -webkit-transition: 0.2s width;
+      transition: 0.2s width;
+    }
+}
+
 
 @media screen and (max-width: 990px) /* Mobile laptop*/ {
   .header-image {

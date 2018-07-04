@@ -14,6 +14,10 @@
 		}
 
 		public function index(){
+			$this->controller->view("all/index",['qwe'=>'qwe']);
+		}
+
+		public function signup(){
 			$this->controller->view("all/signup",['qwe'=>'qwe']);
 		}
 

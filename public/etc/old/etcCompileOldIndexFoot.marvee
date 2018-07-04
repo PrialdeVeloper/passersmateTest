@@ -1,0 +1,20 @@
+<?php 
+	if(file_exists("../public/etc/old/js/index/bootstrap.min.js")){
+		echo '
+		<script type="text/javascript" src="../etc/old/js/index/jquery.min.js"></script>
+		<script type="text/javascript" src="../etc/old/js/index/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../etc/old/js/index/owl.carousel.min.js"></script>
+		<script type="text/javascript" src="../etc/old/js/index/jquery.magnific-popup.js"></script>
+		<script type="text/javascript" src="../etc/old/js/index/main.js"></script>
+		';
+		}
+		else{
+		echo '
+		<script type="text/javascript" src=../../public/etc/old/js/index/jquery.min.js"></script>
+		<script type="text/javascript" src=../../public/etc/old/js/index/bootstrap.min.js"></script>
+		<script type="text/javascript" src=../../public/etc/old/js/index/owl.carousel.min.js"></script>
+		<script type="text/javascript" src=../../public/etc/old/js/index/jquery.magnific-popup.js"></script>
+		<script type="text/javascript" src=../../public/etc/old/js/index/main.js"></script>
+		';
+		}
+	?>
