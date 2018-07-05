@@ -54,11 +54,19 @@
       <fieldset>
         <h2 class="fs-title">Create your Passer account</h2>
         <h3 class="fs-subtitle">This is step 1</h3>
-         <input type="text" name="username" placeholder="Username" />
-        <input type="text" name="email" placeholder="Email" />
+        <div class="container-fluid my-1 py-2 text-white" id="username">
+        </div>
+        <input type="email" name="email" placeholder="Email" /> 
+        <div class="container-fluid my-1 py-2 text-white" id="password">
+        </div>
         <input type="password" name="pass" placeholder="Password" />
+
+        <div class="container-fluid my-1 py-2 text-white" id="retypePassword">
+        </div>
         <input type="password" name="cpass" placeholder="Confirm Password" />
+
         <input type="button" name="next" class="next action-button" value="Next" />
+
         <hr>
         <br>
         <b style="font-size:18px">Or Sign up using</b>
@@ -75,12 +83,11 @@
         	</b>
         </button>
       </fieldset>
+
+
       <fieldset>
         <h2 class="fs-title">Tell us about yourself, Mate</h2>
         <h3 class="fs-subtitle">Please make sure that the information  contained in this form is valid and truthful</h3>
-        <input type="text" name="fname" placeholder="First Name" />
-        <input type="text" name="mname" placeholder="Middle Name" />
-        <input type="text" name="lname" placeholder="Last Name" />
         <label>Your birthdate</label><input type="date" name="bday">
         <input type="button" name="previous" class="previous action-button" value="Previous" />
         <input type="button" name="next" class="next action-button" value="Next" />

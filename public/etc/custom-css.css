@@ -262,6 +262,13 @@ div.container label.profileTitle{
 
 /*end of dashboard*/
 
+/*register*/
+#username{
+  display: none;
+}
+/*end of register*/
+
+
 
 /*all*/
 .georgiaFonts{
@@ -273,7 +280,9 @@ div.container label.profileTitle{
   line-height: 26.4px;
 }
 
-
+.hidethis{
+  display: none;
+}
 
 .trebuchet{
   font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;

@@ -2,7 +2,8 @@
 	
 	class dbModel extends Controller{
 
-		protected $con = null;
+		private $con = null;
+		private $stmt = null;
 
 		public function __construct(){
 			if($this->connectDB() instanceof PDO){
@@ -26,6 +27,26 @@
 				return $e->getMessage();
 			}
 			$dbname = $host = $username = $password = null;
+		}
+
+		private function qData($data){
+			$arrayData = [];
+			foreach($data as $datas)$arrayData[] = "?";
+			return implode(",",$arrayData);
+		}
+
+		protected function insertDB($table,$data,$fields){
+			$fieldsQ = $this->qData($fields);
+			$dataQ = $this->qData($data);
+			$this->stmt = $this->con->prepare("INSERT INTO $table($fieldsQ) VALUES($dataQ)");
+			$this->stmt->execute($fields,$data);
+			return $this->con->lastInsertId();
+		}
+
+		protected function checkExistSingle($table,$field,$data){
+			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM $table WHERE $field = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchColumn();
 		}
 
 

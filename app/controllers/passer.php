@@ -1,5 +1,8 @@
 <?php 
 	class passer extends Controller{
+
+		protected $passer = array('PasserSkillsID');
+		protected $passerTable = 'passer';
 		
 		public function __construct(){
 			$this->controller = new Controller();
