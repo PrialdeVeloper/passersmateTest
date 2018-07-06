@@ -64,6 +64,20 @@ $(function(){
 // end of search
 
 
+
+
+$(function(){
+	$('fieldset input[type=submit]').on("keypress", function(e) {
+         var keycode = (e.keyCode ? e.keyCode : e.which);
+	     if (keycode == '13') {
+	       alert('You pressed enter! - keypress');
+	     }
+    });
+});
+
+
+
+
 // login
 var delay = (function(){
   var timer = 0;
@@ -128,6 +142,8 @@ $(function(){
 	});
 });	
 
+
+// password
 $(function(){
 	var content = $("#password");
 	var contentre = $("#retypePassword");
@@ -139,6 +155,8 @@ $(function(){
 		var passField = $(this).val();
 		var regEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 		var divPassRetype = $("#retypePassword");
+		var nextFirst = $("input[name=next]").first();
+		var unames = $("fieldset input:eq(0)").val();
 
 		if(regEx.test(passField)){
 				if(secondPass != passField){
@@ -147,10 +165,12 @@ $(function(){
 						divPassRetype.removeClass("bg-primary");
 					}
 					divPassRetype.addClass("bg-danger");
-					divPassRetype.html("Password must be the sameyes!");
+					divPassRetype.html("Password must be the same!");
+					nextFirst.hide();
 				}
 				else{
 					divPassRetype.hide();
+					nextFirst.show();
 				}
 			content.show();
 			if(content.hasClass("bg-danger")){
@@ -167,11 +187,13 @@ $(function(){
 			}
 			content.addClass("bg-danger");
 			content.html("Please make sure your password is atleast 8 characters with atleast 1 numeric input");
+			nextFirst.hide();
 		}
 	});
 });
+// end of password
 
-
+// retype
 $(function(){
 	var content = $("#retypePassword");
 	var contentre = $("#password");
@@ -183,40 +205,199 @@ $(function(){
 		var nextFirst = $("input[name=next]").first();
 		var regEx = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 		var unames = $("fieldset input:eq(0)").val();
-
-		if(passField != firstPass || regEx.test(unames)){
-			nextFirst.hide();
+		if(passField != "" && firstPass !=""){
+			if(passField != firstPass || regEx.test(unames)){
+				nextFirst.hide();
+			}
+			else
+			{
+			nextFirst.show();
+			}
+				if(passField != firstPass){
+					content.show();
+					if(content.is("bg-primary")){
+						content.removeClass("bg-primary");
+					}
+					content.addClass("bg-danger");
+					content.html("Password must be the same!");
+					}
+				else{
+					content.show();
+					if(content.hasClass("bg-danger")){
+						content.removeClass("bg-danger");
+					}
+					content.addClass("bg-primary");
+					content.html("Password Accepted");
+					content.fadeOut(1000);
+				}
 		}
-		else
-		{
-		nextFirst.show();
-		}
+		else{
 			if(passField != firstPass){
-				content.show();
-				if(content.is("bg-primary")){
-					content.removeClass("bg-primary");
-				}
-				content.addClass("bg-danger");
-				content.html("Password must be the same!");
-				}
-			else{
+					content.show();
+					if(content.is("bg-primary")){
+						content.removeClass("bg-primary");
+					}
+					content.addClass("bg-danger");
+					content.html("Password must be the same!");
+					nextFirst.hide();
+					}
+		}
+	});
+});
+// end of retype
+
+
+// birthdate
+$(function(){
+	var nextSecond = $("input[name=next]:eq(1)");
+	nextSecond.hide();
+	$("fieldset input:eq(4)").keyup(function(){
+		var nextSecond = $("input[name=next]:eq(1)");
+		nextSecond.hide();
+		var errorDate = $("#birthdateReg");
+		var dateReg = $(this).val();
+		if(isNaN(Date.parse(dateReg))){
+			errorDate.show();
+			if(errorDate.is("bg-primary")){
+				errorDate.removeClass("bg-primary");
+			}
+			nextSecond.hide();
+			errorDate.addClass("bg-danger");
+			errorDate.html("Please input complete date");
+				
+		}
+		else{
+			errorDate.show();
+			if(errorDate.hasClass("bg-danger")){
+				errorDate.removeClass("bg-danger");
+			}
+			nextSecond.show();
+			errorDate.addClass("bg-primary");
+			errorDate.html("Date accepted");
+			errorDate.fadeOut(1000);
+		}
+	});
+});
+// end of birthdate
+
+// address
+$(function(){
+	var nextThird = $("input[name=next]:eq(2)");
+	nextThird.hide();
+	var content = $("#pcodeDiv");
+	content.hide();
+	$("fieldset input:eq(9)").keyup(function(){
+		var nextThird = $("input[name=next]:eq(2)");
+		var postCode = $(this);
+		var content = $("#pcodeDiv");
+		var regex = /^[0-9]{4}$/
+		// var address = $("fieldset input:eq(7)");
+		// var city = $("fieldset input:eq(8)");
+		content.hide();
+		if(regex.test(postCode.val())){
+			content.show();
+			if(content.hasClass("bg-danger")){
+				content.removeClass("bg-danger");
+			}
+			nextThird.show();
+			content.addClass("bg-primary");
+			content.html("Postal Code accepted");
+			content.fadeOut(1000);
+		}
+		else{
+			content.show();
+			if(content.is("bg-primary")){
+				content.removeClass("bg-primary");
+			}
+			nextThird.hide();
+			content.addClass("bg-danger");
+			content.html("Please input valid post code(e.g 6000)");
+		}
+		
+	});
+});
+//end of address 
+
+
+// idno
+	$(function(){
+	var nextFourth = $("input[name=next]:eq(3)");
+	nextFourth.hide();
+	var content = $("#idno");
+	content.hide();
+	$("fieldset input:eq(13)").keyup(function(){
+		var nextFourth = $("input[name=next]:eq(3)");
+		var postCode = $(this);
+		var content = $("#idno");
+		var regex = /^[0-9]*$/
+		// var address = $("fieldset input:eq(7)");
+		// var city = $("fieldset input:eq(8)");
+		nextFourth.hide();
+		content.hide();
+		if(postCode.val() != ""){
+			if(regex.test(postCode.val())){
 				content.show();
 				if(content.hasClass("bg-danger")){
 					content.removeClass("bg-danger");
 				}
+				nextFourth.show();
 				content.addClass("bg-primary");
-				content.html("Password Accepted");
+				content.html("ID number accepted");
 				content.fadeOut(1000);
 			}
+			else{
+				content.show();
+				if(content.is("bg-primary")){
+					content.removeClass("bg-primary");
+				}
+				nextFourth.hide();
+				content.addClass("bg-danger");
+				content.html("Please input valid ID number");
+			}
+		}
+		
 	});
 });
+// end of idno
 
+
+// cocno
 $(function(){
-	$("fieldset input:eq(4)").keyup(function(){
-		var dateReg = $(this).val();
-		$(this).hide();
-
+	var content = $("#COCno");
+	content.hide();
+	var submitButton = $("input:eq(19)");
+	submitButton.hide();
+	$("fieldset input:eq(16)").keyup(function(){
+		var submitButton = $("input:eq(19)");
+		var postCode = $(this);
+		var content = $("#COCno");
+		var regex = /^[0-9]{14}$/
+		// var address = $("fieldset input:eq(7)");
+		// var city = $("fieldset input:eq(8)");
+		content.hide();
+		submitButton.hide();
+		if(postCode.val() != ""){
+			if(regex.test(postCode.val())){
+				content.show();
+				if(content.hasClass("bg-danger")){
+					content.removeClass("bg-danger");
+				}
+				submitButton.show();
+				content.addClass("bg-primary");
+				content.html("COC number accepted");
+				content.fadeOut(1000);
+			}
+			else{
+				content.show();
+				if(content.is("bg-primary")){
+					content.removeClass("bg-primary");
+				}
+				submitButton.hide();
+				content.addClass("bg-danger");
+				content.html("Please input 14 digit COC number");
+			}
+		}
+		
 	});
 });
-
-
+// end of cocno

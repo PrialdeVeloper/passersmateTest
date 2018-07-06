@@ -88,6 +88,8 @@
       <fieldset>
         <h2 class="fs-title">Tell us about yourself, Mate</h2>
         <h3 class="fs-subtitle">Please make sure that the information  contained in this form is valid and truthful</h3>
+        <div class="container-fluid my-1 py-2 text-white" id="birthdateReg">
+        </div>
         <label>Your birthdate</label><input type="date" name="bday">
         <input type="button" name="previous" class="previous action-button" value="Previous" />
         <input type="button" name="next" class="next action-button" value="Next" />
@@ -96,10 +98,14 @@
         <h2 class="fs-title">What is your current address?Mate</h2>
         <h3 class="fs-subtitle">Please make sure that the information  contained in this form is valid and truthful</h3>
         <input type="text" name="street" placeholder="House#,/Building/Street" />
-        <input type="text" name="city" placeholder="City" />
-        <input type="text" name="state" placeholder="State/Province" />
+        <input list="cities" name="city" placeholder="City" />
+        <datalist id="cities">
+          <option value="Alaminos">
+          <option value="Cebu">
+        </datalist>
+        <div class="container-fluid my-1 py-2 text-white" id="pcodeDiv">
+        </div>
         <input type="text" name="pcode" placeholder="Postal Code" />
-        <input type="text" name="country" placeholder="Country" />
         <input type="button" name="previous" class="previous action-button" value="Previous" />
         <input type="button" name="next" class="next action-button" value="Next" />
       </fieldset>
@@ -107,13 +113,19 @@
         <h2 class="fs-title">Upload Government Issued ID</h2>
         <h3 class="fs-subtitle">Your information is secured</h3>
         <label>Select ID Type</label>
-        <select name="governId" id="selectid">
+        <select name="validId" id="selectid">
           <option value="" selected>Government issued ID</option>
           <option value="saab">Drivers License</option>
           <option value="fiat">Police Clearance Certificate</option>
           <option value="audi">SSS ID</option>
         </select>
+
+        <div class="container-fluid my-1 py-2 text-white" id="birthdateReg">
+        </div>
         <input type="text" name="city" placeholder="Expiration Date" />
+
+        <div class="container-fluid my-1 py-2 text-white" id="idno">
+        </div>
         <input type="text" name="state" placeholder="ID Number" />
        <!--  <input type="file" multiple> -->
        <label id="upload"><b>Upload image of ID</b></label>
@@ -141,13 +153,16 @@
          </select>
          <br>
         <label id="label2">Select Qualification Title</label>
-          <select name="governId" id="selectid">
+          <select name="COC" id="selectid">
             <option value="" selected>Qualification Title</option>
             <option value="saab">Food and Beverage Services NC II</option>
             <option value="fiat">Caregiving NC II</option>
           </select>
+
+          <div class="container-fluid my-1 py-2 text-white" id="COCno">
+        </div>
         <input type="text" name="fname" placeholder="Certificate Number" />
-        <input type="text" name="fname" placeholder="Expiration Date" />
+        <input type="date" name="fname" placeholder="Expiration Date" />
         <input type="button" name="previous" class="previous action-button" value="Previous" />
       <a href="file:///C:/Users/MarveeLoper/Downloads/Storyboard%20PM/creative-agency-colorlib/creative-agency/passer/dashboard.html"><input type="submit" name="submit" class="submit action-button" value="Done"/></a>
             <br>
@@ -160,6 +175,7 @@
        			 before expiration </small>
       </fieldset>
   </form>
+
   <?php 
     require "../public/etc/old/etcCompileOldScripts.marvee";
   ?>
