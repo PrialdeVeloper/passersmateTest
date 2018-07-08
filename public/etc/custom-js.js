@@ -63,21 +63,22 @@ $(function(){
 
 // end of search
 
-
+// login
 
 
 $(function(){
+	let data;
 	$("#msform").bind({
 		submit: function(event){
 			event.preventDefault();
-			// data = $(this).serialize();
+			data = $(this).serialize();
 			$.ajax({
 				url:"qweqwe",
 				type:"POST",
-				data: {email: "yes"},
+				data: data,
 				success: function(dataret,resultret){
 					let obj = jQuery.parseJSON(dataret);
-					console.log(obj.name);
+					console.log(obj.data.email);
 				}
 			});	
 		}
@@ -85,9 +86,6 @@ $(function(){
 });
 
 
-
-
-// login
 var delay = (function(){
   var timer = 0;
   return function(callback, ms){
@@ -259,7 +257,7 @@ $(function(){
 $(function(){
 	var nextSecond = $("input[name=next]:eq(1)");
 	nextSecond.hide();
-	$("fieldset input:eq(4)").keyup(function(){
+	$("fieldset input:eq(4)").change(function(){
 		var nextSecond = $("input[name=next]:eq(1)");
 		nextSecond.hide();
 		var errorDate = $("#birthdateReg");
@@ -288,43 +286,240 @@ $(function(){
 });
 // end of birthdate
 
+
 // address
+$(function(){
+	var addressDiv = $("#addressDiv");
+	addressDiv.hide();
+	$("fieldset input:eq(7)").keyup(function(){
+		var city = $("fieldset input:eq(8)")
+		var address = $(this);
+		var nextThird = $("input[name=next]:eq(2)");
+		var addressDiv = $("#addressDiv");
+		var cityDiv = $("#cityDiv");
+		var postDiv = $("#pcodeDiv");
+		addressDiv.hide();
+		if(address.val() == ""){
+			addressDiv.show();
+			if(addressDiv.is("bg-primary")){
+				addressDiv.removeClass("bg-primary");
+			}
+			nextThird.hide();
+			addressDiv.addClass("bg-danger");
+			addressDiv.html("Please input valid address");
+		}
+		else{
+			if(checkEmpty(city) == false || checkRegex(/^[0-9]{4}$/,"fieldset input:eq(9)") == false){
+				if(checkRegex(/^[0-9]{4}$/,"fieldset input:eq(9)") == false){
+					postDiv.show();
+					if(postDiv.is("bg-primary")){
+					postDiv.removeClass("bg-primary");
+					}
+					nextThird.hide();
+					postDiv.addClass("bg-danger");
+					postDiv.html("Please input valid post code(e.g 6000)");
+				}
+
+				if(checkEmpty(city) == false){
+					cityDiv.show();
+					if(cityDiv.is("bg-primary")){
+						cityDiv.removeClass("bg-primary");
+					}
+					nextThird.hide();
+					cityDiv.addClass("bg-danger");
+					cityDiv.html("Please input valid city");
+				}
+			}
+			else{
+				nextThird.show();
+			}
+			addressDiv.show();
+			if(addressDiv.hasClass("bg-danger")){
+				addressDiv.removeClass("bg-danger");
+			}
+			addressDiv.addClass("bg-primary");
+			addressDiv.html("Address accepted");
+			addressDiv.fadeOut(1000);
+		}
+	})
+});
+// end of address
+
+function checkEmpty(element){
+	var checker = $(element);
+	if(checker.val() == ""){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+function checkRegex(regex,element){
+	var checker = $(element);
+	if(regex.test(checker.val())){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+function checkNumber(element){
+	var checker = $(element);
+	if(isNaN(checker.val())){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+function checkDate(element){
+	var checker = $(element);
+	if(isNaN(Date.parse(checker.val()))){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+
+
+// city
+$(function(){
+	var cityDiv = $("#cityDiv");
+	cityDiv.hide();
+	$("fieldset input:eq(8)").keyup(function(){
+		var city = $(this);
+		var nextThird = $("input[name=next]:eq(2)");
+		var cityDiv = $("#cityDiv");
+		var addressDiv = $("#addressDiv");
+		var address = $("fieldset input:eq(7)");
+		var postDiv = $("#pcodeDiv");
+		cityDiv.hide();
+		if(city.val() == ""){
+			cityDiv.show();
+			if(cityDiv.is("bg-primary")){
+				cityDiv.removeClass("bg-primary");
+			}
+			nextThird.hide();
+			cityDiv.addClass("bg-danger");
+			cityDiv.html("Please input valid city");
+		}
+		else{
+			if(checkEmpty(address) == false || checkRegex(/^[0-9]{4}$/,"fieldset input:eq(9)") == false){
+				if(checkRegex(/^[0-9]{4}$/,"fieldset input:eq(9)") == false){
+					postDiv.show();
+					if(postDiv.is("bg-primary")){
+					postDiv.removeClass("bg-primary");
+					}
+					nextThird.hide();
+					postDiv.addClass("bg-danger");
+					postDiv.html("Please input valid post code(e.g 6000)");
+				}
+
+				if(checkEmpty(address) == false){
+					addressDiv.show();
+					if(addressDiv.is("bg-primary")){
+						addressDiv.removeClass("bg-primary");
+					}
+					nextThird.hide();
+					addressDiv.addClass("bg-danger");
+					addressDiv.html("Please input valid address");
+				}
+			}
+			else{
+				nextThird.show();
+			}
+			cityDiv.show();
+			if(cityDiv.hasClass("bg-danger")){
+				cityDiv.removeClass("bg-danger");
+			}
+			cityDiv.addClass("bg-primary");
+			cityDiv.html("City accepted");
+			cityDiv.fadeOut(1000);
+		}
+	})
+});
+// end of city
+
+
+
+// postal
 $(function(){
 	var nextThird = $("input[name=next]:eq(2)");
 	nextThird.hide();
 	var content = $("#pcodeDiv");
+	var addressDiv = $("#addressDiv");
+	var cityDiv = $("#cityDiv");
 	content.hide();
+	cityDiv.hide();
+	addressDiv.hide();
 	$("fieldset input:eq(9)").keyup(function(){
 		var nextThird = $("input[name=next]:eq(2)");
 		var postCode = $(this);
 		var content = $("#pcodeDiv");
-		var regex = /^[0-9]{4}$/
-		// var address = $("fieldset input:eq(7)");
-		// var city = $("fieldset input:eq(8)");
+		var regex = /^[0-9]{4}$/;
+		var cityDiv = $("#cityDiv");
+		var addressDiv = $("#addressDiv");
+		var address = $("fieldset input:eq(7)");
+		var city = $("fieldset input:eq(8)");
 		content.hide();
-		if(regex.test(postCode.val())){
-			content.show();
-			if(content.hasClass("bg-danger")){
-				content.removeClass("bg-danger");
+		if(postCode.val() != ""){
+			if(regex.test(postCode.val())){
+				content.show();
+				if(content.hasClass("bg-danger")){
+					content.removeClass("bg-danger");
+				}
+				content.addClass("bg-primary");
+				content.html("Postal Code accepted");
+				content.fadeOut(1000);
+				if(address.val() == "" || city.val() == ""){
+					if(address.val() == ""){
+						addressDiv.show()
+						if(addressDiv.is("bg-primary")){
+							addressDiv.removeClass("bg-primary");
+						}
+						nextThird.hide();
+						addressDiv.addClass("bg-danger");
+						addressDiv.html("Please input valid address");
+					}
+					if(city.val() == ""){
+						cityDiv.show();
+						if(cityDiv.is("bg-primary")){
+							cityDiv.removeClass("bg-primary");
+						}
+						nextThird.hide();
+						cityDiv.addClass("bg-danger");
+						cityDiv.html("Please input valid city");
+					}
+				}
+				else{
+					cityDiv.hide();
+					addressDiv.hide();
+					nextThird.show();
+				}
 			}
-			nextThird.show();
-			content.addClass("bg-primary");
-			content.html("Postal Code accepted");
-			content.fadeOut(1000);
+			else{
+				content.show();
+				if(content.is("bg-primary")){
+					content.removeClass("bg-primary");
+				}
+				nextThird.hide();
+				content.addClass("bg-danger");
+				content.html("Please input valid post code(e.g 6000)");
+				nextThird.hide();
+			}
 		}
 		else{
-			content.show();
-			if(content.is("bg-primary")){
-				content.removeClass("bg-primary");
-			}
 			nextThird.hide();
-			content.addClass("bg-danger");
-			content.html("Please input valid post code(e.g 6000)");
 		}
 		
 	});
 });
-//end of address 
+//end of postal 
 
 
 // expiry dates
@@ -333,12 +528,12 @@ $(function(){
 	nextFourth.hide();
 	var content = $("#expirationDate");
 	content.hide();
-	$("fieldset input:eq(12)").keyup(function(){
+	$("fieldset input:eq(12)").change(function(){
 		var dateReg = $(this).val();
 		var nextFourth = $("input[name=next]:eq(3)");
 		var errorDate = $("#expirationDate");
-		// var address = $("fieldset input:eq(7)");
-		// var city = $("fieldset input:eq(8)");
+		var idno = $("fieldset input:eq(13)");
+		var idnoDiv = $("#idno");
 		nextFourth.hide();
 		content.hide();
 		if(isNaN(Date.parse(dateReg))){
@@ -352,13 +547,37 @@ $(function(){
 				
 		}
 		else{
-			errorDate.show();
-			if(errorDate.hasClass("bg-danger")){
-				errorDate.removeClass("bg-danger");
+			if(checkEmpty("fieldset input:eq(13)") == true){
+				if(checkRegex(/^[0-9]*$/,"fieldset input:eq(13)") == false){
+					idnoDiv.show();
+					if(idnoDiv.is("bg-primary")){
+					idnoDiv.removeClass("bg-primary");
+					}
+					nextFourth.hide();
+					idnoDiv.addClass("bg-danger");
+					idnoDiv.html("Please input valid ID number");
+				}
+				else{
+					idnoDiv.hide();
+					nextFourth.show();
+				}
 			}
-			errorDate.addClass("bg-primary");
-			errorDate.html("Date accepted");
-			errorDate.fadeOut(1000);
+			else{
+				idnoDiv.show();
+				if(idnoDiv.is("bg-primary")){
+				idnoDiv.removeClass("bg-primary");
+				}
+				nextFourth.hide();
+				idnoDiv.addClass("bg-danger");
+				idnoDiv.html("Please input valid ID number");
+			}
+		errorDate.show();
+		if(errorDate.hasClass("bg-danger")){
+			errorDate.removeClass("bg-danger");
+		}
+		errorDate.addClass("bg-primary");
+		errorDate.html("Date accepted");
+		errorDate.fadeOut(1000);
 		}
 	});
 });
@@ -374,21 +593,33 @@ $(function(){
 	content.hide();
 	$("fieldset input:eq(13)").keyup(function(){
 		var nextFourth = $("input[name=next]:eq(3)");
-		var postCode = $(this);
+		var idno = $(this);
 		var content = $("#idno");
-		var dateReg = $("fieldset input:eq(12)").val();
+		var dateReg = $("fieldset input:eq(12)");
 		var regex = /^[0-9]*$/
+		var errorDate = $("#expirationDate");
 		// var address = $("fieldset input:eq(7)");
 		// var city = $("fieldset input:eq(8)");
 		nextFourth.hide();
 		content.hide();
-		if(postCode.val() != ""){
-			if(regex.test(postCode.val())){
+		if(idno.val() != ""){
+			if(regex.test(idno.val())){
+					if(checkDate(dateReg) == true){
+						errorDate.show();
+						if(errorDate.is("bg-primary")){
+						errorDate.removeClass("bg-primary");
+						}
+						nextFourth.hide();
+						errorDate.addClass("bg-danger");
+						errorDate.html("Please input complete date");
+					}
+					else{
+						nextFourth.show();
+					}
 				content.show();
 				if(content.hasClass("bg-danger")){
 					content.removeClass("bg-danger");
 				}
-				nextFourth.show();
 				content.addClass("bg-primary");
 				content.html("ID number accepted");
 				content.fadeOut(1000);
@@ -417,15 +648,15 @@ $(function(){
 	submitButton.hide();
 	$("fieldset input:eq(16)").keyup(function(){
 		var submitButton = $("input:eq(18)");
-		var postCode = $("fieldset input:eq(12)");
+		var cocNo = $(this);
 		var content = $("#COCno");
 		var regex = /^[0-9]{14}$/
 		// var address = $("fieldset input:eq(7)");
 		// var city = $("fieldset input:eq(8)");
 		content.hide();
 		submitButton.hide();
-		if(postCode.val() != ""){
-			if(regex.test(postCode.val())){
+		if(cocNo.val() != ""){
+			if(regex.test(cocNo.val())){
 				content.show();
 				if(content.hasClass("bg-danger")){
 					content.removeClass("bg-danger");

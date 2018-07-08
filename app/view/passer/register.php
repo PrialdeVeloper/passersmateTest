@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse navbar-collapse justify-content-end" id="navbar-header">
           <ul class="nav navbar-nav text-right">
             <li class="navbar-item pr-5">
-              <a class="navbar-link text-dark" href="#">
+              <a class="navbar-link text-dark" href="../home/index">
                 Home
               </a>
             </li>
@@ -27,7 +27,7 @@
               </a>
             </li>
             <li class="navbar-item pr-5">
-              <a class="navbar-link text-dark" href="#">
+              <a class="navbar-link text-dark" href="register">
                 Sign up
               </a>
             </li>
@@ -56,10 +56,10 @@
         <h3 class="fs-subtitle">This is step 1</h3>
         <div class="container-fluid my-1 py-2 text-white" id="username">
         </div>
-        <input type="email" name="email" placeholder="Email" /> 
+        <input type="email" name="regEmail" placeholder="Email" /> 
         <div class="container-fluid my-1 py-2 text-white" id="password">
         </div>
-        <input type="password" name="pass" placeholder="Password" />
+        <input type="password" name="regPass" placeholder="Password" />
 
         <div class="container-fluid my-1 py-2 text-white" id="retypePassword">
         </div>
@@ -82,7 +82,11 @@
       <fieldset>
         <h2 class="fs-title">What is your current address?Mate</h2>
         <h3 class="fs-subtitle">Please make sure that the information  contained in this form is valid and truthful</h3>
+        <div class="container-fluid my-1 py-2 text-white" id="addressDiv">
+        </div>
         <input type="text" name="street" placeholder="House#,/Building/Street" />
+        <div class="container-fluid my-1 py-2 text-white" id="cityDiv">
+        </div>
         <input list="cities" name="city" placeholder="City" />
         <datalist id="cities"> 
            <option value="Alaminos">
@@ -256,12 +260,6 @@
         </div>
         <input type="text" name="state" placeholder="ID Number" />
        <!--  <input type="file" multiple> -->
-       <label id="upload"><b>Upload image of ID</b></label>
-       <br>
-       <br>
-        <p name="drag" id="drag">Drag your image here or click in this area.</p>
-      <!--   <input type="button" value="Upload" id="upload" name="upload" class="upload"/> -->
-        <br>
         <input type="button" name="previous" class="previous action-button" value="Previous" />
         <input type="button" name="next" class="next action-button" value="Next" />
         <br>
@@ -275,14 +273,12 @@
         <br>
         <label id="label2">Select Type of Certificate</label>
           <select name="governId" id="selectid">
-            <option value="" selected>Type of Certificate</option>
             <option value="saab">NC</option>
             <option value="fiat">COC</option>
          </select>
          <br>
         <label id="label2">Select Qualification Title</label>
           <select name="COC" id="selectid">
-            <option value="" selected>Qualification Title</option>
             <option value="saab">Food and Beverage Services NC II</option>
             <option value="fiat">Caregiving NC II</option>
           </select>
@@ -291,7 +287,7 @@
         </div>
         <input type="text" name="fname" placeholder="Certificate Number" />
         <input type="button" name="previous" class="previous action-button" value="Previous" />
-      <a href="file:///C:/Users/MarveeLoper/Downloads/Storyboard%20PM/creative-agency-colorlib/creative-agency/passer/dashboard.html"><input type="submit" name="submit" class="submit action-button" value="Done"/></a>
+      <input type="submit" name="submit" class="submit action-button" value="Done"/>
             <br>
         <label>Quick Tips:</label>
         <br>

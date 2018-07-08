@@ -16,11 +16,11 @@
 
 		public function register(){
 			if(isset($_POST['email'])){
-				$data[] = array("name"=>"syrel");
+				// $data = array("qwe"=>"qwe");
+				foreach ($_POST as $key => $value) {
+					$data["data"][$key] = $value;
+				}
 				echo json_encode($data);
-			}
-			else{
-				echo "no";
 			}
 			$this->controller->view("passer/register");
 			// echo json_encode($data);
@@ -28,10 +28,15 @@
 
 		public function qweqwe(){
 			if(isset($_POST['email'])){
-				$data = array("name"=>"syrel","address"=>"cebu");
+				// $data = array("qwe"=>"qwe");
+				foreach ($_POST as $key => $value) {
+					$data["data"][$key] = $value;
+				}
 				echo json_encode($data);
 			}
 		}
+
+		
 	}
 
 

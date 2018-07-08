@@ -27,5 +27,10 @@
 				return $this->model->checkExistSingle(array($table,$field,$data));
 			}
 		}
+
+		public function crawler(){
+			
+		}
+
 	}
 ?>

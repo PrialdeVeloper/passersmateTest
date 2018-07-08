@@ -11,7 +11,7 @@
 				<div class="collapse navbar-collapse justify-content-end" id="navbar-header">
 					<ul class="nav navbar-nav text-right">
 						<li class="navbar-item pr-5">
-							<a class="navbar-link text-dark" href="#">
+							<a class="navbar-link text-dark" href="">
 								Home
 							</a>
 						</li>

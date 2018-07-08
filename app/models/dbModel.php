@@ -29,6 +29,10 @@
 			$dbname = $host = $username = $password = null;
 		}
 
+		private function addComma($data){
+			return is_array($data)?implode(",", $data):false;
+		}
+
 		private function qData($data){
 			$arrayData = [];
 			foreach($data as $datas)$arrayData[] = "?";
@@ -36,10 +40,10 @@
 		}
 
 		protected function insertDB($table,$data,$fields){
-			$fieldsQ = $this->qData($fields);
+			$fieldsQ = $this->addComma($fields);
 			$dataQ = $this->qData($data);
 			$this->stmt = $this->con->prepare("INSERT INTO $table($fieldsQ) VALUES($dataQ)");
-			$this->stmt->execute($fields,$data);
+			$this->stmt->execute($data);
 			return $this->con->lastInsertId();
 		}
 
