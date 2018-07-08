@@ -1,0 +1,270 @@
+
+	<!-- start of JO form -->
+	<div class="modal fade" id="serviceRate">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content bg-white">
+				<div class="modal-header bg-light">
+					<label class="modal-title centerModalTitle">
+						<span class="lead"><b>Your Service Rate</b></span>
+					</label>
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-white">
+					<form>
+						<div class="table-responsiv">	
+						<table class="table table-striped table-sm">
+						  <thead class="bg-primary">
+						    <tr>
+						      <th scope="col">Service Description</th>
+						      <th scope="col">Rate(PHP)</th>
+						      <th scope="col" class="text-center">Action</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <td>Finishing</td>
+						      <td>&#8369; 100</td>
+						      <td>
+						      	<div class="d-flex justify-content-center">
+						      		<div class="offset-sm-1">
+						      			<div class="row">
+							      			<div class="col-sm">
+							      				<div class="container">
+							      					<button type="button" class="btn btn-warning">Edit</button>
+							      					<button type="button" class="btn btn-danger">Delete</button>
+							      				</div>
+							      			</div>
+						      			</div>
+						      		</div>
+						      	</div>
+						      </td>
+						    </tr>
+						  </tbody>
+						</table>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer bg-light">
+					<button type="submit" class="btn btn-success"><span class="text-white">Submit</span></button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of JO form -->
+
+
+
+	<!-- reviews and rating -->
+	<div class="modal fade" id="reviewAndRating">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content bg-white">
+				<div class="modal-header bg-light">
+					<label class="modal-title centerModalTitle">
+						<span class="lead"><b>My Reviews and Rating</b></span>
+					</label>
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-white">
+					<form>
+						<div class="container border">
+							<div class="row justify-content-center pt-3">
+								<div>
+									<img class="img-fluid imageReview rounded-circle" src="../etc/images/user/marvee.jpg"></img>
+								</div>
+							</div>
+							<div class="row justify-content-center pt-2">
+								<label>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+								</label>
+							</div>
+							<div class="row justify-content-center">
+								<label><?=$rate;?></label>
+							</div>
+							<div class="row pt-3">
+								<div class="container">
+									<blockquote class="blockquote lead">
+										  <p>Maayo kaayo ni siya mo dala, tapulan lang gud kaayo. Pero pang Wife material gud ni siya.</p>
+										  <footer class="blockquote-footer text-right"><?=$reviewer;?></footer>
+									</blockquote>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer bg-light">
+					<div class="container-fluid pt-3">
+						<nav>
+							<ul class="pagination justify-content-center" id="paginationFooter">
+								<li class="page-item disabled">
+									<a class="page-link">
+										<span>&laquo;</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link">
+										<span>1</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link">
+										<span>2</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link">
+										<span>3</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link">
+										<span>&raquo;</span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of reviews and rating -->
+
+
+	<!-- start of jobDone form -->
+	<div class="modal fade" id="COE">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content bg-white">
+				<div class="modal-header bg-light">
+					<label class="modal-title centerModalTitle">
+						<span class="lead"><b>Your Employment records</b></span>
+					</label>
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-white">
+					<div class="table-responsive mt-1">
+			      		<table class="table table-striped">
+			      			<thead class="skyblue text-white">
+			      				<tr>
+			      					<th>Image</th>
+			      					<th>Service Seeker Name</th>
+			      					<th>Job Title</th>
+			      					<th>Start Date</th>
+			      					<th>End Date</th>
+			      					<th class="text-center">Action</th>
+			      				</tr>
+			      			</thead>
+			      			<tbody>
+			      				<tr>
+			      					<td>
+			      						<img class="img-fluid tableImage" src="../etc/images/user/marvee.jpg">
+			      					</td>
+			      					<td>
+			      						Gemma Prialde
+			      					</td>
+			      					<td>
+			      						Carpenter
+			      					</td>
+			      					<td>
+			      						February 6, 2018
+			      					</td>
+			      					<td>
+			      						March 6, 2018
+			      					</td>
+			      					<td>
+			  							<div class="container">
+			  								<div class="col-6">
+			  									<button class="btn btn-warning">Request for a COE</button>
+			  								</div>
+			  							</div>
+			      					</td>
+			      				</tr>
+			      			</tbody>
+			      		</table>
+			      	</div>
+				</div>
+
+				<div class="modal-footer bg-light">
+					<button type="submit" class="btn btn-success"><span class="text-white">Submit</span></button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of jobDone form -->
+
+	<!-- start of dispute form -->
+	<div class="modal fade" id="myJobs">
+		<form>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content bg-white">
+					<div class="modal-header bg-light">
+						<label class="modal-title centerModalTitle">
+							<span class="lead">
+								<b class="pl-4">Your Job</b>
+							</span>
+						</label>
+						<button class="close" data-dismiss="modal">
+							<span>&times;</span>
+						</button>
+					</div>	
+					<div class="modal-body">
+						<div class="table-responsive mt-1">
+				      		<table class="table table-striped">
+				      			<thead class="skyblue text-white">
+				      				<tr>
+				      					<th>Image</th>
+				      					<th>Service Seeker Name</th>
+				      					<th>Job Title</th>
+				      					<th>Start Date</th>
+				      					<th>End Date</th>
+				      					<th>Status</th>
+				      				</tr>
+				      			</thead>
+				      			<tbody>
+				      				<tr>
+				      					<td>
+				      						<img class="img-fluid tableImage" src="../etc/images/user/marvee.jpg">
+				      					</td>
+				      					<td>
+				      						Gemma Prialde
+				      					</td>
+				      					<td>
+				      						Carpenter
+				      					</td>
+				      					<td>
+				      						February 6, 2018
+				      					</td>
+				      					<td>
+				      						March 6, 2018
+				      					</td>
+				      					<td>
+				  							<span class="text-success">Done</span>
+				      					</td>
+				      				</tr>
+				      			</tbody>
+				      		</table>
+				      	</div>
+					</div>
+
+					<div class="modal-footer bg-light">
+						<button class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- end of dispute form -->
+

@@ -1,0 +1,55 @@
+<?php 
+	
+	class dbModel extends Controller{
+
+		private $con = null;
+		private $stmt = null;
+
+		public function __construct(){
+			if($this->connectDB() instanceof PDO){
+				$this->con = $this->connectDB();
+			}
+			else{
+				die($this->connectDB());
+			}
+		}
+
+		public function connectDB(){
+			$dbname = "Passersmate";
+			$host = "127.0.0.1";
+			$username = "root";
+			$password = "";
+			try {
+				$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
+				$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+				return $this->con;
+			} catch (PDOException $e) {
+				return $e->getMessage();
+			}
+			$dbname = $host = $username = $password = null;
+		}
+
+		private function qData($data){
+			$arrayData = [];
+			foreach($data as $datas)$arrayData[] = "?";
+			return implode(",",$arrayData);
+		}
+
+		protected function insertDB($table,$data,$fields){
+			$fieldsQ = $this->qData($fields);
+			$dataQ = $this->qData($data);
+			$this->stmt = $this->con->prepare("INSERT INTO $table($fieldsQ) VALUES($dataQ)");
+			$this->stmt->execute($fields,$data);
+			return $this->con->lastInsertId();
+		}
+
+		protected function checkExistSingle($table,$field,$data){
+			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM $table WHERE $field = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchColumn();
+		}
+
+
+	}
+
+?>

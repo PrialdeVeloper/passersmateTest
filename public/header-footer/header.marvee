@@ -1,0 +1,45 @@
+
+<?php include_once "../public/etc/etcCompile.marvee"; ?>
+
+	<body class="bg-light">
+		<header>
+			<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigation">
+				<a class="navbar-brand" href="#">
+					<img src="../../public/etc/images/dashboard/header/header-logo.png" class="img-fluid header-image">
+				</a>
+				<button type="button" class="navbar-toggler" data-target="#navbar-header" data-toggle="collapse">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse navbar-collapse justify-content-end" id="navbar-header">
+					<ul class="nav navbar-nav text-right">
+						<li class="navbar-item pr-5">
+							<a class="navbar-link text-dark" href="#">
+								Home
+							</a>
+						</li>
+						<li class="navbar-item pr-5">
+							<a class="navbar-link text-dark" href="#">
+								Passers
+							</a>
+						</li>
+						<li class="navbar-item pr-5">
+							<a class="navbar-link text-dark" href="#">
+								How it works
+							</a>
+						</li>
+						<li class="navbar-item pr-5">
+							<a class="navbar-link text-dark" href="#">
+								Sign up
+							</a>
+						</li>
+						<li class="navbar-item pr-5">
+							<a class="navbar-link text-dark" href="#">
+								Login
+							</a>
+						</li>
+					</ul>	
+				</div>
+			</nav>
+		</header>
+
+		<section>

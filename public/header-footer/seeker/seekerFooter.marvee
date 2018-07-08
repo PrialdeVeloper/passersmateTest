@@ -1,0 +1,11 @@
+		</section>
+		<footer class="footer footer-color">
+				<div class="container d-flex justify-content-center mt-5">
+					<img class="img-fluid mx-auto footer-image" src="../../public/etc/images/dashboard/footer/footer-image.png">
+				</div>
+				<div class="container pt-5 text-center">
+					<p class="text-white">Copyright &copy; 2018. ALL RIGHTS RESERVED. DESIGNED BY <a href="#">PASSERSMATE</a></p>
+				</div>
+			</footer>
+		</body>
+		</html>

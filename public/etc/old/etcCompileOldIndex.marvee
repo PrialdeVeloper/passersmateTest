@@ -1,0 +1,30 @@
+<?php 
+	if(isset($data) && !empty($data)){
+		extract($data);
+	}
+
+?>
+	<?php 
+	if(file_exists("../public/etc/old/css/index/bootstrap.min.css")){
+		echo '
+		<link rel="stylesheet" type="text/css" href="../etc/old/css/index/font.css">
+		<link rel="stylesheet" type="text/css" href="../etc/old/css/index/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../etc/old/css/index/owl.carousel.css">
+		<link rel="stylesheet" type="text/css" href="../etc/old/css/index/owl.theme.default.css">
+		<link rel="stylesheet" type="text/css" href="../etc/old/css/index/magnific-popup.css">
+		<link rel="stylesheet" type="text/css" href="../etc/old/fontawesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href="../etc/old/css/index/style.css">
+		';
+		}
+		else{
+		echo '
+		<link rel="stylesheet" type="text/css" href=../../public/etc/old/css/index/font.css">
+		<link rel="stylesheet" type="text/css" href=../../public/etc/old/css/index/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href=../../public/etc/old/css/index/owl.carousel.css">
+		<link rel="stylesheet" type="text/css" href=../../public/etc/old/css/index/owl.theme.default.css">
+		<link rel="stylesheet" type="text/css" href=../../public/etc/old/css/index/magnific-popup.css">
+		<link rel="stylesheet" type="text/css" href=../../public/etc/old/fontawesome/css/font-awesome.min.css">
+		<link rel="stylesheet" type="text/css" href=../../public/etc/old/css/index/style.css">
+		';
+		}
+	?>

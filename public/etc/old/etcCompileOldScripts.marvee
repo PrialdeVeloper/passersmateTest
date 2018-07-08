@@ -1,0 +1,18 @@
+<?php 
+	if(file_exists("../public/etc/old/js/jquery.js")){
+		echo '
+		<script type="text/javascript" src="../etc/old/js/jquery.js"></script>
+    	<script type="text/javascript" src="../etc/old/js/jquery_easing.js"></script>
+    	<script type="text/javascript" src="../etc/old/js/index.js"></script>';
+		}
+	else{
+		echo '
+		<script type="text/javascript" src="../..public/etc/old/js/jquery.js"></script>
+    	<script type="text/javascript" src="../..public/etc/old/js/jquery_easing.js"></script>
+    	<script type="text/javascript" src="../..public/etc/old/js/index.js"></script>
+		';
+		}
+?>
+    
+</body>
+</html>

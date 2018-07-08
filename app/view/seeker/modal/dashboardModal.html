@@ -1,0 +1,303 @@
+
+	<!-- start of JO form -->
+	<div class="modal fade" id="JOFormModal">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content bg-white">
+				<div class="modal-header bg-light">
+					<label class="modal-title centerModalTitle">
+						<span class="lead"><b>Your Job Offer Form</b></span>
+					</label>
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-white">
+					<form>
+						<!-- 1st col -->
+						<div class="form-row">
+							<!-- start of 1st col 1st box -->
+							<div class="col border-info border-right">
+								<div class="form-group">
+									<label for="JOjobTitleModal">Job Title:</label>
+									<input list="JOjobTitleModal" name="browser">
+									  <datalist id="JOjobTitleModal">
+									    <option value="Internet Explorer">
+									    <option value="Firefox">
+									    <option value="Chrome">
+									    <option value="Opera">
+									    <option value="Safari">
+									  </datalist>
+								</div>
+								<div class="form-group">
+									<label>Work Materials provided:</label>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="JOworkSelection" id="JOmaterialsYesModal">
+										<label class="form-check-label" for="JOmaterialsYesModal">Yes</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" name="JOworkSelection" id="JOmaterialsNoModal">
+										<label class="form-check-label" for="JOmaterialsNoModal">No</label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="JOdateModal">Start Date:</label>
+									<input type="date" name="startdate" id="JOdateModal" value="">
+								</div>
+								<div class="form-group">
+									<label>Accomodation Type:</label><br>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" id="JOaccomodationIH">
+										<label class="form-check-label" for="JOaccomodationIH">In-house</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" id="JOaccomodationIH">
+										<label class="form-check-label" for="JOaccomodationIH">Off Site</label>
+									</div>
+								</div>
+							</div>
+							<!-- end of 1st col 1st box -->
+							<!-- start of 1st col 2nd box x -->
+							<div class="col">
+								<div class="form-group">
+									<label for="JOjobTitleModal">Civil Status:</label>
+									<select id="JOjobTitleModal" class="form-control">
+										<option>...</option>
+										<option>...</option>
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="JOjobTitleModal">Working Address:</label>
+									<select id="JOjobTitleModal" class="form-control">
+										<option>...</option>
+										<option>...</option>
+									</select>
+								</div>
+								<div class="form-group pt-2">
+									<label for="JOdateModal">End Date:</label>
+									<input type="date" name="enddate" id="JOdateModal">
+								</div>
+								<div class="form-group pt-2">
+									<label>Payment Type:</label><br>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" id="JOpaymentON">
+										<label class="form-check-label" for="JOaccomodationIH">Online</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" id="JOpaymentOF">
+										<label class="form-check-label" for="JOaccomodationIH">Offline</label>
+									</div>
+								</div>
+							</div>
+							<!-- end of 1st col 2nd box -->
+						</div>
+						<!-- end of 1st col -->
+						<!-- start of 2nd col -->
+						<div class="col mt-2 border-top border-info">
+							<div class="row">
+								<div class="col-sm text-center">
+									<div class="form-group">
+										<label class="lead" for="JOtextareaModal">
+											Message(optional)
+										</label>
+										<textarea class="form-control" id="JOtextareaModal"></textarea>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end of 2nd col -->
+					</form>
+				</div>
+				<div class="modal-footer bg-light">
+					<button type="submit" class="btn btn-success"><span class="text-white">Submit</span></button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of JO form -->
+
+
+
+	<!-- reviews and rating -->
+	<div class="modal fade" id="reviewAndRating">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content bg-white">
+				<div class="modal-header bg-light">
+					<label class="modal-title centerModalTitle">
+						<span class="lead"><b>My Reviews and Rating</b></span>
+					</label>
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-white">
+					<form>
+						<div class="container border">
+							<div class="row justify-content-center pt-3">
+								<div>
+									<img class="img-fluid imageReview rounded-circle" src="../etc/images/user/marvee.jpg"></img>
+								</div>
+							</div>
+							<div class="row justify-content-center pt-2">
+								<label>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+								</label>
+							</div>
+							<div class="row justify-content-center">
+								<label><?=$rate;?></label>
+							</div>
+							<div class="row pt-3">
+								<div class="container">
+									<blockquote class="blockquote lead">
+										  <p>Maayo kaayo ni siya mo dala, tapulan lang gud kaayo. Pero pang Wife material gud ni siya.</p>
+										  <footer class="blockquote-footer text-right"><?=$reviewer;?></footer>
+									</blockquote>
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+				<div class="modal-footer bg-light">
+					<div class="container-fluid pt-3">
+						<nav>
+							<ul class="pagination justify-content-center" id="paginationFooter">
+								<li class="page-item disabled">
+									<a class="page-link">
+										<span>&laquo;</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link">
+										<span>1</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link">
+										<span>2</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link">
+										<span>3</span>
+									</a>
+								</li>
+								<li class="page-item">
+									<a class="page-link">
+										<span>&raquo;</span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of reviews and rating -->
+
+
+	<!-- start of jobDone form -->
+	<div class="modal fade" id="jobDone">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content bg-white">
+				<div class="modal-header bg-light">
+					<label class="modal-title centerModalTitle">
+						<span class="lead"><b class="pl-4">Way to go, Mate!</b></span>
+					</label>
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-white">
+					<form>
+						<div class="container-fluid border border-secondary">
+							<div class="row justify-content-center">
+								<label class="lead">How did <?=$reviewer;?> do&quest;</label>
+							</div>
+							<div class="row justify-content-center pt-3">
+								<div>
+									<img class="img-fluid imageReview rounded-circle" src="../etc/images/user/pablo.jpg"></img>
+								</div>
+							</div>
+							<div class="row justify-content-center pt-3">
+								<label>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+									<i class="fas fa-star hoverRating text-warning"></i>
+								</label>
+							</div>
+							<div class="col mt-2">
+								<div class="row">
+									<div class="col-sm text-center">
+										<div class="form-group">
+											<label class="lead" for="JOtextareaModal">
+												Feedback
+											</label>
+											<textarea class="form-control" id="JOtextareaModal"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<div class="modal-footer bg-light">
+					<button type="submit" class="btn btn-success"><span class="text-white">Submit</span></button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end of jobDone form -->
+
+	<!-- start of dispute form -->
+	<div class="modal fade" id="dispute">
+		<form>
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content bg-white">
+					<div class="modal-header bg-danger">
+						<label class="modal-title centerModalTitle">
+							<span class="lead">
+								<b class="pl-4 text-white">What gone wrong&quest;</b>
+							</span>
+						</label>
+						<button class="close" data-dismiss="modal">
+							<span>&times;</span>
+						</button>
+					</div>	
+					<div class="modal-body">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label class="lead" for="disputeArea">
+											<span>What Happened? Give us some insight</span>
+										</label>
+										<textarea class="form-control" id="disputeArea"></textarea>
+									</div>
+								</div>
+							</div>
+							<div class="row justify-content-center">
+								<button class="btn btn-success">Submit</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="modal-footer bg-light">
+						<button class="btn btn-danger" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- end of dispute form -->
+
