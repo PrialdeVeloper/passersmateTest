@@ -4,6 +4,7 @@
 
 		private $con = null;
 		private $stmt = null;
+		private $result = null;
 
 		public function __construct(){
 			if($this->connectDB() instanceof PDO){
@@ -39,6 +40,10 @@
 			return implode(",",$arrayData);
 		}
 
+		private function qDataUpdate($data){
+			return implode("=?",$arrayData)."=?";
+		}
+
 		protected function insertDB($table,$data,$fields){
 			$fieldsQ = $this->addComma($fields);
 			$dataQ = $this->qData($data);
@@ -53,6 +58,16 @@
 			return $this->stmt->fetchColumn();
 		}
 
+		protected function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){
+			try {
+				$fieldsQ = $this->qDataUpdate($fields);
+				$this->result = $this->stmt = $this->con->prepare("UPDATE $table SET $fieldsQ WHERE $wherClause = $wherClauseAnswer");
+				return $this->result();
+			$this->stmt->execute($data);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
 
 	}
 
