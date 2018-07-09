@@ -78,7 +78,7 @@ $rate = "Very Good!";
       		</div>
       		<hr>
       		<div class="container d-flex justify-content-center blue font-weight-bold">
-      			<label class="text-center"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Personal Details</span></label>
+      			<label class="text-center"  data-toggle="modal" data-target="#personalDetails"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Personal Details</span></label>
       		</div>
 		</div>
 		<!-- end of second box -->

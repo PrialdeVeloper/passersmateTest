@@ -18,10 +18,11 @@
 		public function connectDB(){
 			$dbname = "Passersmate";
 			$host = "127.0.0.1";
+			$port = 3307;
 			$username = "root";
 			$password = "";
 			try {
-				$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
+				$this->con = new PDO("mysql: host=$host; port=$port; dbname=$dbname",$username,$password);
 				$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 				return $this->con;
 			} catch (PDOException $e) {

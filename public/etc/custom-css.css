@@ -204,6 +204,16 @@ span[data-toggle=modal]{
 }
 
 
+.sameLabelMargin{
+  margin-top: 2rem!important;
+}
+
+.modalAddDetails{
+  width:100px;
+  height: 100px;
+}
+
+
 .ashGray{
   color:#757e8c!important;
 }
