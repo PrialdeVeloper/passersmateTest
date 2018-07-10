@@ -12,18 +12,23 @@
 	<?php 
 	if(file_exists("../public/etc/bootstrap/css/bootstrap.min.css")){
 		echo '<link rel="stylesheet" type="text/css" href="../etc/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../etc/bootstrap/css/gijgo/css/gijgo.min.css">
 		<link rel="stylesheet" type="text/css" href="../etc/custom-css.css">
 		<link rel="stylesheet" type="text/css" href="../etc/fontawesome/css/fontawesome-all.css">
 		<script type="text/javascript" src="../etc/bootstrap/js/jquery-3.3.1.js"></script>
+		<script type="text/javascript" src="../etc/bootstrap/js/gijgo/gijgo.min.js"></script>
 		<script type="text/javascript" src="../etc/bootstrap/js/popper.min.js"></script>
 		<script type="text/javascript" src="../etc/bootstrap/js/bootstrap.min.js"></script>
+
 		<script type="text/javascript" src="../etc/custom-js.js"></script>';
 		}
 		else{
 		echo '<link rel="stylesheet" type="text/css" href="../../public/etc/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../../public/etc/bootstrap/css/gijgo/css/gijgo.min.css">
 		<link rel="stylesheet" type="text/css" href="../../public/etc/custom-css.css">
 		<link rel="stylesheet" type="text/css" href="../../public/etc/fontawesome/css/fontawesome-all.css">
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/jquery-3.3.1.js"></script>
+		<script type="text/javascript" src="../../public/etc/bootstrap/js/gijgo/gijgo.min.js"></script>
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/popper.min.js"></script>
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="../../public/etc/custom-js.js"></script>';
