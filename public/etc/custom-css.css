@@ -347,6 +347,10 @@ div#sidebar{
   height: 150px;
 }
 
+#seekerLogin{
+  display: none;
+}
+
 /*end of all*/
 
 /*end of passer*/

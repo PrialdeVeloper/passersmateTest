@@ -18,6 +18,11 @@
 			$this->controller->view("passer/register");
 		}
 
+		public function login(){
+			$this->controller->view("passer/login");
+		}
+
+
 		public function qweqwe(){
 			if(isset($_POST['email'])){
 				// $data = array("qwe"=>"qwe");

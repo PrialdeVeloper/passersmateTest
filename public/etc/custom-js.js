@@ -148,7 +148,6 @@ $(function(){
 	});
 });	
 
-
 // password
 $(function(){
 	var content = $("#password");
@@ -680,3 +679,18 @@ $(function(){
 	});
 });
 // end of cocno
+
+// logintry
+
+$(function(){
+	$("#seekerLogin").click(function(){
+		if((this).is(":visible") == true){
+			console.log("yes");
+		}
+		if(("#passerLogin").is(":visible") == true){
+			console.log("no");
+		}
+	});
+});	
+
+// end of login try

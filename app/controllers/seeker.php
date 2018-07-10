@@ -10,6 +10,10 @@
 			$this->controller->view("seeker/dashboard");
 		}
 
+		public function login(){
+			$this->controller->view("seeker/login");
+		}
+
 		public function profile(){
 			$this->controller->view("seeker/profile");
 		}
