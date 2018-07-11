@@ -269,7 +269,7 @@
 	<!-- end of dispute form -->
 
 
-<!-- start of JO form -->
+<!-- start of add personal details -->
 	<div class="modal fade" id="personalDetails">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content bg-white">
@@ -290,30 +290,86 @@
 										<img src="../../public/etc/images/system/calendar.png" class="modalAddDetails">
 									</div>
 								</div>
-								<div class="offset-1 col-sm-4 pt-3">
-									<input class="form-control" type="file">
+								<div class="offset-1 col-sm-4 pt-3" id="uploadPhotoDiv">
+									<button type="button" class="btn btn-primary" id="substituteButton">Upload Photo</button>
+									<input class="form-control d-none" type="file" id="addDetailsPasser" accept="image/x-png,image/gif,image/jpeg">
 								</div>
 							</div>
-							<div class="offset-3 col-9 row">
-								<div class="col-sm">
-								  <div class="form-group">
-								    <label for="firstname">Name</label>
-								    <input type="text" class="form-control" name="firstname" id="firstname" placeholder="Firstname">
-								  </div>
-								</div>
-								<div class="col-sm sameLabelMargin">
-									 <div class="form-group">
-									    <input type="text" class="form-control" name="lastname" placeholder="Lastname">
-									  </div>
-								</div>
-							</div>
-							<div class="offset-3 col-9 row">
-								<div class="col-sm">
+
+							<div class="row pt-3">
+								<div class="col-md-6 offset-md-0 col-lg-4 offset-lg-4">
 									<div class="form-group">
-									    <label for="email">Email</label>
-									    <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+							        	<label for="firstname">Name</label>
+							        	<input type="text" class="form-control" name="passerFirstname" id="firstname" placeholder="Firstname">
+								    </div>
+								</div>
+								<div class="col-md-6 offset-md-0 col-lg-4 sameLabelMargin">
+									<div class="form-group">
+									   <input type="text" class="form-control" name="passerLastname" placeholder="Lastname">
 									</div>
 								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md offset-md-0 col-lg offset-lg-4">
+									<div class="form-group">
+									    <label for="email">Email</label>
+									    <input type="text" class="form-control" name="passerEmail" id="email" placeholder="Email">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md offset-md-0 col-lg offset-lg-4">
+									<div class="form-group">
+									    <label for="address">Address</label>
+									    <input type="text" class="form-control" name="passerAddress" id="email" placeholder="Region/Province/State">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6 offset-md-0 col-lg-4 offset-lg-4">
+									<div class="form-group">
+									   <input type="text" class="form-control" name="passerAddressStreet" placeholder="Street Address">
+									</div>
+								</div>
+								<div class="col-md-6 offset-md-0 col-lg-4">
+									<div class="form-group">
+									   <input type="text" class="form-control" name="passerAddressCity" placeholder="City">
+									</div>
+								</div>
+								</div>
+
+							<div class="row">
+								<div class="col-md-6 offset-md-0 col-lg offset-lg-4">
+									<div class="form-group">
+									    <label for="birthday">Birthday</label>
+									    <input type="text" class="form-control datepicker" disabled name="passerBirthday" id="birthday" placeholder="Month/Date/Year">
+									</div>
+								</div>
+								<div class="col-md-6 offset-md-0 col-lg">
+									<div class="form-group">
+										<label for="gender">Gender</label>
+										<select name="passerGender" id="gender" class="custom-select">
+										  <option selected>I am</option>
+										  <option value="Male">Male</option>
+										  <option value="Female">Female</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-6 offset-md-0 col-lg-8 offset-lg-4">
+									<label for="number">Mobile Number</label>
+									<div class="input-group mb-2">
+								        <div class="input-group-prepend">
+								          <div class="input-group-text">+63</div>
+								        </div>
+								        <input type="text" class="form-control" id="passerNumber"  maxlength="10" placeholder="Mobile Number">
+							        </div>	
+						        </div>
 							</div>
 
 						</div>
@@ -326,4 +382,92 @@
 			</div>
 		</div>
 	</div>
-	<!-- end of JO form -->
+	<!-- end of add personal details -->
+
+	<!-- start of add for verified -->
+	<div class="modal fade" id="verified">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content bg-white">
+				<div class="modal-header bg-light">
+					<label class="modal-title centerModalTitle">
+						<span class="lead"><b>Personal Details</b></span>
+					</label>
+					<button class="close" data-dismiss="modal">
+						<span>&times;</span>
+					</button>
+				</div>
+				<div class="modal-body bg-white">
+					<form>
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="d-flex justify-content-center">
+										<img src="../../public/etc/images/system/tesda.png" class="modalAddDetails">
+									</div>
+								</div>
+								<div class="offset-1 col-sm-4 pt-3" id="uploadPhotoDiv">
+									<button type="button" class="btn btn-primary" id="substituteButton">Upload Photo</button>
+									<input class="form-control d-none" type="file" id="addDetailsPasser" accept="image/x-png,image/gif,image/jpeg">
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md offset-md-0 col-lg offset-lg-4">
+									<div class="form-group">
+									    <label for="certificateNum">Certificate Number</label>
+									    <input type="number" class="form-control" disabled name="certificateNum" id="certificateNum" placeholder="1234567889">
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-sm-3">
+									<div class="d-flex justify-content-center">
+										<h5>Quick Tips:</h5>
+									</div>
+								</div>
+								<div class="col-md offset-md-0 col-lg offset-lg-1">
+									<div class="form-group">
+									    <label for="typeCertificate">Type of Certificate</label>
+										<select name="typeCertificate" id="typeCertificate" class="custom-select">
+										  <option selected>COC</option>
+										  <option value="Male">NC</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+						
+							<div class="row">
+								<div class="col-md offset-md-0 col-lg offset-lg-4">
+									<div class="form-group">
+									    <label for="qualificationTitle">Qualification Title</label>
+										<select name="qualificationTitle" id="qualificationTitle" class="custom-select">
+										  <option selected>Carpenter</option>
+										  <option value="Male">Florist</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							
+
+							<div class="row">
+								<div class="col-md-6 offset-md-0 col-lg offset-lg-4">
+									<div class="form-group">
+									   <label for="expirationCOC">Expiration Date</label>
+									    <input type="text" class="form-control datepicker" disabled name="expirationCOC" id="expirationCOC" placeholder="Month/Date/Year">
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer bg-light">
+					<button type="submit" class="btn btn-primary"><span class="text-white">Next</span></button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end for verified -->

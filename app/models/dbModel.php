@@ -22,11 +22,17 @@
 			$username = "root";
 			$password = "";
 			try {
-				$this->con = new PDO("mysql: host=$host; port=$port; dbname=$dbname",$username,$password);
+				$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
 				$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 				return $this->con;
 			} catch (PDOException $e) {
-				return $e->getMessage();
+				try {
+					$this->con = new PDO("mysql: host=$host; port=$port; dbname=$dbname",$username,$password);
+					$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+					return $this->con;
+				} catch (Exception $e) {
+					return $e->getMessage();
+				}
 			}
 			$dbname = $host = $username = $password = null;
 		}

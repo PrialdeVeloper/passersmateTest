@@ -7,40 +7,43 @@
 
      			<div class="col-12 my-2">
      				<h2 class="fs-title text-center ">Create your account as a Passer</h2>
-     			</div> 
+     			</div>
+
+     			<div class="container bg-info mb-1 text-center text-white hidethis">
+     				<span>Please wait while we verify your account through TESDA</span>
+     			</div>
 
 				<div class=" col-sm-5 my-2">
-					<input type="text" name="cocno" class="form-control" placeholder="Certificate Number">
+					<input type="number" name="passerCOC" class="form-control" placeholder="Certificate Number">
 				</div>
+
 			    <div class=" col-sm-5 my-2">
-				    <select class="form-control">
+				    <select name="passerCertification" class="form-control">
 				        <option>Type of Certificate</option>
-				        <option value="1">Tamil</option>
-				        <option value="2">English</option>
-				        <option value="3">Mathematics</option>
-				        <option value="4">Science</option>
+				        <option value="NC I">NC I</option>
+				        <option value="NC II">NC II</option>
+				        <option value="NC III">NC III</option>
+				        <option value="COC">COC</option>
 				    </select>
 			    </div>
+
 			    <div class="w-100"></div>
 
 				<div class=" col-sm-5 my-2">
-					<input type="text" name="qTitle" class="form-control" placeholder="Qualification Title">
+					<input type="text" name="passerFN" disabled class="form-control" placeholder="First Name">
 				</div>
-				<div class=" col-sm-5 my-2">
-					<input id="datepicker" name="expdate" placeholder="Expiration Date" class="form-control" />
-					    <script>
-					        $('#datepicker').datepicker({
-					            uiLibrary: 'bootstrap4'
-					        });
-					    </script>	
-				</div>
-				<div class="w-100"></div>
 
 				<div class=" col-sm-5 my-2">
-					<input type="text" name="fn" class="form-control" placeholder="First Name">
+					<input type="text" name="passerLN" disabled class="form-control" placeholder="Last Name">
+				</div>
+
+			    <div class="w-100"></div>
+
+				<div class=" col-sm-5 my-2">
+					<input type="text" name="passerTitle" class="form-control" disabled value="" placeholder="Qualification Title">
 				</div>
 				<div class=" col-sm-5 my-2">
-					<input type="text" name="ln" class="form-control" placeholder="Last Name">
+					<input name="expdate" placeholder="Expiration Date" disabled class="form-control datepicker" />
 				</div>
 				<div class="w-100"></div>
 
@@ -50,44 +53,18 @@
 				<div class="w-100"></div>
 
 				<div class=" col-sm-10 my-2 input-group">
-					<input type="password" name="pass" id="myInput" class="form-control" placeholder="Password">
+					<input type="password" name="pass" class="form-control passwordField" placeholder="Password">
 					<div class="input-group-append">
-						<span class="input-group-text" > <input type="checkbox"  onclick="myFunction()"></span>
-						<script type="text/javascript">
-							
-				      		function myFunction(){
-				      			var x = document.getElementById("myInput");		      			
-							    if (x.type === "password") {
-							        x.type = "text";
-							    } else {
-							        x.type = "password";
-							    }
-							}
-							function myFunction1(){
-				      			var x = document.getElementById("myInput1");		      			
-							    if (x.type === "password") {
-							        x.type = "text";
-							    } else {
-							        x.type = "password";
-							    }
-							}
-							
-						</script>
-					</div>									
-				</div>
-				<div class="w-100"></div>
-
-				<div class=" col-sm-10 my-2 input-group">
-					<input type="password" name="cpass" id="myInput1" class="form-control" placeholder="Confirm Password">
-					<div class="input-group-append">
-							<span class="input-group-text" > <input type="checkbox"  onclick="myFunction1()"></span>							
+						<span class="input-group-text cursor" id="passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
 					</div>									
 				</div>
 				<div class="w-100"></div>
 
 				<div class="col-sm-10 my-2">
-					<div class="col-sm-12">
-						<input type="checkbox" class="form-check-input" ><h6>I have read and I agree with PasserMate's <a href="#">Terms and Conditions</a> and <a href="#" class="">Privacy Policy</a> </h6>
+					<div class="col-sm">
+						<div class="container">
+							<input type="checkbox" class="form-check-input" ><h6>I have read and I agree with PasserMate's <a href="#">Terms and Conditions</a> and <a href="#" class="">Privacy Policy</a> </h6>
+						</div>
 					</div>
 				</div>
 				<div class="w-100"></div>

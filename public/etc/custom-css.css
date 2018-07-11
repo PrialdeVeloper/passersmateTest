@@ -342,6 +342,10 @@ div#sidebar{
   font-size: 15px;
 }
 
+.cursor{
+  cursor: pointer;
+}
+
 #tesdaLogoSignup{
   width: 150px;
   height: 150px;

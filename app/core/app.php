@@ -1,5 +1,4 @@
 <?php 
-	
 	class App{
 
 		protected $controller = 'home';

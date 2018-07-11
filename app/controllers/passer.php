@@ -21,18 +21,6 @@
 		public function login(){
 			$this->controller->view("passer/login");
 		}
-
-
-		public function qweqwe(){
-			if(isset($_POST['email'])){
-				// $data = array("qwe"=>"qwe");
-				foreach ($_POST as $key => $value) {
-					$data["data"][$key] = $value;
-				}
-				echo json_encode($data);
-			}
-		}
-
 		
 	}
 
