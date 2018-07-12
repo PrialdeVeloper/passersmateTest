@@ -731,10 +731,29 @@ $(function(){
     });
 });
 
+
+function showDivError(div,message){
+	$(div).html(message);
+	$(div).show();
+}
+
+
+let cocNumber;
+let cocType;
+let passerFirstname;
+let passerLastname;
+let passerMiddlename;
+let cocTitle;
+let passerLink;
+let cocExpDate;
+let passerEmail;
+let passerPassword;
+
 $(function(){
 	$("#passerRegister").bind({
 		submit: function(event){
 			event.preventDefault();
+			
 		}
 	});
 });
@@ -746,11 +765,31 @@ function crawl(dataToSend){
 		data: {dataSent: "",data: dataToSend},
 		success: function(returnData,statusReturn){
 			let obj = jQuery.parseJSON(returnData);
-			$("input[name=passerFN]").val(obj.fname);
-			$("input[name=passerLN]").val(obj.lname);
-			$("input[name=passerTitle]").val(obj.cert);
 			$(".loading").hide();
-			console.log($("input[name=passerLN]").val());
+			if(obj.error == false){
+				$("input[name=passerFN]").val(obj.fname);
+				$("input[name=passerLN]").val(obj.lname);
+				$("input[name=passerTitle]").val(obj.cert);
+				cocNumber = obj.cnum;
+				passerFirstname = obj.fname;
+				passerLastname = obj.lname;
+				passerMiddlename = obj.mname;
+				cocTitle = obj.cert;
+				passerLink = obj[1];
+				$("#passerRegError").hide();
+			}
+			else{
+				showDivError("#passerRegError","Sorry, we did not found any records of your COC number. Please try again.");
+				$("input[name=passerFN]").val("");
+				$("input[name=passerLN]").val("");
+				$("input[name=passerTitle]").val("");
+				cocNumber= "";
+				passerFirstname= "";
+				passerLastname= "";
+				passerMiddlename= "";
+				cocTitle= "";
+				passerLink= "";
+			}
 		}
 	});
 }

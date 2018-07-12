@@ -33,26 +33,32 @@
 
 				$dom = new simple_html_dom();
 				$dom->load($res);
-				$name = trim($dom->find('table tr td',0)->plaintext);
-				$i = 0;
-				while(substr($name, $i,1) != ","){
-					$lname = $lname."".substr($name, $i,1);
-					$i +=1;
-					$fnameIndex = $i+1;
-				}
-				while(substr($name, $fnameIndex+1,1) != ".") {
-					$fname = $fname."".substr($name, $fnameIndex,1);
-					$fnameIndex +=1;
-					$mnameIndex = $fnameIndex;
-				}
-				$mname = substr($name, $mnameIndex,1);
-				$num = trim($dom->find('table tr td',1)->plaintext);
-				$ncert = trim($dom->find('table tr td',2)->plaintext);
-				$link = "http://www.tesda.gov.ph".trim($dom->find('table tr td:eq(3) a',0)->href);
 
-				$data = array("fname"=>$fname,"lname"=>$lname,"mname"=>$mname,"cnum"=>$num,"cert"=>$ncert,"link",$link);
-				$json =  json_encode($data,JSON_UNESCAPED_UNICODE);
-				echo $json;
+				if($dom->find('table tr td',0)){
+					$name = trim($dom->find('table tr td',0)->plaintext);
+					$i = 0;
+					while(substr($name, $i,1) != ","){
+						$lname = $lname."".substr($name, $i,1);
+						$i +=1;
+						$fnameIndex = $i+1;
+					}
+					while(substr($name, $fnameIndex+1,1) != ".") {
+						$fname = $fname."".substr($name, $fnameIndex,1);
+						$fnameIndex +=1;
+						$mnameIndex = $fnameIndex;
+					}
+					$mname = substr($name, $mnameIndex,1);
+					$num = trim($dom->find('table tr td',1)->plaintext);
+					$ncert = trim($dom->find('table tr td',2)->plaintext);
+					$link = "http://www.tesda.gov.ph".trim($dom->find('table tr td:eq(3) a',0)->href);
+
+					$data = array("fname"=>$fname,"lname"=>$lname,"mname"=>$mname,"cnum"=>$num,"cert"=>$ncert,"link",$link,"error"=>false);
+					$json =  json_encode($data,JSON_UNESCAPED_UNICODE);
+					echo $json;
+				}
+				else{
+					echo json_encode(array("error"=>true),JSON_UNESCAPED_UNICODE);
+				}
 			}
 		}
 
