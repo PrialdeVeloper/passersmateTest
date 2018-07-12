@@ -1,8 +1,13 @@
 <?php 
 	require "../public/header-footer/header.marvee";
 ?>
+		<div class="loading hidethis">
+			<span class="centerDisplayText">
+				Please Wait..
+			</span>
+		</div>
      	<div class="container-fluid my-4 col-12 col-sm-6 ">
-     		<form class="shadow-lg p-3 mb-5 bg-white rounded pt-3  ">
+     		<form class="shadow-lg p-3 mb-5 bg-white rounded pt-3" id="passerRegister">
      		<div class="row justify-content-center  my-3 ">
 
      			<div class="col-12 my-2">
@@ -35,6 +40,7 @@
 
 				<div class=" col-sm-5 my-2">
 					<input type="text" name="passerLN" disabled class="form-control" placeholder="Last Name">
+					<!-- <div class="container form-control" id="lname"></div> -->
 				</div>
 
 			    <div class="w-100"></div>

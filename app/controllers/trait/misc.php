@@ -51,8 +51,8 @@
 				$link = "http://www.tesda.gov.ph".trim($dom->find('table tr td:eq(3) a',0)->href);
 
 				$data = array("fname"=>$fname,"lname"=>$lname,"mname"=>$mname,"cnum"=>$num,"cert"=>$ncert,"link",$link);
-
-				echo json_encode($data);
+				$json =  json_encode($data,JSON_UNESCAPED_UNICODE);
+				echo $json;
 			}
 		}
 

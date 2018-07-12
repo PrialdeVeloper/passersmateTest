@@ -731,6 +731,14 @@ $(function(){
     });
 });
 
+$(function(){
+	$("#passerRegister").bind({
+		submit: function(event){
+			event.preventDefault();
+		}
+	});
+});
+
 function crawl(dataToSend){
 	$.ajax({
 		url: "crawler",
@@ -741,6 +749,8 @@ function crawl(dataToSend){
 			$("input[name=passerFN]").val(obj.fname);
 			$("input[name=passerLN]").val(obj.lname);
 			$("input[name=passerTitle]").val(obj.cert);
+			$(".loading").hide();
+			console.log($("input[name=passerLN]").val());
 		}
 	});
 }
@@ -751,6 +761,7 @@ $(function(){
 		let regex = /^[0-9]{14}$/
 		if(cocField.val() != ""){
 			if(regex.test(cocField.val())){
+				$(".loading").show();
 				crawl(cocField.val());
 			}
 		}
