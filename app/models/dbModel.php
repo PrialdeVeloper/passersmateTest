@@ -51,7 +51,7 @@
 			return implode("=?",$arrayData)."=?";
 		}
 
-		protected function insertDB($table,$data,$fields){
+		public function insertDB($table,$data,$fields){
 			$fieldsQ = $this->addComma($fields);
 			$dataQ = $this->qData($data);
 			$this->stmt = $this->con->prepare("INSERT INTO $table($fieldsQ) VALUES($dataQ)");
@@ -59,13 +59,13 @@
 			return $this->con->lastInsertId();
 		}
 
-		protected function checkExistSingle($table,$field,$data){
+		public function checkExistSingle($table,$field,$data){
 			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM $table WHERE $field = ?");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchColumn();
 		}
 
-		protected function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){
+		public function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){
 			try {
 				$fieldsQ = $this->qDataUpdate($fields);
 				$this->result = $this->stmt = $this->con->prepare("UPDATE $table SET $fieldsQ WHERE $wherClause = $wherClauseAnswer");

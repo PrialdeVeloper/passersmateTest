@@ -364,6 +364,11 @@ div#sidebar{
   text-align: center;
 }
 
+.rightRadius{
+  border-top-left-radius: 0;
+border-bottom-left-radius: 0;
+}
+
 #tesdaLogoSignup{
   width: 150px;
   height: 150px;

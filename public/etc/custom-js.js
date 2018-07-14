@@ -96,13 +96,13 @@ $(function(){
 // });
 
 
-// var delay = (function(){
-//   var timer = 0;
-//   return function(callback, ms){
-//     clearTimeout (timer);
-//     timer = setTimeout(callback, ms);
-//   };
-// })();
+var delay = (function(){
+  var timer = 0;
+  return function(callback, ms){
+    clearTimeout (timer);
+    timer = setTimeout(callback, ms);
+  };
+})();
 
 // $(function(){
 // 	var nextFirst = $("input[name=next]").first();
@@ -739,21 +739,41 @@ function showDivError(div,message){
 
 
 let cocNumber;
-let cocType;
 let passerFirstname;
 let passerLastname;
 let passerMiddlename;
 let cocTitle;
 let passerLink;
-let cocExpDate;
-let passerEmail;
 let passerPassword;
+let email;
+let typeofCertificatePasser;
 
 $(function(){
 	$("#passerRegister").bind({
 		submit: function(event){
+			console.log("click");
 			event.preventDefault();
-			
+			if(cocNumber == "" || passerFirstname == "" || passerLastname == "" || passerMiddlename == "" || cocTitle == "" 
+				|| passerLink == "" ||  passerPassword == "" || email == "" || typeofCertificatePasser == ""){
+				showDivError("#passerRegError","Please fill up forms with valid and true data!");
+			}
+			else{
+				$("#passerRegError").hide();
+				$.ajax({
+					url: "",
+					method: "POST",
+					data: {
+						registerPasser: "", cocNumber: cocNumber, passerFirstname: passerFirstname, passerLastname: passerLastname, passerMiddlename: passerMiddlename,
+						cocTitle: cocTitle, passerLink: passerLink, passerPassword: passerPassword, email: email, typeofCertificatePasser: typeofCertificatePasser
+					},
+					success: function(){
+						window.location="index";
+					},
+					error: function(){
+						showDivError("#passerRegError","Unable to connect to server! Please try again later");
+					}
+				});
+			}
 		}
 	});
 });
@@ -793,6 +813,74 @@ function crawl(dataToSend){
 		}
 	});
 }
+
+
+$(function(){
+	$("select[name=passerCertification]").change(function(){
+		let selectValue = $(this).val();
+		if(selectValue != "NC I" && selectValue != "NC II" && selectValue != "NC III" && selectValue != "COC"){
+			showDivError("#passerRegError","Please select proper Certificate type!");
+			typeofCertificatePasser = "";
+		}
+		else{
+			$("#passerRegError").hide();
+			typeofCertificatePasser = selectValue;
+		}
+	});
+});
+
+$(function(){
+	$("input[name=passerEmail]").keyup(function(){
+		let expression = /^[\w\-\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+		let passerEmail = $(this).val();
+		let emailDiv = $(this);
+		if(email != ""){
+			delay(function(){
+				if(expression.test(passerEmail)){
+					$("#passerRegError").hide();
+					$.ajax({
+						url: "checkExist",
+						type: "POST",
+						data: {dataSend: "marveegwapa",table: 'passer',field:'PasserEmail',data: passerEmail},
+						success: function(returnData,dataStatus){
+							if(returnData >= 1){
+								$("#emailError").hide();
+								showDivError("#passerRegError","Sorry, email already exist!");
+								email = "";
+							}
+							else{
+								$("#passerRegError").hide();
+								$("#emailError").show().append("<i class='green pl-1 pt-2 fas fa-check-circle'></i>").fadeOut("slow");
+								email = passerEmail;
+							}
+						}
+					});
+				}
+				else{
+					showDivError("#passerRegError","Please input proper email address!");
+				}
+			}, 500 );
+		}
+	});
+});
+
+$(function(){
+	$("input[name=passerPassword]").keyup(function(){
+		let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+		let passwordReg = $(this).val();
+
+		if(regex.test(passwordReg)){
+			$("#passwordHelpBlock").hide();
+			$("#passerRegError").hide();
+			passerPassword = passwordReg;	
+		}
+		else{
+			$("#passwordHelpBlock").show();
+			showDivError("#passerRegError","Error! Password must contain minimum of 8 characters in total and minimum of 1 numeric");
+			passerPassword = "";
+		}
+	});
+});
 
 $(function(){
 	$("input[name=passerCOC]").change(function(){

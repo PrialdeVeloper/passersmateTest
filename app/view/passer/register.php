@@ -2,13 +2,10 @@
 	require "../public/header-footer/header.marvee";
 ?>
 		<div class="loading hidethis">
-			<span class="centerDisplayText">
-				Please Wait..
-			</span>
 		</div>
      	<div class="container-fluid my-4 col-12 col-sm-6 ">
      		<form class="shadow-lg p-3 mb-5 bg-white rounded pt-3" id="passerRegister">
-     			<div class="alert alert-warning text-center hidethis" id="passerRegError">
+     			<div class="alert alert-danger text-center hidethis" id="passerRegError">
      			</div>
      		<div class="row justify-content-center  my-3 ">
 
@@ -21,7 +18,7 @@
      			</div>
 
 				<div class=" col-sm-5 my-2">
-					<input type="number" name="passerCOC" class="form-control" placeholder="Certificate Number">
+					<input type="text" name="passerCOC" class="form-control" placeholder="Certificate Number">
 				</div>
 
 			    <div class=" col-sm-5 my-2">
@@ -51,20 +48,26 @@
 					<input type="text" name="passerTitle" class="form-control" disabled value="" placeholder="Qualification Title">
 				</div>
 				<div class=" col-sm-5 my-2">
-					<input name="expdate" placeholder="Expiration Date" disabled class="form-control datepicker" />
-				</div>
-				<div class="w-100"></div>
-
-				<div class=" col-sm-10 my-2">
-					<input type="text" name="email" class="form-control" required placeholder="Email">
+					<input name="expdate" required placeholder="Expiration Date" disabled class="form-control datepicker" />
 				</div>
 				<div class="w-100"></div>
 
 				<div class=" col-sm-10 my-2 input-group">
-					<input type="password" name="pass" class="form-control passwordField" required placeholder="Password">
+					<input type="text" name="passerEmail" class="form-control rounded-right" required placeholder="Email">
+					<div class="input-group-append hidethis" id="emailError">
+						<!-- <span class="input-group-text cursor" id="emailError"></span> -->
+					</div>	
+				</div>
+				<div class="w-100"></div>
+
+				<div class=" col-sm-10 my-2 input-group">
+					<input type="password" name="passerPassword" class="form-control passwordField" required placeholder="Password">
 					<div class="input-group-append">
 						<span class="input-group-text cursor" id="passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
 					</div>									
+					<small id="passwordHelpBlock" class="form-text text-muted hidethis">
+					  Your password must contain minimum of 8 characters and atleast 1 number
+					</small>
 				</div>
 				<div class="w-100"></div>
 
@@ -94,10 +97,6 @@
      		</div>
      		</form>
      	</div>
-      	
-  </body>
-</html>
-
 <?php 
 	require "../public/header-footer/seeker/seekerFooter.marvee";
 ?>
