@@ -1,45 +1,50 @@
 <?php 
 	class passer extends Controller{
 
-		protected $passer = array('PasserSkillsID');
+		public $passerReg = array("PasserCOCNo","PasserFN","PasserLN","PasserMname","PasserPass","PasserEmail","PasserCertificate","PasserCertificateTyPe","PasserTESDALink");
+		public $passDashboardPersonalDetails = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate");
 		protected $passerTable = 'passer';
+		protected $passerSession;
+		protected $passerUnique = 'PasserID';
 		
 		public function __construct(){
 			$this->controller = new Controller();
 			$this->model = $this->controller->model("dbModel");
 			$this->data = [];
+			if($this->checkSession('passerUser')){
+		 		$this->passerSession = $_SESSION['passerUser'];
+		 	}
 		}
 
 		public function index(){
-			$this->controller->view("passer/dashboard");
+			$data = [];
+			$details = null;
+			if(!$this->checkSession('passerUser')){
+		 		header("location:register");
+		 	}
+		 	$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($this->passerSession));
+		 	$data[] = array("userDetails"=>$details);
+			$this->controller->view("passer/dashboard",$data);
+
+			if(isset($_GET['passerUpdateData'])){
+				$passerAddress = $this->sanitize($_GET['passerAddress']);
+				$passerStreet = $this->sanitize($_GET['passerStreet']);
+				$passerCity = $this->sanitize($_GET['passerCity']);
+				$passerGender = $this->sanitize($_GET['passerGender']);
+				$passerCPNo = $this->sanitize($_GET['PasserCPNo']);
+				$passerBirthdate = $this->sanitize($_GET['passerBirthdate']);
+				$res = $this->model->updateDB($this->passerTable,$this->passDashboardPersonalDetails,array($passerAddress,$passerStreet,$passerCity,$passerGender,$passerCPNo,$passerBirthdate),$this->passerUnique,$this->passerSession);
+				if($res){
+					header("Refresh:1");
+				}
+			}
 		}
 
 		public function register(){
-			if(isset($_SESSION['passerUser'])){
-				// echo "<script>window.location='index';</script>";
-			}
+		 	if($this->checkSession('passerUser')){
+		 		header("location:index");
+		 	}
 			$this->controller->view("passer/register");
-
-			if(isset($_POST['registerPasser'])){
-				echo "qweqe".$_POST['cocNumber'];
-				echo "ye";
-				$cocNumber = $this->sanitize($_POST['cocNumber']);
-				$passerFirstname = $this->sanitize($_POST['passerFirstname']);
-				$passerLastname = $this->sanitize($_POST['passerLastname']);
-				$passerMiddlename = $this->sanitize($_POST['passerMiddlename']);
-				$cocTitle = $this->sanitize($_POST['cocTitle']);
-				$passerLink = $this->sanitize($_POST['passerLink']);
-				$passerPassword = $this->sanitize($_POST['passerPassword']);
-				$email = $this->sanitize($_POST['email']);
-				$typeofCertificatePasser = $this->sanitize($_POST['typeofCertificatePasser']);
-				$return = $this->model->insertDB('passer',array($cocNumber,$passerFirstname,$passerLastname,$passerPassword,$email),array("PasserCOCNo","PasserFN","PasserLN","PasserPass","PasserEmail"));
-					if($return){
-						$_SESSION['passerUser'] = $return;
-					}
-					else{
-						die("cannot connect to server");
-					}
-			}
 		}
 
 		public function login(){

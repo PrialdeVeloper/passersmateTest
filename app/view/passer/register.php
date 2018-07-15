@@ -17,19 +17,9 @@
      				<span>Please wait while we verify your account through TESDA</span>
      			</div>
 
-				<div class=" col-sm-5 my-2">
+				<div class=" col-sm-10 my-2">
 					<input type="text" name="passerCOC" class="form-control" placeholder="Certificate Number">
 				</div>
-
-			    <div class=" col-sm-5 my-2">
-				    <select name="passerCertification" class="form-control">
-				        <option>Type of Certificate</option>
-				        <option value="NC I">NC I</option>
-				        <option value="NC II">NC II</option>
-				        <option value="NC III">NC III</option>
-				        <option value="COC">COC</option>
-				    </select>
-			    </div>
 
 			    <div class="w-100"></div>
 
@@ -65,16 +55,17 @@
 					<div class="input-group-append">
 						<span class="input-group-text cursor" id="passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
 					</div>									
-					<small id="passwordHelpBlock" class="form-text text-muted hidethis">
-					  Your password must contain minimum of 8 characters and atleast 1 number
-					</small>
+					
 				</div>
+				<small id="passwordHelpBlock" class="form-text text-muted hidethis pb-3">
+				  Your password must contain minimum of 8 characters and atleast 1 number
+				</small>
 				<div class="w-100"></div>
 
 				<div class="col-sm-10 my-2">
 					<div class="col-sm">
 						<div class="container">
-							<input type="checkbox" class="form-check-input" ><h6>I have read and I agree with PasserMate's <a href="#">Terms and Conditions</a> and <a href="#" class="">Privacy Policy</a> </h6>
+							<input type="checkbox" checked class="form-check-input" ><h6>I have read and I agree with PasserMate's <a href="#">Terms and Conditions</a> and <a href="#" class="">Privacy Policy</a> </h6>
 						</div>
 					</div>
 				</div>

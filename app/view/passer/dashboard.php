@@ -9,7 +9,15 @@ $ed = "Infinty";
 $reviewer = "Pablo";
 $rate = "Very Good!";
 ?>
-<?php 
+<?php
+	if(isset($data) && !empty($data)){
+		// unset($data[0]);
+		extract($data[0]);
+		if(isset($userDetails) && !empty($userDetails)){
+			extract($userDetails[0]);
+			print_r($data);
+		}
+	} 
 	require "../public/header-footer/seeker/seekerHeader.marvee";
 	require "../public/header-footer/jobsNav.marvee";
 	require "modal/dashboardModal.html";
@@ -29,11 +37,11 @@ $rate = "Very Good!";
 			<div class="container">
 				<div class="row pt-1">
 					<div class="col-sm-1"><i class="fas fa-user ashGray"></i></div>
-					<div class="col-md-auto"><?=$Name;?></div>
+					<div class="col-md-auto"><?=$PasserFN." ". $PasserMname .". ".$PasserLN;?></div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-home ashGray"></i></div>
-					<div class="col-md-auto"><?=$address;?></div>
+					<div class="col-md-auto">qwe</div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-birthday-cake ashGray"></i></div>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.1
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2018 at 01:33 AM
--- Server version: 10.1.33-MariaDB
--- PHP Version: 7.2.6
+-- Generation Time: Jul 15, 2018 at 05:08 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -227,32 +227,48 @@ INSERT INTO `offerjob` (`OfferJobID`, `SeekerID`, `PasserID`, `JobOfferDate`, `J
 
 CREATE TABLE `passer` (
   `PasserID` int(11) NOT NULL,
-  `PasserSkillsID` int(11) NOT NULL,
   `PasserFN` varchar(255) NOT NULL,
   `PasserLN` varchar(255) NOT NULL,
+  `PasserMname` varchar(100) NOT NULL,
+  `PasserBirthdate` date NOT NULL,
   `PasserAge` int(11) NOT NULL,
   `PasserGender` varchar(255) NOT NULL,
-  `PasserUnitNo` int(11) NOT NULL,
-  `PasserStreetNo` int(11) NOT NULL,
-  `PasserStreetName` varchar(255) NOT NULL,
-  `PasserBarangay` varchar(255) NOT NULL,
-  `PasserMunicipality` varchar(255) NOT NULL,
-  `PasserPostalCode` int(11) NOT NULL,
-  `PasserCPNo` int(11) NOT NULL,
-  `PasserTelNo` varchar(255) NOT NULL,
+  `PasserStreet` varchar(255) NOT NULL,
+  `PasserCity` varchar(255) NOT NULL,
+  `PasserAddress` varchar(255) NOT NULL,
+  `PasserCPNo` bigint(20) NOT NULL,
   `PasserEmail` varchar(255) NOT NULL,
   `PasserStatus` varchar(255) NOT NULL,
   `PasserRate` int(11) NOT NULL,
-  `PasserCOCNo` int(11) NOT NULL,
-  `PasserPass` varchar(255) NOT NULL
+  `PasserCOCNo` varchar(255) NOT NULL,
+  `PasserPass` varchar(255) NOT NULL,
+  `PasserCertificate` varchar(255) NOT NULL,
+  `PasserCertificateType` varchar(100) NOT NULL,
+  `PasserTESDALink` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passer`
 --
 
-INSERT INTO `passer` (`PasserID`, `PasserSkillsID`, `PasserFN`, `PasserLN`, `PasserAge`, `PasserGender`, `PasserUnitNo`, `PasserStreetNo`, `PasserStreetName`, `PasserBarangay`, `PasserMunicipality`, `PasserPostalCode`, `PasserCPNo`, `PasserTelNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`) VALUES
-(1, 1, 'Joel', 'Abuga', 20, 'Male', 12, 123, 'qwe', 'qwe', 'qwe', 123, 2147483647, '238-5887', 'jabuga2k16@gmail.com', 'Single', 10, 123, 'qwe');
+INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`) VALUES
+(1, 'Joel', 'Abuga', '', '0000-00-00', 20, 'Male', '123', 'qwe', 'qwe', 2147483647, 'jabuga2k16@gmail.com', 'Single', 10, '123', 'qwe', '', '', ''),
+(3, 'CARELLE', 'PABLICO', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwe@gmail.com', '', 0, '14170402005297', 'qweqweqwe1', '', '', ''),
+(4, 'CARELLE', 'PABLICO', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwe@gmail.com', '', 0, '14170402005297', 'qweqweqwe1', '', '', ''),
+(5, 'CARELLE', 'PABLICO', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwe@gmail.com', '', 0, '14170402005297', 'qweqweqwe1', '', '', ''),
+(6, 'CARELLE', 'PABLICO', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwe@gmail.com', '', 0, '14170402005297', 'qweqweqwe1', '', '', ''),
+(7, 'CHESTER', 'TROPA', '', '0000-00-00', 0, '', '0', '', '', 0, 'zxc@gmail.om', '', 0, '13060402418846', 'qweqweqwe1', '', '', ''),
+(8, 'CHESTER', 'TROPA', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwete@gmail.com', '', 0, '13060402418846', 'qweqweqwe1', '', '', ''),
+(9, 'Rose Ann', 'Tapado', '', '0000-00-00', 0, '', '0', '', '', 0, 'roseann@gmail.com', '', 0, '14050402001234', '', '', '', ''),
+(10, 'Rose Ann', 'Tapado', '', '0000-00-00', 0, '', '0', '', '', 0, 'roseann@gmail.com', '', 0, '14050402001234', '$2y$12$xHYuhoigNVsuNo/vXY2FJObiPXvnrcDOoet6FgHZEtz9WwYV0.A8m', '', '', ''),
+(11, 'Gemiel', 'Cailing', '', '0000-00-00', 0, '', '0', '', '', 0, 'ewq@gmail.com', '', 0, '16104302011579', '$2y$12$DozPgHZGLFGYGqhh0bwFwOkBxPm50.oUSW0y6.U9IZtagE23NeYSu', '', '', ''),
+(12, 'Gemiel', 'Cailing', '', '0000-00-00', 0, '', '0', '', '', 0, 'ewq@gmail.com', '', 0, '16104302011579', '$2y$12$A9W9VJxcZeVF9L2FHxXgjeNvYcwOurvAtRRa.xah4TDfneDNLiDX.', '', '', ''),
+(13, 'Joey', 'Cacas', '', '0000-00-00', 0, '', '0', '', '', 0, 'dsa@gmail.com', '', 0, '16131402022970', '$2y$12$pW7uleGcHepr0Tpx99CAoO7LtM2S7yShokfFrzBPL.ILRvU11dyeW', '', '', ''),
+(14, 'Royeth', 'Tapasao', '', '0000-00-00', 0, '', '0', '', '', 0, 'qweasdg@gmail.com', '', 0, '16104302012759', '$2y$12$O4kr5WfErnvycJzPP2bqZup.tLOpbeB506ylXRcLzrQMCBoM9E4mK', '', '', ''),
+(15, 'Elenito', 'Isales', '', '0000-00-00', 0, '', '0', '', '', 0, 'dsaasd@gmail.com', '', 0, '16104302012741', '$2y$12$mhpEUBKpD7UAOVWi84NLweF7sh6Kw/A5Vxm/eOQDyKf17ZCUHXi/K', '', '', ''),
+(16, 'Janice', 'Amparado', '', '0000-00-00', 0, '', '0', '', '', 0, 'janice@gmail.com', '', 0, '13131502002980', '$2y$12$56xyLWVRFJ1BzFb3sVrnDOjD3RITKcsykNY4J.iVX1vrpZEhxENm2', 'NC II', '', ''),
+(18, 'Marnelle', 'Magbag', 'L', '0000-00-00', 0, '', '0', '', '', 0, 'eqw@gmail.com', '', 0, '15131402031522', '$2y$12$IiTHTbvSXLf7iyj5qAXvC.ssPkqu2xJU51TM/NzmfUWEcceLiD.N6', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369191'),
+(19, 'Crismar', 'Tejamo', 'S', '0000-00-00', 12, 'I am', 'kalunasan', 'cebu', 'lower kamparang kalunasan cebu city', 9337752834, 'qwertq@gmail.com', '', 0, '16104302012760', '$2y$12$eVzAdmSzUAHxAYcFcwO4MuzLreCfnuqjDiAXNT.ImQN7lHGgQM8we', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369178');
 
 -- --------------------------------------------------------
 
@@ -499,8 +515,7 @@ ALTER TABLE `offerjob`
 -- Indexes for table `passer`
 --
 ALTER TABLE `passer`
-  ADD PRIMARY KEY (`PasserID`),
-  ADD KEY `PasserSkillsID` (`PasserSkillsID`);
+  ADD PRIMARY KEY (`PasserID`);
 
 --
 -- Indexes for table `passerskills`
@@ -617,7 +632,7 @@ ALTER TABLE `offerjob`
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `passerskills`
@@ -721,12 +736,6 @@ ALTER TABLE `notification`
 ALTER TABLE `offerjob`
   ADD CONSTRAINT `offerjob_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`),
   ADD CONSTRAINT `offerjob_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`);
-
---
--- Constraints for table `passer`
---
-ALTER TABLE `passer`
-  ADD CONSTRAINT `passer_ibfk_1` FOREIGN KEY (`PasserSkillsID`) REFERENCES `passerskills` (`PasserSkillsID`);
 
 --
 -- Constraints for table `passerworkhistory`

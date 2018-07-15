@@ -282,6 +282,8 @@
 					</button>
 				</div>
 				<div class="modal-body bg-white">
+					<div class="alert alert-danger text-center hidethis">
+					</div>
 					<form>
 						<div class="container">
 							<div class="row">
@@ -300,12 +302,12 @@
 								<div class="col-md-6 offset-md-0 col-lg-4 offset-lg-4">
 									<div class="form-group">
 							        	<label for="firstname">Name</label>
-							        	<input type="text" class="form-control" name="passerFirstname" id="firstname" placeholder="Firstname">
+							        	<input type="text" readonly disabled class="form-control" value="<?=$PasserFN;?>" id="firstname" placeholder="Firstname">
 								    </div>
 								</div>
 								<div class="col-md-6 offset-md-0 col-lg-4 sameLabelMargin">
 									<div class="form-group">
-									   <input type="text" class="form-control" name="passerLastname" placeholder="Lastname">
+									   <input type="text" readonly disabled class="form-control" value="<?=$PasserLN;?>" placeholder="Lastname">
 									</div>
 								</div>
 							</div>
@@ -314,7 +316,7 @@
 								<div class="col-md offset-md-0 col-lg offset-lg-4">
 									<div class="form-group">
 									    <label for="email">Email</label>
-									    <input type="text" class="form-control" name="passerEmail" id="email" placeholder="Email">
+									    <input type="text" class="form-control" readonly disabled value="<?php echo isset($PasserEmail)? $PasserEmail: ''; ?>" id="email" placeholder="Email">
 									</div>
 								</div>
 							</div>
@@ -323,7 +325,7 @@
 								<div class="col-md offset-md-0 col-lg offset-lg-4">
 									<div class="form-group">
 									    <label for="address">Address</label>
-									    <input type="text" class="form-control" name="passerAddress" id="email" placeholder="Region/Province/State">
+									    <input type="text" required class="form-control" value="<?php echo isset($PasserAddress)? $PasserAddress: ''; ?>" name="passerAddress" id="email" placeholder="Region/Province/State">
 									</div>
 								</div>
 							</div>
@@ -331,12 +333,12 @@
 							<div class="row">
 								<div class="col-md-6 offset-md-0 col-lg-4 offset-lg-4">
 									<div class="form-group">
-									   <input type="text" class="form-control" name="passerAddressStreet" placeholder="Street Address">
+									   <input type="text" required value="<?php echo isset($PasserStreet)? $PasserStreet: ''; ?>" class="form-control" name="passerStreet" placeholder="Street Address">
 									</div>
 								</div>
 								<div class="col-md-6 offset-md-0 col-lg-4">
 									<div class="form-group">
-									   <input type="text" class="form-control" name="passerAddressCity" placeholder="City">
+									   <input type="text" required class="form-control" value="<?php echo isset($PasserCity)? $PasserCity: ''; ?>" name="passerCity" placeholder="City">
 									</div>
 								</div>
 								</div>
@@ -345,16 +347,16 @@
 								<div class="col-md-6 offset-md-0 col-lg offset-lg-4">
 									<div class="form-group">
 									    <label for="birthday">Birthday</label>
-									    <input type="text" class="form-control datepicker" disabled name="passerBirthday" id="birthday" placeholder="Month/Date/Year">
+									    <input type="text" name="passerBirthdate" value="<?php echo isset($passerBirthdate)? $passerBirthdate: ''; ?>" class="form-control datepicker" disabled placeholder="Month/Date/Year">
 									</div>
 								</div>
 								<div class="col-md-6 offset-md-0 col-lg">
 									<div class="form-group">
 										<label for="gender">Gender</label>
-										<select name="passerGender" id="gender" class="custom-select">
-										  <option selected>I am</option>
-										  <option value="Male">Male</option>
-										  <option value="Female">Female</option>
+										<select <?php echo !empty($PasserGender)? "disabled readonly": ''; ?> name="passerGender" id="gender" class="custom-select">
+										  <option <?php echo !isset($PasserGender)? "selected": ''; ?>>I am</option>
+										  <option <?php echo ($PasserGender == "Male")? "selected": ''; ?> value="Male">Male</option>
+										  <option <?php echo ($PasserGender == "Female")? "selected": ''; ?> value="Female">Female</option>
 										</select>
 									</div>
 								</div>
@@ -367,18 +369,19 @@
 								        <div class="input-group-prepend">
 								          <div class="input-group-text">+63</div>
 								        </div>
-								        <input type="text" class="form-control" id="passerNumber"  maxlength="10" placeholder="Mobile Number">
+								        <input value="<?php echo isset($PasserCPNo)? $PasserCPNo: ''; ?>" type="text" class="form-control" name="PasserCPNo" id="passerNumber"  maxlength="10" placeholder="Mobile Number">
 							        </div>	
 						        </div>
 							</div>
 
 						</div>
-					</form>
-				</div>
-				<div class="modal-footer bg-light">
-					<button type="submit" class="btn btn-success"><span class="text-white">Submit</span></button>
-					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
-				</div>
+					
+					</div>
+					<div class="modal-footer bg-light">
+						<button type="submit" name="passerUpdateData" class="btn btn-success"><span class="text-white">Submit</span></button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>

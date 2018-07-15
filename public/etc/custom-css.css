@@ -39,6 +39,10 @@ a{
       color: #6195FF;
     }
 
+    ul>li>a.active > a::after {
+    width: 100%;
+    }
+
     ul>li>a:after {
       content: "";
       display: block;

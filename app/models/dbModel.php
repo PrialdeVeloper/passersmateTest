@@ -48,10 +48,23 @@
 		}
 
 		private function qDataUpdate($data){
-			return implode("=?",$arrayData)."=?";
+			return implode("=?,",$data)."=?";
 		}
 
-		public function insertDB($table,$data,$fields){
+		public function selectAll($from){
+			$return = null;
+			$this->stmt = $this->con->query("SELECT * FROM $from");
+			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function selectAllFromUser($table,$field,$data){
+			$return = null;
+			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ?");
+			$this->stmt->execute($data);
+			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function insertDB($table,$fields,$data){
 			$fieldsQ = $this->addComma($fields);
 			$dataQ = $this->qData($data);
 			$this->stmt = $this->con->prepare("INSERT INTO $table($fieldsQ) VALUES($dataQ)");
@@ -69,8 +82,8 @@
 			try {
 				$fieldsQ = $this->qDataUpdate($fields);
 				$this->result = $this->stmt = $this->con->prepare("UPDATE $table SET $fieldsQ WHERE $wherClause = $wherClauseAnswer");
-				return $this->result();
-			$this->stmt->execute($data);
+				$res = $this->stmt->execute($data);
+				return true;
 			} catch (Exception $e) {
 				return $e->getMessage();
 			}
