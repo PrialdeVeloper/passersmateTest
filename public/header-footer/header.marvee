@@ -28,12 +28,12 @@
 							</a>
 						</li>
 						<li class="navbar-item pr-5">
-							<a class="navbar-link text-dark" href="#">
+							<a class="navbar-link text-dark" href="signup">
 								Sign up
 							</a>
 						</li>
 						<li class="navbar-item pr-5">
-							<a class="navbar-link text-dark" href="#">
+							<a class="navbar-link text-dark" href="login">
 								Login
 							</a>
 						</li>

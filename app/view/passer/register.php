@@ -45,7 +45,6 @@
 				<div class=" col-sm-10 my-2 input-group">
 					<input type="text" name="passerEmail" class="form-control rounded-right" required placeholder="Email">
 					<div class="input-group-append hidethis" id="emailError">
-						<!-- <span class="input-group-text cursor" id="emailError"></span> -->
 					</div>	
 				</div>
 				<div class="w-100"></div>
@@ -82,7 +81,7 @@
 				<div class="w-100"></div>
 
 				<div class=" col-sm-8 my-2 text-center">
-					<h6>Already have an account? <a href="#">Log in</a></h6> 	
+					<h6>Already have an account? <a href="../home/login">Log in</a></h6> 	
 				</div>	
 
      		</div>

@@ -52,9 +52,8 @@
 		}
 
 		public function selectAll($from){
-			$return = null;
 			$this->stmt = $this->con->query("SELECT * FROM $from");
-			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		public function selectAllFromUser($table,$field,$data){
@@ -62,6 +61,12 @@
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ?");
 			$this->stmt->execute($data);
 			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function selectSingleUser($table,$field,$data,$wherClause){
+			$this->stmt = $this->con->prepare("SELECT $field FROM $table WHERE $wherClause = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchColumn();
 		}
 
 		public function insertDB($table,$fields,$data){
@@ -87,6 +92,11 @@
 			} catch (Exception $e) {
 				return $e->getMessage();
 			}
+		}
+
+		public function desctuct(){
+			$this->stmt = null;
+			$this->con = null;
 		}
 
 	}

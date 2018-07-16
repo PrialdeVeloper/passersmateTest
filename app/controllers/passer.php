@@ -46,10 +46,6 @@
 		 	}
 			$this->controller->view("passer/register");
 		}
-
-		public function login(){
-			$this->controller->view("passer/login");
-		}
 		
 	}
 

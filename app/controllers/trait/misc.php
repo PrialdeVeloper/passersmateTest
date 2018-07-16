@@ -27,13 +27,30 @@
 			}
 		}
 
+		public function showError($div,$message){
+			echo '
+			<script>
+				$("'.$div.'").show();
+				$("'.$div.'").html("'.$message.'");
+			</script>
+			';
+		}
+
+		public function toOtherPage($where){
+			echo '
+			<script>
+				window.location="'.$where.'"
+			</script>
+			';
+		}
+
 		public function __construct(){
 			
 		}
 
 		public function logout(){
 			session_destroy();
-			header("location:register");
+			header("location:../home/login");
 		}
 
 		public function crawler(){

@@ -307,3 +307,27 @@ $(function(){
 // end of resize
 
 // end of register passer
+
+// login
+
+// loginTab
+$(function(){
+	$(".passerTab").click(function(){
+		if($("#passerLogin").is(":hidden")){
+			$("#seekerLogin").fadeOut("fast");
+			$("#passerLogin").fadeIn("fast");
+		}
+	});
+})
+
+$(function(){
+	$(".seekerTab").click(function(){
+		if($("#seekerLogin").is(":hidden")){
+			$("#passerLogin").fadeOut("fast");
+			$("#seekerLogin").fadeIn("fast");
+		}
+	});
+})
+// end of loginTab
+
+// end of login
