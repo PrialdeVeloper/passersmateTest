@@ -53,8 +53,8 @@
 					<li><a href="#home">Home</a></li>
 					<li><a href="#news">Passers</a></li>
 					<li><a href="#news">How it works</a></li>
-					<li><a href="signup.html">Sign up</a></li>
-					<li><a href="/C:/Users/MarveeLoper/Downloads/Storyboard PM/creative-agency-colorlib/creative-agency/loginpasser/login.html">Log in</a></li>
+					<li><a href="signup">Sign up</a></li>
+					<li><a href="login">Log in</a></li>
 						</ul>
 					</li>
 				</ul>

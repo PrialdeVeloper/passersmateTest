@@ -49,6 +49,7 @@ $(function(){
 });
 // end of dashboard
 
+
 // search
 
 	$(function(){
@@ -102,6 +103,27 @@ $(function(){
 	});
 });
 // end of trigger input
+
+
+// previewImage
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $('#previewImage').attr('src', e.target.result);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$(function(){
+	$(".inputImage").change(function(){
+	    readURL(this);
+	});
+});
+
+// end of previewImage
+
 
 // resize
 

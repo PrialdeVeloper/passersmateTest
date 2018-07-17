@@ -39,6 +39,7 @@
 
 				<div class=" col-sm-5 my-2">
 					<input type="text" name="passerTitle" class="form-control" disabled value="" placeholder="Qualification Title">
+					<!-- <div class="container form-control disabledColor" name="passerTitle">Qualification Title</div> -->
 				</div>
 				<div class=" col-sm-5 my-2">
 					<input name="expdate" required placeholder="Expiration Date" disabled class="form-control datepicker" />

@@ -22,8 +22,6 @@ $rate = "Very Good!";
 	require "../public/header-footer/jobsNav.marvee";
 	require "modal/dashboardModal.html";
 ?>
-
-
 <!-- content -->
 <div class="container-fluid mt-5">
 	<!-- start of 1st row -->
@@ -41,11 +39,11 @@ $rate = "Very Good!";
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-home ashGray"></i></div>
-					<div class="col-md-auto">qwe</div>
+					<div class="col-md-auto"><?=isset($PasserAddress)?$PasserAddress:"<span class='text-muted'>Undefined</span>"?></div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-birthday-cake ashGray"></i></div>
-					<div class="col-md-auto"><?=$birthdate;?></div>
+					<div class="col-md-auto"><?=isset($PasserBirthdate)?date("F jS, Y",strtotime($PasserBirthdate)):"<span class='text-muted'>Undefined</span>"?></div>
 				</div>
 			</div>
 		</div>

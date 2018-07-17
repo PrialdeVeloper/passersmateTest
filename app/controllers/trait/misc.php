@@ -10,6 +10,14 @@
 			return htmlentities(trim($variable));
 		}
 
+		public function decodeISO($variable){
+			return html_entity_decode($variable);
+		}
+
+		public function upperFirstOnlySpecialChars($variable){
+			return ucwords(mb_strtolower($variable,"UTF-8"));
+		}
+
 		public function checkSession($session){
 			return isset($_SESSION[$session])?true:false;
 		}
@@ -87,11 +95,11 @@
 						$fnameIndex +=1;
 						$mnameIndex = $fnameIndex;
 					}
-					$fname = ucwords(strtolower($fname));
-					$lname = ucwords(strtolower($lname));
+					$fname = html_entity_decode(ucwords(mb_strtolower($fname,"UTF-8")));
+					$lname = html_entity_decode(ucwords(mb_strtolower($lname,"UTF-8")));
 					$mname = substr($name, $mnameIndex,1);
 					$num = trim($dom->find('table tr td',1)->plaintext);
-					$ncert = trim($dom->find('table tr td',2)->plaintext);
+					$ncert = html_entity_decode(trim($dom->find('table tr td',2)->plaintext));
 
 					$point =  strpos($ncert, ' NC ')+1;
 					$textResult = substr($ncert, $point,6);
@@ -159,9 +167,9 @@
 			if(isset($_POST['registerPasser'])){
 					$cocNumber = $this->sanitize($_POST['cocNumber']);
 					$passerFirstname = $this->sanitize($_POST['passerFirstname']);
-					$passerLastname = $this->sanitize($_POST['passerLastname']);
-					$passerMiddlename = $this->sanitize($_POST['passerMiddlename']);
-					$cocTitle = $this->sanitize($_POST['cocTitle']);
+					$passerLastname = $this->sanitize($this->decodeISO($this->upperFirstOnlySpecialChars($_POST['passerLastname'])));
+					$passerMiddlename = $this->sanitize($this->decodeISO($this->upperFirstOnlySpecialChars($_POST['passerMiddlename'])));
+					$cocTitle = $this->sanitize($this->decodeISO($this->upperFirstOnlySpecialChars($_POST['cocTitle'])));
 					$passerPassword = $this->sanitize($this->hashPassword($_POST['passerPassword']));
 					$email = $this->sanitize($_POST['email']);
 					$typeofCertificatePasser = $this->sanitize($_POST['typeofCertificatePasser']);
@@ -179,9 +187,9 @@
 		public function updatePasserPersonalDetails(){
 			if(isset($_POST['passerUpdateData'])){
 				try {
-				$passerAddress = $this->sanitize($_POST['passerAddress']);
-				$passerStreet = $this->sanitize($_POST['passerStreet']);
-				$passerCity = $this->sanitize($_POST['passerCity']);
+				$passerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerAddress']));
+				$passerStreet = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerStreet']));
+				$passerCity = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerCity']));
 				$passerGender = $this->sanitize($_POST['passerGender']);
 				$passerCPNo = $this->sanitize($_POST['PasserCPNo']);
 				$passerBirthdate = $this->sanitize(date("Y-m-d",strtotime($_POST['passerBirthdate'])));

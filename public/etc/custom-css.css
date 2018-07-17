@@ -230,6 +230,10 @@ span[data-toggle=modal]{
   font-family: Calibri, Candara, Segoe, Segoe UI, Optima, Arial, sans-serif!important;
 }
 
+.disabledColor{
+  background-color: #E9ECEF!important;
+}
+
 .shadowDiv{
   box-shadow: 2px 2px 4px grey;
 }

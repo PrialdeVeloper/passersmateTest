@@ -35,7 +35,7 @@
 						</div>
 						<div class="col my-5">
 							<div class="d-flex justify-content-center">
-								<button type="button" class="btn btn-primary btn-lg">Showcase your skills now, Mate</button>
+								<a href="../passer/register" class="btn btn-primary btn-lg text-white">Showcase your skills now, Mate</a>
 							</div>
 						</div>
 					</div>
@@ -60,7 +60,7 @@
 						</div>
 						<div class="col my-5">
 							<div class="d-flex justify-content-center">
-								<button type="button" class="btn btn-success btn-lg">Start to offer a job, Mate</button>
+								<a href="../seeker/register" class="btn btn-success btn-lg text-white">Start to offer a job, Mate</a>
 							</div>
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 
 			<div class="col mt-5">
 				<div class="col-sm text-center">
-					<label class="otherText">Already have an account? <span><a href="#" class="text-primary">Log In.</a></span></label>
+					<label class="otherText">Already have an account? <span><a href="login" class="text-primary">Log In.</a></span></label>
 				</div>
 				<div class="col-sm text-center">
 					<label class="lead terms">By creating an account you agree to our <span><a href="#" class="text-primary">	Terms and Conditions,and Privacy Policy. </a></span></label>
