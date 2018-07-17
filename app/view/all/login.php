@@ -37,7 +37,7 @@
 				<div class=" col-sm-10  input-group">
 					<input type="password" required name="passerPass" id="myInput" class="form-control passwordField" placeholder="Password">
 					<div class="input-group-append">
-						<span class="input-group-text cursor" id="passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
+						<span class="input-group-text cursor passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
 					</div>									
 				</div>
 				<div class="w-100"></div>			
@@ -107,7 +107,7 @@
 				<div class=" col-sm-10  input-group">
 					<input type="password" name="passerPass" id="myInput" class="form-control passwordField" placeholder="Password">
 					<div class="input-group-append">
-						<span class="input-group-text cursor" id="passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
+						<span class="input-group-text cursor passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
 					</div>									
 				</div>
 				<div class="w-100"></div>			
