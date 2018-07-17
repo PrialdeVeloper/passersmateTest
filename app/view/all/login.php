@@ -4,12 +4,14 @@
  	<div class="container-fluid my-4 col-12 col-sm-5" id="passerLogin">
  		<form class="shadow-lg px-3 mb-5 bg-white rounded" method="POST">
      		<div class="row justify-content-center ">
-     			<div class="col-md-6 text-center  bg-primary rounded">
-     				<span class="cursor text-white passerTab"><h4>Passer</h4></span>  
- 				</div>
- 				<div class="col-md-6 text-center bg-light rounded">
- 					<span class="cursor text-dark seekerTab"><h4>Seeker</h4></span>  
- 				</div>
+     			<ul class="nav nav-pills px-0 col-12" id="myForm">			 
+		      		<li class="col-md-6 text-center  bg-light rounded">
+		      			<a class="text-dark cursor passerTab"><h4>Passer</h4></a>
+		      		</li> 			     
+		      		<li class="col-md-6 text-center  bg-light rounded">
+		      			<a class="text-dark cursor seekerTab"><h4>Seeker</h4></a>
+		      		</li>			     
+			    </ul>
 
  				<div class="container mt-1 alert alert-danger text-center hidethis" id="passerLoginError" role="alert">
 				 	
@@ -75,12 +77,14 @@
  	<div class="container-fluid my-4 col-12 col-sm-5 hidethis" id="seekerLogin">
  		<form class="shadow-lg px-3 mb-5 bg-white rounded ">
      		<div class="row justify-content-center ">
-     			<div class="col-md-6 text-center  bg-light  rounded">
-     				<span class="cursor text-dark passerTab"><h4>Passer</h4></span>  
- 				</div>
- 				<div class="col-md-6 text-center bg-primary rounded">
- 					<span class="cursor text-white seekerTab"><h4>Seeker</h4></span>  
- 				</div>
+     			<ul class="nav nav-pills px-0 col-12" id="myForm">			 
+		      		<li class="col-md-6 text-center  bg-light rounded">
+		      			<a class="text-dark cursor passerTab"><h4>Passer</h4></a>
+		      		</li> 			     
+		      		<li class="col-md-6 text-center  bg-light rounded">
+		      			<a class="text-dark cursor seekerTab"><h4>Seeker</h4></a>
+		      		</li>			     
+			    </ul>
 
  				<div class="container mt-1 alert alert-danger text-center hidethis" id="seekerLoginError" role="alert">
  				</div>
