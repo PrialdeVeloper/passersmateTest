@@ -3,6 +3,7 @@
 
 		public $passerReg = array("PasserCOCNo","PasserFN","PasserLN","PasserMname","PasserPass","PasserEmail","PasserCertificate","PasserCertificateTyPe","PasserTESDALink");
 		public $passDashboardPersonalDetails = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate");
+		public $passDashboardPersonalDetailsWithPhoto = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserProfile");
 		protected $passerTable = 'passer';
 		protected $passerSession;
 		protected $passerUnique = 'PasserID';
@@ -24,6 +25,7 @@
 		 	}
 		 	$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($this->passerSession));
 		 	$data[] = array("userDetails"=>$details);
+		 	// print_r(array_map($this->decodeISO,$details));
 			$this->controller->view("passer/dashboard",$data);
 		}
 

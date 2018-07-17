@@ -10,6 +10,7 @@ $reviewer = "Pablo";
 $rate = "Very Good!";
 ?>
 <?php
+	$completeAddress = null;
 	if(isset($data) && !empty($data)){
 		// unset($data[0]);
 		extract($data[0]);
@@ -18,9 +19,21 @@ $rate = "Very Good!";
 			print_r($data);
 		}
 	} 
+
+	if(!empty($PasserAddress)){
+		$completeAddress = $PasserAddress;
+	}
+	if(!empty($PasserStreet)){
+		$completeAddress = $completeAddress." ".$PasserStreet;
+	}
+	if(!empty($PasserCity)){
+		$completeAddress = $completeAddress.", ".$PasserCity;
+	}
 	require "../public/header-footer/seeker/seekerHeader.marvee";
 	require "../public/header-footer/jobsNav.marvee";
 	require "modal/dashboardModal.html";
+
+	// echo html_entity_decode($PasserCertificate);
 ?>
 <!-- content -->
 <div class="container-fluid mt-5">
@@ -39,11 +52,11 @@ $rate = "Very Good!";
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-home ashGray"></i></div>
-					<div class="col-md-auto"><?=isset($PasserAddress)?$PasserAddress:"<span class='text-muted'>Undefined</span>"?></div>
+					<div class="col-md-auto"><?=!empty($completeAddress)?$completeAddress:"<span class='text-muted' data-toggle='modal' data-target='#personalDetails'>Undefined</span>"?></div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-birthday-cake ashGray"></i></div>
-					<div class="col-md-auto"><?=isset($PasserBirthdate)?date("F jS, Y",strtotime($PasserBirthdate)):"<span class='text-muted'>Undefined</span>"?></div>
+					<div class="col-md-auto"><?=!empty($PasserBirthdate)?date("F jS, Y",strtotime($PasserBirthdate)):"<span class='text-muted' data-toggle='modal' data-target='#personalDetails'>Undefined</span>"?></div>
 				</div>
 			</div>
 		</div>

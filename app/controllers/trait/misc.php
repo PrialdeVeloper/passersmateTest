@@ -99,7 +99,7 @@
 					$lname = html_entity_decode(ucwords(mb_strtolower($lname,"UTF-8")));
 					$mname = substr($name, $mnameIndex,1);
 					$num = trim($dom->find('table tr td',1)->plaintext);
-					$ncert = html_entity_decode(trim($dom->find('table tr td',2)->plaintext));
+					$ncert = html_entity_decode(htmlentities(trim($dom->find('table tr td',2)->plaintext)));
 
 					$point =  strpos($ncert, ' NC ')+1;
 					$textResult = substr($ncert, $point,6);
@@ -151,7 +151,7 @@
 		}
 
 		public function imageUpload($destination,$file,$id){
-			$target_dir = "../../public/images/".$destination."/";
+			$target_dir = "../../public/etc/images/".$destination."/";
 			$target_file = $target_dir . basename($_FILES[$file]["name"]);
 			$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 			$randomFileName = time() . strtotime("now") . rand(1,6) . $id . "." . $imageFileType;
@@ -166,10 +166,10 @@
 		public function registerPasser(){
 			if(isset($_POST['registerPasser'])){
 					$cocNumber = $this->sanitize($_POST['cocNumber']);
-					$passerFirstname = $this->sanitize($_POST['passerFirstname']);
-					$passerLastname = $this->sanitize($this->decodeISO($this->upperFirstOnlySpecialChars($_POST['passerLastname'])));
-					$passerMiddlename = $this->sanitize($this->decodeISO($this->upperFirstOnlySpecialChars($_POST['passerMiddlename'])));
-					$cocTitle = $this->sanitize($this->decodeISO($this->upperFirstOnlySpecialChars($_POST['cocTitle'])));
+					$passerFirstname = $this->decodeISO($this->sanitize($_POST['passerFirstname']));
+					$passerLastname = $this->decodeISO($this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerLastname'])));
+					$passerMiddlename = $this->decodeISO($this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerMiddlename'])));
+					$cocTitle = $this->decodeISO($this->sanitize($_POST['cocTitle']));
 					$passerPassword = $this->sanitize($this->hashPassword($_POST['passerPassword']));
 					$email = $this->sanitize($_POST['email']);
 					$typeofCertificatePasser = $this->sanitize($_POST['typeofCertificatePasser']);
@@ -185,7 +185,7 @@
 		}
 
 		public function updatePasserPersonalDetails(){
-			if(isset($_POST['passerUpdateData'])){
+			if(isset($_POST['passerUpdateDataNoImage'])){
 				try {
 				$passerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerAddress']));
 				$passerStreet = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerStreet']));
@@ -198,7 +198,20 @@
 				} catch (Exception $e) {
 					echo json_encode(array("error"=>$e->getMessage()));
 				}
-				
+			}elseif(isset($_POST['passerUpdateDataWithImage'])){
+				try {
+				$passerProfile = $this->imageUpload("user",$_POST['image'],$this->passerSession);
+				$passerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerAddress']));
+				$passerStreet = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerStreet']));
+				$passerCity = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerCity']));
+				$passerGender = $this->sanitize($_POST['passerGender']);
+				$passerCPNo = $this->sanitize($_POST['PasserCPNo']);
+				$passerBirthdate = $this->sanitize(date("Y-m-d",strtotime($_POST['passerBirthdate'])));
+				$res = $this->model->updateDB($this->passerTable,$this->passDashboardPersonalDetailsWithPhoto,array($passerAddress,$passerStreet,$passerCity,$passerGender,$passerCPNo,$passerBirthdate,$passerProfile),$this->passerUnique,$this->passerSession);
+				echo json_encode(array("error"=>"none"));
+				} catch (Exception $e) {
+					print_r($e->getMessage());
+				}
 			}
 		}
 	}

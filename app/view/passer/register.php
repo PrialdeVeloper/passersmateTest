@@ -27,19 +27,21 @@
 			    <div class="w-100"></div>
 
 				<div class=" col-sm-5 my-2">
-					<input type="text" name="passerFN" disabled class="form-control" placeholder="First Name">
+					<div class="container form-control disabledColor" name="passerFN">First Name</div>
+					<!-- <input type="text" name="passerFN" disabled class="form-control" placeholder="First Name"> -->
 				</div>
 
 				<div class=" col-sm-5 my-2">
-					<input type="text" name="passerLN" disabled class="form-control" placeholder="Last Name">
+					<!-- <input type="text" name="passerLN" disabled class="form-control" placeholder="Last Name"> -->
+					<div class="container form-control disabledColor" name="passerLN">Last Name</div>
 					<!-- <div class="container form-control" id="lname"></div> -->
 				</div>
 
 			    <div class="w-100"></div>
 
 				<div class=" col-sm-5 my-2">
-					<input type="text" name="passerTitle" class="form-control" disabled value="" placeholder="Qualification Title">
-					<!-- <div class="container form-control disabledColor" name="passerTitle">Qualification Title</div> -->
+					<!-- <input type="text" name="passerTitle" class="form-control" disabled value="" placeholder="Qualification Title"> -->
+					<div class="container form-control disabledColor" name="passerTitle">Qualification Title</div>
 				</div>
 				<div class=" col-sm-5 my-2">
 					<input name="expdate" required placeholder="Expiration Date" disabled class="form-control datepicker" />
@@ -56,7 +58,7 @@
 				<div class=" col-sm-10 my-2 input-group">
 					<input type="password" name="passerPassword" disabled class="form-control passwordField" required placeholder="Password" id="passerPasswordRegister">
 					<div class="input-group-append">
-						<span class="input-group-text cursor" id="passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
+						<span class="input-group-text cursor passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
 					</div>									
 					
 				</div>
