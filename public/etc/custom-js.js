@@ -81,7 +81,7 @@ var delay = (function(){
 })();
 
 $(function(){
-	$("#passwordShowHide").click(function(){
+	$(".passwordShowHide").click(function(){
 		let eye = $(this).children();
 		let field = $(".passwordField");
 		if(eye.hasClass("fa-eye")){
