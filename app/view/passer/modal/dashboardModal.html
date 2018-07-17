@@ -282,7 +282,7 @@
 					</button>
 				</div>
 				<div class="modal-body bg-white">
-					<div class="alert alert-danger text-center hidethis">
+					<div class="alert alert-danger text-center hidethis" id="personalDetailsModalError">
 					</div>
 					<form>
 						<div class="container">
@@ -338,7 +338,153 @@
 								</div>
 								<div class="col-md-6 offset-md-0 col-lg-4">
 									<div class="form-group">
-									   <input type="text" required class="form-control" value="<?php echo isset($PasserCity)? $PasserCity: ''; ?>" name="passerCity" placeholder="City">
+									   <input list="cities" required class="form-control" value="<?php echo isset($PasserCity)? $PasserCity: ''; ?>" name="passerCity" placeholder="City">
+								   		<datalist id="cities"> 
+								      	 <option value="Alaminos">
+								         <option value="Angeles">
+								         <option value="Antipolo">
+								         <option value="Bacolod">
+								         <option value="Bacoor">
+								         <option value="Bago">
+								         <option value="Baguio">
+								         <option value="Bais">
+								         <option value="Balanga">
+								         <option value="Batac">
+								         <option value="Batangas City">
+								         <option value="Bayawan">
+								         <option value="Baybay">
+								         <option value="Bayugan">
+								         <option value="Biñan">
+								         <option value="Bislig">
+								         <option value="Bogo">
+								         <option value="Borongan">
+								         <option value="Butuan">
+								         <option value="Cabadbaran">
+								         <option value="Cabanatuan">
+								         <option value="Cabuyao">
+								         <option value="Cadiz">
+								         <option value="Cagayan de Oro">
+								         <option value="Calamba">
+								         <option value="Calapan">
+								         <option value="Calbayog">
+								         <option value="Caloocan">
+								         <option value="Candon">
+								         <option value="Canlaon">
+								         <option value="Carcar">
+								         <option value="Catbalogan">
+								         <option value="Cauayan">
+								         <option value="Cavite City">
+								         <option value="Cebu City">
+								         <option value="Cotabato City">
+								         <option value="Dagupan">
+								         <option value="Danao">
+								         <option value="Dapitan">
+								         <option value="Dasmariñas">
+								         <option value="Davao City">
+								         <option value="Digos">
+								         <option value="Dipolog">
+								         <option value="Dumaguete">
+								         <option value="El Salvador">
+								         <option value="Escalante">
+								         <option value="Gapan">
+								         <option value="General Santos">
+								         <option value="General Trias">
+								         <option value="Gingoog">
+								         <option value="Guihulngan">
+								         <option value="Himamaylan">
+								         <option value="Ilagan">
+								         <option value="Iligan">
+								         <option value="Iloilo City">
+								         <option value="Imus">
+								         <option value="Iriga">
+								         <option value="Isabela">
+								         <option value="Kabankalan">
+								         <option value="Kidapawan">
+								         <option value="Koronadal">
+								         <option value="La Carlota">
+								         <option value="Lamitan">
+								         <option value="Laoag">
+								         <option value="Lapu-Lapu">
+								         <option value="Las Piñas">
+								         <option value="Legazpi">
+								         <option value="Ligao">
+								         <option value="Lipa">
+								         <option value="Lucena">
+								         <option value="Maasin">
+								         <option value="Mabalacat">
+								         <option value="Makati">
+								         <option value="Malabon">
+								         <option value="Malaybalay">
+								         <option value="Malolos">
+								         <option value="Mandaluyong">
+								         <option value="Mandaue">
+								         <option value="Manila">
+								         <option value="Marawi">
+								         <option value="Marikina">
+								         <option value="Masbate City">
+								         <option value="Mati">
+								         <option value="Meycauayan">
+								         <option value="Muñoz">
+								         <option value="Muntinlupa">
+								         <option value="Naga">
+								         <option value="Navotas">
+								         <option value="Olangapo">
+								         <option value="Ormoc">
+								         <option value="Oroquieta">
+								         <option value="Oramiz">
+								         <option value="Pagadian">
+								         <option value="Palayan">
+								         <option value="Panabo">
+								         <option value="Parañaque">
+								         <option value="Pasay">
+								         <option value="Pasig">
+								         <option value="Passi">
+								         <option value="Puerto Princesa">
+								         <option value="Quezon City">
+								         <option value="Roxas">
+								         <option value="Sagay">
+								         <option value="Samal">
+								         <option value="San Carlos">
+								         <option value="San Carlos">
+								         <option value="San Fernando">
+								         <option value="San Fernando">
+								         <option value="San Jose">
+								         <option value="San Jose del Monte">
+								         <option value="San Juan">
+								         <option value="San Pablo">
+								         <option value="San Pedro">
+								         <option value="Santa Rosa">
+								         <option value="Santiago">
+								         <option value="Silay">
+								         <option value="Sipalay">
+								         <option value="Sorsogon City">
+								         <option value="Surigao City">
+								         <option value="Tabaco">
+								         <option value="Tabuk">
+								         <option value="Tacloban">
+								         <option value="Tacurong">
+								         <option value="Tagaytay">
+								         <option value="Tagbilaran">
+								         <option value="Taguig">
+								         <option value="Tagum">
+								         <option value="Talisay">
+								         <option value="Talisay">
+								         <option value="Tanauan">
+								         <option value="Tandag">
+								         <option value="Tangub">
+								         <option value="Tanjay">
+								         <option value="Tarlac City">
+								         <option value="Tayabas">
+								         <option value="Toledo">
+								         <option value="Trece Martires">
+								         <option value="Tuguegarao">
+								         <option value="Urdaneta">
+								         <option value="Valencia">
+								         <option value="Valenzuela">
+								         <option value="Victorias">
+								         <option value="Vigan">
+								         <option value="Zamboanga City">        
+										</datalist>
 									</div>
 								</div>
 								</div>
@@ -347,16 +493,16 @@
 								<div class="col-md-6 offset-md-0 col-lg offset-lg-4">
 									<div class="form-group">
 									    <label for="birthday">Birthday</label>
-									    <input type="text" name="passerBirthdate" value="<?php echo isset($passerBirthdate)? $passerBirthdate: ''; ?>" class="form-control datepicker" disabled placeholder="Month/Date/Year">
+									    <input type="text" name="passerBirthdate" value="<?php echo isset($PasserBirthdate)? $PasserBirthdate: ''; ?>" class="form-control datepicker" disabled placeholder="Month/Date/Year">
 									</div>
 								</div>
 								<div class="col-md-6 offset-md-0 col-lg">
 									<div class="form-group">
 										<label for="gender">Gender</label>
-										<select <?php echo !empty($PasserGender)? "disabled readonly": ''; ?> name="passerGender" id="gender" class="custom-select">
-										  <option <?php echo !isset($PasserGender)? "selected": ''; ?>>I am</option>
-										  <option <?php echo ($PasserGender == "Male")? "selected": ''; ?> value="Male">Male</option>
-										  <option <?php echo ($PasserGender == "Female")? "selected": ''; ?> value="Female">Female</option>
+										<select name="passerGender" id="gender" class="custom-select" <?php echo !empty($PasserGender)? "disabled readonly": ""; ?> >
+										  <option value="notSelected" <?php echo !isset($PasserGender)? "selected": ''; ?>>I am</option>
+										  <option value="Male" <?php echo ($PasserGender == "Male")? "selected": ''; ?>>Male</option>
+										  <option value="Female" <?php echo ($PasserGender == "Female")? "selected": ''; ?>>Female</option>
 										</select>
 									</div>
 								</div>
@@ -369,7 +515,7 @@
 								        <div class="input-group-prepend">
 								          <div class="input-group-text">+63</div>
 								        </div>
-								        <input value="<?php echo isset($PasserCPNo)? $PasserCPNo: ''; ?>" type="text" class="form-control" name="PasserCPNo" id="passerNumber"  maxlength="10" placeholder="Mobile Number">
+								        <input type="text" class="form-control" name="PasserCPNo" id="passerNumber"  maxlength="10" placeholder="Mobile Number" value="<?php echo isset($PasserCPNo)? $PasserCPNo: ''; ?>">
 							        </div>	
 						        </div>
 							</div>
@@ -378,7 +524,7 @@
 					
 					</div>
 					<div class="modal-footer bg-light">
-						<button type="submit" name="passerUpdateData" class="btn btn-success"><span class="text-white">Submit</span></button>
+						<button type="button" name="passerUpdateData" class="btn btn-success" onclick="updatePasserDetails();"><span class="text-white">Submit</span></button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
 					</div>
 				</form>

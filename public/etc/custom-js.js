@@ -143,6 +143,15 @@ $(function(){
     });
 });
 
+function checkDate(variable){
+	if(isNaN(Date.parse(+variable))){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 
 function showDivError(div,message){
 	$(div).html(message);
@@ -196,6 +205,34 @@ $(function(){
 	});
 });
 
+function checkEmpty(variable){
+	if(variable == ""){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+function checkNumberOnlyCount(countData,data){
+	let regex = new RegExp(/^[0-9]{10}$/);
+	if(regex.test(data)){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+function checkArraySame(arrayData,dataSent){
+	if(jQuery.inArray(dataSent,arrayData) != -1){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 function crawl(dataToSend){
 	$.ajax({
 		url: "crawler",
@@ -215,6 +252,8 @@ function crawl(dataToSend){
 				cocTitle = obj.cert;
 				typeofCertificatePasser = obj.certType;
 				passerLink = obj[1];
+				$("#passerEmailRegister").removeAttr("disabled");
+				$("#passerPasswordRegister").removeAttr("disabled");
 				$("#passerRegError").hide();
 			}
 			else{
@@ -291,6 +330,8 @@ $(function(){
 	$("input[name=passerCOC]").change(function(){
 		let cocField = $(this);
 		let regex = /^[0-9]{14}$/
+		let reminder = $("#passerRegReminded");
+		reminder.hide();
 		if(cocField.val() != ""){
 			if(regex.test(cocField.val())){
 				if(checkExistAny('passer','PasserCOCNo',cocField.val())){
@@ -331,3 +372,60 @@ $(function(){
 // end of loginTab
 
 // end of login
+
+// dashboard passer
+
+function updatePasserDetails(){
+	let responseUser = confirm("Are you sure you want to save changes?");
+	if(responseUser == true){
+		let address = $("input[name=passerAddress]");
+		let streetField = $("input[name=passerStreet]");
+		let cityField = $("input[name=passerCity]");
+		let birthdate = $("input[name=passerBirthdate]");
+		let gender = $("#gender");
+		let genderData = ["Male","Female"];
+		let cpNo = $("#passerNumber");
+		if(checkEmpty(address.val()) || checkEmpty(streetField.val()) || checkEmpty(cityField.val()) || checkEmpty(birthdate.val()) || 
+			checkDate(birthdate.val()) == false || gender.val() == "notSelected" 
+			|| checkArraySame(genderData,gender.val()) == false || checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
+			if(checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
+				showDivError("#personalDetailsModalError","Please input valid cellphone number");
+			}
+			if(gender.val() == "notSelected" || checkArraySame(genderData,gender.val()) == false){
+				showDivError("#personalDetailsModalError","Please select a gender");	
+			}
+			if(checkEmpty(address.val())){
+				showDivError("#personalDetailsModalError","Please input valid Address");
+			}
+			if(checkEmpty(streetField.val())){
+				showDivError("#personalDetailsModalError","Please input valid Street Address");
+			}
+			if(checkEmpty(cityField.val())){
+				showDivError("#personalDetailsModalError","Please input valid City");
+			}
+			if(checkEmpty(birthdate.val()) || checkDate(birthdate.val()) == false){
+				showDivError("#personalDetailsModalError","Please input valid Birthdate");
+			}
+		}else{
+			$("#personalDetailsModalError").hide();
+			$.ajax({
+				url: "updatePasserPersonalDetails",
+				method: "POST",
+				data: {"passerUpdateData": "", "passerAddress": address.val(), "passerStreet": streetField.val(), 
+				"passerCity": cityField.val(), "passerGender": gender.val(), "PasserCPNo":cpNo.val(), "passerBirthdate": birthdate.val()},
+				success: function(returnData){
+					let obj = JSON.parse(returnData);
+					if(obj.error =="none"){
+						window.location = "dashboard";	
+					}else{
+						showDivError("#personalDetailsModalError","Sorry, Something went wrong. Please try again later.");
+					}
+				},
+				fail: function(){
+					showDivError("#personalDetailsModalError","Cannot connect to server. Please try again");	
+				}
+			});
+		}
+	}
+}
+// end of dashboard passer

@@ -83,6 +83,7 @@
  				</div>
 
  				<div class="container mt-1 alert alert-danger text-center hidethis" id="seekerLoginError" role="alert">
+ 				</div>
 
      			<div class="col-12 my-3">
      				<h2 class="fs-title text-center my-4 ">Login as a Seeker</h2>

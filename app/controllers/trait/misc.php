@@ -173,7 +173,25 @@
 					} catch (Exception $e) {
 						echo json_encode(array("error"=>$e->getMessage()));
 					}
+			}
+		}
+
+		public function updatePasserPersonalDetails(){
+			if(isset($_POST['passerUpdateData'])){
+				try {
+				$passerAddress = $this->sanitize($_POST['passerAddress']);
+				$passerStreet = $this->sanitize($_POST['passerStreet']);
+				$passerCity = $this->sanitize($_POST['passerCity']);
+				$passerGender = $this->sanitize($_POST['passerGender']);
+				$passerCPNo = $this->sanitize($_POST['PasserCPNo']);
+				$passerBirthdate = $this->sanitize(date("Y-m-d",strtotime($_POST['passerBirthdate'])));
+				$res = $this->model->updateDB($this->passerTable,$this->passDashboardPersonalDetails,array($passerAddress,$passerStreet,$passerCity,$passerGender,$passerCPNo,$passerBirthdate),$this->passerUnique,$this->passerSession);
+				echo json_encode(array("error"=>"none"));
+				} catch (Exception $e) {
+					echo json_encode(array("error"=>$e->getMessage()));
 				}
+				
+			}
 		}
 	}
 ?>

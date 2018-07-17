@@ -45,7 +45,8 @@
 							}
 						}
 				}
-			}elseif(isset($_POST['seekerSubmit'])){
+			}
+			elseif(isset($_POST['seekerSubmit'])){
 				$email = !empty($_POST['passerEmail'])?$this->sanitize($_POST['passerEmail']):"";
 				$password = !empty($_POST['passerPass'])?$this->sanitize($_POST['passerPass']):"";
 				if(!empty($email) && !empty($password)){
