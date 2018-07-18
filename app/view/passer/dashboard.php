@@ -110,7 +110,7 @@ $rate = "Very Good!";
 		<div class="col-md-4 bg-secondary border border rounded mx-5 h-auto">
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-user text-white"></i></div>
-				<div class="col-md-auto"><label class="text-white">My Profile</label></div>
+				 <div class="col-md-auto"><label><a href="profile" class="text-white"> My Profile</a></label></div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-comments text-white"></i></div>
@@ -146,7 +146,7 @@ $rate = "Very Good!";
       		</div>
       		<hr>
       		<div class="container d-flex justify-content-center blue font-weight-bold">
-      			<label class="text-center"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Job Experience</span></label>
+      			<label class="text-center"  data-toggle="modal" data-target="#jobExperience"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Job Experience</span></label>
       		</div>
 		</div>
 		<!-- end of 2nd box 2nd row -->
@@ -194,7 +194,7 @@ $rate = "Very Good!";
 		<div class="d-flex justify-content-center">
 			<div class="row pt-1">
 				<div class="col-sm-auto">
-					<label class="text-center">Add your education attainment, Mate!</label>
+					<label class="text-center" data-toggle="modal" data-target="#education"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Education</span></label>
 				</div>
 			</div>
 		</div>
@@ -269,5 +269,5 @@ $rate = "Very Good!";
 
 <!-- content -->
 <?php
-	require "../public/header-footer/seeker/seekerFooter.marvee";
+	require "../public/header-footer/passer/passerFooter.marvee";
 ?>

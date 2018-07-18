@@ -1,11 +1,12 @@
 <?php 
 	require "../public/header-footer/header.marvee";
+	require "modal/loginModal.html";
 ?>
  	<div class="container-fluid my-4 col-12 col-sm-5" id="passerLogin">
  		<form class="shadow-lg px-3 mb-5 bg-white rounded" method="POST">
      		<div class="row justify-content-center ">
      			<ul class="nav nav-pills px-0 col-12" id="myForm">			 
-		      		<li class="col-md-6 text-center  bg-light rounded">
+		      		<li class="col-md-6 text-center active  bg-light rounded">
 		      			<a class="text-dark cursor passerTab"><h4>Passer</h4></a>
 		      		</li> 			     
 		      		<li class="col-md-6 text-center  bg-light rounded">
@@ -50,7 +51,7 @@
 							<input type="checkbox" class="form-check-input " ><h6>Remember me </h6>
 						</div>
 						<div class="col-md-5">
-							<a href="#">Forgot Password?</a>
+							<input value="Forgot Password?" type="button" class="btn btn-link " data-toggle="modal" data-target="#forgotPassModal">
 						</div>
 					</div>
 				</div>
@@ -81,7 +82,7 @@
 		      		<li class="col-md-6 text-center  bg-light rounded">
 		      			<a class="text-dark cursor passerTab"><h4>Passer</h4></a>
 		      		</li> 			     
-		      		<li class="col-md-6 text-center  bg-light rounded">
+		      		<li class="col-md-6 text-center active bg-light rounded">
 		      			<a class="text-dark cursor seekerTab"><h4>Seeker</h4></a>
 		      		</li>			     
 			    </ul>
@@ -122,7 +123,7 @@
 							<input type="checkbox" class="form-check-input " ><h6>Remember me </h6>
 						</div>
 						<div class="col-md-5">
-							<a href="#">Forgot Password?</a>
+							<input value="Forgot Password?" type="button" class="btn btn-link " data-toggle="modal" data-target="#forgotPassModal">
 						</div>
 					</div>
 				</div>

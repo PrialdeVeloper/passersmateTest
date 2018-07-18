@@ -214,5 +214,21 @@
 				}
 			}
 		}
+
+		// public function updatePasserJobExperience(){
+		// 	if(isset($_POST['passerJobExperienceData'])){
+		// 		try {
+		// 		$title = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['jTitle']));
+		// 		$company = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['company']));
+		// 		$startDate = $this->sanitize(date("Y-m-d",strtotime($_POST['startDate'])));
+		// 		$endDate = $this->sanitize(date("Y-m-d",strtotime($_POST['endDate'])));
+		// 		$res = $this->model->updateDB($this->passerTable,$this->passDashboardPersonalDetails,array($title,$company,$startDate,$endDate),$this->passerUnique,$this->passerSession);
+		// 		echo json_encode(array("error"=>"none"));
+		// 		} catch (Exception $e) {
+		// 			echo json_encode(array("error"=>$e->getMessage()));
+		// 		}
+				
+		// 	}
+		// }
 	}
 ?>

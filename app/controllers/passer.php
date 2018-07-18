@@ -35,6 +35,15 @@
 		 	}
 			$this->controller->view("passer/register");
 		}
+
+		public function profile(){
+			if(!$this->checkSession('passerUser')){
+		 		header("location:register");
+		 	}
+		 	$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($this->passerSession));
+		 	$data[] = array("userDetails"=>$details);
+			$this->controller->view("passer/profile",$data);
+		}
 		
 	}
 
