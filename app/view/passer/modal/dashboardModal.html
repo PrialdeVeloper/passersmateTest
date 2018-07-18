@@ -284,12 +284,12 @@
 				<div class="modal-body bg-white">
 					<div class="alert alert-danger text-center hidethis" id="personalDetailsModalError">
 					</div>
-					<form id="passerDetailsForm">
+					<form id="passerDetailsForm" enctype="multipart/form-data">
 						<div class="container">
 							<div class="row">
 								<div class="col-sm-3">
 									<div class="d-flex justify-content-center">
-										<img src="../../public/etc/images/system/calendar.png" class="modalAddDetails" id="previewImage">
+										<img src="<?=!empty($PasserProfile)?$PasserProfile: '../../public/etc/images/system/calendar.png'?>" class="modalAddDetails" id="previewImage">
 									</div>
 								</div>
 								<div class="offset-1 col-sm-4 pt-3" id="uploadPhotoDiv">
@@ -524,7 +524,7 @@
 					
 					</div>
 					<div class="modal-footer bg-light">
-						<button type="button" name="passerUpdateData" class="btn btn-success" onclick="updatePasserDetails();"><span class="text-white">Submit</span></button>
+						<button type="submit" name="passerUpdateData" class="btn btn-success"><span class="text-white">Submit</span></button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
 					</div>
 				</form>

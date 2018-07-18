@@ -8,6 +8,7 @@
 <head>
 	<title><?php echo isset($title)?$title:"Passersmate"; ?></title>
 	<meta charset="utf-8">
+	<meta http-equiv="Cache-control" content="no-cache">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php 
 	if(file_exists("../public/etc/bootstrap/css/bootstrap.min.css")){

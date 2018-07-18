@@ -41,8 +41,8 @@ $rate = "Very Good!";
 	<div class="row">
 		<!-- 1st box -->
 		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv">
-			<div class="d-flex justify-content-center">
-				<img class="fluid seekerProfile" src="../../public/etc/images/user/dashboardSample.png" alt="Profile"></img>
+			<div class="d-flex align-items-center justify-content-center">
+				<img class="fluid seekerProfile" src="<?=!empty($PasserProfile)? $PasserProfile: '../../public/etc/images/user/dashboardSample.png'?>" alt="Profile"></img>
 			</div>
 			<hr>
 			<div class="container">

@@ -197,7 +197,7 @@ function readURL(input) {
 
 $(function(){
 	$(".inputImage").change(function(){
-
+		$(this).attr("data-integrity","allow");
 		let imageCheck = checkValidImage("input[name=profileUploadPasser]");
 			if(imageCheck){
 				$("#personalDetailsModalError").hide();
@@ -422,43 +422,45 @@ $(function(){
 // dashboard passer
 
 
-function updatePasserDetails(){
+$(function(){
+	$("#passerDetailsForm").submit(function(event){
+		event.preventDefault();
 	let responseUser = confirm("Are you sure you want to save changes?");
-	if(responseUser == true){
-		let address = $("input[name=passerAddress]");
-		let streetField = $("input[name=passerStreet]");
-		let cityField = $("input[name=passerCity]");
-		let birthdate = $("input[name=passerBirthdate]");
-		let gender = $("#gender");
-		let genderData = ["Male","Female"];
-		let cpNo = $("#passerNumber");
-		let img = $("#previewImage");
-		let inputImageProfile = $("input[name=profileUploadPasser]").get[0];
+		if(responseUser == true){
+			let address = $("input[name=passerAddress]");
+			let streetField = $("input[name=passerStreet]");
+			let cityField = $("input[name=passerCity]");
+			let birthdate = $("input[name=passerBirthdate]");
+			let gender = $("#gender");
+			let genderData = ["Male","Female"];
+			let cpNo = $("#passerNumber");
+			let img = $("#previewImage");
+			let inputImageProfile = $("input[name=profileUploadPasser]").get[0];
 
-		if(checkEmpty(address.val()) || checkEmpty(streetField.val()) || checkEmpty(cityField.val()) || checkEmpty(birthdate.val()) || 
-			checkDate(birthdate.val()) == false || gender.val() == "notSelected" 
-			|| checkArraySame(genderData,gender.val()) == false || checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
-			if(checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
-				showDivError("#personalDetailsModalError","Please input valid cellphone number");
-			}
-			if(gender.val() == "notSelected" || checkArraySame(genderData,gender.val()) == false){
-				showDivError("#personalDetailsModalError","Please select a gender");	
-			}
-			if(checkEmpty(address.val())){
-				showDivError("#personalDetailsModalError","Please input valid Address");
-			}
-			if(checkEmpty(streetField.val())){
-				showDivError("#personalDetailsModalError","Please input valid Street Address");
-			}
-			if(checkEmpty(cityField.val())){
-				showDivError("#personalDetailsModalError","Please input valid City");
-			}
-			if(checkEmpty(birthdate.val()) || checkDate(birthdate.val()) == false){
-				showDivError("#personalDetailsModalError","Please input valid Birthdate");
-			}
-		}else{
-			$("#personalDetailsModalError").hide();
-				if(img.attr("src") == "../../public/etc/images/system/calendar.png"){
+			if(checkEmpty(address.val()) || checkEmpty(streetField.val()) || checkEmpty(cityField.val()) || checkEmpty(birthdate.val()) || 
+				checkDate(birthdate.val()) == false || gender.val() == "notSelected" 
+				|| checkArraySame(genderData,gender.val()) == false || checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
+				if(checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
+					showDivError("#personalDetailsModalError","Please input valid cellphone number");
+				}
+				if(gender.val() == "notSelected" || checkArraySame(genderData,gender.val()) == false){
+					showDivError("#personalDetailsModalError","Please select a gender");	
+				}
+				if(checkEmpty(address.val())){
+					showDivError("#personalDetailsModalError","Please input valid Address");
+				}
+				if(checkEmpty(streetField.val())){
+					showDivError("#personalDetailsModalError","Please input valid Street Address");
+				}
+				if(checkEmpty(cityField.val())){
+					showDivError("#personalDetailsModalError","Please input valid City");
+				}
+				if(checkEmpty(birthdate.val()) || checkDate(birthdate.val()) == false){
+					showDivError("#personalDetailsModalError","Please input valid Birthdate");
+				}
+			}else{
+				$("#personalDetailsModalError").hide();
+				if($("input[name=profileUploadPasser]").attr("data-integrity") === undefined){
 					$.ajax({
 						url: "updatePasserPersonalDetails",
 						method: "POST",
@@ -476,51 +478,41 @@ function updatePasserDetails(){
 							showDivError("#personalDetailsModalError","Cannot connect to server. Please try again");	
 						}
 					});
-				}else{
-					let formPasserDetails = new FormData() ;
+				}
+				else{
 					let imageCheck = checkValidImage("input[name=profileUploadPasser]");
-					formPasserDetails.append("image",$("#profileUploadPasser"));
-					console.log(formPasserDetails);
 					if(imageCheck){
-						// $.ajax({
-						// 	url: "updatePasserPersonalDetails",
-						// 	method: "POST",
-						// 	enctype: 'multipart/form-data',
-					 //        processData: false,
-					 //        contentType: false,
-					 //        cache: false,
-						// 	data: new FormData($("#passerDetailsForm")),
-						console.log($("#passerDetailsForm")[0]);
+						let formData = new FormData(this);
+						formData.append("passerUpdateDataWithImage","");
+						formData.append("passerAddress",address.val());
+						formData.append("passerStreet",streetField.val());
+						formData.append("passerCity",cityField.val());
+						formData.append("passerGender",gender.val());
+						formData.append("PasserCPNo",cpNo.val());
+						formData.append("passerBirthdate",birthdate.val());
 						$.ajax({
-            url: "updatePasserPersonalDetails",
-            type: "POST",
-            data: {formPasserDetails,"passerUpdateDataWithImage":""},
-            async: false,
-            success: function (msg) {
-                alert(msg)
-            },
-            cache: false,
-            contentType: false,
-            processData: false,
-							success: function(returnData,returnStatus){
-								// let obj = JSON.parse(returnData);
-								// if(obj.error =="none"){
-								// 	window.location = "dashboard";	
-								// }else{
-								// 	showDivError("#personalDetailsModalError",returnData);
-								// }
-								console.log(returnData);
+							url: "updatePasserPersonalDetails",
+							method: "POST",
+							data: formData,
+							contentType: false,
+							cache: false,
+							processData:false,
+							success: function(returnStatus){
+								let obj = JSON.parse(returnStatus);
+								if(obj.error == "none"){
+									window.location = "dashboard";	
+								}else{
+									showDivError("#personalDetailsModalError","Sorry, Something went wrong. Please try again later.");
+								}
 							},
-							fail: function(){
-								showDivError("#personalDetailsModalError","Cannot connect to server. Please try again");	
-							}
 						});
 					}
-						else{
+					else{
 						showDivError("#personalDetailsModalError","Please choose valid image");
 					}
 				}	
+			}
 		}
-	}
-}
+	});
+});
 // end of dashboard passer

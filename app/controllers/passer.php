@@ -21,7 +21,7 @@
 			$data = [];
 			$details = null;
 			if(!$this->checkSession('passerUser')){
-		 		header("location:register");
+		 		header("location:../home/login");
 		 	}
 		 	$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($this->passerSession));
 		 	$data[] = array("userDetails"=>$details);

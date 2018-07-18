@@ -151,13 +151,13 @@
 		}
 
 		public function imageUpload($destination,$file,$id){
-			$target_dir = "../../public/etc/images/".$destination."/";
+			$target_dir = "../public/etc/images/".$destination."/";
 			$target_file = $target_dir . basename($_FILES[$file]["name"]);
 			$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 			$randomFileName = time() . strtotime("now") . rand(1,6) . $id . "." . $imageFileType;
 			$fileDir = $target_dir . $randomFileName;
 		    if (move_uploaded_file($_FILES[$file]["tmp_name"], $fileDir)) {
-		        return $randomFileName;
+		        return "../../public/etc/images/".$destination."/" . $randomFileName;
 		    } else {
 		        return $_FILES[$file]["error"];
 		    }
@@ -200,7 +200,7 @@
 				}
 			}elseif(isset($_POST['passerUpdateDataWithImage'])){
 				try {
-				$passerProfile = $this->imageUpload("user",$_POST['image'],$this->passerSession);
+				$passerProfile = $this->imageUpload("user","profileUploadPasser",$this->passerSession);
 				$passerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerAddress']));
 				$passerStreet = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerStreet']));
 				$passerCity = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerCity']));
