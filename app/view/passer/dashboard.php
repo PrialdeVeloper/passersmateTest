@@ -42,7 +42,7 @@ $rate = "Very Good!";
 		<!-- 1st box -->
 		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv">
 			<div class="d-flex align-items-center justify-content-center">
-				<img class="fluid seekerProfile" src="<?=!empty($PasserProfile)? $PasserProfile: '../../public/etc/images/user/dashboardSample.png'?>" alt="Profile"></img>
+				<img class="fluid seekerProfile rounded-circle" src="<?=!empty($PasserProfile)? $PasserProfile: '../../public/etc/images/user/dashboardSample.png'?>" alt="Profile"></img>
 			</div>
 			<hr>
 			<div class="container">
@@ -194,13 +194,13 @@ $rate = "Very Good!";
 		<div class="d-flex justify-content-center">
 			<div class="row pt-1">
 				<div class="col-sm-auto">
-					<label class="text-center" data-toggle="modal" data-target="#education"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Education</span></label>
+					<label class="text-center">Add your educational attainment</label>
 				</div>
 			</div>
 		</div>
 		<hr>
 		<div class="container d-flex justify-content-center blue font-weight-bold">
-			<label class="text-center"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Education</span></label>
+			<label class="text-center" data-toggle="modal" data-target="#education"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Education</span></label>
 		</div>
 	</div>
 	<!-- end of 2nd box 3rd row -->

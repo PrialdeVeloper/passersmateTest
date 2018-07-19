@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2018 at 05:08 PM
+-- Generation Time: Jul 19, 2018 at 03:15 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -55,13 +55,6 @@ CREATE TABLE `canceljob` (
   `CancelStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `canceljob`
---
-
-INSERT INTO `canceljob` (`CancelJobID`, `OfferJobID`, `CancelDate`, `CancelTime`, `CancelReason`, `CancelStatus`) VALUES
-(1, 1, '2001-01-01', '0000-00-00 00:00:00', 'justGiveMeAReason', 'status');
-
 -- --------------------------------------------------------
 
 --
@@ -74,13 +67,6 @@ CREATE TABLE `certificateofemployment` (
   `AdminID` int(11) NOT NULL,
   `GeneratedKey` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `certificateofemployment`
---
-
-INSERT INTO `certificateofemployment` (`CertificateOfEmploymentID`, `OfferJobID`, `AdminID`, `GeneratedKey`) VALUES
-(1, 1, 1, 'yawi');
 
 -- --------------------------------------------------------
 
@@ -95,13 +81,6 @@ CREATE TABLE `dispute` (
   `DisputeTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `DisputeDesc` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `dispute`
---
-
-INSERT INTO `dispute` (`DisputeID`, `offerJobID`, `DisputeDate`, `DisputeTime`, `DisputeDesc`) VALUES
-(1, 1, '2001-01-01', '0000-00-00 00:00:00', 'description');
 
 -- --------------------------------------------------------
 
@@ -139,13 +118,6 @@ CREATE TABLE `message` (
   `MessageStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `message`
---
-
-INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `MessageDate`, `MessageTime`, `MessageStatus`) VALUES
-(1, 1, 1, 'syrelbaboy', '2011-06-16', '0000-00-00 00:00:00', 'inrelationship');
-
 -- --------------------------------------------------------
 
 --
@@ -160,13 +132,6 @@ CREATE TABLE `multimedia` (
   `MultimediaDateUploaded` varchar(255) NOT NULL,
   `MultimediaDesc` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `multimedia`
---
-
-INSERT INTO `multimedia` (`MultimediaID`, `PasserID`, `SeekerID`, `Multimedia`, `MultimediaDateUploaded`, `MultimediaDesc`) VALUES
-(1, 1, 1, '', 'sauna ra', 'nabuang');
 
 -- --------------------------------------------------------
 
@@ -185,13 +150,6 @@ CREATE TABLE `notification` (
   `NotificationType` varchar(255) NOT NULL,
   `NotificationStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `notification`
---
-
-INSERT INTO `notification` (`NotificationID`, `PasserID`, `SeekerID`, `SubscriptionID`, `MessageID`, `OfferJobID`, `CancelJobID`, `NotificationType`, `NotificationStatus`) VALUES
-(2, 1, 1, 1, 1, 1, 1, 'type', 'status');
 
 -- --------------------------------------------------------
 
@@ -212,13 +170,6 @@ CREATE TABLE `offerjob` (
   `Payment` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `offerjob`
---
-
-INSERT INTO `offerjob` (`OfferJobID`, `SeekerID`, `PasserID`, `JobOfferDate`, `JobOfferTime`, `JobOfferDesc`, `JobOfferNeeded`, `JobOfferStatus`, `PaymentMethod`, `Payment`) VALUES
-(1, 1, 1, '2009-11-13', '0000-00-00 00:00:00', 'description', 0, 'status', 'bisagunsa', 2000);
-
 -- --------------------------------------------------------
 
 --
@@ -230,45 +181,56 @@ CREATE TABLE `passer` (
   `PasserFN` varchar(255) NOT NULL,
   `PasserLN` varchar(255) NOT NULL,
   `PasserMname` varchar(100) NOT NULL,
-  `PasserBirthdate` date NOT NULL,
+  `PasserBirthdate` date DEFAULT NULL,
   `PasserAge` int(11) NOT NULL,
   `PasserGender` varchar(255) NOT NULL,
   `PasserStreet` varchar(255) NOT NULL,
   `PasserCity` varchar(255) NOT NULL,
   `PasserAddress` varchar(255) NOT NULL,
-  `PasserCPNo` bigint(20) NOT NULL,
+  `PasserCPNo` bigint(20) DEFAULT NULL,
   `PasserEmail` varchar(255) NOT NULL,
-  `PasserStatus` varchar(255) NOT NULL,
+  `PasserStatus` varchar(255) NOT NULL DEFAULT '1',
   `PasserRate` int(11) NOT NULL,
   `PasserCOCNo` varchar(255) NOT NULL,
   `PasserPass` varchar(255) NOT NULL,
   `PasserCertificate` varchar(255) NOT NULL,
   `PasserCertificateType` varchar(100) NOT NULL,
-  `PasserTESDALink` varchar(255) NOT NULL
+  `PasserTESDALink` varchar(255) NOT NULL,
+  `PasserProfile` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passer`
 --
 
-INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`) VALUES
-(1, 'Joel', 'Abuga', '', '0000-00-00', 20, 'Male', '123', 'qwe', 'qwe', 2147483647, 'jabuga2k16@gmail.com', 'Single', 10, '123', 'qwe', '', '', ''),
-(3, 'CARELLE', 'PABLICO', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwe@gmail.com', '', 0, '14170402005297', 'qweqweqwe1', '', '', ''),
-(4, 'CARELLE', 'PABLICO', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwe@gmail.com', '', 0, '14170402005297', 'qweqweqwe1', '', '', ''),
-(5, 'CARELLE', 'PABLICO', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwe@gmail.com', '', 0, '14170402005297', 'qweqweqwe1', '', '', ''),
-(6, 'CARELLE', 'PABLICO', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwe@gmail.com', '', 0, '14170402005297', 'qweqweqwe1', '', '', ''),
-(7, 'CHESTER', 'TROPA', '', '0000-00-00', 0, '', '0', '', '', 0, 'zxc@gmail.om', '', 0, '13060402418846', 'qweqweqwe1', '', '', ''),
-(8, 'CHESTER', 'TROPA', '', '0000-00-00', 0, '', '0', '', '', 0, 'qwete@gmail.com', '', 0, '13060402418846', 'qweqweqwe1', '', '', ''),
-(9, 'Rose Ann', 'Tapado', '', '0000-00-00', 0, '', '0', '', '', 0, 'roseann@gmail.com', '', 0, '14050402001234', '', '', '', ''),
-(10, 'Rose Ann', 'Tapado', '', '0000-00-00', 0, '', '0', '', '', 0, 'roseann@gmail.com', '', 0, '14050402001234', '$2y$12$xHYuhoigNVsuNo/vXY2FJObiPXvnrcDOoet6FgHZEtz9WwYV0.A8m', '', '', ''),
-(11, 'Gemiel', 'Cailing', '', '0000-00-00', 0, '', '0', '', '', 0, 'ewq@gmail.com', '', 0, '16104302011579', '$2y$12$DozPgHZGLFGYGqhh0bwFwOkBxPm50.oUSW0y6.U9IZtagE23NeYSu', '', '', ''),
-(12, 'Gemiel', 'Cailing', '', '0000-00-00', 0, '', '0', '', '', 0, 'ewq@gmail.com', '', 0, '16104302011579', '$2y$12$A9W9VJxcZeVF9L2FHxXgjeNvYcwOurvAtRRa.xah4TDfneDNLiDX.', '', '', ''),
-(13, 'Joey', 'Cacas', '', '0000-00-00', 0, '', '0', '', '', 0, 'dsa@gmail.com', '', 0, '16131402022970', '$2y$12$pW7uleGcHepr0Tpx99CAoO7LtM2S7yShokfFrzBPL.ILRvU11dyeW', '', '', ''),
-(14, 'Royeth', 'Tapasao', '', '0000-00-00', 0, '', '0', '', '', 0, 'qweasdg@gmail.com', '', 0, '16104302012759', '$2y$12$O4kr5WfErnvycJzPP2bqZup.tLOpbeB506ylXRcLzrQMCBoM9E4mK', '', '', ''),
-(15, 'Elenito', 'Isales', '', '0000-00-00', 0, '', '0', '', '', 0, 'dsaasd@gmail.com', '', 0, '16104302012741', '$2y$12$mhpEUBKpD7UAOVWi84NLweF7sh6Kw/A5Vxm/eOQDyKf17ZCUHXi/K', '', '', ''),
-(16, 'Janice', 'Amparado', '', '0000-00-00', 0, '', '0', '', '', 0, 'janice@gmail.com', '', 0, '13131502002980', '$2y$12$56xyLWVRFJ1BzFb3sVrnDOjD3RITKcsykNY4J.iVX1vrpZEhxENm2', 'NC II', '', ''),
-(18, 'Marnelle', 'Magbag', 'L', '0000-00-00', 0, '', '0', '', '', 0, 'eqw@gmail.com', '', 0, '15131402031522', '$2y$12$IiTHTbvSXLf7iyj5qAXvC.ssPkqu2xJU51TM/NzmfUWEcceLiD.N6', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369191'),
-(19, 'Crismar', 'Tejamo', 'S', '0000-00-00', 12, 'I am', 'kalunasan', 'cebu', 'lower kamparang kalunasan cebu city', 9337752834, 'qwertq@gmail.com', '', 0, '16104302012760', '$2y$12$eVzAdmSzUAHxAYcFcwO4MuzLreCfnuqjDiAXNT.ImQN7lHGgQM8we', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369178');
+INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`) VALUES
+(1, 'Jodel', 'Adan', 'B', '2018-07-11', 0, 'Male', 'Qweq', 'Cebu City', 'Qwe', 1234526362, 'test@gmail.com', '1', 0, '13040102003962', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/1531999462153199946221.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `passereducation`
+--
+
+CREATE TABLE `passereducation` (
+  `educationID` int(11) NOT NULL,
+  `passerID` int(11) NOT NULL,
+  `educationAttainment` varchar(255) NOT NULL,
+  `educationSchool` varchar(255) NOT NULL,
+  `educationAccomplishment` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `passereducation`
+--
+
+INSERT INTO `passereducation` (`educationID`, `passerID`, `educationAttainment`, `educationSchool`, `educationAccomplishment`) VALUES
+(1, 1, 'Qwe', 'Qew', ''),
+(2, 1, 'Qwe', 'Qew', ''),
+(3, 1, 'Qwe', 'Qew', 'qwe'),
+(4, 1, 'College', 'Qw', 'qwe'),
+(5, 1, 'Elementary', 'Qwe', ''),
+(6, 1, 'Nursery', 'Qwe', '');
 
 -- --------------------------------------------------------
 
@@ -278,17 +240,10 @@ INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `Passer
 
 CREATE TABLE `passerskills` (
   `PasserSkillsID` int(11) NOT NULL,
+  `PasserId` int(11) NOT NULL,
   `PasserSkillsName` varchar(255) NOT NULL,
   `PasserSKillsDesc` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `passerskills`
---
-
-INSERT INTO `passerskills` (`PasserSkillsID`, `PasserSkillsName`, `PasserSKillsDesc`) VALUES
-(1, 'bastaSkill', 'qweqwe'),
-(2, 'skill1', 'qwe');
 
 -- --------------------------------------------------------
 
@@ -298,12 +253,12 @@ INSERT INTO `passerskills` (`PasserSkillsID`, `PasserSkillsName`, `PasserSKillsD
 
 CREATE TABLE `passerworkhistory` (
   `PasserWorkHistoryID` int(11) NOT NULL,
-  `OfferJobID` int(11) NOT NULL,
+  `OfferJobID` int(11) DEFAULT NULL,
   `PasserID` int(11) NOT NULL,
   `PasserWorkHistoryDesc` varchar(255) NOT NULL,
   `PasserWorkHistoryStartDate` date NOT NULL,
   `PasserWorkHistoryEndDate` date NOT NULL,
-  `PasserWorkHistoryWorkDays` int(11) NOT NULL
+  `PasserWorkHistoryWorkDays` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -311,7 +266,7 @@ CREATE TABLE `passerworkhistory` (
 --
 
 INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`) VALUES
-(1, 1, 1, 'description', '2001-01-01', '2002-02-02', 396);
+(2, NULL, 1, 'qwe', '2018-07-01', '2018-07-02', NULL);
 
 -- --------------------------------------------------------
 
@@ -339,17 +294,14 @@ CREATE TABLE `seeker` (
   `SeekerLN` varchar(255) NOT NULL,
   `SeekerAge` int(11) NOT NULL,
   `SeekerGender` varchar(255) NOT NULL,
-  `SeekerUnitNo` int(11) NOT NULL,
-  `SeekerStreetNo` int(11) NOT NULL,
   `SeekerStreetName` varchar(255) NOT NULL,
-  `SeekerBarangay` varchar(255) NOT NULL,
-  `SeekerMunicipality` varchar(255) NOT NULL,
   `SeekerPostalCode` int(11) NOT NULL,
-  `SeekerCPNo` int(11) NOT NULL,
-  `SeekerTelNo` varchar(255) NOT NULL,
+  `SeekerCPNo` int(11) DEFAULT NULL,
   `SeekerEmail` varchar(255) NOT NULL,
   `SeekerType` varchar(255) NOT NULL,
-  `SeekerStatus` varchar(255) NOT NULL,
+  `SeekerFacebookId` bigint(50) DEFAULT NULL,
+  `SeekerFacebookLink` varchar(255) DEFAULT NULL,
+  `SeekerStatus` varchar(255) DEFAULT '0',
   `SeekerUname` varchar(255) NOT NULL,
   `SeekerPass` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -358,8 +310,8 @@ CREATE TABLE `seeker` (
 -- Dumping data for table `seeker`
 --
 
-INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerAge`, `SeekerGender`, `SeekerUnitNo`, `SeekerStreetNo`, `SeekerStreetName`, `SeekerBarangay`, `SeekerMunicipality`, `SeekerPostalCode`, `SeekerCPNo`, `SeekerTelNo`, `SeekerEmail`, `SeekerType`, `SeekerStatus`, `SeekerUname`, `SeekerPass`) VALUES
-(1, 'Lemuel', 'Manatad', 22, 'Male', 6969, 6969, 'zxc', 'zxc', 'zxc', 6969, 2147483647, '256-8920', 'jlmabuga2k16@gmail.com', 'type1', 'SingleHaHa', 'masterseg1', 'pungkol321');
+INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerAge`, `SeekerGender`, `SeekerStreetName`, `SeekerPostalCode`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerStatus`, `SeekerUname`, `SeekerPass`) VALUES
+(1, 'Syrel', 'Prialde', 0, 'male', '', 0, NULL, 'syrelgm@gmail.com', '', 1416471571813746, 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEZAPYkJaX1EwOVpIanl6cS11N0JZAM01LemxVSlBXSG5NRnQ2TTJXRUdtazNFaG5JZAnZAqNkg2ZAm9JS2tPM0dCOW1QeDlzUVNsdVluSU9lRDJjcUZAJamhrYmx6dnh4RWJ6dXY2ZAXlGa0ZAxeThidXJW/', '0', '', '');
 
 -- --------------------------------------------------------
 
@@ -375,13 +327,6 @@ CREATE TABLE `subscription` (
   `SubscriptionEnd` date NOT NULL,
   `Payment` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `subscription`
---
-
-INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, `SubscriptionStart`, `SubscriptionEnd`, `Payment`) VALUES
-(1, 1, 1, '2001-01-01', '2002-02-02', 2000);
 
 -- --------------------------------------------------------
 
@@ -417,13 +362,6 @@ CREATE TABLE `subskill` (
   `SubSkillsFee` int(11) NOT NULL,
   `SubSkillsStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `subskill`
---
-
-INSERT INTO `subskill` (`SubSkillsID`, `PasserID`, `SubSkillsName`, `SubSkillDesc`, `SubSkillsFee`, `SubSkillsStatus`) VALUES
-(1, 1, 'subSS', 'description', 2000, 'status');
 
 -- --------------------------------------------------------
 
@@ -518,10 +456,18 @@ ALTER TABLE `passer`
   ADD PRIMARY KEY (`PasserID`);
 
 --
+-- Indexes for table `passereducation`
+--
+ALTER TABLE `passereducation`
+  ADD PRIMARY KEY (`educationID`),
+  ADD KEY `passerID` (`passerID`);
+
+--
 -- Indexes for table `passerskills`
 --
 ALTER TABLE `passerskills`
-  ADD PRIMARY KEY (`PasserSkillsID`);
+  ADD PRIMARY KEY (`PasserSkillsID`),
+  ADD KEY `PasserId` (`PasserId`);
 
 --
 -- Indexes for table `passerworkhistory`
@@ -632,19 +578,25 @@ ALTER TABLE `offerjob`
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `passereducation`
+--
+ALTER TABLE `passereducation`
+  MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `passerskills`
 --
 ALTER TABLE `passerskills`
-  MODIFY `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
-  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `review`
@@ -690,72 +642,84 @@ ALTER TABLE `switchaccount`
 -- Constraints for table `canceljob`
 --
 ALTER TABLE `canceljob`
-  ADD CONSTRAINT `canceljob_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`);
+  ADD CONSTRAINT `canceljob_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
-  ADD CONSTRAINT `certificateofemployment_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`),
-  ADD CONSTRAINT `certificateofemployment_ibfk_2` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`);
+  ADD CONSTRAINT `certificateofemployment_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `certificateofemployment_ibfk_2` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `dispute`
 --
 ALTER TABLE `dispute`
-  ADD CONSTRAINT `dispute_ibfk_1` FOREIGN KEY (`offerJobID`) REFERENCES `offerjob` (`OfferJobID`);
+  ADD CONSTRAINT `dispute_ibfk_1` FOREIGN KEY (`offerJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`),
-  ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`);
+  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `multimedia`
 --
 ALTER TABLE `multimedia`
-  ADD CONSTRAINT `multimedia_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`),
-  ADD CONSTRAINT `multimedia_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`);
+  ADD CONSTRAINT `multimedia_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `multimedia_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notification`
 --
 ALTER TABLE `notification`
-  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`),
-  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`),
-  ADD CONSTRAINT `notification_ibfk_3` FOREIGN KEY (`SubscriptionID`) REFERENCES `subscription` (`SubscriptionID`),
-  ADD CONSTRAINT `notification_ibfk_4` FOREIGN KEY (`MessageID`) REFERENCES `message` (`MessageID`),
-  ADD CONSTRAINT `notification_ibfk_5` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`),
-  ADD CONSTRAINT `notification_ibfk_6` FOREIGN KEY (`CancelJobID`) REFERENCES `canceljob` (`CancelJobID`);
+  ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_ibfk_3` FOREIGN KEY (`SubscriptionID`) REFERENCES `subscription` (`SubscriptionID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_ibfk_4` FOREIGN KEY (`MessageID`) REFERENCES `message` (`MessageID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_ibfk_5` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `notification_ibfk_6` FOREIGN KEY (`CancelJobID`) REFERENCES `canceljob` (`CancelJobID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `offerjob`
 --
 ALTER TABLE `offerjob`
-  ADD CONSTRAINT `offerjob_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`),
-  ADD CONSTRAINT `offerjob_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`);
+  ADD CONSTRAINT `offerjob_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `offerjob_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `passereducation`
+--
+ALTER TABLE `passereducation`
+  ADD CONSTRAINT `passereducation_ibfk_1` FOREIGN KEY (`passerID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `passerskills`
+--
+ALTER TABLE `passerskills`
+  ADD CONSTRAINT `passerskills_ibfk_1` FOREIGN KEY (`PasserId`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
-  ADD CONSTRAINT `passerworkhistory_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`),
-  ADD CONSTRAINT `passerworkhistory_ibfk_2` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`);
+  ADD CONSTRAINT `passerworkhistory_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `passerworkhistory_ibfk_2` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `subscription`
 --
 ALTER TABLE `subscription`
-  ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`),
-  ADD CONSTRAINT `subscription_ibfk_2` FOREIGN KEY (`SubscriptionTypeID`) REFERENCES `subscriptiontype` (`SubscriptionTypeID`);
+  ADD CONSTRAINT `subscription_ibfk_1` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `subscription_ibfk_2` FOREIGN KEY (`SubscriptionTypeID`) REFERENCES `subscriptiontype` (`SubscriptionTypeID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `subskill`
 --
 ALTER TABLE `subskill`
-  ADD CONSTRAINT `subskill_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`);
+  ADD CONSTRAINT `subskill_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

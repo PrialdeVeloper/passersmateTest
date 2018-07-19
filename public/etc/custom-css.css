@@ -190,8 +190,9 @@ span[data-toggle=modal]{
 }
 
 .seekerProfile{
+  height: 200px;
   width: 200px;
-  padding-top: 30px;
+  margin-top: 30px;
 }
 
 #shortInfo{

@@ -35,6 +35,81 @@
 			}
 		}
 
+		public function returnURLFacebook(){
+			$fb = null;
+			$data = [];
+			$fb = new Facebook\Facebook([
+				'app_id' => '170160493603540',
+				'app_secret' => 'e0f71895d4a60525054f55567ccd486f',
+				'default_graph_version' => 'v2.12'
+			]);
+			$helper = $fb->getRedirectLoginHelper();
+			$redirectURL = "http://localhost/passersmate/public/home/getFacebookData";
+			$permission = array("email","user_birthday");
+			$loginURL = $helper->getLoginUrl($redirectURL,$permission);
+			return $loginURL;
+		}
+
+		public function getFacebookData(){
+			$fb = new Facebook\Facebook([
+				'app_id' => '170160493603540',
+				'app_secret' => 'e0f71895d4a60525054f55567ccd486f',
+				'default_graph_version' => 'v2.12'
+			]);
+
+			$helper = $fb->getRedirectLoginHelper();
+			try {
+				$accessToken = $helper->getAccessToken();
+			} catch (\Facebook\Exception\FacebookResponseException $e) {
+				echo 'response sdk: ' .$e->getMessage();
+			} catch(\Facebook\Exception\FacebookSDKException $e){
+				echo 'SDK: '. $e->getMessage();
+			}
+
+			if(!$accessToken){
+				header("location: ../seeker/dashboard");
+			}
+
+			$oauth = $fb->getOAuth2Client();
+			if(!$accessToken->isLongLived())
+				$accessToken = $oauth->getLongLivedAccessToken($accessToken);
+
+			$res = $fb->get("/me?fields=id, first_name, middle_name, last_name, email, picture.type(large), cover, gender, address, link, location, birthday, age_range",$accessToken);
+			$user = $res->getGraphNode()->asArray();
+			$facebookIdCheck = $this->model->checkExistSingle($this->seekerTable,$this->seekerFacebook,array($this->sanitize($user['id'])));
+			$seekerFacebookId = $this->sanitize($user['id']);
+			if($facebookIdCheck <= 0){
+				$seekerFName = $this->sanitize($user['first_name']);
+				$seekerLName = $this->sanitize($user['last_name']);
+				$seekerEmail = $this->sanitize($user['email']);
+				$seekerGender = $this->sanitize($user['gender']);
+				$seekerLink = $this->sanitize($user['link']);
+				$return = $this->model->insertDB($this->seekerTable,$this->seekerFacebookAdd,array($seekerFacebookId,$seekerFName,$seekerLName,$seekerEmail,$seekerGender,$seekerLink));
+				if($return){
+					$_SESSION['seekerUser'] = $return;
+					$fb = null;
+					$accessToken = null;
+					$oauth = null;
+					$user = null;
+					$res = null;
+					$return = null;
+					header("location: ../seeker/dashboard");
+				}
+			}else{
+				$return = $this->model->selectSingleUser($this->seekerTable,$this->seekerUnique,array($seekerFacebookId),$this->seekerFacebook);
+				if($return){
+					$_SESSION['seekerUser'] = $return;
+					$fb = null;
+					$accessToken = null;
+					$oauth = null;
+					$user = null;
+					$res = null;
+					$return = null;
+					header("location: ../seeker/dashboard");
+				}
+			}
+		}
+
 		public function showError($div,$message){
 			echo '
 			<script>
@@ -76,7 +151,6 @@
 				curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 				curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 				$res = curl_exec($curl);
-				// print_r($res);
 				curl_close($curl);
 
 				$dom = new simple_html_dom();
@@ -215,20 +289,34 @@
 			}
 		}
 
-		// public function updatePasserJobExperience(){
-		// 	if(isset($_POST['passerJobExperienceData'])){
-		// 		try {
-		// 		$title = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['jTitle']));
-		// 		$company = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['company']));
-		// 		$startDate = $this->sanitize(date("Y-m-d",strtotime($_POST['startDate'])));
-		// 		$endDate = $this->sanitize(date("Y-m-d",strtotime($_POST['endDate'])));
-		// 		$res = $this->model->updateDB($this->passerTable,$this->passDashboardPersonalDetails,array($title,$company,$startDate,$endDate),$this->passerUnique,$this->passerSession);
-		// 		echo json_encode(array("error"=>"none"));
-		// 		} catch (Exception $e) {
-		// 			echo json_encode(array("error"=>$e->getMessage()));
-		// 		}
-				
-		// 	}
-		// }
+		public function addJobExperience(){
+			if(isset($_POST['passerJobExperienceData'])){
+				try {
+				$title = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['jTitle']));
+				$company = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['company']));
+				$startDate = $this->sanitize(date("Y-m-d",strtotime($_POST['startDate'])));
+				$endDate = $this->sanitize(date("Y-m-d",strtotime($_POST['endDate'])));
+				unset($this->passerWorkHistory[0]);
+				unset($this->passerWorkHistory[5]);
+				$res = !empty($_POST["passerWorkDesc"])? $this->model->insertDB("passerworkhistory",$this->passerWorkHistory,array($this->passerSession,$this->sanitize($_POST["passerWorkDesc"]),$startDate,$endDate)): $this->model->insertDB("passerworkhistory",$this->passerWorkHistory,array($this->passerSession,"",$startDate,$endDate));
+				echo json_encode(array("error"=>"none"));
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+			}
+		}
+
+		public function addEducation(){
+			if(isset($_POST['passerEducation'])){
+				try {
+				$attainment = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['educationalLevel']));
+				$school = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['school']));
+				$res = !empty($_POST["passerDesc"])? $this->model->insertDB("passereducation",$this->passerEducation,array($this->passerSession,$attainment,$school,$this->sanitize($_POST["passerDesc"]))): $this->model->insertDB("passereducation",$this->passerEducation,array($this->passerSession,$attainment,$school,""));
+				echo json_encode(array("error"=>"none"));
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+			}
+		}
 	}
 ?>

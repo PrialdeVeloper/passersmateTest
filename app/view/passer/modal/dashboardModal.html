@@ -633,79 +633,88 @@
 		        <div class="modal-body bg-light ">
 		        	<div class="alert alert-danger text-center hidethis" id="jobExperienceModalError">
 					</div>
-		        	<div class="row ">
-		        		<div class="col-sm-12 mb-1">
-		          			<h5 class="modal-title ">Job title</h5>
-		          		</div>
-		          		<div class="col-sm-12 text-center mb-4">
-		          			<input type="text" name="jTitle" class="form-control" placeholder="Your job title here">
-		          		</div>
+					<form id="jobExperienceModal">
+			        	<div class="row ">
+			        		<div class="col-sm-12 mb-1">
+			          			<h5 class="modal-title ">Job title</h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center mb-4">
+			          			<input type="text" required name="jTitle" class="form-control" placeholder="Your job title here">
+			          		</div>
 
-		          		<div class="col-sm-12 mb-1">
-		          			<h5 class="modal-title ">Company</h5>
-		          		</div>
-		          		<div class="col-sm-12 text-center mb-4">
-		          			<input type="text" name="company" class="form-control" placeholder="The company you worked with">
-		          		</div>	
+			          		<div class="col-sm-12 mb-1">
+			          			<h5 class="modal-title ">Company</h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center mb-4">
+			          			<input type="text" required name="company" class="form-control" placeholder="The company you worked with">
+			          		</div>	
 
-		          		<div class="col-sm-6">
-		          			<h5 class="modal-title ">From</h5>
-		          		</div>	
-		          		<div class="col-sm-6">
-		          			<h5 class="modal-title ">To</h5>
-		          		</div>	
+			          		<div class="col-sm-12 mb-1">
+			          			<h5 class="modal-title ">Description <small class="text-secondary">(optional)</small></h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center mb-4">
+			          			<textarea name="passerWorkDesc" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+			          		</div>
 
-       					<div class="col-sm-6">	
-                            <input type='text' id='start_datetime_picker' name="startDate" class="form-control date" placeholder="Start Date" />
-		          		</div>	
+			          		<div class="col-sm-6">
+			          			<h5 class="modal-title ">From</h5>
+			          		</div>	
+			          		<div class="col-sm-6">
+			          			<h5 class="modal-title ">To</h5>
+			          		</div>	
 
-						<script type="text/javascript">
-						    $(document).ready(function() {
-						    $('#start_datetime_picker').datepicker().on(
-						        'show',
-						        function() {
-						            var modal = $('#start_datetime_picker').closest('.modal');
-						            var datePicker = $('body').find('.datepicker');
-						            if (!modal.length) {
-						                $(datePicker).css('z-index', 'auto');
-						                return;
-						            }
-						            var zIndexModal = $(modal).css('z-index');
-						            $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
-							        }
-							    );
-							});
+	       					<div class="col-sm-6">	
+	                            <input type='text' required disabled readonly id='start_datetime_picker' name="startDate" class="form-control date" placeholder="Start Date" />
+			          		</div>	
 
-							$(document).ready(function() {
-						    $('#end_datetime_picker').datepicker().on(
-						        'show',
-						        function() {
-						            var modal = $('#end_datetime_picker').closest('.modal');
-						            var datePicker = $('body').find('.datepicker');
-						            if (!modal.length) {
-						                $(datePicker).css('z-index', 'auto');
-						                return;
-						            }
-						            var zIndexModal = $(modal).css('z-index');
-						            $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
-							        }
-							    );
-							});
+							<script type="text/javascript">
+							    $(document).ready(function() {
+							    $('#start_datetime_picker').datepicker().on(
+							        'show',
+							        function() {
+							            var modal = $('#start_datetime_picker').closest('.modal');
+							            var datePicker = $('body').find('.datepicker');
+							            if (!modal.length) {
+							                $(datePicker).css('z-index', 'auto');
+							                return;
+							            }
+							            var zIndexModal = $(modal).css('z-index');
+							            $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+								        }
+								    );
+								});
 
-							
-		       			</script> 
+								$(document).ready(function() {
+							    $('#end_datetime_picker').datepicker().on(
+							        'show',
+							        function() {
+							            var modal = $('#end_datetime_picker').closest('.modal');
+							            var datePicker = $('body').find('.datepicker');
+							            if (!modal.length) {
+							                $(datePicker).css('z-index', 'auto');
+							                return;
+							            }
+							            var zIndexModal = $(modal).css('z-index');
+							            $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+								        }
+								    );
+								});
 
-		          		<div class="col-sm-6">	
-                            <input type='text' id='end_datetime_picker' name="endDate" class="form-control date" placeholder="End Date" />
-		          		</div>	
+								
+			       			</script> 
 
-		        	</div>		          	
+			          		<div class="col-sm-6">	
+	                            <input type='text' required disabled readonly id='end_datetime_picker' name="endDate" class="form-control date" placeholder="End Date" />
+			          		</div>	
+
+			        	</div>	         	
 		        </div>
 		        <div class="modal-footer border">		
 		        	<div class="row col justify-content-center mx-0" >		        		
 		        		<div class="col-sm-4">
-		        			<button type="button" name="passerJobExperienceData" class="form-control btn btn-success">Save</button>
+		        			<button type="submit" name="passerJobExperienceData" class="form-control btn btn-success">Save</button>
 		        		</div>
+		        	</form>	 
 		        		<div class="col-sm-4">
 		        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
 		        		</div>
@@ -725,42 +734,46 @@
 		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>	
 
-		        <div class="modal-body bg-light ">
-		        	<div class="row ">
-		        		<div class="col-sm-12 mb-1">
-		          			<h5 class="modal-title ">Educational Attainment</h5>
-		          		</div>
-		          		<div class="col-sm-12 text-center mb-4">
-		          			<select name="educationalLevel" class="form-control">
-						        <option>Educational Level</option>						        
-						        <option value="College">College</option>
-						        <option value="HighSchool">HighSchool</option>
-						        <option value="Elementary">Elementary</option>
-						        <option value="Kindergarten">Kindergarten</option>
-						        <option value="Nursery">Nursery</option>
-						    </select>
-		          		</div>
+		        <form id="educationModal">
+			        <div class="modal-body bg-light ">
+			        	<div class="alert alert-danger text-center hidethis" id="educationModalError">
+						</div>
+				        	<div class="row">
+				        		<div class="col-sm-12 mb-1">
+				          			<h5 class="modal-title ">Educational Attainment</h5>
+				          		</div>
+				          		<div class="col-sm-12 text-center mb-4">
+				          			<select name="educationalLevel" class="form-control">
+								        <option>Educational Level</option>						        
+								        <option value="College">College</option>
+								        <option value="HighSchool">HighSchool</option>
+								        <option value="Elementary">Elementary</option>
+								        <option value="Kindergarten">Kindergarten</option>
+								        <option value="Nursery">Nursery</option>
+								    </select>
+				          		</div>
 
-		          		<div class="col-sm-12 mb-1">
-		          			<h5 class="modal-title ">School/University</h5>
-		          		</div>
-		          		<div class="col-sm-12 text-center mb-4">
-		          			<input type="text" name="school" class="form-control" placeholder="School/University last attended">
-		          		</div>	
+				          		<div class="col-sm-12 mb-1">
+				          			<h5 class="modal-title ">School/University</h5>
+				          		</div>
+				          		<div class="col-sm-12 text-center mb-4">
+				          			<input type="text" name="school" class="form-control" placeholder="School/University last attended">
+				          		</div>	
 
-		          		<div class="col-sm-12 mb-1">
-		          			<h5 class="modal-title ">Accomplishments or descriptions(optional)</h5>
-		          		</div>
-		          		<div class="col-sm-12 text-center mb-4">
-		          			<textarea class="form-control" rows="5" id="dsecription" placeholder="Valedictorian, Honorable Mentions, etc."></textarea>
-		          		</div>	
-		        	</div>		          	
-		        </div>
-		        <div class="modal-footer border">		
+				          		<div class="col-sm-12 mb-1">
+				          			<h5 class="modal-title ">Accomplishments or descriptions(optional)</h5>
+				          		</div>
+				          		<div class="col-sm-12 text-center mb-4">
+				          			<textarea name="passerDesc" class="form-control" rows="5" id="dsecription" placeholder="Valedictorian, Honorable Mentions, etc."></textarea>
+				          		</div>	
+				        	</div>	          	
+				    </div>
+			        <div class="modal-footer border">		
 		        	<div class="row col justify-content-center mx-0" >		        		
 		        		<div class="col-sm-4">
-		        			<button type="button" class="form-control btn btn-success">Save</button>
+		        			<button type="submit" class="form-control btn btn-success">Save</button>
 		        		</div>
+		        </form>		
 		        		<div class="col-sm-4">
 		        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
 		        		</div>

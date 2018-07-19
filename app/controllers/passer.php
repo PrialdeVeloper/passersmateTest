@@ -4,6 +4,8 @@
 		public $passerReg = array("PasserCOCNo","PasserFN","PasserLN","PasserMname","PasserPass","PasserEmail","PasserCertificate","PasserCertificateTyPe","PasserTESDALink");
 		public $passDashboardPersonalDetails = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate");
 		public $passDashboardPersonalDetailsWithPhoto = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserProfile");
+		public $passerWorkHistory = array("OfferJobID","PasserID","PasserWorkHistoryDesc","PasserWorkHistoryStartDate","PasserWorkHistoryEndDate","PasserWorkHistoryWorkDays");
+		public $passerEducation = array("passerID","educationAttainment","educationSchool","educationAccomplishment");
 		protected $passerTable = 'passer';
 		protected $passerSession;
 		protected $passerUnique = 'PasserID';

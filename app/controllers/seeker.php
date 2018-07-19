@@ -1,5 +1,8 @@
 <?php 
 	class seeker extends Controller{
+		public $seekerTable = "seeker";
+		public $seekerUnique = "SeekerID";
+		public $seekerFacebook = "seekerFacebookId";
 		public function __construct(){
 			$this->controller = new Controller();
 			$this->model = $this->controller->model("dbModel");

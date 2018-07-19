@@ -155,7 +155,6 @@ function checkDate(variable){
 
 
 function showDivError(div,message){
-	$(div).empty();
 	$(div).append("<div class='col'>"+message+"</div>");
 	$(div).show();
 }
@@ -440,6 +439,7 @@ $(function(){
 			if(checkEmpty(address.val()) || checkEmpty(streetField.val()) || checkEmpty(cityField.val()) || checkEmpty(birthdate.val()) || 
 				checkDate(birthdate.val()) == false || gender.val() == "notSelected" 
 				|| checkArraySame(genderData,gender.val()) == false || checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
+				$("#personalDetailsModalError").empty();
 				if(checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
 					showDivError("#personalDetailsModalError","Please input valid cellphone number");
 				}
@@ -515,4 +515,107 @@ $(function(){
 		}
 	});
 });
+
+// add work experience
+$(function(){
+	$("#jobExperienceModal").submit(function(event){
+		event.preventDefault();
+		let jobTitle = $("input[name=jTitle]").val();
+		let company = $("input[name=company").val();
+		let description = $("input[name=workDescription]").val();
+		let startDate = $("input[name=startDate]").val();
+		let endDate = $("input[name=endDate]").val();
+		if(checkEmpty(jobTitle) || checkEmpty(company) || checkEmpty(startDate) || checkEmpty(endDate)
+			|| Date.parse(endDate) < Date.parse(startDate)){
+				$("#jobExperienceModalError").empty();
+				if(checkEmpty(jobTitle)){
+					showDivError("#jobExperienceModalError","Please enter job Title");
+				}
+				if(checkEmpty(company)){
+					showDivError("#jobExperienceModalError","Please enter Company Name");
+				}
+				if(checkEmpty(startDate)){
+					showDivError("#jobExperienceModalError","Please enter Start Date of Job");
+				}
+				if(checkEmpty(endDate)){
+					showDivError("#jobExperienceModalError","Please enter End Date of Job");
+				}
+				if(Date.parse(endDate) < Date.parse(startDate)){
+					showDivError("#jobExperienceModalError","Please make sure your dates are valid");
+				}
+		}else{
+			let formData = new FormData(this);
+			formData.append("passerJobExperienceData","");
+			formData.append("startDate",startDate);
+			formData.append("endDate",endDate);
+			$.ajax({
+				url: "addJobExperience",
+				method: "POST",
+				data: formData,
+				processData: false,
+    			contentType: false,
+				success: function(dataRet){
+					let obj = JSON.parse(dataRet);
+					if(obj.error == "none"){
+						window.location='dashboard';
+					}
+					else{
+						showDivError("#jobExperienceModalError","There was an error inserting your data. Please try again later");
+					}
+				},
+				fail: function(){
+					alert("cannot connect to server");
+				}
+			});
+		}
+	});
+});
+
+// end add work experience
+$(function(){
+	$("#educationModal").submit(function(event){
+		event.preventDefault();
+		let eduLevel = $("select[name=educationalLevel]").val();
+		let school = $("input[name=school").val();
+		let validSchool = ["College","HighSchool","Elementary","Kindergarten","Nursery"];
+		if(checkEmpty(eduLevel) || checkEmpty(school) || checkArraySame(validSchool,eduLevel) == false){
+				$("#educationModalError").empty();
+				if(checkArraySame(validSchool,eduLevel) == false){
+					showDivError("#educationModalError","Please select only from the listed Items");
+				}
+				if(checkEmpty(eduLevel)){
+					showDivError("#educationModalError","Please add your educational Attainment");
+				}
+				if(checkEmpty(school)){
+					showDivError("#educationModalError","Please enter School Name");
+				}
+		}else{
+			let formData = new FormData(this);
+			formData.append("passerEducation","");
+			$.ajax({
+				url: "addEducation",
+				method: "POST",
+				data: formData,
+				processData: false,
+    			contentType: false,
+				success: function(dataRet){
+					console.log(dataRet);
+					let obj = JSON.parse(dataRet);
+					if(obj.error == "none"){
+						window.location='dashboard';
+					}
+					else{
+						showDivError("#educationModalError","There was an error inserting your data. Please try again later");
+					}
+				},
+				fail: function(){
+					alert("cannot connect to server");
+				}
+			});
+		}
+	});
+});
+
+
+
 // end of dashboard passer
