@@ -26,8 +26,8 @@
 		 		header("location:../home/login");
 		 	}
 		 	$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($this->passerSession));
-		 	$data[] = array("userDetails"=>$details);
-		 	// print_r(array_map($this->decodeISO,$details));
+		 	$workExperience = $this->model->selectAllFromUser("passerworkhistory",$this->passerUnique,array($this->passerSession));
+		 	$data[] = array("userDetails"=>$details,"workExperience"=>$workExperience);
 			$this->controller->view("passer/dashboard",$data);
 		}
 
@@ -39,10 +39,11 @@
 		}
 
 		public function profile(){
-			if(!$this->checkSession('passerUser')){
-		 		header("location:register");
+			if(empty($_GET['user'])){
+		 		header("location:../home/login");
 		 	}
-		 	$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($this->passerSession));
+		 	$coc = $this->sanitize($_GET['user']);
+		 	$details = $this->model->selectAllFromUser($this->passerTable,"PasserCOCNo",array($coc));
 		 	$data[] = array("userDetails"=>$details);
 			$this->controller->view("passer/profile",$data);
 		}

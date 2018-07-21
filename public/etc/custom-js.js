@@ -302,6 +302,7 @@ function crawl(dataToSend){
 				$("#passerRegError").hide();
 			}
 			else{
+				$("#passerRegError").empty();
 				showDivError("#passerRegError","Sorry, we did not found any records of your COC number. Please try again.");
 				$("div[name=passerFN]").html("First Name");
 				$("div[name=passerLN]").html("Last Name");
@@ -346,6 +347,7 @@ $(function(){
 					});
 				}
 				else{
+					$("#passerRegError").empty();
 					showDivError("#passerRegError","Please input proper email address!");
 				}
 			}, 500 );
@@ -365,6 +367,7 @@ $(function(){
 		}
 		else{
 			$("#passwordHelpBlock").css("display","block");
+			$("#passerRegError").empty();
 			showDivError("#passerRegError","Error! Password must contain minimum of 8 characters in total and minimum of 1 numeric");
 			passerPassword = "";
 		}
@@ -616,6 +619,15 @@ $(function(){
 	});
 });
 
+// passer Fee
 
+$(function(){
+	$("input[name=fee]").mousemove(function(){
+		let fee = $(this).val();
+		$("#fee").html(fee);
+	});
+});
+
+// end of passer Fee
 
 // end of dashboard passer
