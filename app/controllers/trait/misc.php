@@ -209,7 +209,6 @@
 			}
 		}
 
-
 		public function checkExist(){
 			if (isset($_POST['dataSend']) && !empty($_POST['dataSend'])) 
 			{
@@ -224,11 +223,16 @@
 			}
 		}
 
+		public function randomize(){
+			$random = time() . rand(1,10) . strtotime("now") . rand(1,6);
+			return $random;
+		}
+
 		public function imageUpload($destination,$file,$id){
 			$target_dir = "../public/etc/images/".$destination."/";
 			$target_file = $target_dir . basename($_FILES[$file]["name"]);
 			$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-			$randomFileName = time() . strtotime("now") . rand(1,6) . $id . "." . $imageFileType;
+			$randomFileName = $this->randomize() . $id . "." . $imageFileType;
 			$fileDir = $target_dir . $randomFileName;
 		    if (move_uploaded_file($_FILES[$file]["tmp_name"], $fileDir)) {
 		        return "../../public/etc/images/".$destination."/" . $randomFileName;
@@ -236,6 +240,32 @@
 		        return $_FILES[$file]["error"];
 		    }
 		}
+
+
+		public function validatePasser(){
+			if(isset($_POST['passerValidate'])){
+				$frontID = $this->imageUpload("userVerify/passer","frontID",$this->passerSession);
+				$backID = $this->imageUpload("userVerify/passer","backID",$this->passerSession);
+				$selfie = $this->imageUpload("userVerify/passer","selfieID",$this->passerSession);
+				$coc = $this->imageUpload("userVerify/passer","competencyCertificate",$this->passerSession);
+				$idNumber = $this->sanitize($_POST['idNumber']);
+				$idType = $this->sanitize($_POST['acceptedId']);
+				$expDate = $this->sanitize(date("Y-m-d",strtotime($_POST['expiryDate'])));
+
+				try {
+					$return = $this->model->insertDB("passervalidate",$this->passerValidate,array($this->passerSession,$frontID,$backID,$selfie,$coc,$idType,$idNumber,$expDate));
+					if($return){
+						$updateThis = $this->model->updateDB("$this->passerTable",array("PasserStatus"),array(2),$this->passerUnique,$this->passerSession);
+						if($updateThis){
+							echo json_encode(array("error"=>"none"));
+						}
+					}
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+			}
+		}
+
 
 		public function registerPasser(){
 			if(isset($_POST['registerPasser'])){

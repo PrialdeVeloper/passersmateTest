@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2018 at 09:35 AM
+-- Generation Time: Jul 22, 2018 at 05:31 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -189,7 +189,7 @@ CREATE TABLE `passer` (
   `PasserAddress` varchar(255) NOT NULL,
   `PasserCPNo` bigint(20) DEFAULT NULL,
   `PasserEmail` varchar(255) NOT NULL,
-  `PasserStatus` varchar(255) NOT NULL DEFAULT '1',
+  `PasserStatus` varchar(255) NOT NULL DEFAULT '0',
   `PasserRate` int(11) NOT NULL,
   `PasserCOCNo` varchar(255) NOT NULL,
   `PasserPass` varchar(255) NOT NULL,
@@ -197,15 +197,17 @@ CREATE TABLE `passer` (
   `PasserCertificateType` varchar(100) NOT NULL,
   `PasserTESDALink` varchar(255) NOT NULL,
   `PasserProfile` varchar(255) DEFAULT NULL,
-  `PasserFee` bigint(20) NOT NULL
+  `PasserFee` bigint(20) NOT NULL,
+  `passerRegisterTimeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passer`
 --
 
-INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`) VALUES
-(1, 'Jodel', 'Adan', 'B', '2018-07-11', 0, 'Male', 'Qweq', 'Cebu City', 'Qwe', 1234526362, 'test@gmail.com', '1', 0, '13040102003962', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/1531999462153199946221.jpg', 0);
+INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`) VALUES
+(1, 'Jodel', 'Adan', 'B', '2018-07-11', 0, 'Male', 'Qweq', 'Cebu City', 'Xx', 1234526362, 'test@gmail.com', '2', 0, '13040102003962', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/1531999462153199946221.jpg', 0, '2018-07-22 15:12:46'),
+(2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 0, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '2', 0, '14130602029952', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/15322732906153227329042.jpg', 0, '2018-07-22 15:20:53');
 
 -- --------------------------------------------------------
 
@@ -249,6 +251,25 @@ CREATE TABLE `passerskills` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `passervalidate`
+--
+
+CREATE TABLE `passervalidate` (
+  `passerValidateId` int(11) NOT NULL,
+  `passerID` int(11) NOT NULL,
+  `frontID` varchar(255) NOT NULL,
+  `backID` varchar(255) NOT NULL,
+  `selfie` varchar(255) NOT NULL,
+  `COC` varchar(255) NOT NULL,
+  `idType` varchar(255) NOT NULL,
+  `idNumber` bigint(20) NOT NULL,
+  `expirationDate` date NOT NULL,
+  `passerValidateDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `passerworkhistory`
 --
 
@@ -259,15 +280,16 @@ CREATE TABLE `passerworkhistory` (
   `PasserWorkHistoryDesc` varchar(255) NOT NULL,
   `PasserWorkHistoryStartDate` date NOT NULL,
   `PasserWorkHistoryEndDate` date NOT NULL,
-  `PasserWorkHistoryWorkDays` int(11) DEFAULT NULL
+  `PasserWorkHistoryWorkDays` int(11) DEFAULT NULL,
+  `passerWorkHistoryDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passerworkhistory`
 --
 
-INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`) VALUES
-(2, NULL, 1, 'qwe', '2018-07-01', '2018-07-02', NULL);
+INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`, `passerWorkHistoryDateTime`) VALUES
+(2, NULL, 1, 'qwe', '2018-07-01', '2018-07-02', NULL, '2018-07-22 15:13:35');
 
 -- --------------------------------------------------------
 
@@ -471,6 +493,13 @@ ALTER TABLE `passerskills`
   ADD KEY `PasserId` (`PasserId`);
 
 --
+-- Indexes for table `passervalidate`
+--
+ALTER TABLE `passervalidate`
+  ADD PRIMARY KEY (`passerValidateId`),
+  ADD KEY `passerID` (`passerID`);
+
+--
 -- Indexes for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
@@ -531,19 +560,19 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `canceljob`
 --
 ALTER TABLE `canceljob`
-  MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
-  MODIFY `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `dispute`
 --
 ALTER TABLE `dispute`
-  MODIFY `DisputeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `DisputeID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `documents`
@@ -555,31 +584,31 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `multimedia`
 --
 ALTER TABLE `multimedia`
-  MODIFY `MultimediaID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `MultimediaID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `NotificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `NotificationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
 --
 ALTER TABLE `offerjob`
-  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `passereducation`
@@ -592,6 +621,12 @@ ALTER TABLE `passereducation`
 --
 ALTER TABLE `passerskills`
   MODIFY `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `passervalidate`
+--
+ALTER TABLE `passervalidate`
+  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
@@ -615,7 +650,7 @@ ALTER TABLE `seeker`
 -- AUTO_INCREMENT for table `subscription`
 --
 ALTER TABLE `subscription`
-  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `subscriptiontype`
@@ -627,7 +662,7 @@ ALTER TABLE `subscriptiontype`
 -- AUTO_INCREMENT for table `subskill`
 --
 ALTER TABLE `subskill`
-  MODIFY `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `switchaccount`
@@ -701,6 +736,12 @@ ALTER TABLE `passereducation`
 --
 ALTER TABLE `passerskills`
   ADD CONSTRAINT `passerskills_ibfk_1` FOREIGN KEY (`PasserId`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `passervalidate`
+--
+ALTER TABLE `passervalidate`
+  ADD CONSTRAINT `passervalidate_ibfk_1` FOREIGN KEY (`passerID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `passerworkhistory`

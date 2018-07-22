@@ -6,6 +6,7 @@
 		public $passDashboardPersonalDetailsWithPhoto = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserProfile");
 		public $passerWorkHistory = array("OfferJobID","PasserID","PasserWorkHistoryDesc","PasserWorkHistoryStartDate","PasserWorkHistoryEndDate","PasserWorkHistoryWorkDays");
 		public $passerEducation = array("passerID","educationAttainment","educationSchool","educationAccomplishment");
+		public $passerValidate = array("passerID","frontID","backID","selfie","COC","idType","idNumber","expirationDate");
 		protected $passerTable = 'passer';
 		protected $passerSession;
 		protected $passerUnique = 'PasserID';
@@ -24,6 +25,7 @@
 			$detailsProper = null;
 			$details = null;
 			$userStatus = null;
+			$completeAddress = null;
 			if(!$this->checkSession('passerUser')){
 		 		header("location:../home/login");
 		 	}
@@ -35,6 +37,12 @@
 		 		$userStatus = '
 		 		<div class="alert alert-danger col text-center" role="alert">
 					<label>Your account is not yet verified, please complete the information needed Mate<button type="button" class="btn btn-link" data-toggle="modal" data-target="#verification">Click Here</button> to verify you account.</label>			
+				</div>
+		 		';
+		 	}elseif($PasserStatus == 2){
+		 		$userStatus = '
+		 		<div class="alert alert-primary col text-center" role="alert">
+					<label>Thank you, Mate. Please wait until we validate your account. Until such time, you can browse through your dashboard and update details about yourself for future purposes.</label>
 				</div>
 		 		';
 		 	}

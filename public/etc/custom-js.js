@@ -550,93 +550,6 @@ $(function(){
 	});
 // end of verifyModal previewImage
 
-// verifyPasserModal
-$(function(){
-	$("#verifyModal").submit(function(event){
-		event.preventDefault();
-		let responseUser = confirm("Are you sure you want to save changes?");
-	if(responseUser == true){
-		let inputImageProfile = $("input[name=frontID]").get[0];
-		let inputImageProfile = $("input[name=backID]").get[0];
-		let inputImageProfile = $("input[name=selfieID]").get[0];
-		let inputImageProfile = $("input[name=competencyCertificate]").get[0];
-		let startDate = $("input[name=idType]").val();
-		let startDate = $("input[name=idNumber]").val();
-		let startDate = $("input[name=expirationDate]").val();
-
-		if ( checkEmpty(idType.val()) || checkEmpty(idNumber.val()) ||
-		 	 checkEmpty(expirationDate.val()) || checkDate(expirationDate.val()) == false ){
-			$("#verifyModalError").empty();
-
-				if(checkEmpty(idType.val())){
-					showDivError("#verifyModalError","Please input valid ID Type");
-				}
-				if(checkEmpty(idNumber.val())){
-					showDivError("#verifyModalError","Please input valid ID Number");
-				}
-				if(checkEmpty(expirationDate.val()) || checkDate(expirationDate.val()) == false){
-					showDivError("#verifyModalError","Please input valid Expiration Date");
-				}
-			}else{
-				$("#verifyModalError").hide();
-				if($("input[name=frontID]" && "input[name=backID]" && "input[name=selfieID]" && "input[name=competencyCertificate]").attr("data-integrity") === undefined){
-					$.ajax({
-						url: "verifyPasser",
-						method: "POST",
-						data: {
-							"verifyPasserDataNoImage": "", "######": idType.val(), "######": idNumber.val(), "######": expirationDate.val()
-						},
-						success: function(returnData){
-							let obj = JSON.parse(returnData);
-							if(obj.error =="none"){
-								window.location = "dashboard";	
-							}else{
-								showDivError("#verifyModalError","Sorry, Something went wrong. Please try again later.");
-							}
-						},
-						fail: function(){
-							showDivError("#verifyModalError","Cannot connect to server. Please try again");	
-						}
-					});
-				}
-				else{
-					let imageCheck1 = checkValidImage("input[name=frontID]");
-					let imageCheck2 = checkValidImage("input[name=backID]");
-					let imageCheck3 = checkValidImage("input[name=selfieID]");
-					let imageCheck4 = checkValidImage("input[name=competencyCertificate]");
-
-					if(imageCheck1 && imageCheck2 && imageCheck3 && imageCheck4 ){
-						let formData = new FormData(this);
-						formData.append("verifyPasserDataWithImage","");
-						formData.append("######",idType.val());
-						formData.append("######",idNumber.val());
-						formData.append("######",expirationDate.val());
-						$.ajax({
-							url: "verifyPasser",
-							method: "POST",
-							data: formData,
-							contentType: false,
-							cache: false,
-							processData:false,
-							success: function(returnStatus){
-								let obj = JSON.parse(returnStatus);
-								if(obj.error == "none"){
-									window.location = "dashboard";	
-								}else{
-									showDivError("#verifyModalError","Sorry, Something went wrong. Please try again later.");
-								}
-							},
-						});
-					}
-					else{
-						showDivError("#verifyModalError","Please choose valid image");
-					}
-				}	
-			}
-		}
-	});
-});
-// end of verifyPasserModal
 $(function(){
 	$("#passerDetailsForm").submit(function(event){
 		event.preventDefault();
@@ -908,6 +821,27 @@ $(function(){
 				}
 			}else{
 				$("#verifyError").hide();
+				let dataValidate = new FormData(this);
+				dataValidate.append("passerValidate","");
+				dataValidate.append("expiryDate",expirationDate.val());
+				$.ajax({
+					url: "validatePasser",
+					method: "POST",
+					processData: false,
+   					contentType: false,
+					data: dataValidate,
+					success: function(a,b){
+						let obj = JSON.parse(a);
+						if(obj.error == "none"){
+							window.location = "dashboard";
+						}else{
+							alert(a);
+						}
+					},
+					fail : function(){
+						showDivError("#verifyError","Cannnot connect to server. Please try again later.");
+					}
+				});
 			}
 		}
 	});
