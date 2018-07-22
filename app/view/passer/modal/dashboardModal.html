@@ -50,7 +50,7 @@
 						<div class="container border">
 							<div class="row justify-content-center pt-3">
 								<div>
-									<img class="img-fluid imageReview rounded-circle" src="../etc/images/user/marvee.jpg"></img>
+									<img class="img-fluid imageReview rounded-circle" src="../etc/images/user/marvee.jpg" alt="image">
 								</div>
 							</div>
 							<div class="row justify-content-center pt-2">
@@ -257,252 +257,250 @@
 						<span>&times;</span>
 					</button>
 				</div>
-				<div class="modal-body bg-white">
-					<div class="alert alert-danger text-center hidethis" id="personalDetailsModalError">
-					</div>
-					<form id="passerDetailsForm" enctype="multipart/form-data">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-3">
-									<div class="d-flex justify-content-center">
-										<img src="<?=!empty($PasserProfile)?$PasserProfile: '../../public/etc/images/system/calendar.png'?>" class="modalAddDetails" id="previewImage">
-									</div>
-								</div>
-								<div class="offset-1 col-sm-4 pt-3" id="uploadPhotoDiv">
-									<button type="button" class="btn btn-primary" id="substituteButton">Upload Photo</button>
-									<input class="form-control d-none inputImage" name="profileUploadPasser" type="file" id="addDetailsPasser" accept="image/jpeg,image/png">
-								</div>
-							</div>
-
-							<div class="row pt-3">
-								<div class="col-md-6 offset-md-0 col-lg-4 offset-lg-4">
-									<div class="form-group">
-							        	<label for="firstname">Name</label>
-							        	<input type="text" readonly disabled class="form-control" value="<?=$PasserFN;?>" id="firstname" placeholder="Firstname">
-								    </div>
-								</div>
-								<div class="col-md-6 offset-md-0 col-lg-4 sameLabelMargin">
-									<div class="form-group">
-									   <input type="text" readonly disabled class="form-control" value="<?=$PasserLN;?>" placeholder="Lastname">
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md offset-md-0 col-lg offset-lg-4">
-									<div class="form-group">
-									    <label for="email">Email</label>
-									    <input type="text" class="form-control" readonly disabled value="<?php echo isset($PasserEmail)? $PasserEmail: ''; ?>" id="email" placeholder="Email">
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md offset-md-0 col-lg offset-lg-4">
-									<div class="form-group">
-									    <label for="address">Address</label>
-									    <input type="text" required class="form-control" value="<?php echo isset($PasserAddress)? $PasserAddress: ''; ?>" name="passerAddress" id="email" placeholder="Region/Province/State">
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-6 offset-md-0 col-lg-4 offset-lg-4">
-									<div class="form-group">
-									   <input type="text" required value="<?php echo isset($PasserStreet)? $PasserStreet: ''; ?>" class="form-control" name="passerStreet" placeholder="Street Address">
-									</div>
-								</div>
-								<div class="col-md-6 offset-md-0 col-lg-4">
-									<div class="form-group">
-									   <input list="cities" required class="form-control" value="<?php echo isset($PasserCity)? $PasserCity: ''; ?>" name="passerCity" placeholder="City">
-								   		<datalist id="cities"> 
-								      	 <option value="Alaminos">
-								         <option value="Angeles">
-								         <option value="Antipolo">
-								         <option value="Bacolod">
-								         <option value="Bacoor">
-								         <option value="Bago">
-								         <option value="Baguio">
-								         <option value="Bais">
-								         <option value="Balanga">
-								         <option value="Batac">
-								         <option value="Batangas City">
-								         <option value="Bayawan">
-								         <option value="Baybay">
-								         <option value="Bayugan">
-								         <option value="Biñan">
-								         <option value="Bislig">
-								         <option value="Bogo">
-								         <option value="Borongan">
-								         <option value="Butuan">
-								         <option value="Cabadbaran">
-								         <option value="Cabanatuan">
-								         <option value="Cabuyao">
-								         <option value="Cadiz">
-								         <option value="Cagayan de Oro">
-								         <option value="Calamba">
-								         <option value="Calapan">
-								         <option value="Calbayog">
-								         <option value="Caloocan">
-								         <option value="Candon">
-								         <option value="Canlaon">
-								         <option value="Carcar">
-								         <option value="Catbalogan">
-								         <option value="Cauayan">
-								         <option value="Cavite City">
-								         <option value="Cebu City">
-								         <option value="Cotabato City">
-								         <option value="Dagupan">
-								         <option value="Danao">
-								         <option value="Dapitan">
-								         <option value="Dasmariñas">
-								         <option value="Davao City">
-								         <option value="Digos">
-								         <option value="Dipolog">
-								         <option value="Dumaguete">
-								         <option value="El Salvador">
-								         <option value="Escalante">
-								         <option value="Gapan">
-								         <option value="General Santos">
-								         <option value="General Trias">
-								         <option value="Gingoog">
-								         <option value="Guihulngan">
-								         <option value="Himamaylan">
-								         <option value="Ilagan">
-								         <option value="Iligan">
-								         <option value="Iloilo City">
-								         <option value="Imus">
-								         <option value="Iriga">
-								         <option value="Isabela">
-								         <option value="Kabankalan">
-								         <option value="Kidapawan">
-								         <option value="Koronadal">
-								         <option value="La Carlota">
-								         <option value="Lamitan">
-								         <option value="Laoag">
-								         <option value="Lapu-Lapu">
-								         <option value="Las Piñas">
-								         <option value="Legazpi">
-								         <option value="Ligao">
-								         <option value="Lipa">
-								         <option value="Lucena">
-								         <option value="Maasin">
-								         <option value="Mabalacat">
-								         <option value="Makati">
-								         <option value="Malabon">
-								         <option value="Malaybalay">
-								         <option value="Malolos">
-								         <option value="Mandaluyong">
-								         <option value="Mandaue">
-								         <option value="Manila">
-								         <option value="Marawi">
-								         <option value="Marikina">
-								         <option value="Masbate City">
-								         <option value="Mati">
-								         <option value="Meycauayan">
-								         <option value="Muñoz">
-								         <option value="Muntinlupa">
-								         <option value="Naga">
-								         <option value="Navotas">
-								         <option value="Olangapo">
-								         <option value="Ormoc">
-								         <option value="Oroquieta">
-								         <option value="Oramiz">
-								         <option value="Pagadian">
-								         <option value="Palayan">
-								         <option value="Panabo">
-								         <option value="Parañaque">
-								         <option value="Pasay">
-								         <option value="Pasig">
-								         <option value="Passi">
-								         <option value="Puerto Princesa">
-								         <option value="Quezon City">
-								         <option value="Roxas">
-								         <option value="Sagay">
-								         <option value="Samal">
-								         <option value="San Carlos">
-								         <option value="San Carlos">
-								         <option value="San Fernando">
-								         <option value="San Fernando">
-								         <option value="San Jose">
-								         <option value="San Jose del Monte">
-								         <option value="San Juan">
-								         <option value="San Pablo">
-								         <option value="San Pedro">
-								         <option value="Santa Rosa">
-								         <option value="Santiago">
-								         <option value="Silay">
-								         <option value="Sipalay">
-								         <option value="Sorsogon City">
-								         <option value="Surigao City">
-								         <option value="Tabaco">
-								         <option value="Tabuk">
-								         <option value="Tacloban">
-								         <option value="Tacurong">
-								         <option value="Tagaytay">
-								         <option value="Tagbilaran">
-								         <option value="Taguig">
-								         <option value="Tagum">
-								         <option value="Talisay">
-								         <option value="Talisay">
-								         <option value="Tanauan">
-								         <option value="Tandag">
-								         <option value="Tangub">
-								         <option value="Tanjay">
-								         <option value="Tarlac City">
-								         <option value="Tayabas">
-								         <option value="Toledo">
-								         <option value="Trece Martires">
-								         <option value="Tuguegarao">
-								         <option value="Urdaneta">
-								         <option value="Valencia">
-								         <option value="Valenzuela">
-								         <option value="Victorias">
-								         <option value="Vigan">
-								         <option value="Zamboanga City">        
-										</datalist>
-									</div>
-								</div>
-								</div>
-
-							<div class="row">
-								<div class="col-md-6 offset-md-0 col-lg offset-lg-4">
-									<div class="form-group">
-									    <label for="birthday">Birthday</label>
-									    <input type="text" name="passerBirthdate" value="<?php echo isset($PasserBirthdate)? $PasserBirthdate: ''; ?>" class="form-control datepicker" disabled placeholder="Month/Date/Year">
-									</div>
-								</div>
-								<div class="col-md-6 offset-md-0 col-lg">
-									<div class="form-group">
-										<label for="gender">Gender</label>
-										<select name="passerGender" id="gender" class="custom-select" <?php echo !empty($PasserGender)? "disabled readonly": ""; ?> >
-										  <option value="notSelected" <?php echo !isset($PasserGender)? "selected": ''; ?>>I am</option>
-										  <option value="Male" <?php echo ($PasserGender == "Male")? "selected": ''; ?>>Male</option>
-										  <option value="Female" <?php echo ($PasserGender == "Female")? "selected": ''; ?>>Female</option>
-										</select>
-									</div>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col-md-6 offset-md-0 col-lg-8 offset-lg-4">
-									<label for="number">Mobile Number</label>
-									<div class="input-group mb-2">
-								        <div class="input-group-prepend">
-								          <div class="input-group-text">+63</div>
-								        </div>
-								        <input type="text" class="form-control" name="PasserCPNo" id="passerNumber"  maxlength="10" placeholder="Mobile Number" value="<?php echo isset($PasserCPNo)? $PasserCPNo: ''; ?>">
-							        </div>	
-						        </div>
-							</div>
-
+				<form id="passerDetailsForm" enctype="multipart/form-data">
+					<div class="modal-body bg-white">
+						<div class="alert alert-danger text-center hidethis" id="personalDetailsModalError">
 						</div>
-					
-					</div>
-					<div class="modal-footer bg-light">
-						<button type="submit" name="passerUpdateData" class="btn btn-success"><span class="text-white">Submit</span></button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
-					</div>
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-3">
+										<div class="d-flex justify-content-center">
+											<img src="<?=!empty($PasserProfile)?$PasserProfile: '../../public/etc/images/system/calendar.png'?>" class="modalAddDetails" id="previewImage">
+										</div>
+									</div>
+									<div class="offset-1 col-sm-4 pt-3" id="uploadPhotoDiv">
+										<button type="button" class="btn btn-primary" id="substituteButton">Upload Photo</button>
+										<input class="form-control d-none inputImage" name="profileUploadPasser" type="file" id="addDetailsPasser" accept="image/jpeg,image/png">
+									</div>
+								</div>
+
+								<div class="row pt-3">
+									<div class="col-md-6 offset-md-0 col-lg-4 offset-lg-4">
+										<div class="form-group">
+								        	<label for="firstname">Name</label>
+								        	<input type="text" readonly disabled class="form-control" value="<?=$PasserFN;?>" id="firstname" placeholder="Firstname">
+									    </div>
+									</div>
+									<div class="col-md-6 offset-md-0 col-lg-4 sameLabelMargin">
+										<div class="form-group">
+										   <input type="text" readonly disabled class="form-control" value="<?=$PasserLN;?>" placeholder="Lastname">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md offset-md-0 col-lg offset-lg-4">
+										<div class="form-group">
+										    <label for="email">Email</label>
+										    <input type="text" class="form-control" readonly disabled value="<?php echo isset($PasserEmail)? $PasserEmail: ''; ?>" id="email" placeholder="Email">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md offset-md-0 col-lg offset-lg-4">
+										<div class="form-group">
+										    <label for="address">Address</label>
+										    <input type="text" required class="form-control" value="<?php echo isset($PasserAddress)? $PasserAddress: ''; ?>" name="passerAddress" id="email" placeholder="Region/Province/State">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 offset-md-0 col-lg-4 offset-lg-4">
+										<div class="form-group">
+										   <input type="text" required value="<?php echo isset($PasserStreet)? $PasserStreet: ''; ?>" class="form-control" name="passerStreet" placeholder="Street Address">
+										</div>
+									</div>
+									<div class="col-md-6 offset-md-0 col-lg-4">
+										<div class="form-group">
+										   <input list="cities" required class="form-control" value="<?php echo isset($PasserCity)? $PasserCity: ''; ?>" name="passerCity" placeholder="City">
+									   		<datalist id="cities"> 
+									      	 <option value="Alaminos"></option>
+									         <option value="Angeles"></option>
+									         <option value="Antipolo"></option>
+									         <option value="Bacolod"></option>
+									         <option value="Bacoor"></option>
+									         <option value="Bago"></option>
+									         <option value="Baguio"></option>
+									         <option value="Bais"></option>
+									         <option value="Balanga"></option>
+									         <option value="Batac"></option>
+									         <option value="Batangas City"></option>
+									         <option value="Bayawan"></option>
+									         <option value="Baybay"></option>
+									         <option value="Bayugan"></option>
+									         <option value="Biñan"></option>
+									         <option value="Bislig"></option>
+									         <option value="Bogo"></option>
+									         <option value="Borongan"></option>
+									         <option value="Butuan"></option>
+									         <option value="Cabadbaran"></option>
+									         <option value="Cabanatuan"></option>
+									         <option value="Cabuyao"></option>
+									         <option value="Cadiz"></option>
+									         <option value="Cagayan de Oro"></option>
+									         <option value="Calamba"></option>
+									         <option value="Calapan"></option>
+									         <option value="Calbayog"></option>
+									         <option value="Caloocan"></option>
+									         <option value="Candon"></option>
+									         <option value="Canlaon"></option>
+									         <option value="Carcar"></option>
+									         <option value="Catbalogan"></option>
+									         <option value="Cauayan"></option>
+									         <option value="Cavite City"></option>
+									         <option value="Cebu City"></option>
+									         <option value="Cotabato City"></option>
+									         <option value="Dagupan"></option>
+									         <option value="Danao"></option>
+									         <option value="Dapitan"></option>
+									         <option value="Dasmariñas"></option>
+									         <option value="Davao City"></option>
+									         <option value="Digos"></option>
+									         <option value="Dipolog"></option>
+									         <option value="Dumaguete"></option>
+									         <option value="El Salvador"></option>
+									         <option value="Escalante"></option>
+									         <option value="Gapan"></option>
+									         <option value="General Santos"></option>
+									         <option value="General Trias"></option>
+									         <option value="Gingoog"></option>
+									         <option value="Guihulngan"></option>
+									         <option value="Himamaylan"></option>
+									         <option value="Ilagan"></option>
+									         <option value="Iligan"></option>
+									         <option value="Iloilo City"></option>
+									         <option value="Imus"></option>
+									         <option value="Iriga"></option>
+									         <option value="Isabela"></option>
+									         <option value="Kabankalan"></option>
+									         <option value="Kidapawan"></option>
+									         <option value="Koronadal"></option>
+									         <option value="La Carlota"></option>
+									         <option value="Lamitan"></option>
+									         <option value="Laoag"></option>
+									         <option value="Lapu-Lapu"></option>
+									         <option value="Las Piñas"></option>
+									         <option value="Legazpi"></option>
+									         <option value="Ligao"></option>
+									         <option value="Lipa"></option>
+									         <option value="Lucena"></option>
+									         <option value="Maasin"></option>
+									         <option value="Mabalacat"></option>
+									         <option value="Makati"></option>
+									         <option value="Malabon"></option>
+									         <option value="Malaybalay"></option>
+									         <option value="Malolos"></option>
+									         <option value="Mandaluyong"></option>
+									         <option value="Mandaue"></option>
+									         <option value="Manila"></option>
+									         <option value="Marawi"></option>
+									         <option value="Marikina"></option>
+									         <option value="Masbate City"></option>
+									         <option value="Mati"></option>
+									         <option value="Meycauayan"></option>
+									         <option value="Muñoz"></option>
+									         <option value="Muntinlupa"></option>
+									         <option value="Naga"></option>
+									         <option value="Navotas"></option>
+									         <option value="Olangapo"></option>
+									         <option value="Ormoc"></option>
+									         <option value="Oroquieta"></option>
+									         <option value="Oramiz"></option>
+									         <option value="Pagadian"></option>
+									         <option value="Palayan"></option>
+									         <option value="Panabo"></option>
+									         <option value="Parañaque"></option>
+									         <option value="Pasay"></option>
+									         <option value="Pasig"></option>
+									         <option value="Passi"></option>
+									         <option value="Puerto Princesa"></option>
+									         <option value="Quezon City"></option>
+									         <option value="Roxas"></option>
+									         <option value="Sagay"></option>
+									         <option value="Samal"></option>
+									         <option value="San Carlos"></option>
+									         <option value="San Carlos"></option>
+									         <option value="San Fernando"></option>
+									         <option value="San Fernando"></option>
+									         <option value="San Jose"></option>
+									         <option value="San Jose del Monte"></option>
+									         <option value="San Juan"></option>
+									         <option value="San Pablo"></option>
+									         <option value="San Pedro"></option>
+									         <option value="Santa Rosa"></option>
+									         <option value="Santiago"></option>
+									         <option value="Silay"></option>
+									         <option value="Sipalay"></option>
+									         <option value="Sorsogon City"></option>
+									         <option value="Surigao City"></option>
+									         <option value="Tabaco"></option>
+									         <option value="Tabuk"></option>
+									         <option value="Tacloban"></option>
+									         <option value="Tacurong"></option>
+									         <option value="Tagaytay"></option>
+									         <option value="Tagbilaran"></option>
+									         <option value="Taguig"></option>
+									         <option value="Tagum"></option>
+									         <option value="Talisay"></option>
+									         <option value="Talisay"></option>
+									         <option value="Tanauan"></option>
+									         <option value="Tandag"></option>
+									         <option value="Tangub"></option>
+									         <option value="Tanjay"></option>
+									         <option value="Tarlac City"></option>
+									         <option value="Tayabas"></option>
+									         <option value="Toledo"></option>
+									         <option value="Trece Martires"></option>
+									         <option value="Tuguegarao"></option>
+									         <option value="Urdaneta"></option>
+									         <option value="Valencia"></option>
+									         <option value="Valenzuela"></option>
+									         <option value="Victorias"></option>
+									         <option value="Vigan"></option>
+									         <option value="Zamboanga City"></option>   
+											</datalist>
+										</div>
+									</div>
+									</div>
+
+								<div class="row">
+									<div class="col-md-6 offset-md-0 col-lg offset-lg-4">
+										<div class="form-group">
+										    <label for="birthday">Birthday</label>
+										    <input type="text" name="passerBirthdate" value="<?php echo isset($PasserBirthdate)? $PasserBirthdate: ''; ?>" class="form-control datepicker" disabled placeholder="Month/Date/Year">
+										</div>
+									</div>
+									<div class="col-md-6 offset-md-0 col-lg">
+										<div class="form-group">
+											<label for="gender">Gender</label>
+											<select name="passerGender" id="gender" class="custom-select" <?php echo !empty($PasserGender)? "disabled readonly": ""; ?> >
+											  <option value="notSelected" <?php echo !isset($PasserGender)? "selected": ''; ?>>I am</option>
+											  <option value="Male" <?php echo ($PasserGender == "Male")? "selected": ''; ?>>Male</option>
+											  <option value="Female" <?php echo ($PasserGender == "Female")? "selected": ''; ?>>Female</option>
+											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-6 offset-md-0 col-lg-8 offset-lg-4">
+										<label for="number">Mobile Number</label>
+										<div class="input-group mb-2">
+									        <div class="input-group-prepend">
+									          <div class="input-group-text">+63</div>
+									        </div>
+									        <input type="text" class="form-control" name="PasserCPNo" id="passerNumber"  maxlength="10" placeholder="Mobile Number" value="<?php echo isset($PasserCPNo)? $PasserCPNo: ''; ?>">
+								        </div>	
+							        </div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer bg-light">
+							<button type="submit" name="passerUpdateData" class="btn btn-success"><span class="text-white">Submit</span></button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+						</div>
 				</form>
 			</div>
 		</div>
@@ -598,6 +596,7 @@
 	<!-- end for verified -->
 
 	<!-- Start of Add Job Experience Modal -->
+
 	<div class="modal fade " id="jobExperience" role="dialog ">
  		<div class="modal-dialog modal-dialog-centered rounded" role="document" >
  			<div class="modal-content">
@@ -605,11 +604,10 @@
 		          	<h5 class="modal-title ">Work Experience</h5>
 		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>	
-
-		        <div class="modal-body bg-light ">
-		        	<div class="alert alert-danger text-center hidethis" id="jobExperienceModalError">
-					</div>
-					<form id="jobExperienceModal">
+		        <form id="jobExperienceModal">
+			        <div class="modal-body bg-light ">
+			        	<div class="alert alert-danger text-center hidethis" id="jobExperienceModalError">
+						</div>
 			        	<div class="row ">
 			        		<div class="col-sm-12 mb-1">
 			          			<h5 class="modal-title ">Job title</h5>
@@ -675,6 +673,21 @@
 								        }
 								    );
 								});
+								$(document).ready(function() {
+							    $('#expiration_datetime_picker').datepicker().on(
+							        'show',
+							        function() {
+							            var modal = $('#expiration_datetime_picker').closest('.modal');
+							            var datePicker = $('body').find('.datepicker');
+							            if (!modal.length) {
+							                $(datePicker).css('z-index', 'auto');
+							                return;
+							            }
+							            var zIndexModal = $(modal).css('z-index');
+							            $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+								        }
+								    );
+								});
 
 								
 			       			</script> 
@@ -684,24 +697,26 @@
 			          		</div>	
 
 			        	</div>	         	
-		        </div>
-		        <div class="modal-footer border">		
-		        	<div class="row col justify-content-center mx-0" >		        		
-		        		<div class="col-sm-4">
-		        			<button type="submit" name="passerJobExperienceData" class="form-control btn btn-success">Save</button>
-		        		</div>
-		        	</form>	 
-		        		<div class="col-sm-4">
-		        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
-		        		</div>
-		        	</div>     				
-		        </div>
+			        </div>
+			        <div class="modal-footer border">		
+			        	<div class="row col justify-content-center mx-0" >		        		
+			        		<div class="col-sm-4">
+			        			<button type="submit" name="passerJobExperienceData" class="form-control btn btn-success">Save</button>
+			        		</div>
+			        	 
+			        		<div class="col-sm-4">
+			        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
+			        		</div>
+			        	</div>     				
+			        </div>
+		        </form>	
  			</div>
  		</div>
  	</div>
 	<!-- End of Add Job Experience Modal -->
 
 	<!-- Start of Add Education Modal -->
+
 	<div class="modal fade " id="education" role="dialog ">
  		<div class="modal-dialog modal-dialog-centered rounded" role="document" >
  			<div class="modal-content">
@@ -714,48 +729,1500 @@
 			        <div class="modal-body bg-light ">
 			        	<div class="alert alert-danger text-center hidethis" id="educationModalError">
 						</div>
-				        	<div class="row">
-				        		<div class="col-sm-12 mb-1">
-				          			<h5 class="modal-title ">Educational Attainment</h5>
-				          		</div>
-				          		<div class="col-sm-12 text-center mb-4">
-				          			<select name="educationalLevel" class="form-control">
-								        <option>Educational Level</option>						        
-								        <option value="College">College</option>
-								        <option value="HighSchool">HighSchool</option>
-								        <option value="Elementary">Elementary</option>
-								        <option value="Kindergarten">Kindergarten</option>
-								        <option value="Nursery">Nursery</option>
-								    </select>
-				          		</div>
+			        	<div class="row">
+			        		<div class="col-sm-12 mb-1">
+			          			<h5 class="modal-title ">Educational Attainment</h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center mb-4">
+			          			<select name="educationalLevel" class="form-control">
+							        <option>Educational Level</option>						        
+							        <option value="College">College</option>
+							        <option value="HighSchool">HighSchool</option>
+							        <option value="Elementary">Elementary</option>
+							        <option value="Kindergarten">Kindergarten</option>
+							        <option value="Nursery">Nursery</option>
+							    </select>
+			          		</div>
 
-				          		<div class="col-sm-12 mb-1">
-				          			<h5 class="modal-title ">School/University</h5>
-				          		</div>
-				          		<div class="col-sm-12 text-center mb-4">
-				          			<input type="text" name="school" class="form-control" placeholder="School/University last attended">
-				          		</div>	
+			          		<div class="col-sm-12 mb-1">
+			          			<h5 class="modal-title ">School/University</h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center mb-4">
+			          			<div class="col-sm-12 text-center mb-4">
+				          			<div class="form-group">
+										<input list="schools" required class="form-control"  name="passerSchools" placeholder="School/University last attended">
+											<datalist id="schools">
+												<!-- Start of "A" -->
+												<option value="Abada Colleges"></option>
+												<option value="ABE International College of Business and Accountancy"></option>
+												<option value="Abra Valley Colleges"></option>
+												<option value="Academia de Davao College (ADDC)"></option>
+												<option value="Access Computer College"></option>
+												<option value="Aces Tagum College (ATC)"></option>
+												<option value="ACQ College of Ministries"></option>
+												<option value="ACSI College"></option>
+												<option value="ACTS Computer College"></option>
+												<option value="Adamson University"></option>
+												<option value="Adventist International Institute of Advanced Studies"></option>
+												<option value="Adventist University of the Philippines"></option>
+												<option value="Ago Medical and Educational Center"></option>
+												<option value="Agro-Industrial Foundation College of the Philippines"></option>
+												<option value="Agusan del Sur College"></option>
+												<option value="AIE College"></option>
+												<option value="Airlink International Aviation School"></option>
+												<option value="Aklan Catholic College"></option>
+												<option value="Aklan Polytechnic College"></option>
+												<option value="Aklan State University"></option>
+												<option value="Aldersgate College"></option>
+												<option value="Alpha Centauri Educational System"></option>
+												<option value="AMA Computer University"></option>
+												<option value="Andres Bonifacio College"></option>
+												<option value="Angeles University Foundation"></option>
+												<option value="Angelicum College"></option>
+												<option value="Apostle Business College"></option>
+												<option value="Araullo University"></option>
+												<option value="Arellano University"></option>
+												<option value="Arreisgado College Foundation Inc."></option>
+												<option value="Asia Pacific College"></option>
+												<option value="Asia School of Arts and Sciences"></option>
+												<option value="Asian College, Dumaguete"></option>
+												<option value="Asian College of Technology"></option>
+												<option value="Asian College, Quezon City"></option>
+												<option value="Asian College Foundation"></option>
+												<option value="Asian Development Foundation College"></option>
+												<option value="Asian International School of Aeronautic and Technology"></option>
+												<option value="Asian Institute for Distance Education"></option>
+												<option value="Asian Institute of Computer Studies"></option>
+												<option value="Asian Institute of Journalism and Communication"></option>
+												<option value="Asian Institute of Management"></option>
+												<option value="Asian Institute of Maritime Studies"></option>
+												<option value="Asian School of Hospitality Arts"></option>
+												<option value="Asian Social Institute"></option>
+												<option value="Asian Summit College"></option>
+												<option value="Assumption College"></option>
+												<option value="Assumption Antipolo"></option>
+												<option value="Assumption Iloilo"></option>
+												<option value="Assumption College of Davao"></option>
+												<option value="Assumption College of Nabunturan"></option>
+												<option value="Assumption College San Lorenzo"></option>
+												<option value="Ateneo de Davao University"></option>
+												<option value="Ateneo de Manila University"></option>
+												<option value="Ateneo de Naga University"></option>
+												<option value="Ateneo de Zamboanga University"></option>
+												<option value="Aurora Pioneers Memorial College"></option>
+												<option value="Aurora Polytechnic College"></option>
+												<option value="Aurora State College of Technology"></option>
+												<!-- End of "A" -->
+												<!-- Start of "B" -->
+												<option value="Bacolod City College"></option>
+												<option value="Bago City College"></option>
+												<option value="Baguio Central University"></option>
+												<option value="Baguio College of Technology"></option>
+												<option value="Balete Community College"></option>
+												<option value="Baliuag University"></option>
+												<option value="Baptist Voice Bible College"></option>
+												<option value="Basilan State College"></option>
+												<option value="Bataan Peninsula State University"></option>
+												<option value="Bataan State College"></option>
+												<option value="Batan Community College"></option>
+												<option value="Batanes State College"></option>
+												<option value="Batangas Eastern Colleges"></option>
+												<option value="Batangas State University"></option>
+												<option value="Binalbagan Catholic College"></option>
+												<option value="The Bearer of Light and Wisdom Colleges"></option>
+												<option value="Benguet State University"></option>
+												<option value="Bestlink College of the Philippines"></option>
+												<option value="The Bethany Christian Academy"></option>
+												<option value="Bicol College"></option>
+												<option value="Bicol State College of Applied Sciences and Technology"></option>
+												<option value="Bicol University"></option>
+												<option value="Biliran National Agricultural College"></option>
+												<option value="Bohol Institute of Technology"></option>
+												<option value="Bohol Island State University 
+														(formerly Central Visayas State College of Agriculture, Forestry and Technology)"></option>
+												<option value="Bohol Northeastern Education Foundation"></option>
+												<option value="Bool City Central University"></option>
+												<option value="Brent Hospital and Colleges Inc."></option>
+												<option value="Brokenshire College"></option>
+												<option value="Brookfield College"></option>
+												<option value="Bukidnon State University"></option>
+												<option value="Bulacan Agricultural State College"></option>
+												<option value="Bulacan Polytechnic College"></option>
+												<option value="Bulacan State University"></option>
+												<!-- End of "B" -->
 
+												<!-- Start of "C" -->
+												<option value="Cabucgayan National School of Arts and Trades"></option>
+												<option value="Cagayan de Oro College"></option>
+												<option value="Cagayan State University"></option>
+												<option value="Cagayan Technical Institute School of Automotive"></option>
+												<option value="Cagayan Valley Computer and Information Technology College, Inc."></option>
+												<option value="Cainta Catholic College"></option>
+												<option value="Calamba Doctors' College"></option>
+												<option value="Calauag Central College"></option>
+												<option value="Calayan Educational Foundation Inc."></option>
+												<option value="Camarines Norte State College"></option>
+												<option value="Camarines Sur Polytechnic Colleges"></option>
+												<option value="Camiling Colleges"></option>
+												<option value="Camo Colleges Incorporated"></option>
+												<option value="Canossa Colleges"></option>
+												<option value="CAP Colleges Foundation"></option>
+												<option value="Capitol University"></option>
+												<option value="Capiz State University"></option>
+												<option value="Caraga State University"></option>
+												<option value="Carlos Hilado Memorial State College"></option>
+												<option value="Catanduanes Colleges"></option>
+												<option value="Catanduanes Institute of Technology Foundation Inc."></option>
+												<option value="Catanduanes State University -Virac Main Campus"></option>
+												<option value="Catanduanes State University -Panganiban Campus"></option>
+												<option value="Cavity Stete University"></option>
+												<option value="Cebu Aeronautical Technical School"></option>
+												<option value="Cebu Doctors' University"></option>
+												<option value="Cebu Eastern College"></option>
+												<option value="Cebu Institute of Medicine"></option>
+												<option value="Cebu International Distance Education College"></option>
+												<option value="Cebu Normal University"></option>
+												<option value="Cebu Normal University -Balamban"></option>
+												<option value="Cebu Technology University (formerly Cebu State College of Science and Technology)"></option>
+												<option value="Ceguera Technological Colleges (formerly Ceguera Institute of Science and Technology)"></option>
+												<option value="Center for Industrial Technology and Enterprise (CITE) Technical Institute, Inc."></option>
+												<option value="Central Bicol State University of Agriculture"></option>
+												<option value="Central Colleges of the North"></option>
+												<option value="Central Colleges of the Philippines"></option>
+												<option value="Central Luzon College of Science and Technology"></option>
+												<option value="Central Luzon Doctors' Hospital Educational Institution"></option>
+												<option value="Central Luzon State University"></option>
+												<option value="Central Mindanao University"></option>
+												<option value="Central Panay College of Science and Technology"></option>
+												<option value="Central Philippine Adventist College"></option>
+												<option value="Central Philippine University"></option>
+												<option value="Central Philippines State University"></option>
+												<option value="Centre for International Education (CIE)"></option>
+												<option value="Centro Escolar University"></option>
+												<option value="Chiang Kai Shek College"></option>
+												<option value="Chinese General Hospital Colleges"></option>
+												<option value="Christ the King College -Calbayog City"></option>
+												<option value="Christ the King College -Gingoog City"></option>
+												<option value="Christ the King College de Maranding"></option>
+												<option value="Christ the King Mission Seminary"></option>
+												<option value="Christian Polytechnic Institute of Catanduanes"></option>
+												<option value="Chronicles Institute of Isabela"></option>
+												<option value="CIIT (Cosmopolitan International Institute of Technology)"></option>
+												<option value="CIIT College of Arts and Technology"></option>
+												<option value="City College of Calamba"></option>
+												<option value="City College of Lucena"></option>
+												<option value="City College of Naga"></option>
+												<option value="City of Malabon University"></option>
+												<option value="City Technological Institute"></option>
+												<option value="COMTECH International Institute of Technologies Inc. (CIITI Colleges)"></option>
+												<option value="Claret College of Isabela"></option>
+												<option value="Claret Formation Center"></option>
+												<option value="Colegio de Capitolio"></option>
+												<option value="Colegio de Dagupan"></option>
+												<option value="Colegio de Ilagan"></option>
+												<option value="Colegio de la Purisima Concepcion"></option>
+												<option value="Colegio de San Gabriel Arcangel"></option>
+												<option value="Colegio de San Jose"></option>
+												<option value="Colegio de San Juan de Letran"></option>
+												<option value="Colegio de San Lorenzo"></option>
+												<option value="Colegio de San Lorenzo Ruiz de Manila"></option>
+												<option value="Colegio de San Lorenzo Ruiz de Manila of Northern Samar Inc"></option>
+												<option value="Colegio de San Pascual Baylon"></option>
+												<option value="Colegio de Santa Catalina de Alejandria"></option>
+												<option value="Colegio de Santo Cristo de Burgos"></option>
+												<option value="Colegio de Santo Tomas"></option>
+												<option value="Colegio de Sta. Teresa de Avila"></option>
+												<option value="Colegio del Sagrado Corazon de Jesus"></option>
+												<option value="Colegio ng Lungsod ng Batangas"></option>
+												<option value="Colegio San Agustin"></option>
+												<option value="Colegio San Agustin-Bacolod"></option>
+												<option value="Colegio San Agustin-Biñan"></option>
+												<option value="Colegio San Agustin-Makati"></option>
+												<option value="College of Arts & Sciences of Asia & the Pacific"></option>
+												<option value="College of Business Education Science and Technology"></option>
+												<option value="College of Divine Wisdom"></option>
+												<option value="College of the Holy Spirit"></option>
+												<option value="College of the Immaculate Conception"></option>
+												<option value="College of Mary Immaculate"></option>
+												<option value="College of Our Lady of Mercy of Pulilan Foundation, Inc."></option>
+												<option value="College of Mt. Carmel"></option>
+												<option value="College of Saint Lawrence"></option>
+												<option value="College of San Benildo"></option>
+												<option value="College of St. John-Roxas, De La Salle Supervised"></option>
+												<option value="College of Technological Sciences"></option>
+												<option value="Collumban College"></option>
+												<option value="Collumbus College"></option>
+												<option value="Community Colleges of the Philippines Foundation Manila"></option>
+												<option value="Computer Arts & Technological (CAT) College"></option>
+												<option value="Computer Communication Development Institute (CCDI) College"></option>
+												<option value="COMTECH International Institute of Technologies Inc. (CIITI Colleges)"></option>
+												<option value="Comteq Computer and Business College"></option>
+												<option value="Concordia College"></option>
+												<option value="Consolatrix College of Toledo City"></option>
+												<option value="Cor Jesu College"></option>
+												<option value="Core Gateway College"></option>
+												<option value="Cotabato Foundation College of Science and Technology"></option>
+												<option value="Cotabato Medical Foundation College Inc."></option>
+												<option value="Credo Domine College"></option>
+												<!-- End of "C" -->
+
+												<!-- Start of "D" -->
+												<option value="Dalubhasaan ng Lungsod ng San Pablo"></option>
+												<option value="Data Center College of the Philippines -Baguio City Campus"></option>
+												<option value="Data Center College of the Philippines -Bangued Branch"></option>
+												<option value="Data Center College of the Philippines -Vigan City Branch"></option>
+												<option value="Datamex Institute of Cumputer Technology"></option>
+												<option value="Davao Central College Inc."></option>
+												<option value="Davao del Norte State College"></option>
+												<option value="Davao Doctors' College"></option>
+												<option value="Davao Medical School Foundation"></option>
+												<option value="Davao Oriental State College of Science and Technology"></option>
+												<option value="De La Salle Andres Soriano Memorial College"></option>
+												<option value="De La Salle Araneta University"></option>
+												<option value="De La Salle-College of Saint Benilde"></option>
+												<option value="De La Salle John Bosco College"></option>
+												<option value="De La Salle Lipa"></option>
+												<option value="De La Salle University-Dasmariñas"></option>
+												<option value="De La Salle-Manila"></option>
+												<option value="De Ocampo Memorial College"></option>
+												<option value="Dee Hwa Liong College Foundation"></option>
+												<option value="De Los Santos College"></option>
+												<option value="De Paul College"></option>
+												<option value="Dipolog Medical Center College Foundation"></option>
+												<option value="Divine Word College of Bangued"></option>
+												<option value="Divine Word College of Calapan"></option>
+												<option value="Divine Word College of Laoag"></option>
+												<option value="Divine Word College of Legazpi"></option>
+												<option value="Divine Word College of San Jose"></option>
+												<option value="Divine Word College of Urdaneta"></option>
+												<option value="Divine Word College of Vigan"></option>
+												<option value="Divine Word College of Seminary"></option>
+												<option value="Divine Word Mission Seminary"></option>
+												<option value="Divine Word University of Tacloban"></option>
+												<option value="Dominican College of Iloilo"></option>
+												<option value="Dominican College of Sta. Rosa, laguna"></option>
+												<option value="Dominican College of Tarlac"></option>
+												<option value="Don Bosco College, Canluban"></option>
+												<option value="Don Bosco Technical College"></option>
+												<option value="Don Bosco Technical Institute"></option>
+												<option value="Don Bosco Technical Institute, Tarlac"></option>
+												<option value="Don Bosco Technical Institute, Victorias"></option>
+												<option value="Don Honorio Ventura Technological State University"></option>
+												<option value="Don Mariano Marcos Memorial State University"></option>
+												<option value="Don Mariano Marcos University"></option>
+												<option value="Dr. Carlos S. Lanting College"></option>
+												<option value="Dr. Emilio B. Espinosa Sr. Memorial State College of Agriculture and Technology"></option>
+												<option value="Dr. Filemon C. Aguilar Memorial College of Las Piñas"></option>
+												<option value="Dr. Yanga's Colleges Inc."></option>
+												<!-- End of "D" -->
+
+												<!-- Start of "E" -->
+												<option value="East Asia International System College"></option>
+												<option value="Easter College, Inc."></option>
+												<option value="Eastern Luzon Colleges"></option>
+												<option value="Eastern Mindanao College of Technology (EMCOTECH)"></option>
+												<option value="Eastern Mindoro Institute of Technology and Sciences (EMA Emits College Philippines)"></option>
+												<option value="Eastern Samar State University -Borongan City Main Campus"></option>
+												<option value="Eastern Samar State University -Can-Avid"></option>
+												<option value="Eastern Samar State University -Guiuan"></option>
+												<option value="Eastern Samar State University -Maydolong"></option>
+												<option value="Eastern Samar State University Salcedo"></option>
+												<option value="Eastern Tayabas College"></option>
+												<option value="Eastern Visayas State University -Tacloban City Main Campus"></option>
+												<option value="Eastern Visayas State University -Burauen External Campus"></option>
+												<option value="Eastern Visayas State University -Carigara External Campus"></option>
+												<option value="Eastern Visayas State University -Dulag External Campus"></option>
+												<option value="Eastern Visayas State University -Ormoc City Satellite Campus"></option>
+												<option value="Eastern Visayas State University -Pinabacdao (External Campus in Samar Island)"></option>
+												<option value="Eastern Visayas State University -Tanauan External Campus"></option>
+												<option value="Eduardo L. Joson Memorial College"></option>
+												<option value="Educational Systems Technological Institute (ESTI)"></option>
+												<option value="Emilio Aguinaldo College"></option>
+												<option value="Emmanuel College of Plaridel"></option>
+												<option value="Enderun Colleges"></option>
+												<option value="Entrepreneurs School of Asia"></option>
+												<option value="Escuela de Nuestra Señora de La Sallete"></option>
+												<option value="Eulogio 'Amang' Rodriguez Institute of Science and Technology (EARIST)"></option>
+												<option value="Eulogio Amang Rodriguez Institute of Science and Technology -Cavite Campus"></option>
+												<option value="Eveland Christian College"></option>
+												<!-- End of "E" -->
+
+												<!-- Start of "F" -->
+												<option value="Far East Asia Pacific Institute of Tourism Science and Technology, Inc. (Feapitsat Colleges)"></option>
+												<option value="FEAPITSAT College of Dasmarinas Inc."></option>
+												<option value="Far Eastern University"></option>
+												<option value="FEATI University"></option>
+												<option value="Felix O. Alfelor Sr. Foundation College"></option>
+												<option value="Fellowship Baptist College"></option>
+												<option value="Fernandez College of Arts and Technology"></option>
+												<option value="FEU Alabang"></option>
+												<option value="FEU Cavite"></option>
+												<option value="FEU Diliman"></option>
+												<option value="FEU Institute of Culinary Arts"></option>
+												<option value="FEU Institute of Medicine"></option>
+												<option value="FEU Institute of Technology"></option>
+												<option value="FEU Makati"></option>
+												<option value="Filamer Christian University"></option>
+												<option value="First Asia Institute of Technology and Humanities"></option>
+												<option value="First City Providential College"></option>
+												<option value="The Fisher Valley College"></option>
+												<option value="Five Star Technical Institute"></option>
+												<option value="Florencio L. Vargas College (Main Campus, Bagay Road Campus, and Pengue Campus)"></option>
+												<option value="Forbes College"></option>
+												<option value="Foundation University"></option>
+												<option value="Fr. Saturnino Urious University"></option>
+												<option value="Franciscan College of the Immaculate Concepcion"></option>
+												<!-- End of "F" -->
+												<!-- Start of "G" -->
+												<option value="Gallego Foundation Colleges"></option>
+												<option value="Garcia College of Technology"></option>
+												<option value="Gateways Institute of Science and Technology -Cogeo Campus"></option>
+												<option value="Gateways Institute of Science and Technology -Fairveiw Campus"></option>
+												<option value="Gateways Institute of Science and Technology -Mandaluyong Campus"></option>
+												<option value="Gateways Institute of Science and Technology -Pasig Campus"></option>
+												<option value="Gen. Santos Doctors' Medical School Foundation Inc."></option>
+												<option value="General de Jesus College"></option>
+												<option value="Global City Innovative College"></option>
+												<option value="Global Computer INFOTEQ School, Inc."></option>
+												<option value="Global Reciprocal Colleges"></option>
+												<option value="Gordon College"></option>
+												<option value="Grace Christian College"></option>
+												<option value="Greatways Technical Institute"></option>
+												<option value="Green Valley College Foundation, Inc., City of Koronadal"></option>
+												<option value="Greenville College"></option>
+												<option value="Golden Link College Foundation, Inc."></option>
+												<option value="Goldenstate College of General Santos City"></option>
+												<option value="Governor Andres Pascual College"></option>
+												<option value="Guagua National Colleges"></option>
+												<option value="Guimaras State College"></option>
+												<option value="Guzman College of Science and Technology"></option>
+												<!-- End of "G" -->
+
+												<!-- Start of "H" -->
+												<option value="Holy Angel University"></option>
+												<option value="Holy Child College of Davao"></option>
+												<option value="Holy Name University (formerly Divine Word College of Tagbilaran)"></option>
+												<option value="Holy Trinity College"></option>
+												<option value="Hua Siong College of Iloilo"></option>
+												<!-- End of "H" -->
+
+												<!-- Start of "I" -->
+												<option value="iACADEMY"></option>
+												<option value="ICCT Colleges (formerly Institute of Creative Computer Technology)"></option>
+												<option value="ICCT Colleges -Angono"></option>
+												<option value="ICCT Colleges -Antipolo"></option>
+												<option value="ICCT Colleges -Binangonan"></option>
+												<option value="ICCT Colleges -Cainta"></option>
+												<option value="ICCT Colleges -Cogeo"></option>
+												<option value="ICCT Colleges -San Mateo"></option>
+												<option value="ICCT Colleges -Samulong"></option>
+												<option value="ICCT Colleges -Taytay"></option>
+												<option value="Ifugao State University"></option>
+												<option value="IIH College"></option>
+												<option value="Iligan Capitol College"></option>
+												<option value="Iligan Medical Center College"></option>
+												<option value="Ilocos Polytechnic State College"></option>
+												<option value="Ilocos Sur Polytechnic State College"></option>
+												<option value="Candon Campus (College of Business Administration and Tourism"></option>
+												<option value="Cervantes Campus"></option>
+												<option value="Narvacan Campus (College of Fisheries)"></option>
+												<option value="Santiago Campus (College of Industrial Sciences)"></option>
+												<option value="Sta. Maria Campus (College of Agriculture)"></option>
+												<option value="Tagudin Campus (College of Education)"></option>
+												<option value="Iloilo Doctors' College"></option>
+												<option value="Iloilo Science and Technology University -formerly Western Visayas College of Science and Technology"></option>
+												<option value="Iloilo State College of Fisheries Main Campus"></option>
+												<option value="Iloilo State College of Fisheries -Barotac Nuevo Campus"></option>
+												<option value="Iloilo State College of Fisheries -Dingle Campus"></option>
+												<option value="Iloilo State College of Fisheries -Dumangas Campus"></option>
+												<option value="Iloilo State College of Fisheries -San Enrique Campus"></option>
+												<option value="Immaculate Concepcion College"></option>
+												<option value="Immaculate Conception International -Cabagan Campus"></option>
+												<option value="Immaculate Conception International -San Mariano Campus"></option>
+												<option value="Immaculate Heart of Mary College"></option>
+												<option value="Imus Computer College (ICC) -Alabang Muntinlupa City"></option>
+												<option value="Imus Computer College (ICC) -Bacoor Cavite"></option>
+												<option value="Imus Computer College (ICC) -Carmona Cavite"></option>
+												<option value="Imus Computer College (ICC) -Dasmariñas Cavite"></option>
+												<option value="Imus Computer College (ICC) -Gen. Mariano Alvarez (GMA) Cavite"></option>
+												<option value="Imus Computer College (ICC) -Governor's Drive-FCIE Dasmariñas Cavite"></option>
+												<option value="Imus Computer College (ICC) -Imus Cavite"></option>
+												<option value="Imus Computer College (ICC) -Las Piñas City"></option>
+												<option value="Imus Computer College (ICC) -Rosario Cavite"></option>
+												<option value="Imus Computer College (ICC) -Salawag, Dasmarinas"></option>
+												<option value="Imus Computer College (ICC) -Silang Cavite"></option>
+												<option value="Imus Computer College (ICC) -Trece Martires Cavite"></option>
+												<option value="Imus Institute College"></option>
+												<option value="Infant Jesus Montessori School College Department"></option>
+												<option value="Informatics International College"></option>
+												<option value="Information and Communication Technology Academy (iACADEMY)"></option>
+												<option value="Infotech Institute of Arts and Sciences -Marcos Highway"></option>
+												<option value="Infotech Institute of Arts and Sciences -Crossing"></option>
+												<option value="Infotech Institute of Arts and Sciences -Lagro"></option>
+												<option value="Infotech Institute of Arts and Sciences -Makati"></option>
+												<option value="Infotech Institute of Arts and Sciences -Pasig"></option>
+												<option value="Infotech Institute of Arts and Sciences -Sucat"></option>
+												<option value="Innovative College of Science in Information Technology (ICST)"></option>
+												<option value="Institute of Enterprise Solutions (IES)"></option>
+												<option value="Interface Computer College -Manila"></option>
+												<option value="Interface Computer College -Cabanatuan"></option>
+												<option value="Interface Computer College -Caloocan"></option>
+												<option value="Interface Computer College -Cebu"></option>
+												<option value="Interface Computer College -Davao"></option>
+												<option value="Interface Computer College -Iloilo"></option>
+												<option value="International Academy of Film and Television (IAFT)"></option>
+												<option value="International Academy of Management and Economics"></option>
+												<option value="International Baptist College (IBC)"></option>
+												<option value="International Electronics and Technical Institute Inc. (IETI)"></option>
+												<option value="International School of Asia and the Pacific"></option>
+												<option value="International Technological Institute of Arts and Tourism"></option>
+												<option value="Isabela College of Arts and Technology"></option>
+												<option value="Isabela Colleges"></option>
+												<option value="Isabela Colleges of Science & Technology"></option>
+												<option value="Isabela State University"></option>
+													<option value="Echague Cluster"></option>
+														<option value="Echague Campus -constituent Campus"></option>
+														<option value="Angadanan Campus"></option>
+														<option value="Jones Campus"></option>
+														<option value="Palanan Extension Campus"></option>
+														<option value="Santiago City Extension Campus"></option>
+													<option value="Cauayan Cluster"></option>
+														<option value="CauayanCity Cluster- constituent campus"></option>
+														<option value="Roxas Campus"></option>
+														<option value="San Mateo Campus"></option>
+													<option value="Ilagan Cluster"></option>
+														<option value="Ilagan City Campus -constituent campus"></option>
+														<option value="Cabagan Campus"></option>
+												<!-- End of "I" -->
+
+												<!-- Start of "J" -->
+												<option value="J.H. Cerilles State College"></option>
+												<option value="Jake Battaring University"></option>
+												<option value="Jamiatu Muslim Mindanao"></option>
+												<option value="JE Mondejar Computer College"></option>
+												<option value="Jesus Reigns Christian College"></option>
+												<option value="John B. Lacson Colleges Foundation"></option>
+												<option value="John B. Lacson Foundation Maritime University -Arevalo, Iloilo City"></option>
+												<option value="John B. Lacson Foundation Maritime University -Molom Iloilo City"></option>
+												<option value="John Paul College"></option>
+												<option value="John Paul II College"></option>
+												<option value="John Wesley College"></option>
+												<option value="Joji Ilagan Career Center Inc. college of business and tourism"></option>
+												<option value="Jose Abad Santos Memorial School"></option>
+												<option value="Jose C. Feliciano College"></option>
+												<option value="Jose Rizal Memorial State University -Dapitan City Campus"></option>
+												<option value="Jose Rizal Memorial State University -Dipolog City Campus"></option>
+												<option value="Jose Rizal Memorial State University -Katipunan Campus"></option>
+												<option value="Jose Rizal Memorial State University -Siocon Campus"></option>
+												<option value="Jose Rizal Memorial State University -Tampilisan Campus"></option>
+												<option value="Jose Rizal University"></option>
+												<option value="Jose Maria College"></option>
+												<!-- End of "J" -->
+
+												<!-- Start of "K" -->
+												<option value="Kabankalan Catholic College (KCC)"></option>
+												<option value="Kalayaan College"></option>
+												<option value="KCI Colleges"></option>
+												<option value="Kolehiyo ng Subic"></option>
+												<option value="Kolehiyo ng Pantukan (KNP)"></option>
+												<!-- End of "K" -->
+
+												<!-- Start of "L" -->
+												<option value="La Carlota City college"></option>
+												<option value="La Concordia College"></option>
+												<option value="La Consolacion College -10th Avenue, Caloocan"></option>
+												<option value="La Consolacion College -Bais City, Negros Oriental"></option>
+												<option value="La Consolacion College -Bacolod"></option>
+												<option value="La Consolacion College -Biñan"></option>
+												<option value="La Consolacion College -Daet, Camarines Norte"></option>
+												<option value="La Consolacion College -Iriga City"></option>
+												<option value="La Consolacion College -Liloan, Cebu"></option>
+												<option value="La Consolacion College -Mendiola, Manila"></option>
+												<option value="La Consolacion College -Novaliches, Caloocan"></option>
+												<option value="La Consolacion College -Pasig City"></option>
+												<option value="La Consolacion College -Tanauan City, Batangas"></option>
+												<option value="La Consolacion College University Philippines (formerly University of Regina Carmeli)"></option>
+												<option value="La Fortuna College"></option>
+												<option value="La Union Colleges of Nursing"></option>
+												<option value="La Verdad Christian College -Apalit, Pampanga"></option>
+												<option value="La Verdad Christian College -Caloocan City"></option>
+												<option value="Lacson College"></option>
+												<option value="Laguna Business College"></option>
+												<option value="Laguna College"></option>
+												<option value="Laguna College of Business and Arts"></option>
+												<option value="Laguna Northwestern College"></option>
+												<option value="Laguna State Polytechnic University -Santa Cruz (Main Campus)"></option>
+												<option value="Laguna State Polytechnic University -Lopez, Quezon"></option>
+												<option value="Laguna State Polytechnic University -Los Baños"></option>
+												<option value="Laguna State Polytechnic University -San Pablo City"></option>
+												<option value="Laguna State Polytechnic University -Siniloan (Host)"></option>
+												<option value="Laguna University"></option>
+												<option value="La Salle College Antipolo"></option>
+												<option value="La Salle University"></option>
+												<option value="Las Piñas College"></option>
+												<option value="Lheny Ganda Santos College"></option>
+												<option value="Lemery Colleges"></option>
+												<option value="Leyte Institute of Technology"></option>
+												<option value="Leyte Normal University"></option>
+												<option value="Liceo de Cagayan University"></option>
+												<option value="Liceo de Davao"></option>
+												<option value="Liceo del Verbo Divino"></option>
+												<option value="LIEMG Language Center"></option>
+												<option value="Lipa City Colleges"></option>
+												<option value="Lipa City Public College"></option>
+												<option value="Loreto Academy"></option>
+												<option value="Lorma College"></option>
+												<option value="Lourdes College"></option>
+												<option value="Loyola College of Culion"></option>
+												<option value="Luna Goco College -Calapan City"></option>
+												<option value="Luna Goco College -Pinamalayan, Oriental Mindoro"></option>
+												<option value="Lyceum-Northwestern University"></option>
+												<option value="Lyceum of Alabang"></option>
+												<option value="Lyceum of Aparri"></option>
+												<option value="Lyceum of the Philippines University -Batangas City"></option>
+												<option value="Lyceum of the Philippines University -Calamba City, Laguna"></option>
+												<option value="Lyceum of the Philippines University -General Trias, Cavite"></option>
+												<option value="Lyceum of the Philippines University -Intramuros, Manila"></option>
+												<option value="Lyceum of the Philippines University -Makati City"></option>
+												<option value="Lyceum of Subic Bay"></option>
+												<option value="Lyceum of Tuao"></option>
+												<!-- End of "K" -->
+												<!-- Start of "M" -->
+												<option value="Maasin City College"></option>
+												<option value="Mabalacat College"></option>
+												<option value="Mach Aviatrix Airhostess Institute"></option>
+												<option value="Mach Aviatrix Flight Institute"></option>
+												<option value="Magsaysay Memorial college"></option>
+												<option value="Ma'had Kutawato College"></option>
+												<option value="Maila Rosario College"></option>
+												<option value="Malayan Colleges Laguna"></option>
+												<option value="Mallig Plains Colleges"></option>
+												<option value="Mambog Institute of Technology"></option>
+												<option value="Mandaue City College"></option>
+												<option value="Manila Adventist Medical Center and colleges"></option>
+												<option value="Manila Business College"></option>
+												<option value="Manila Central University"></option>
+												<option value="Manila Christian Computer Institute for the Deaf College of Technology"></option>
+												<option value="Manila Doctors College/Manila Tytana Colleges"></option>
+												<option value="Manuel L. Quezon University"></option>
+												<option value="Manuel S. Enverga University Foundation -Lucena City, Quezon"></option>
+												<option value="Manuel S. Enverga University Foundation -Candelaria, Quezon"></option>
+												<option value="Manuel S. Enverga University Foundation -Catanauan, Quezon"></option>
+												<option value="Manuel S. Enverga University Foundation -Sampaloc, Quezon"></option>
+												<option value="Manuel S. Enverga University Foundation -San Antonio, Quezon"></option>
+												<option value="Manuel S. Enverga University Foundation College of Law -Lucena City, Quezon"></option>
+												<option value="Mapua Institute of Technology"></option>
+												<option value="Marian College"></option>
+												<option value="Mariano Marcos State University"></option>
+												<option value="Marikina Polytechnic College"></option>
+												<option value="Marinduque Midwest College"></option>
+												<option value="Marinduque State College -Main Campus Tanza, Boac, Marinduque"></option>
+												<option value="Marinduque State College -Gasan, Marinduque"></option>
+												<option value="Marinduque State College -Matalaba, Sta. Cruz, Marinduque"></option>
+												<option value="Marinduque State College -Pag-asa, Sta. Cruz, Marinduque"></option>
+												<option value="Marinduque State College -Torrijos, Marinduque"></option>
+												<option value="Mariners Polytechnic College Foundation"></option>
+												<option value="Mary Chiles College of Nursing"></option>
+												<option value="Mary Johnston College of Nursing"></option>
+												<option value="Mary the Queen College (Pampanga)"></option>
+												<option value="Maryhill College"></option>
+												<option value="Masbate Colleges"></option>
+												<option value="Masters Technological Institute of Mindanao (MTIM)"></option>
+												<option value="Master Dei College"></option>
+												<option value="MATS College of Technology"></option>
+												<option value="Maxino College"></option>
+												<option value="Medical Colleges of Northern Philippines"></option>
+												<option value="Medina College Inc."></option>
+												<option value="Medina College -Ozamiz"></option>
+												<option value="Medina College -Ipil"></option>
+												<option value="Medina College -Pagadian"></option>
+												<option value="Mendero College"></option>
+												<option value="MFI Technological Institute"></option>
+												<option value="Meridian International Business, Arts & Technology College (MINT College)"></option>
+												<option value="Messiah College"></option>
+												<option value="Metro Business College (formerly Metro Data Computer College)"></option>
+												<option value="Metro Dumaguete College"></option>
+												<option value="Metro Manila College"></option>
+												<option value="Metropolitan Hospital College of Nursing"></option>
+												<option value="Metropolitan School of Science and Technology"></option>
+												<option value="Meycauayan College"></option>
+												<option value="Microcity Computer College Foundation Inc."></option>
+												<option value="Micrpsan Software Technology, Inc."></option>
+												<option value="Mind and Integrity College"></option>
+												<option value="Mindanao Aeronautical Technical School College of Technology"></option>
+												<option value="Mindanao Autonomous College"></option>
+												<option value="Mindanao Kokusai Daigaku (Mindanao International college)"></option>
+												<option value="Mindanao Medical Foundation College"></option>
+												<option value="Mindanao State University -Buug Campus"></option>
+												<option value="Mindanao State University -General Santos"></option>
+												<option value="Mindanao State University -Iligan Institute of Technology"></option>
+												<option value="Mindanao State University -Maguindanao"></option>
+												<option value="Mindanao State University -Marawi"></option>
+												<option value="Mindanao State University -Naawan"></option>
+												<option value="Mindanao State University -Sulu"></option>
+												<option value="Mindanao State University -Tawi-Tawi"></option>
+												<option value="Mindanao University of Science and Technology"></option>
+												<option value="Mindoro State College of Agriculture and Technology -Bongabong, Oriental Mindoro"></option>
+												<option value="Mindoro State College of Agriculture and Technology -Calapan City"></option>
+												<option value="Mindoro State College of Agriculture and Technology -Victoria, Oriental Mindoro"></option>
+												<option value="Miriam College"></option>
+												<option value="Misamis Oriental State College of Agriculture and Technology"></option>
+												<option value="Misamis Oriental University"></option>
+												<option value="Misamis University"></option>
+												<option value="Mondriaan Aura College"></option>
+												<option value="Monkayo College of Arts of Science and Technology (MONCAST)"></option>
+												<option value="Montessori Professional College International (MPCI)"></option>
+												<option value="Montessori Professional College International -Antipolo"></option>
+												<option value="Montessori Professional College International -Bacoor"></option>
+												<option value="Montessori Professional College International -Caloocan"></option>
+												<option value="Montessori Professional College International -Dasmariñas"></option>
+												<option value="Montessori Professional College International -Imus"></option>
+												<option value="Montessori Professional College International -Largo"></option>
+												<option value="Montessori Professional College International -Makati"></option>
+												<option value="Montessori Professional College International -Marikina"></option>
+												<option value="Montessori Professional College International -Muñuz"></option>
+												<option value="Montessori Professional College International -Pasay"></option>
+												<option value="Montessori Professional College International -Pasig"></option>
+												<option value="Montessori Professional College International -Recto"></option>
+												<option value="Mount Carmet College -Baler, Aurora"></option>
+												<option value="Mount Carmet College -Escalante City, Negros Occidental"></option>
+												<option value="Mountain Province State Polytechnic college"></option>
+												<option value="Mountain View College"></option>
+												<option value="Mystical Rose College of Science and Technology"></option>
+												<!-- End of "M" -->
+
+												<!-- Start of "N" -->
+												<option value="Northlink Technological College"></option>
+												<option value="North Davao College"></option>
+												<option value="North Luzon Philippines State College"></option>
+												<option value="North Visayas State University"></option>
+												<option value="Northeastern College"></option>
+												<option value="Northeastern Mindanao Colleges"></option>
+												<option value="Northern Cagayan Colleges Foundation"></option>
+												<option value="Northern Christian College"></option>
+												<option value="Northern Davao Colleges"></option>
+												<option value="Northern Luzon Adventist College"></option>
+												<option value="Northern Negros State College of Science and Technology"></option>
+												<option value="Northern Philippines College for Maritime Science and Technology, Inc."></option>
+												<option value="Northern Samar Colleges"></option>
+												<option value="Northern Zambales College"></option>
+												<option value="Northwest Samar State University"></option>
+												<option value="Northwestern Visayan Colleges"></option>
+												<option value="Northwestern University (Philippines)"></option>
+												<option value="Notre Dame of Dadiangas University"></option>
+												<option value="Notre Dame of Isulan"></option>
+												<option value="Notre Dame of Jolo College"></option>
+												<option value="Notre Dame of Kidapawan College"></option>
+												<option value="Notre Dame of of Marbel University"></option>
+												<option value="Notre Dame of Midsayap College"></option>
+												<option value="Notre Dame of Tacurong College"></option>
+												<option value="Notre Dame-Siena College of Polomolok"></option>
+												<option value="Notre Dame University"></option>
+												<option value="Nueva Ecija University of Science and Technology"></option>
+												<option value="Nueva Vizcaya State University -Bambang"></option>
+												<option value="Nueva Vizcaya State University -Bayombong"></option>
+												<option value="Nuevo Zamboanga College"></option>
+												<option value="Nueva Vizcaya State University"></option>
+												<option value="Naga College Foundation"></option>
+												<option value="Naga View Adventist College"></option>
+												<option value="NAMEI Polytechnic Institute"></option>
+												<option value="National Christian Life College"></option>
+												<option value="National College of Business and Arts -Cubao, Quezon City"></option>
+												<option value="National College of Business and Arts -Fairveiw, Quezon City"></option>
+												<option value="National College of Business and Arts -Taytay, Rizal"></option>
+												<option value="National College of Science and Technology"></option>
+												<option value="National Police College Regional Training School"></option>
+												<option value="National Teachers College"></option>
+												<option value="National University"></option>
+												<option value="Naval State University, Naval City -Biliran Province (formerly Naval Institute of Technology)"></option>
+												<option value="Navotas Polytechnic College"></option>
+												<option value="Nazarenus College and Hospital Foundation, Inc."></option>
+												<option value="Negros Maritime College Foundation, Inc."></option>
+												<option value="Negros Navigation Oceanlink Institute"></option>
+												<option value="Negro Oriental State University -Main Campus 1, Dumaguete City"></option>
+												<option value="Negro Oriental State University -Main Campus 2, Dumaguete City"></option>
+												<option value="Negro Oriental State University -Bais Campus 1"></option>
+												<option value="Negro Oriental State University -Bais Campus 2"></option>
+												<option value="Negro Oriental State University -Bayawan-Sta. Catalina Campus"></option>
+												<option value="Negro Oriental State University -Guihulngan Campus"></option>
+												<option value="Negro Oriental State University -Mabinay Campus"></option>
+												<option value="Negro Oriental State University -Pamplona Farm"></option>
+												<option value="Negro Oriental State University -Siaton Campus"></option>
+												<option value="New Era University -Batangas"></option>
+												<option value="New Era University -General Santos City"></option>
+												<option value="New Era University -Pampanga"></option>
+												<option value="New Era University -Quezon City"></option>
+												<option value="North Davao College Tagum Foundation (NDC Tagum)"></option>
+												<option value="Northeast Luzon Adventist College"></option>
+												<option value="Northwest Samar State University (formerly Samar State College of Agriculture and Forestry)"></option>
+												<!-- End of "N" -->
+
+												<!-- Start of "O" -->
+												<option value="Olivarez College -Parañque"></option>
+												<option value="Olivarez College -Tagaytay"></option>
+												<option value="Operation Brotherhood Montessori (OB Montessori)"></option>
+												<option value="Osmeña Colleges"></option>
+												<option value="Our Lady of Assumption College -San Pedro, Laguna (Main)"></option>
+												<option value="Our Lady of Assumption College -Santa Rosa City"></option>
+												<option value="Our Lady of Assumption College Cabuyao (Main) -Mamatid, Cabuyao City"></option>
+												<option value="Our Lady of Assumption College -Cabuyao (Annex) -Mamatid, Cabuyao City"></option>
+												<option value="Our Lady of Assumption College -Tanauan, Batangas"></option>
+												<option value="Our Lady of Fatima University -Antipolo City"></option>
+												<option value="Our Lady of Fatima University -City of San Fernando, Pampanga"></option>
+												<option value="Our Lady of Fatima University -Quezon City"></option>
+												<option value="Our Lady of Fatima University -Valenzuela City"></option>
+												<option value="Our Lady of Guadalupe Colleges -Mandaluyong City"></option>
+												<option value="Our Lady of Lourdes College -Valenzuela City"></option>
+												<option value="Our Lady of Manaoag College"></option>
+												<option value="Our Lady of Mercy College -Borongan City"></option>
+												<option value="Our Lady of Perpetual Succor College"></option>
+												<option value="Our Lady of the Pillar College -Cauayan City, Isabela"></option>
+												<option value="Our Lady of the Pillar College -San Manuel, Isabela"></option>
+												<!-- End of "O" -->
+
+												<!-- Start of "P" -->
+												<option value="Pacific InterContinental College (PIC), Inc."></option>
+												<option value="Palawan Staate University"></option>
+												<option value="Pamantasan ng Cabuyao"></option>
+												<option value="Pamantasan ng Lungsod ng Maynila Main Campus"></option>
+												<option value="Pamantasan ng Lungsod ng Maynila, District Colleges"></option>
+												<option value="Pamantasan ng Lungsod ng Marikina -H.Bautista Campus"></option>
+												<option value="Pamantasan ng Lungsod ng Marikina -J.P. Rizal Campus"></option>
+												<option value="Pamantasan ng Lungsod ng Muntinlupa"></option>
+												<option value="Pamantasan ng Lungsod ng Pasay"></option>
+												<option value="Pamantasan ng Lungsod ng Pasig"></option>
+												<option value="Pamantasan ng Lungsod ng Valenzuela"></option>
+												<option value="Pamantasan ng Montalban"></option>
+												<option value="Pambansa-Demokratikong Paaralan"></option>
+												<option value="Pambayang Kolehiyo ng Mauban"></option>
+												<option value="Pampanga Agricultural College"></option>
+												<option value="Pampanga Colleges"></option>
+												<option value="Pangasinan State University -Asingan"></option>
+												<option value="Pangasinan State University -Bayambang"></option>
+												<option value="Pangasinan State University -Binmaley"></option>
+												<option value="Pangasinan State University -Graduate School"></option>
+												<option value="Pangasinan State University -Infanta"></option>
+												<option value="Pangasinan State University -Lingayen"></option>
+												<option value="Pangasinan State University -San Carlos City"></option>
+												<option value="Pangasinan State University -Sta. Maria"></option>
+												<option value="Pangasinan State University -Urdaneta City"></option>
+												<option value="Panpacific University North Philippines -Tayug"></option>
+												<option value="Panpacific University North Philippines -Urdaneta City"></option>
+												<option value="Panay Technological College"></option>
+												<option value="Partido State University"></option>
+												<option value="Pasig Catholic College"></option>
+												<option value="Passi Trade School"></option>
+												<option value="Pateros Technological College"></option>
+												<option value="Patria Sable Corpus College"></option>
+												<option value="PATTS College of Aeronautics"></option>
+												<option value="Peña de Francia College - Naga (condemned campus)"></option>
+												<option value="Philippine Best Training System Colleges"></option>
+												<option value="Philippine Cambridge School -Dasmariñas, Cavite"></option>
+												<option value="Philippine Cambridge School -GMA, Cavite"></option>
+												<option value="Philippine Cambridge School -Imus, Cavite"></option>
+												<option value="Philippine Cambridge School -Noveleta, Cavite"></option>
+												<option value="Philippine Central Islands College (PCIC)"></option>
+												<option value="Philippine Christian University"></option>
+												<option value="Philippine Countryville College, Inc. (PCC)"></option>
+												<option value="Philippine College of Criminology (PCCr)"></option>
+												<option value="Philippine College of Health Sciences, Inc."></option>
+												<option value="Philippine College of Technology - Bajada"></option>
+												<option value="Philippine College of Technology - Calinan"></option>
+												<option value="Philippine International College"></option>
+												<option value="Philippine Law Enforcement College"></option>
+												<option value="Philippine Merchant Marine Academy"></option>
+												<option value="Philippine Military Academy"></option>
+												<option value="Philippine National Police Academy"></option>
+												<option value="Philippine Nautical Technological College Intramuros Manila"></option>
+												<option value="Philippine Nazarene College"></option>
+												<option value="Philippine Normal University -Manila (Main Campus)"></option>
+												<option value="Philippine Normal University -Alicia, Isabela (North Luzon Campus)"></option>
+												<option value="Philippine Normal University -Cadiz, Negros Occidental (Visayas Campus)"></option>
+												<option value="Philippine Normal University -Lopez, Quezon (South Luzon Campus)"></option>
+												<option value="Philippine Normal University -Prosperidad, Agusan del Sur (Mindanao Campus)"></option>
+												<option value="Philippine Rehabilitation Institute"></option>
+												<option value="Philippine School of Business Administration -Manila (Main Campus)"></option>
+												<option value="Philippine School of Business Administration -Quezon City"></option>
+												<option value="Philippine State College of Aeronautics -Villamor Air Base, Pasay City (Main Campus)"></option>
+												<option value="Philippine State College of Aeronautics -Basa Air Base, Floridablanca, Pampanga"></option>
+												<option value="Philippine State College of Aeronautics -Clark Air Base, Angeles City, Pampanga"></option>
+												<option value="Philippine State College of Aeronautics -Fernando Air Base, Lipa City, Batangas"></option>
+												<option value="Philippine State College of Aeronautics -Mactan Benito-Ebuen Air Base, Cebu"></option>
+												<option value="Philippine Technological Institute of Science Arts and Trade -Central Inc., GMA, Cavite"></option>
+												<option value="Philippine Technological Institute of Science Arts and Trade -Central Inc., Sta. Rosa, Laguna"></option>
+												<option value="Philippine Technological Institute of Science Arts and Trade -Central Inc., Tanay, Rizal"></option>
+												<option value="Philippine Women's College of Davao"></option>
+												<option value="Philippine Women's University -CDCEC Calamba Campus"></option>
+												<option value="Philippine Women's University -Surigao City Campus"></option>
+												<option value="Philtech Institute of Arts and Technology Inc. -Gumaca, Quezon"></option>
+												<option value="Philtech Institute of Arts and Technology Inc. -Lucena City"></option>
+												<option value="Pilar College"></option>
+												<option value="Pilgrim University (formerly Pilgrim Christian College)"></option>
+												<option value="Pinabacdao State University"></option>
+												<option value="Pines City Colleges"></option>
+												<option value="PLT College Inc"></option>
+												<option value="PMI Colleges (Philippine Maritime Institute)"></option>
+												<option value="PMI Colleges Bohol"></option>
+												<option value="PMI Colleges Manila"></option>
+												<option value="PMI Colleges Quezon City"></option>
+												<option value="PMMS -Las Piñas City"></option>
+												<option value="Polytechnic College of Davao Del Sur Inc"></option>
+												<option value="Polytechnic University of the Philippines System"></option>
+												<!-- End of "P" -->
+
+												<!-- Start of "Q" -->
+												<option value="Queen of Apostles College Seminary (QACS)"></option>
+												<option value="Quezon City Polytechnic University - Batasan Hills"></option>
+												<option value="Quezon City Polytechnic University - San Bartolome"></option>
+												<option value="Quezon City Polytechnic University - San Francisco"></option>
+												<option value="Quezon Colleges of the North"></option>
+												<option value="Quezon Colleges of Southern Philippines"></option>
+												<option value="Quezon Memorial Institute of Siquijor, Siquijor"></option>
+												<option value="Quirino State University - Cabarroguis, Quirino"></option>
+												<option value="Quirino State University - Diffun, Quirino"></option>
+												<option value="Quirino State University - Maddela, Quirino"></option>
+												<!-- End of "Q" -->
+
+												<!-- Start of "R" -->
+												<option value="Ramon Magsaysay Memorial Colleges"></option>
+												<option value="Ramon Magsaysay Technological University"></option>
+												<option value="RC Al-Khwarizmi International College"></option>
+												<option value="Red Aeronautics and Technological Institute Inc."></option>
+												<option value="Remedios T. Romualdez Memorial Schools"></option>
+												<option value="Republic Central Colleges"></option>
+												<option value="Riverside College"></option>
+												<option value="Rizal College of Laguna"></option>
+												<option value="Rizal College of Taal"></option>
+												<option value="Rizal Memorial Colleges"></option>
+												<option value="Rizal Memorial Institute"></option>
+												<option value="Rizal Technological University"></option>
+												<option value="Rogationist College"></option>
+												<option value="Romblon State University – multiple campuses"></option>
+												<option value="Romeo Padilla University - Urdaneta City, Pangasinan"></option>
+												<option value="Roosevelt College System – multiple campuses"></option>
+												<option value="Roosevelt College Marikina"></option>
+												<option value="Roosevelt College Quirino"></option>
+												<option value="Royal Christian College"></option>
+												<!-- End of "R" -->
+
+												<!-- Startt of "S" -->
+												<option value="Sacred Heart College - Lucena City Quezon"></option>
+												<option value="Sacred Heart College - Tacloban City"></option>
+												<option value="St. Anthony College Calapan City, Inc., (formerly St. Anthony College of Science and Technology, Inc.)"></option>
+												<option value="St. Anthony College of Nursing, Inc."></option>
+												<option value="St. Anthony's College - San Jose, Antique"></option>
+												<option value="St. Anthony's College - Santa Ana, Cagayan"></option>
+												<option value="Saint Bridget College"></option>
+												<option value="Saint Clare College"></option>
+												<option value="Saint Columban College"></option>
+												<option value="St. Dominic College of Asia"></option>
+												<option value="St. Dominic College - Batanes, Basco"></option>
+												<option value="Saint Ferdinand College - Ilagan City, Isabela Main Campus"></option>
+												<option value="Saint Ferdinand College - Cabagan, Isabela"></option>
+												<option value="Saint Francis of Assisi College System -Las Piñas City"></option>
+												<option value="Saint Francis of Assisi College System -Alabang Campus"></option>
+												<option value="Saint Francis of Assisi College System -Dasmariñas Campus"></option>
+												<option value="Saint Francis of Assisi College System -Taguig Campus"></option>
+												<option value="Saint Francis of Assisi College System -Biñan Campus"></option>
+												<option value="Saint Francis of Assisi College System -Pamplona Campus"></option>
+												<option value="Saint Francis of Assisi College System -Bacoor Campus"></option>
+												<option value="Saint Francis of Assisi College System -Los Baños Campus"></option>
+												<option value="Saint Francis Institute of Computer Studies -San Pedro, Laguna"></option>
+												<option value="Saint Francis Institute of Computer Studies -Cabagan Campus"></option>
+												<option value="Saint Francis Institute of Computer Studies -Isabela Campus"></option>
+												<option value="Saint Gabriel College"></option>
+												<option value="St. Ignatius Technical Institute of Business and Arts"></option>
+												<option value="St. James College of Parañaque"></option>
+												<option value="St. James College of Quezon City"></option>
+												<option value="Saint John and Paul Colleges"></option>
+												<option value="Saint John Colleges"></option>
+												<option value="St. Joseph College Cavite City"></option>
+												<option value="Saint Joseph College Maasin City"></option>
+												<option value="St. Joseph College-Olongapo, Inc"></option>
+												<option value="Saint Joseph's College -Montalban, Rizal"></option>
+												<option value="Saint Joseph's College -Quezon City"></option>
+												<option value="Saint Jude College"></option>
+												<option value="Saint Jude Thaddeus Institute of Technology"></option>
+												<option value="St. Linus University (St. Linus Online Institute)"></option>
+												<option value="Saint Louis College"></option>
+												<option value="Saint Louis University, Baguio City Main Campus -Bonifacio St., Baguio City"></option>
+												<option value="Gonzaga Campus -General Luna St., Baguio City"></option>
+												<option value="Maryheights Campus -Bakakeng, Baguio City"></option>
+												<option value="Navy Base Campus -Navy Base, Baguio City"></option>
+												<option value="St. Mary's College of Meycauayan"></option>
+												<option value="Saint Mary's College of Quezon City"></option>
+												<option value="Saint Mary's University of Bayombong, Nueva Vizcaya"></option>
+												<option value="St. Mary's College of Baganga"></option>
+												<option value="St. Mary's College of Baliuag"></option>
+												<option value="St. Mary's College of Boac"></option>
+												<option value="St. Mary's College of Borongan"></option>
+												<option value="St. Mary's College of Catbalogan"></option>
+												<option value="St. Mary's College of Labason"></option>
+												<option value="St. Mary's College of Tagum"></option>
+												<option value="St. Mary's College of Toledo"></option>
+												<option value="Saint Mary's University of Cebu"></option>
+												<option value="St. Matthew College"></option>
+												<option value="Saint Michael College of Hindang Leyte"></option>
+												<option value="Saint Michael College of Caraga"></option>
+												<option value="Saint Michael's College"></option>
+												<option value="Saint Michael's College -Guagua, Pampanga"></option>
+												<option value="St. Michael's College -Iligan City"></option>
+												<option value="St. Nicolas College of Business and Technology"></option>
+												<option value="St. Paul College of Ilocos Sur"></option>
+												<option value="St. Paul College of Makati"></option>
+												<option value="St. Paul College of Pasig"></option>
+												<option value="St. Paul College of Parañaque"></option>
+												<option value="St. Paul College of Technology"></option>
+												<option value="Saint Pedro Poveda College"></option>
+												<option value="St. Peter's College -Balingasag"></option>
+												<option value="St. Peter's College -Iligan"></option>
+												<option value="St. Peter's College -Ormoc"></option>
+												<option value="St. Peter's College -Toril"></option>
+												<option value="St. Peter College of Technology"></option>
+												<option value="St. Rita College -Manila"></option>
+												<option value="St. Rita College -Parañaque City"></option>
+												<option value="St. Rita's College -Balingasag"></option>
+												<option value="St. Scholastica's Academy"></option>
+												<option value="St. Scholastica's College Manila"></option>
+												<option value="St. Scholastica's College -Tacloban"></option>
+												<option value="Sta. Teresa College"></option>
+												<option value="Saint Theresa's College of Cebu City"></option>
+												<option value="Saint Theresa's College of Quezon City"></option>
+												<option value="St. Vincent College"></option>
+												<option value="Samar Island University (formerly Samar College, Samar Junior College)"></option>
+												<option value="San Agustin Institute of Technology"></option>
+												<option value="San Beda University"></option>
+												<option value="San Beda College Alabang - Alabang Hills Village, Muntinlupa City"></option>
+												<option value="San Beda University Manila - Mendiola, Manila"></option>
+												<option value="San Beda University Rizal - Taytay, Rizal"></option>
+												<option value="San Carlos College"></option>
+												<option value="San Isidro College"></option>
+												<option value="San Jose Christian Colleges"></option>
+												<option value="Saint Joseph Institute of Technology"></option>
+												<option value="San Juan de Dios College"></option>
+												<option value="San Lorenzo College"></option>
+												<option value="San Pablo Colleges"></option>
+												<option value="San Pedro College - Davao City"></option>
+												<option value="San Pedro College of Business Administration"></option>
+												<option value="San Sebastian College - Recoletos de Manila"></option>
+												<option value="San Sebastian College - Recoletos de Cavite"></option>
+												<option value="Sancta Maria, Mater et Regina, Seminarium"></option>
+												<option value="Sangguniang Kabataan University"></option>
+												<option value="Santa Cruz Institute"></option>
+												<option value="Santa Isabel College"></option>
+												<option value="Santiago City Colleges"></option>
+												<option value="Siargao Island Institute of Technology"></option>
+												<option value="Siena College of Taytay"></option>
+												<option value="Siena College of Quezon City"></option>
+												<option value="Sierra College - Bayombong, Nueva Vizcaya"></option>
+												<option value="Silliman University"></option>
+												<option value="Siquijor State College (SSC) - North Poblacion, 6226 Larena, Siquijor"></option>
+												<option value="Siquijor State College - Lazi Campus - 6228 Lazi, Siquijor"></option>
+												<option value="SISTECH College"></option>
+												<option value="Skill Power Institute"></option>
+												<option value="Sorsogon State College"></option>
+												<option value="South Forbes City College"></option>
+												<option value="South Ilocandia College of Arts and Technology"></option>
+												<option value="South Philippine Adventist College"></option>
+												<option value="South SEED LPDH College"></option>
+												<option value="Southeast Asia Interdisciplinary Development Institute"></option>
+												<option value="Southeastern College of Arts and Trades"></option>
+												<option value="Southern Baptist College "></option>
+												<option value="Southern Christian College"></option>
+												<option value="Southern Isabela Colleges"></option>
+												<option value="Southern Isabela Colleges of Arts and Trades (TESDA)"></option>
+												<option value="Southern Leyte Business College"></option>
+												<option value="Southern Leyte State University - Main Campus, Sogod"></option>
+												<option value="Southern Leyte State University - Bontoc Campus, San Ramon, Bontoc"></option>
+												<option value="Southern Leyte State University - Hinunangan Campus, Hinunangan"></option>	
+												<option value="Southern Leyte State University - San Juan Campus, San Juan"></option>
+												<option value="Southern Leyte State University - Tomas Oppus Campus, San Isidro, Tomas Oppus"></option>
+												<option value="Southern Luzon State University"></option>
+												<option value="Southern Luzon Technological College Foundation Inc."></option>
+												<option value="Southern Mindanao Colleges"></option>
+												<option value="Southern Philippine Academy College Inc. (SPA, College Inc.)"></option>
+												<option value="Southern Philippines Agri-business and Marine and Aquatic School of Technology (SPAMAST)"></option>
+												<option value="Southern Philippines College"></option>
+												<option value="Southland College"></option>
+												<option value="Southville Foreign University"></option>
+												<option value="Southville International School and Colleges"></option>
+												<option value="Southway College of Technology"></option>
+												<option value="Southwestern University"></option>
+												<option value="STI College (multiple campuses)"></option>
+												<option value="STI College Balagtas"></option>
+												<option value="Sto. Rosario Sapang Palay College"></option>
+												<option value="Stonyhurst Southville International School"></option>
+												<option value="Subic University of Immaculate Conception of Zambales, Inc."></option>
+												<option value="Sultan Kudarat Polytechnic State College"></option>
+												<option value="Sumulong College Of Arts And Sciences"></option>
+												<option value="Superior Institute of Science and Technology of Santiago City"></option>
+												<option value="Surigao City Adventist Learning Center"></option>
+												<option value="Surigao del Sur Polytechnic State College"></option>
+												<option value="Surigao del Sur Polytechnic State College"></option>
+												<option value="Surigao Education Center"></option>
+												<option value="Surigao del Norte State University - Surigao City"></option>
+												<option value="Surigao del Norte State University - Del Carmen, Surigao del Norte Campus"></option>
+												<option value="Surigao del Norte State University - Mainit, Surigao del Norte Campus"></option>
+												<option value="Surigao del Norte State University- Malimono, Surigao del Norte Campus"></option>
+												<option value="Systems Plus College Foundation"></option>
+												<option value="Systems Plus Computer College - Caloocan City"></option>
+												<option value="Systems Plus Computer College - City of San Fernando"></option>
+												<option value="Systems Plus Computer College - Cubao"></option>
+												<option value="Systems Plus Computer College - Davao"></option>
+												<option value="Systems Plus College Foundation - Miranda, Angeles City"></option>
+												<option value="Systems Plus Computer College - Quezon City"></option>
+												<option value="San Mateo Municipal College"></option>
+												<!-- End of "S" -->
+
+												<!-- Start of "T" -->
+												<option value="Tabaco College"></option>
+												<option value="Tagoloan Community College"></option>
+												<option value="Taguig City University"></option>
+												<option value="Tagum Doctors College, Inc."></option>
+												<option value="Tan Ting Bing Memorial Colleges Foundation, Inc"></option>
+												<option value="Tarlac Agricultural University"></option>
+												<option value="Tarlac State University - Main Campus in San Roque"></option>
+												<option value="Tarlac State University - Lucinda Campus"></option>
+												<option value="Tarlac State University - San Isidro Campus"></option>
+												<option value="Tasashyass College Inc"></option>
+												<option value="Technological Institute of the Philippines"></option>
+												<option value="Technological University of the Philippines - Manila (Main Campus)"></option>
+												<option value="Technological University of the Philippines – Cavite"></option>
+												<option value="Technological University of the Philippines - Cuenca"></option>
+												<option value="Technological University of the Philippines - Lopez"></option>
+												<option value="Technological University of the Philippines – Taguig"></option>
+												<option value="Technological University of the Philippines – Visayas"></option>
+												<option value="Thames Business School"></option>
+												<option value="The MARIAM School of Nursing, Inc."></option>
+												<option value="Tomas Claudio Memorial College"></option>
+												<option value="Tomas del Rosario College"></option>
+												<option value="Trace College - Los Baños"></option>
+												<option value="Trace College - Makati"></option>
+												<option value="Trent Information First Technical Career Institute"></option>
+												<option value="Treston International College"></option>
+												<option value="Trinitas College Pantoc Meycauayan Bulacan"></option>
+												<option value="Trinity University of Asia (formerly Trinity College of Quezon City)"></option>
+												<option value="Tyrone Valera University"></option>
+												<!-- End of "T" -->
+												<!-- Start of "U" -->
+												<option value="Unciano Paramedical Colleges Inc. - Antipolo City"></option>
+												<option value="Unciano Paramedical Colleges Inc. - Guadacanal Sta. Mesa Manila"></option>
+												<option value="Unida Christian Colleges - Anabu, Imus City, Cavite"></option>
+												<option value="Union Christian College (Philippines)"></option>
+												<option value="Union College of Laguna "></option>
+												<option value="United Doctors Medical Center"></option>
+												<option value="Universal Colleges of Paranaque Inc."></option>
+												<option value="Universidad de Manila"></option>
+												<option value="Universidad de Zamboanga"></option>
+												<option value="University of Antique - Hamtic, Antique"></option>
+												<option value="University of Antique - Sibalom, Antique"></option>
+												<option value="University of Antique - Tibiao, Antique"></option>
+												<option value="University of Asia and the Pacific"></option>
+												<option value="University of the Assumption"></option>
+												<option value="University of Baguio"></option>
+												<option value="University of Batangas"></option>
+												<option value="University of Bohol"></option>
+												<option value="University of Cagayan Valley (Cagayan Colleges Tuguegarao)"></option>
+												<option value="University of Caloocan City (formerly Caloocan City Polytechnic College)"></option>
+												<option value="University of Catbalogan City"></option>
+												<option value="University of Cebu - Main Campus"></option>
+												<option value="University of Cebu - Banilad Campus"></option>
+												<option value="University of Cebu - Lapu-lapu & Mandaue"></option>
+												<option value="University of Cebu - Maritime Education and Training Center"></option>
+												<option value="University of Cebu - South Campus (defunct)"></option>
+												<option value="University of the Cordilleras (formerly Baguio Colleges Foundation)"></option>
+												<option value="University of the East - Caloocan"></option>
+												<option value="University of the East - Manila"></option>
+												<option value="UERMMMC - Quezon City"></option>
+												<option value="University of Eastern Philippines"></option>
+												<option value="University of Frederick Alcantara"></option>
+												<option value="University of Iloilo"></option>
+												<option value="University of the Immaculate Conception"></option>
+												<option value="University of James Din"></option>
+												<option value="University of La Salette - Main, Santiago City"></option>
+												<option value="University of La Salette - Aurora, Isabela"></option>
+												<option value="University of La Salette - Cabatuan, Isabela"></option>
+												<option value="University of La Salette - Cordon, Isabela"></option>
+												<option value="University of La Salette - Jones, Isabela"></option>
+												<option value="University of La Salette - Quezon, Isabela"></option>
+												<option value="University of La Salette - Ramon, Isabela"></option>
+												<option value="University of La Salette - Roxas, Isabela"></option>
+												<option value="University of La Salette - San Mateo, Isabela"></option>
+												<option value="University of Luzon"></option>
+												<option value="University of Makati"></option>
+												<option value="University of Manila"></option>
+												<option value="University of Mindanao - Main Campus, Bolton Street, Davao City"></option>
+												<option value="University of Mindanao - Main Campus, Matina, Davao City"></option>
+												<option value="University of Mindanao - Bangoy Campus"></option>
+												<option value="University of Mindanao - Bansalan Campus"></option>
+												<option value="University of Mindanao - Cotabato Campus"></option>
+												<option value="University of Mindanao - Digos Campus"></option>
+												<option value="University of Mindanao - Guianga Campus"></option>
+												<option value="University of Mindanao - Panabo Campus"></option>
+												<option value="University of Mindanao - Peñaplata Campus"></option>
+												<option value="University of Mindanao - Tagum Campus"></option>
+												<option value="University of Mindanao - Tibungco Campus"></option>
+												<option value="University of Mindanao - Toril Campus"></option>
+												<option value="University of Negros Occidental - Recoletos"></option>
+												<option value="University of Northeastern Philippines"></option>
+												<option value="University of Northern Philippines "></option>
+												<option value="University of Nueva Caceres"></option>
+												<option value="University of Pangasinan"></option>
+												<option value="University of Perpetual Help System"></option>
+												<option value="University of Perpetual Help System DALTA"></option>
+												<option value="University of Perpetual Help System JONELTA"></option>
+												<option value="University of the Philippines (8 campuses)"></option>
+												<option value="University of Rizal System (multiple campuses)"></option>
+												<option value="University of Saint Anthony"></option>
+												<option value="University of Saint La Salle"></option>
+												<option value="University of Saint Louis Tuguegarao"></option>
+												<option value="University of the Samar Island Archipelago (formerly Samar State University) - Catbalogan City, Main Campus"></option>
+												<option value="University of the Samar Island Archipelago - Basey"></option>
+												<option value="University of the Samar Island Archipelago - Catarman, Northern Samar"></option>
+												<option value="University of the Samar Island Archipelago - Guiuan, Eastern Samar"></option>
+												<option value="University of the Samar Island Archipelago - Mercedes, Catbalogan City"></option>
+												<option value="University of the Samar Island Archipelago - Paranas"></option>
+												<option value="University of the Samar Island Archipelago - Pinabacdao (South Samar Campus)"></option>
+												<option value="University of San Agustin"></option>
+												<option value="University of San Carlos - Main Campus"></option>
+												<option value="University of San Carlos - North Campus (formerly Boys High School)"></option>
+												<option value="University of San Carlos - South Campus (formerly Girls High School)"></option>
+												<option value="University of San Carlos - Talamban Campus"></option>
+												<option value="University of San Jose - Recoletos - Main Campus - Magallanes St., Cebu City"></option>
+												<option value="University of San Jose - Recoletos - Arpili Balamban, Cebu Campus"></option>
+												<option value="University of San Jose - Recoletos - Basak, Cebu Campus"></option>
+												<option value="University of Santo Tomas"></option>
+												<option value="University of Santo Tomas - Legazpi"></option>
+												<option value="University of Southeastern Philippines"></option>
+												<option value="University of Southern Mindanao"></option>
+												<option value="University of Southern Philippines Foundation - Lahug, Main Campus"></option>
+												<option value="University of Southern Philippines Foundation - Mabini Campus"></option>
+												<option value="University of the Visayas - Cebu"></option>
+												<option value="Urdaneta City University "></option>
+												<!-- End of "U" -->
+
+												<!-- Start of "V" -->
+												<option value="Valencia Colleges"></option>
+												<option value="Velez College"></option>
+												<option value="Vineyard International Polytechnic College"></option>
+												<option value="Virgen Delos Remedios College"></option>
+												<option value="Virgen Milagrosa University Foundation"></option>
+												<option value="Visayas State University Main Campus - Baybay City, Leyte"></option>
+												<option value="Visayas State University - Alang-alang, Leyte Campus"></option>
+												<option value="Visayas State University - Isabel, Leyte Campus"></option>
+												<option value="Visayas State University - Tolosa, Leyte Campus"></option>
+												<option value="Visayas State University - Villaba, Leyte Campus"></option>
+												<option value="Visca N Roxas College"></option>
+												<!-- End of "V" -->
+
+												<!-- Start of "W" -->
+												<option value="WCC Aeronautical College"></option>
+												<option value="Wesleyan University-Philippines - Cabanatuan City"></option>
+												<option value="Wesleyan University-Philippines (Aurora) - Maria Aurora, Aurora Province"></option>
+												<option value="West Bay College"></option>
+												<option value="West Institute of Technology"></option>
+												<option value="West Negros University"></option>
+												<option value="West Visayas State University"></option>
+												<option value="Western Institute of Technology"></option>
+												<option value="Western Leyte College (WLC)"></option>
+												<option value="Western Mindanao State University"></option>
+												<!-- End of "W" -->
+
+												<!-- Start of "X" -->
+												<option value="Xavier University - Ateneo de Cagayan"></option>
+												<!-- End of "X" -->
+
+												<!-- Start of "Y" -->
+
+												<!-- End of "Y" -->
+
+												<!-- Start of "Z" -->
+												<option value="Zamboanga City State Polytechnic College"></option>
+												<option value="Zamboanga del Sur Maritime Institute of Technology"></option>
+												<option value="Zamboanga State College of Marine Sciences and Technology"></option>
+												<option value="Zamora Memorial College - Bacacay"></option>
+												<!-- End of "Z" -->
+											</datalist>
+										
+									</div>
+			          			</div>	
 				          		<div class="col-sm-12 mb-1">
 				          			<h5 class="modal-title ">Accomplishments or descriptions(optional)</h5>
 				          		</div>
 				          		<div class="col-sm-12 text-center mb-4">
 				          			<textarea name="passerDesc" class="form-control" rows="5" id="dsecription" placeholder="Valedictorian, Honorable Mentions, etc."></textarea>
 				          		</div>	
-				        	</div>	          	
-				    </div>
-			        <div class="modal-footer border">		
-		        	<div class="row col justify-content-center mx-0" >		        		
-		        		<div class="col-sm-4">
-		        			<button type="submit" class="form-control btn btn-success">Save</button>
+			        		</div>	          	
+			    		</div>
+ 					</div>
+	 			  	<div class="modal-footer border">		
+			        	<div class="row col justify-content-center mx-0" >		        		
+			        		<div class="col-sm-4">
+			        			<button type="submit" class="form-control btn btn-success">Save</button>
+			        		</div>
+			      	
+			        		<div class="col-sm-4">
+			        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
+			        		</div>
+			        	</div>     				
+			       	</div>
+				</form>
+	 		</div>
+	 	</div>
+	 </div>
+
+	<!-- End of Add Education Modal -->
+
+	<!-- verification -->
+
+	<div class="modal fade " id="verification" role="dialog ">
+ 		<div class="modal-dialog modal-dialog-centered rounded modal-lg" role="document" >
+ 			<div class="modal-content">
+ 				<div class="modal-header ">		          	
+		          	<label class="modal-title centerModalTitle">Personal Details</label>
+		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>	
+
+		        <div class="modal-body bg-light ">
+		        	<div class="alert alert-danger text-center hidethis" id="verifyModalError">
+					</div>
+		        	<form id="verifyModal">
+		        		<div class="container">		        			
+							<div class="row">
+								<div class="col-sm-3">
+			        				<div class=" row">
+			        					<div class="col">
+			        						<div class="form-group ">
+			        							<img src="../../public/etc/images/system/tesda.png" class="mb-4 rounded mx-auto d-block modalAddDetails">
+			        							<label class="my-2 text-center col">Government Issued ID</label>
+			        							<label class="my-4 text-center col">Your Information is secured</label>
+			        						</div>			        						
+			        					</div>
+			        				</div>
+
+			        				<div class="row">
+			        					<div class="col">
+			        						<div class="form-group">
+			        							<h5 class="text-center my-5">Quick Tips :</h5>
+			        							<img src="../../public/etc/images/system/id.png" class="my-5 rounded mx-auto d-block">
+			        							<img src="../../public/etc/images/system/expire.png" class="my-5 rounded mx-auto d-block ">
+			        						</div>
+			        					</div>
+			        				</div>
+			        			</div>
+
+			        			<div class="col-sm-9 mt-5">
+			        				<div class="row py-2">
+			        					<div class="col-sm-6">
+			        						<div class="row justify-content-center">
+			        							<label class="">Front of your ID</label>
+			        						</div>
+			        						<div class="row justify-content-center">
+			        							<input class="form-control d-none inputImage1" name="frontID" type="file" id="addDetailsPasser1" accept="image/jpeg,image/png">
+			        							<img src="../../public/etc/images/system/calendar.png" class="modalAddDetails" id="previewImage1">
+			        						</div>
+			        						<div class="row justify-content-center pt-2">
+			        							<button type="button" class="btn btn-primary" id="substituteButton1">Upload Photo</button>
+			        						</div>
+			        					</div>
+			        					<div class="col-sm-6">
+			        						<div class="row  justify-content-center">
+			        							<label class="">Back of your ID</label>
+			        						</div>
+			        						<div class="row justify-content-center">
+			        							<input class="form-control d-none inputImage2" name="backID" type="file" id="addDetailsPasser2" accept="image/jpeg,image/png">
+			        							<img src="../../public/etc/images/system/calendar.png" class="modalAddDetails" id="previewImage2">
+			        						</div>
+			        						<div class="row justify-content-center pt-2">
+			        							<button type="button" class="btn btn-primary" id="substituteButton2">Upload Photo</button>
+			        						</div>
+			        					</div>
+			        				</div>
+
+			        				<div class="row py-2">
+			        					<div class="col-sm-6">
+			        						<div class="row  justify-content-center">
+			        							<label class="">Selfie with ID</label>
+			        						</div>
+			        						<div class="row justify-content-center">
+			        							<input class="form-control d-none inputImage3" name="selfieID" type="file" id="addDetailsPasser3" accept="image/jpeg,image/png">
+			        							<img src="../../public/etc/images/system/calendar.png" class="modalAddDetails" id="previewImage3">
+			        						</div>
+			        						<div class="row justify-content-center pt-2">
+			        							<button type="button" class="btn btn-primary" id="substituteButton3">Upload Photo</button>
+			        						</div>
+			        					</div>
+			        					<div class="col-sm-6">
+			        						<div class="row  justify-content-center">
+			        							<label class="">Competency Assessment Certificate</label>
+			        						</div>
+			        						<div class="row justify-content-center">
+			        							<input class="form-control d-none inputImage4" name="competencyCertificate" type="file" id="addDetailsPasser4" accept="image/jpeg,image/png">
+			        							<img src="../../public/etc/images/system/calendar.png" class="modalAddDetails" id="previewImage4">
+			        						</div>
+			        						<div class="row justify-content-center pt-2">
+			        							<button type="button" class="btn btn-primary" id="substituteButton4">Upload Photo</button>
+			        						</div>
+			        					</div>
+			        				</div>
+
+			        				<div class="row py-1">
+			        					<div class="col">
+			        						<div class="form-group">
+				        						<label>Select ID Type</label>
+				        						<input type="text" name="idType" class="form-control" value="">
+			        						</div>
+			        					</div>
+			        				</div>
+
+			        				<div class="row py-1">
+			        					<div class="col">
+			        						<div class="form-group">
+				        						<label>ID Number</label>
+				        						<input type="text" name="idNumber" class="form-control" value="">
+			        						</div>
+			        					</div>
+			        				</div>
+
+			        				<div class="row pt-1">
+			        					<div class="col">
+			        						<div class="form-group">
+											   	<label for="expirationCOC">Expiration Date</label>
+											    <input type='text' id='expiration_datetime_picker' name="expirationDate" class="form-control date" placeholder="MM/DD/YYYY" />
+											</div>
+			        					</div>
+			        				</div>
+			        			</div>
+							</div>
+		        			
 		        		</div>
-		        </form>		
-		        		<div class="col-sm-4">
-		        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
-		        		</div>
-		        	</div>     				
+		        	</form>		        	
 		        </div>
+
+		        <div class="modal-footer bg-light">
+					<button type="submit" name="passerUpdateData" class="btn btn-success"><span class="text-white">Submit</span></button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+				</div>
  			</div>
  		</div>
  	</div>
-	<!-- End of Add Education Modal -->
+	<!-- end of verification -->
+
+	<!-- Start of Add Job Experience Modal with Data-->
+	<div class="modal fade " id="withData" role="dialog ">
+ 		<div class="modal-dialog modal-dialog-centered rounded" role="document" >
+ 			<div class="modal-content">
+ 				<div class="modal-header ">		          	
+		          	<h5 class="modal-title ">Work Experience</h5>
+		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>	
+		        <form id="jobExperienceModal">
+			        <div class="modal-body bg-light ">
+			        	<div class="alert alert-danger text-center hidethis" id="jobExperienceModalError">
+						</div>
+			        	<div class="row ">
+			        		<div class="col-sm-12 mb-1">
+			          			<h5 class="modal-title ">Job title</h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center mb-4">
+			          			<input type="text" required name="jTitle" class="form-control" placeholder="Your job title here" value="">
+			          		</div>
+
+			          		<div class="col-sm-12 mb-1">
+			          			<h5 class="modal-title ">Company</h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center mb-4">
+			          			<input type="text" required name="company" class="form-control" placeholder="The company you worked with">
+			          		</div>	
+
+			          		<div class="col-sm-12 mb-1">
+			          			<h5 class="modal-title ">Description <small class="text-secondary">(optional)</small></h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center mb-4">
+			          			<textarea name="passerWorkDesc" value="<?php echo isset($PasserWorkHistoryDesc)? $PasserWorkHistoryDesc: ''; ?>" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+			          		</div>
+
+			          		<div class="col-sm-6">
+			          			<h5 class="modal-title ">From</h5>
+			          		</div>	
+			          		<div class="col-sm-6">
+			          			<h5 class="modal-title ">To</h5>
+			          		</div>	
+
+	       					<div class="col-sm-6">	
+	                            <input type='text' required disabled readonly id='start_datetime_picker' name="startDate" class="form-control date" placeholder="Start Date" />
+			          		</div>	
+
+							<script type="text/javascript">
+							    $(document).ready(function() {
+							    $('#start_datetime_picker').datepicker().on(
+							        'show',
+							        function() {
+							            var modal = $('#start_datetime_picker').closest('.modal');
+							            var datePicker = $('body').find('.datepicker');
+							            if (!modal.length) {
+							                $(datePicker).css('z-index', 'auto');
+							                return;
+							            }
+							            var zIndexModal = $(modal).css('z-index');
+							            $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+								        }
+								    );
+								});
+
+								$(document).ready(function() {
+							    $('#end_datetime_picker').datepicker().on(
+							        'show',
+							        function() {
+							            var modal = $('#end_datetime_picker').closest('.modal');
+							            var datePicker = $('body').find('.datepicker');
+							            if (!modal.length) {
+							                $(datePicker).css('z-index', 'auto');
+							                return;
+							            }
+							            var zIndexModal = $(modal).css('z-index');
+							            $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+								        }
+								    );
+								});
+
+								$(document).ready(function() {
+							    $('#expiration_datetime_picker').datepicker().on(
+							        'show',
+							        function() {
+							            var modal = $('#expiration_datetime_picker').closest('.modal');
+							            var datePicker = $('body').find('.datepicker');
+							            if (!modal.length) {
+							                $(datePicker).css('z-index', 'auto');
+							                return;
+							            }
+							            var zIndexModal = $(modal).css('z-index');
+							            $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+								        }
+								    );
+								});
+								
+			       			</script> 
+
+			          		<div class="col-sm-6">	
+	                            <input type='text' required disabled readonly id='end_datetime_picker' name="endDate" class="form-control date" placeholder="End Date" />
+			          		</div>	
+
+			        	</div>	         	
+			        </div>
+			        <div class="modal-footer border">		
+			        	<div class="row col justify-content-center mx-0" >		        		
+			        		<div class="col-sm-4">
+			        			<button type="submit" name="passerJobExperienceData" class="form-control btn btn-success">Save</button>
+			        		</div>
+			        
+			        		<div class="col-sm-4">
+			        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
+			        		</div>
+			        	</div>     				
+			        </div>
+		        </form>	 
+ 			</div>
+ 		</div>
+ 	</div>
+	<!-- End of Add Job Experience Modal with DATA-->

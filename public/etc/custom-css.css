@@ -275,6 +275,33 @@ div.modal-footer{
 
 /*passer*/
 /*dashboard*/
+.textDecorationNone:hover{
+  text-decoration: none;
+}
+
+.dashedBorder {
+    border-bottom-style: dotted;
+    border-width: 2px;
+}
+
+.dropdown-item.active, .dropdown-item:active{
+  color: black;
+  text-decoration: none;
+  background-color: white;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: auto;
+}
+
+.scrollable-content {
+    height: auto;
+    max-height: 600px;
+    overflow-x: auto;
+}
+
 div.container label.profileTitle{
   font-size: 2rem;
 }

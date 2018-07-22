@@ -38,6 +38,11 @@ $rate = "Very Good!";
 <!-- content -->
 <div class="container-fluid mt-5">
 	<!-- start of 1st row -->
+	<div class="row px-5 ">
+		<div class="alert alert-danger col text-center" role="alert">
+			<label>Your account is not yet verified, please complete the information needed Mate<button type="button" class="btn btn-link" data-toggle="modal" data-target="#verification">Click Here</button> to verify you account.</label>			
+		</div>
+	</div>
 	<div class="row">
 		<!-- 1st box -->
 		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv">
@@ -138,6 +143,33 @@ $rate = "Very Good!";
 					<div class="col-sm-auto">
 						<label class="text-center">Add all your job experience. Seekers wants to know what you accomplished, Mate!</label>
 					</div>
+
+					<div class="col">
+						<ul class="nav nav-tabs justify-content-center">
+							<li class="nav-item dropdown dashedBorder">								
+								<button class=" btn btn-link dropdown-toggle textDecorationNone" type="button" data-toggle="dropdown" data-submenu>
+						        	Click Here to Edit your work experiences.
+						    	</button>
+								<div class="dropdown-menu scrollable-menu" role="menu">
+									<button class="dropdown-item btn btn-link" data-toggle="modal" data-toggle="tab" href="#withData">Work Experience</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#educational1">Educational</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#accommodation1">Service Accommodation</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#rate1">Service Rate</button>	
+
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#work1">Work Experience</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#educational1">Educational</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#accommodation1">Service Accommodation</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#rate1">Service Rate</button>			
+
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#work1">Work Experience</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#educational1">Educational</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#accommodation1">Service Accommodation</button>
+									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#rate1">Service Rate</button>					
+								</div>
+							</li>	
+						</ul>		
+					</div>
+					
 				</div>
       		</div>
       		<hr>

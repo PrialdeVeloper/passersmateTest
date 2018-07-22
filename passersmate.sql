@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 19, 2018 at 03:15 PM
+-- Generation Time: Jul 22, 2018 at 09:35 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -196,15 +196,16 @@ CREATE TABLE `passer` (
   `PasserCertificate` varchar(255) NOT NULL,
   `PasserCertificateType` varchar(100) NOT NULL,
   `PasserTESDALink` varchar(255) NOT NULL,
-  `PasserProfile` varchar(255) DEFAULT NULL
+  `PasserProfile` varchar(255) DEFAULT NULL,
+  `PasserFee` bigint(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passer`
 --
 
-INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`) VALUES
-(1, 'Jodel', 'Adan', 'B', '2018-07-11', 0, 'Male', 'Qweq', 'Cebu City', 'Qwe', 1234526362, 'test@gmail.com', '1', 0, '13040102003962', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/1531999462153199946221.jpg');
+INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`) VALUES
+(1, 'Jodel', 'Adan', 'B', '2018-07-11', 0, 'Male', 'Qweq', 'Cebu City', 'Qwe', 1234526362, 'test@gmail.com', '1', 0, '13040102003962', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/1531999462153199946221.jpg', 0);
 
 -- --------------------------------------------------------
 

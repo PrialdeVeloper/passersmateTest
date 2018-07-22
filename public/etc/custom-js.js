@@ -423,7 +423,220 @@ $(function(){
 
 // dashboard passer
 
+// verifyModal previewImage
 
+// 1st image
+	$(function(){
+		$("#substituteButton1").click(function(){
+			$("#addDetailsPasser1").trigger("click");
+		});
+	});
+
+	function readURL1(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			$('#previewImage1').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(function(){
+		$(".inputImage1").change(function(){
+			$(this).attr("data-integrity","allow");
+				let imageCheck = checkValidImage("input[name=frontID]");
+			if(imageCheck){
+				$("#verifyModalError").hide();
+				readURL1(this);
+			}else{
+				$('#previewImage1').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#verifyModalError","Please choose valid image");
+			}
+		});
+	});
+
+// 2nd image
+	$(function(){
+		$("#substituteButton2").click(function(){
+			$("#addDetailsPasser2").trigger("click");
+		});
+	});
+
+	function readURL2(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			$('#previewImage2').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(function(){
+		$(".inputImage2").change(function(){
+			$(this).attr("data-integrity","allow");
+				let imageCheck = checkValidImage("input[name=backID]");
+			if(imageCheck){
+				$("#verifyModalError").hide();
+				readURL2(this);
+			}else{
+				$('#previewImage2').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#verifyModalError","Please choose valid image");
+			}
+		});
+	});
+
+// 3rd image
+	$(function(){
+		$("#substituteButton3").click(function(){
+			$("#addDetailsPasser3").trigger("click");
+		});
+	});
+
+	function readURL3(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			$('#previewImage3').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(function(){
+		$(".inputImage3").change(function(){
+			$(this).attr("data-integrity","allow");
+				let imageCheck = checkValidImage("input[name=selfieID]");
+			if(imageCheck){
+				$("#verifyModalError").hide();
+				readURL3(this);
+			}else{
+				$('#previewImage3').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#verifyModalError","Please choose valid image");
+			}
+		});
+	});
+
+// 4th image
+	$(function(){
+		$("#substituteButton4").click(function(){
+			$("#addDetailsPasser4").trigger("click");
+		});
+	});
+
+	function readURL4(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			$('#previewImage4').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(function(){
+		$(".inputImage4").change(function(){
+			$(this).attr("data-integrity","allow");
+				let imageCheck = checkValidImage("input[name=competencyCertificate]");
+			if(imageCheck){
+				$("#verifyModalError").hide();
+				readURL4(this);
+			}else{
+				$('#previewImage4').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#verifyModalError","Please choose valid image");
+			}
+		});
+	});
+// end of verifyModal previewImage
+
+// verifyPasserModal
+$(function(){
+	$("#verifyModal").submit(function(event){
+		event.preventDefault();
+		let responseUser = confirm("Are you sure you want to save changes?");
+	if(responseUser == true){
+		let inputImageProfile = $("input[name=frontID]").get[0];
+		let inputImageProfile = $("input[name=backID]").get[0];
+		let inputImageProfile = $("input[name=selfieID]").get[0];
+		let inputImageProfile = $("input[name=competencyCertificate]").get[0];
+		let startDate = $("input[name=idType]").val();
+		let startDate = $("input[name=idNumber]").val();
+		let startDate = $("input[name=expirationDate]").val();
+
+		if ( checkEmpty(idType.val()) || checkEmpty(idNumber.val()) ||
+		 	 checkEmpty(expirationDate.val()) || checkDate(expirationDate.val()) == false ){
+			$("#verifyModalError").empty();
+
+				if(checkEmpty(idType.val())){
+					showDivError("#verifyModalError","Please input valid ID Type");
+				}
+				if(checkEmpty(idNumber.val())){
+					showDivError("#verifyModalError","Please input valid ID Number");
+				}
+				if(checkEmpty(expirationDate.val()) || checkDate(expirationDate.val()) == false){
+					showDivError("#verifyModalError","Please input valid Expiration Date");
+				}
+			}else{
+				$("#verifyModalError").hide();
+				if($("input[name=frontID]" && "input[name=backID]" && "input[name=selfieID]" && "input[name=competencyCertificate]").attr("data-integrity") === undefined){
+					$.ajax({
+						url: "verifyPasser",
+						method: "POST",
+						data: {
+							"verifyPasserDataNoImage": "", "######": idType.val(), "######": idNumber.val(), "######": expirationDate.val()
+						},
+						success: function(returnData){
+							let obj = JSON.parse(returnData);
+							if(obj.error =="none"){
+								window.location = "dashboard";	
+							}else{
+								showDivError("#verifyModalError","Sorry, Something went wrong. Please try again later.");
+							}
+						},
+						fail: function(){
+							showDivError("#verifyModalError","Cannot connect to server. Please try again");	
+						}
+					});
+				}
+				else{
+					let imageCheck1 = checkValidImage("input[name=frontID]");
+					let imageCheck2 = checkValidImage("input[name=backID]");
+					let imageCheck3 = checkValidImage("input[name=selfieID]");
+					let imageCheck4 = checkValidImage("input[name=competencyCertificate]");
+
+					if(imageCheck1 && imageCheck2 && imageCheck3 && imageCheck4 ){
+						let formData = new FormData(this);
+						formData.append("verifyPasserDataWithImage","");
+						formData.append("######",idType.val());
+						formData.append("######",idNumber.val());
+						formData.append("######",expirationDate.val());
+						$.ajax({
+							url: "verifyPasser",
+							method: "POST",
+							data: formData,
+							contentType: false,
+							cache: false,
+							processData:false,
+							success: function(returnStatus){
+								let obj = JSON.parse(returnStatus);
+								if(obj.error == "none"){
+									window.location = "dashboard";	
+								}else{
+									showDivError("#verifyModalError","Sorry, Something went wrong. Please try again later.");
+								}
+							},
+						});
+					}
+					else{
+						showDivError("#verifyModalError","Please choose valid image");
+					}
+				}	
+			}
+		}
+	});
+});
+// end of verifyPasserModal
 $(function(){
 	$("#passerDetailsForm").submit(function(event){
 		event.preventDefault();
