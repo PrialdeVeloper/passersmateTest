@@ -16,19 +16,10 @@ $rate = "Very Good!";
 		extract($data[0]);
 		if(isset($userDetails) && !empty($userDetails)){
 			extract($userDetails[0]);
-			print_r($data);
+			// print_r($data);
 		}
 	} 
 
-	if(!empty($PasserAddress)){
-		$completeAddress = $PasserAddress;
-	}
-	if(!empty($PasserStreet)){
-		$completeAddress = $completeAddress." ".$PasserStreet;
-	}
-	if(!empty($PasserCity)){
-		$completeAddress = $completeAddress.", ".$PasserCity;
-	}
 	require "../public/header-footer/seeker/seekerHeader.marvee";
 	require "../public/header-footer/jobsNav.marvee";
 	require "modal/dashboardModal.html";
@@ -39,9 +30,7 @@ $rate = "Very Good!";
 <div class="container-fluid mt-5">
 	<!-- start of 1st row -->
 	<div class="row px-5 ">
-		<div class="alert alert-danger col text-center" role="alert">
-			<label>Your account is not yet verified, please complete the information needed Mate<button type="button" class="btn btn-link" data-toggle="modal" data-target="#verification">Click Here</button> to verify you account.</label>			
-		</div>
+		<?=$userStatus;?>
 	</div>
 	<div class="row">
 		<!-- 1st box -->
@@ -264,9 +253,6 @@ $rate = "Very Good!";
 	</div>
 	<!-- end of 4th row -->
 </div>
-
-
-
 
 <!-- content -->
 <?php

@@ -21,13 +21,33 @@
 
 		public function index(){
 			$data = [];
+			$detailsProper = null;
 			$details = null;
+			$userStatus = null;
 			if(!$this->checkSession('passerUser')){
 		 		header("location:../home/login");
 		 	}
 		 	$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($this->passerSession));
+		 	$detailsProper = $details[0];
 		 	$workExperience = $this->model->selectAllFromUser("passerworkhistory",$this->passerUnique,array($this->passerSession));
-		 	$data[] = array("userDetails"=>$details,"workExperience"=>$workExperience);
+		 	extract($detailsProper);
+		 	if($PasserStatus == 0){
+		 		$userStatus = '
+		 		<div class="alert alert-danger col text-center" role="alert">
+					<label>Your account is not yet verified, please complete the information needed Mate<button type="button" class="btn btn-link" data-toggle="modal" data-target="#verification">Click Here</button> to verify you account.</label>			
+				</div>
+		 		';
+		 	}
+		 	if(!empty($PasserAddress)){
+				$completeAddress = $PasserAddress;
+			}
+			if(!empty($PasserStreet)){
+				$completeAddress = $completeAddress." ".$PasserStreet;
+			}
+			if(!empty($PasserCity)){
+				$completeAddress = $completeAddress.", ".$PasserCity;
+			}
+		 	$data[] = array("userDetails"=>$details,"workExperience"=>$workExperience,"completeAddress"=>$completeAddress,"userStatus"=>$userStatus);
 			$this->controller->view("passer/dashboard",$data);
 		}
 

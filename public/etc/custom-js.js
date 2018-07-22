@@ -145,7 +145,7 @@ $(function(){
 });
 
 function checkDate(variable){
-	if(isNaN(Date.parse(+variable))){
+	if(isNaN(Date.parse("+variable"))){
 		return true;
 	}
 	else{
@@ -815,7 +815,6 @@ $(function(){
 				processData: false,
     			contentType: false,
 				success: function(dataRet){
-					console.log(dataRet);
 					let obj = JSON.parse(dataRet);
 					if(obj.error == "none"){
 						window.location='dashboard';
@@ -842,5 +841,78 @@ $(function(){
 });
 
 // end of passer Fee
+
+
+// verify passer
+
+$(function(){
+	$("#verifyPasser").submit(function(event){
+		event.preventDefault();
+		let frontID = $("input[name=frontID]");
+		let backID = $("input[name=backID]");
+		let selfieID = $("input[name=selfieID]");
+		let competencyCertificate = $("input[name=competencyCertificate]");
+		let idNumber = $("input[name=idNumber]");
+		let expirationDate = $("input[name=expirationDate]");
+		let acceptID = $("select[name=acceptedId]");
+		let acceptedId = ["Philippine Passport","Driver’s License","SSS UMID Card","PhilHealth ID","TIN Card","Voter’s ID","PRC ID",
+		"Senior Citizen ID","OFW ID","NBI Clearance","Police Clearance","Barangay Clearance","Student ID"];
+		$("#verifyError").empty();
+
+		if(checkEmpty(frontID.val())|| checkEmpty(backID.val())|| checkEmpty(selfieID.val())
+			|| checkEmpty(competencyCertificate.val()) || checkEmpty(idNumber.val()) || checkEmpty(expirationDate.val())){
+
+			if(checkEmpty(frontID.val())){
+				showDivError("#verifyError","Please make sure frontID image field is not empty");
+			}
+			if(checkEmpty(backID.val())){
+				showDivError("#verifyError","Please make sure backID image field is not empty");
+			}
+			if(checkEmpty(selfieID.val())){
+				showDivError("#verifyError","Please make sure selfie with ID image field is not empty");
+			}
+			if(checkEmpty(competencyCertificate.val())){
+				showDivError("#verifyError","Please make sure competency Certificate image field is not empty");
+			}
+			if(checkEmpty(idNumber.val())){
+				showDivError("#verifyError","Please don't forget to input id number");
+			}
+			if(checkEmpty(expirationDate.val())){
+				showDivError("#verifyError","Please don't forget to expiration date");
+			}
+		}else{
+			if(checkValidImage(frontID) == false || checkValidImage(backID) == false 
+				|| checkValidImage(selfieID) == false || checkValidImage(competencyCertificate) == false 
+				|| checkArraySame(acceptedId,acceptID.val()) == false || isNaN(idNumber.val()) 
+				|| checkDate(expirationDate.val()) == false){
+				if(checkValidImage(frontID) == false){
+					showDivError("#verifyError","Please make sure frontID image is valid image file");
+				}
+				if(checkValidImage(backID) == false){
+					showDivError("#verifyError","Please make sure backID image is valid image file");
+				}
+				if(checkValidImage(selfieID) == false){
+					showDivError("#verifyError","Please make sure selfie with ID image is valid image file");
+				}
+				if(checkValidImage(competencyCertificate) == false){
+					showDivError("#verifyError","Please make sure competency Certificate image is valid image file");
+				}
+				if(checkArraySame(acceptedId,acceptID.val()) == false){
+					showDivError("#verifyError","Please make sure you only choose from the list of valid government ID");
+				}
+				if(isNaN(idNumber.val())){
+					showDivError("#verifyError","Please make sure you input valid ID number");
+				}
+				if(checkDate(expirationDate.val()) == false){
+					showDivError("#verifyError","Please make sure expiration date is valid");
+				}
+			}else{
+				$("#verifyError").hide();
+			}
+		}
+	});
+});
+
+// end of verify passer
 
 // end of dashboard passer
