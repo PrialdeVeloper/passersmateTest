@@ -35,10 +35,11 @@
 			}
 		}
 
-		// public function checkAuthenticity(){
-		// 	$return = null;
-		// 	$return = $this->model->checkAuthenticity($_GET['table'],$_GET['field'],$_GET['field2'],array($_GET['data1'],$_GET['data2']));
-		// }
+		public function checkAuthenticity($table,$field,$field2,$data){
+			$return = null;
+			$return = $this->model->checkAuthenticity($table,$field,$field2,$data);
+			return $return?true:false;
+		}
 
 		public function returnURLFacebook(){
 			$fb = null;
@@ -340,20 +341,22 @@
 					echo $e->getMessage();
 				}
 			}else{
-				if(isset($_GET['passerJobExperienceDataUpdate'])){
-					try {
-					$idWorkHistory = $this->sanitize($_GET['workExperienceID']);
-					$title = $this->sanitize($this->upperFirstOnlySpecialChars($_GET['jTitle']));
-					$company = $this->sanitize($this->upperFirstOnlySpecialChars($_GET['company']));
-					$startDate = $this->sanitize(date("Y-m-d",strtotime($_GET['startDate'])));
-					$endDate = $this->sanitize(date("Y-m-d",strtotime($_GET['endDate'])));
-					$desc = !empty($_GET["passerWorkDesc"])?$this->sanitize($_GET["passerWorkDesc"]): "";
-					unset($this->passerWorkHistory[0]);
-					unset($this->passerWorkHistory[7]);
-					$res = $this->model->updateDB("passerworkhistory",$this->passerWorkHistory,array($this->passerSession,$title,$company,$desc,$startDate,$endDate),"PasserWorkHistoryID",$idWorkHistory);
-					echo json_encode(array("error"=>"none"));
-					} catch (Exception $e) {
-						echo $e->getMessage();
+				if(isset($_POST['passerJobExperienceDataUpdate'])){
+					$idWorkHistory = $this->sanitize($_POST['workExperienceID']);
+					if($this->checkAuthenticity("passerworkhistory","PasserWorkHistoryID","PasserID",array($idWorkHistory,$this->passerSession))){
+						try {
+							$title = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['jTitle']));
+							$company = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['company']));
+							$startDate = $this->sanitize(date("Y-m-d",strtotime($_POST['startDate'])));
+							$endDate = $this->sanitize(date("Y-m-d",strtotime($_POST['endDate'])));
+							$desc = !empty($_POST["passerWorkDesc"])?$this->sanitize($_POST["passerWorkDesc"]): "";
+							unset($this->passerWorkHistory[0]);
+							unset($this->passerWorkHistory[7]);
+							$res = $this->model->updateDB("passerworkhistory",$this->passerWorkHistory,array($this->passerSession,$title,$company,$desc,$startDate,$endDate),"PasserWorkHistoryID",$idWorkHistory);
+							echo json_encode(array("error"=>"none"));
+						} catch (Exception $e) {
+							echo $e->getMessage();
+						}
 					}
 				}
 			}

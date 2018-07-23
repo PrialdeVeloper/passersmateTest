@@ -134,7 +134,7 @@ $rate = "Very Good!";
 					</div>
 
 					<div class="col">
-						<ul class="nav nav-tabs justify-content-center">
+						<ul class="nav justify-content-center">
 							<li class="nav-item dropdown dashedBorder">								
 								<button class=" btn btn-link dropdown-toggle textDecorationNone" type="button" data-toggle="dropdown" data-submenu>
 						        	Click Here to Edit your work experiences.
