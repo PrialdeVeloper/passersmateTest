@@ -69,6 +69,13 @@
 			return $this->stmt->fetchColumn();
 		}
 
+		// public function checkAuthenticity($table,$field,$field2,$data){
+		// 	$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM $table WHERE $field = ? and $field2 = ?");
+		// 	$this->stmt->execute($data);
+		// 	return $this->stmt->fetchColumn();
+		// }
+
+
 		public function insertDB($table,$fields,$data){
 			$fieldsQ = $this->addComma($fields);
 			$dataQ = $this->qData($data);

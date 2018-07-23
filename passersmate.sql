@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2018 at 05:31 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Jul 23, 2018 at 09:20 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -277,19 +277,14 @@ CREATE TABLE `passerworkhistory` (
   `PasserWorkHistoryID` int(11) NOT NULL,
   `OfferJobID` int(11) DEFAULT NULL,
   `PasserID` int(11) NOT NULL,
+  `PasserJobTitle` varchar(255) NOT NULL,
+  `PasserCompany` varchar(255) NOT NULL,
   `PasserWorkHistoryDesc` varchar(255) NOT NULL,
   `PasserWorkHistoryStartDate` date NOT NULL,
   `PasserWorkHistoryEndDate` date NOT NULL,
   `PasserWorkHistoryWorkDays` int(11) DEFAULT NULL,
   `passerWorkHistoryDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `passerworkhistory`
---
-
-INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`, `passerWorkHistoryDateTime`) VALUES
-(2, NULL, 1, 'qwe', '2018-07-01', '2018-07-02', NULL, '2018-07-22 15:13:35');
 
 -- --------------------------------------------------------
 
@@ -632,7 +627,7 @@ ALTER TABLE `passervalidate`
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
-  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `review`
