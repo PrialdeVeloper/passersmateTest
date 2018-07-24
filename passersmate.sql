@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2018 at 12:58 PM
+-- Generation Time: Jul 24, 2018 at 03:38 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -267,6 +267,13 @@ CREATE TABLE `passervalidate` (
   `passerValidateDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `passervalidate`
+--
+
+INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID`, `selfie`, `COC`, `idType`, `idNumber`, `expirationDate`, `passerValidateDateTime`) VALUES
+(1, 1, '../../public/etc/images/userVerify/passer/15324335384153243353851.jpg', '../../public/etc/images/userVerify/passer/15324335385153243353821.jpg', '../../public/etc/images/userVerify/passer/15324335386153243353841.jpg', '../../public/etc/images/userVerify/passer/15324335387153243353861.jpg', 'Philippine Passport', 23232, '2018-07-05', '2018-07-24 11:58:58');
+
 -- --------------------------------------------------------
 
 --
@@ -341,7 +348,32 @@ CREATE TABLE `seeker` (
 --
 
 INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`) VALUES
-(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '0', '../../public/etc/images/user/seeker/15324286541153242865421.jpg', '', '');
+(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '2', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seekervalidate`
+--
+
+CREATE TABLE `seekervalidate` (
+  `SeekerValidateId` int(11) NOT NULL,
+  `SeekerID` int(11) NOT NULL,
+  `frontID` varchar(255) NOT NULL,
+  `backID` varchar(255) NOT NULL,
+  `selfie` varchar(255) NOT NULL,
+  `idType` varchar(255) NOT NULL,
+  `idNumber` bigint(20) NOT NULL,
+  `expirationDate` date NOT NULL,
+  `seekerValidateDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `seekervalidate`
+--
+
+INSERT INTO `seekervalidate` (`SeekerValidateId`, `SeekerID`, `frontID`, `backID`, `selfie`, `idType`, `idNumber`, `expirationDate`, `seekerValidateDateTime`) VALUES
+(1, 1, '../../public/etc/images/userVerify/seeker/15324384653153243846541.jpg', '../../public/etc/images/userVerify/seeker/15324384651153243846541.jpg', '../../public/etc/images/userVerify/seeker/15324384656153243846541.jpg', 'Philippine Passport', 2323, '2018-07-17', '2018-07-24 13:21:05');
 
 -- --------------------------------------------------------
 
@@ -527,6 +559,13 @@ ALTER TABLE `seeker`
   ADD PRIMARY KEY (`SeekerID`);
 
 --
+-- Indexes for table `seekervalidate`
+--
+ALTER TABLE `seekervalidate`
+  ADD PRIMARY KEY (`SeekerValidateId`),
+  ADD KEY `passerID` (`SeekerID`);
+
+--
 -- Indexes for table `subscription`
 --
 ALTER TABLE `subscription`
@@ -633,7 +672,7 @@ ALTER TABLE `passerskills`
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
-  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
@@ -652,6 +691,12 @@ ALTER TABLE `review`
 --
 ALTER TABLE `seeker`
   MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `seekervalidate`
+--
+ALTER TABLE `seekervalidate`
+  MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subscription`
@@ -756,6 +801,12 @@ ALTER TABLE `passervalidate`
 ALTER TABLE `passerworkhistory`
   ADD CONSTRAINT `passerworkhistory_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `passerworkhistory_ibfk_2` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `seekervalidate`
+--
+ALTER TABLE `seekervalidate`
+  ADD CONSTRAINT `seekervalidate_ibfk_1` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `subscription`
