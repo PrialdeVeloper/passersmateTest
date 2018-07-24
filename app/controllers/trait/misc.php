@@ -342,6 +342,29 @@
 			}
 		}
 
+		public function validateSeeker(){
+			if(isset($_POST['seekerValidate'])){
+				$frontID = $this->imageUpload("userVerify/seeker","frontID",$this->seekerSession);
+				$backID = $this->imageUpload("userVerify/seeker","backID",$this->seekerSession);
+				$selfie = $this->imageUpload("userVerify/seeker","selfieID",$this->seekerSession);
+				$idNumber = $this->sanitize($_POST['idNumber']);
+				$idType = $this->sanitize($_POST['acceptedId']);
+				$expDate = $this->sanitize(date("Y-m-d",strtotime($_POST['expiryDate'])));
+
+				try {
+					$return = $this->model->insertDB("seekervalidate",$this->seekerValidate,array($this->seekerSession,$frontID,$backID,$selfie,$idType,$idNumber,$expDate));
+					if($return){
+						$updateThis = $this->model->updateDB("$this->seekerTable",array("seekerStatus"),array(2),$this->seekerUnique,$this->seekerSession);
+						if($updateThis){
+							echo json_encode(array("error"=>"none"));
+						}
+					}
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+			}
+		}
+
 
 		public function registerPasser(){
 			if(isset($_POST['registerPasser'])){

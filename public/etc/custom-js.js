@@ -651,7 +651,6 @@ $(function(){
 							cache: false,
 							processData:false,
 							success: function(returnStatus){
-								console.log(returnStatus);
 								let obj = JSON.parse(returnStatus);
 								if(obj.error == "none"){
 									window.location = "dashboard";	
@@ -928,7 +927,6 @@ $(function(){
 						data: {"seekerUpdateDataNoImage": "", "seekerAddress": address.val(), "seekerStreet": streetField.val(), 
 						"seekerCity": cityField.val(), "seekerGender": gender.val(), "SeekerCPNo":cpNo.val(), "seekerBirthdate": birthdate.val()},
 						success: function(returnData){
-							console.log(returnData);
 							let obj = JSON.parse(returnData);
 							if(obj.error =="none"){
 								window.location = "dashboard";	
@@ -960,7 +958,6 @@ $(function(){
 							cache: false,
 							processData:false,
 							success: function(returnStatus){
-								console.log(returnStatus);
 								let obj = JSON.parse(returnStatus);
 								if(obj.error == "none"){
 									window.location = "dashboard";	
@@ -980,5 +977,208 @@ $(function(){
 });
 
 // end of personal details seeker
+
+
+// verifyModal previewImage
+
+// 1st image
+	$(function(){
+		$("#substituteButton1").click(function(){
+			$("#addDetailsSeeker1").trigger("click");
+		});
+	});
+
+	function readURL1(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			$('#previewImage1').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(function(){
+		$(".inputImage1").change(function(){
+			$(this).attr("data-integrity","allow");
+				let imageCheck = checkValidImage("input[name=frontID]");
+			if(imageCheck){
+				$("#verifyModalError").hide();
+				readURL1(this);
+			}else{
+				$('#previewImage1').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#verifyModalError","Please choose valid image");
+			}
+		});
+	});
+
+// 2nd image
+	$(function(){
+		$("#substituteButton2").click(function(){
+			$("#addDetailsSeeker2").trigger("click");
+		});
+	});
+
+	function readURL2(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			$('#previewImage2').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(function(){
+		$(".inputImage2").change(function(){
+			$(this).attr("data-integrity","allow");
+				let imageCheck = checkValidImage("input[name=backID]");
+			if(imageCheck){
+				$("#verifyModalError").hide();
+				readURL2(this);
+			}else{
+				$('#previewImage2').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#verifyModalError","Please choose valid image");
+			}
+		});
+	});
+
+// 3rd image
+	$(function(){
+		$("#substituteButton3").click(function(){
+			$("#addDetailsSeeker3").trigger("click");
+		});
+	});
+
+	function readURL3(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			$('#previewImage3').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(function(){
+		$(".inputImage3").change(function(){
+			$(this).attr("data-integrity","allow");
+				let imageCheck = checkValidImage("input[name=selfieID]");
+			if(imageCheck){
+				$("#verifyModalError").hide();
+				readURL3(this);
+			}else{
+				$('#previewImage3').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#verifyModalError","Please choose valid image");
+			}
+		});
+	});
+// end of verifyModal previewImage
+
+
+// verify seeker
+
+$(function(){
+	$("#verifySeeker").submit(function(event){
+		event.preventDefault();
+		let frontID = $("input[name=frontID]");
+		let backID = $("input[name=backID]");
+		let selfieID = $("input[name=selfieID]");
+		let idNumber = $("input[name=idNumber]");
+		let expirationDate = $("input[name=expirationDate]");
+		let acceptID = $("select[name=acceptedId]");
+		let acceptedId = ["Philippine Passport","Driver’s License","SSS UMID Card","PhilHealth ID","TIN Card","Voter’s ID","PRC ID",
+		"Senior Citizen ID","OFW ID","NBI Clearance","Police Clearance","Barangay Clearance","Student ID"];
+		$("#verifyError").empty();
+
+		if(checkEmpty(frontID.val())|| checkEmpty(backID.val())|| checkEmpty(selfieID.val()) 
+			|| checkEmpty(idNumber.val()) || checkEmpty(expirationDate.val())){
+
+			if(checkEmpty(frontID.val())){
+				showDivError("#verifyError","Please make sure frontID image field is not empty");
+			}
+			if(checkEmpty(backID.val())){
+				showDivError("#verifyError","Please make sure backID image field is not empty");
+			}
+			if(checkEmpty(selfieID.val())){
+				showDivError("#verifyError","Please make sure selfie with ID image field is not empty");
+			}
+			if(checkEmpty(idNumber.val())){
+				showDivError("#verifyError","Please don't forget to input id number");
+			}
+			if(checkEmpty(expirationDate.val())){
+				showDivError("#verifyError","Please don't forget to expiration date");
+			}
+		}else{
+			if(checkValidImage(frontID) == false || checkValidImage(backID) == false 
+				|| checkValidImage(selfieID) == false || checkArraySame(acceptedId,acceptID.val()) == false 
+				|| isNaN(idNumber.val()) 
+				|| checkDate(expirationDate.val()) == false){
+				if(checkValidImage(frontID) == false){
+					showDivError("#verifyError","Please make sure frontID image is valid image file");
+				}
+				if(checkValidImage(backID) == false){
+					showDivError("#verifyError","Please make sure backID image is valid image file");
+				}
+				if(checkValidImage(selfieID) == false){
+					showDivError("#verifyError","Please make sure selfie with ID image is valid image file");
+				}
+				if(checkArraySame(acceptedId,acceptID.val()) == false){
+					showDivError("#verifyError","Please make sure you only choose from the list of valid government ID");
+				}
+				if(isNaN(idNumber.val())){
+					showDivError("#verifyError","Please make sure you input valid ID number");
+				}
+				if(checkDate(expirationDate.val()) == false){
+					showDivError("#verifyError","Please make sure expiration date is valid");
+				}
+			}else{
+				$("#verifyError").hide();
+				let dataValidate = new FormData(this);
+				dataValidate.append("seekerValidate","");
+				dataValidate.append("expiryDate",expirationDate.val());
+				$.ajax({
+					url: "validateSeeker",
+					method: "POST",
+					processData: false,
+   					contentType: false,
+					data: dataValidate,
+					success: function(a,b){
+						let obj = JSON.parse(a);
+						if(obj.error == "none"){
+							window.location = "dashboard";
+						}else{
+							alert(a);
+						}
+					},
+					fail : function(){
+						showDivError("#verifyError","Cannnot connect to server. Please try again later.");
+					}
+				});
+			}
+		}
+	});
+});
+
+// end of verify seeker
+
+
+// date
+$(function() {
+	$('#expiration_datetime_picker').datepicker().on(
+	    'show',
+	    function() {
+	        var modal = $('#expiration_datetime_picker').closest('.modal');
+	        var datePicker = $('body').find('.datepicker');
+	        if (!modal.length) {
+	            $(datePicker).css('z-index', 'auto');
+	            return;
+	        }
+	        var zIndexModal = $(modal).css('z-index');
+	        $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+	        }
+	    );
+});
+// end of date
 
 // end of dashboard seeker

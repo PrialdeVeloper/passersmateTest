@@ -382,6 +382,142 @@
 	<!-- end of add personal details -->
 
 
+	<!-- verification -->
+	<div class="modal fade " id="verification" role="dialog ">
+ 		<div class="modal-dialog modal-dialog-centered rounded modal-lg" role="document" >
+ 			<div class="modal-content">
+ 				<div class="modal-header ">		          	
+		          	<label class="modal-title centerModalTitle">Personal Details</label>
+		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>	
+		        <form id="verifySeeker" enctype="multipart/form-data">
+			        <div class="modal-body bg-light ">
+			        	<div class="alert alert-danger text-center hidethis" id="verifyError">
+						</div>
+		        		<div class="container">		        			
+							<div class="row">
+								<div class="col-sm-3">
+			        				<div class=" row">
+			        					<div class="col">
+			        						<div class="form-group ">
+			        							<img src="../../public/etc/images/system/tesda.png" class="mb-4 rounded mx-auto d-block modalAddDetails">
+			        							<label class="my-2 text-center col">Government Issued ID</label>
+			        							<label class="my-4 text-center col">Your Information is secured</label>
+			        						</div>			        						
+			        					</div>
+			        				</div>
+
+			        				<div class="row">
+			        					<div class="col">
+			        						<div class="form-group">
+			        							<h5 class="text-center my-5">Quick Tips :</h5>
+			        							<img src="../../public/etc/images/system/id.png" class="my-5 rounded mx-auto d-block">
+			        							<img src="../../public/etc/images/system/expire.png" class="my-5 rounded mx-auto d-block ">
+			        						</div>
+			        					</div>
+			        				</div>
+			        			</div>
+
+			        			<div class="col-sm-9 mt-5">
+			        				<div class="row py-2">
+			        					<div class="col-sm-6">
+			        						<div class="row justify-content-center">
+			        							<label class="">Front of your ID</label>
+			        						</div>
+			        						<div class="row justify-content-center">
+			        							<input class="form-control d-none inputImage1" name="frontID" type="file" id="addDetailsSeeker1" accept="image/jpeg,image/png">
+			        							<img src="../../public/etc/images/system/frontID.png" class="modalAddDetails rounded-circle" id="previewImage1">
+			        						</div>
+			        						<div class="row justify-content-center pt-2">
+			        							<button type="button" class="btn btn-primary" id="substituteButton1">Upload Photo</button>
+			        						</div>
+			        					</div>
+			        					<div class="col-sm-6">
+			        						<div class="row  justify-content-center">
+			        							<label class="">Back of your ID</label>
+			        						</div>
+			        						<div class="row justify-content-center">
+			        							<input class="form-control d-none inputImage2" name="backID" type="file" id="addDetailsSeeker2" accept="image/jpeg,image/png">
+			        							<img src="../../public/etc/images/system/calendar.png" class="modalAddDetails rounded-circle" id="previewImage2">
+			        						</div>
+			        						<div class="row justify-content-center pt-2">
+			        							<button type="button" class="btn btn-primary" id="substituteButton2">Upload Photo</button>
+			        						</div>
+			        					</div>
+			        				</div>
+
+			        				<div class="row py-2">
+			        					<div class="col">
+			        						<div class="row  justify-content-center">
+			        							<label>Selfie with ID</label>
+			        						</div>
+			        						<div class="row justify-content-center">
+			        							<input class="form-control d-none inputImage3" name="selfieID" type="file" id="addDetailsSeeker3" accept="image/jpeg,image/png">
+			        							<img src="../../public/etc/images/system/selfie.png" class="modalAddDetails rounded-circle" id="previewImage3">
+			        						</div>
+			        						<div class="row justify-content-center pt-2">
+			        							<button type="button" class="btn btn-primary" id="substituteButton3">Upload Photo</button>
+			        						</div>
+			        					</div>
+			        				</div>
+
+			        				<div class="row py-1">
+			        					<div class="col">
+			        						<div class="form-group">
+				        						<label>Select ID Type</label>
+				        						<select name="acceptedId" class="form-control">
+				        							<option value="Philippine Passport">Philippine Passport</option>
+													<option value="Driver’s License">Driver’s License</option>
+													<option value="SSS UMID Card">SSS UMID Card</option>
+													<option value="PhilHealth ID">PhilHealth ID</option>
+													<option value="TIN Card">TIN Card</option>
+													<option value="Voter’s ID">Voter’s ID</option>
+													<option value="PRC ID">PRC ID</option>
+													<option value="Senior Citizen ID">Senior Citizen ID</option>
+													<option value="OFW ID">OFW ID</option>
+													<option value="NBI Clearance">NBI Clearance</option>
+													<option value="Police Clearance">Police Clearance</option>
+													<option value="Barangay Clearance">Barangay Clearance</option>
+													<option value="Student ID">Student ID</option>
+				        						</select>
+			        						</div>
+			        					</div>
+			        				</div>
+
+			        				<div class="row py-1">
+			        					<div class="col">
+			        						<div class="form-group">
+				        						<label>ID Number</label>
+				        						<input type="text" name="idNumber" class="form-control" value="">
+			        						</div>
+			        					</div>
+			        				</div>
+
+			        				<div class="row pt-1">
+			        					<div class="col">
+			        						<div class="form-group">
+											   	<label for="expirationCOC">Expiration Date</label>
+											    <input type='text' id='expiration_datetime_picker' name="expirationDate" class="form-control date" disabled readonly />
+											</div>
+			        					</div>
+			        				</div>
+			        				
+			        			</div>
+							</div>
+		        		</div>       	
+			        </div>
+
+			        <div class="modal-footer bg-light">
+						<button type="submit" name="seekerUpdateData" class="btn btn-success"><span class="text-white">Submit</span></button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal"><span class="text-white">Close</span></button>
+					</div>
+				</form>
+ 			</div>
+ 		</div>
+ 	</div>
+	<!-- end of verification -->
+
+
 
 	<!-- reviews and rating -->
 	<div class="modal fade" id="reviewAndRating">

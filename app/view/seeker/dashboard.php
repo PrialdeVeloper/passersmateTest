@@ -15,7 +15,6 @@ $rate = "Very Good!";
 		extract($data[0]);
 		if(isset($userDetails) && !empty($userDetails)){
 			extract($userDetails[0]);
-			print_r($data);
 		}
 	} 
 	require "../public/header-footer/seeker/seekerHeader.marvee";
@@ -26,6 +25,11 @@ $rate = "Very Good!";
 
 <!-- content -->
 <div class="container-fluid mt-5">
+	<!-- status -->
+	<div class="row px-5 ">
+		<?=$seekerStatus;?>
+	</div>
+	<!-- end of status -->
 	<!-- start of 1st row -->
 	<div class="row">
 		<!-- 1st box -->
