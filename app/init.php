@@ -8,4 +8,5 @@
 	require_once 'core/controller.php';
 	require_once 'core/dom/simple_html_dom.php';
 	require_once 'core/Facebook/autoload.php';
+	require_once 'core/Google/vendor/autoload.php';
 ?> 

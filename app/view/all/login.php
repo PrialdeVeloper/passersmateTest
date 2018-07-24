@@ -150,14 +150,14 @@
 				  	<div class="input-group-prepend">
 				    	<span class="input-group-text bg-light border border-right-0 "><i class="fab fa-facebook " style="color:#3B5998 ;"></i></span>
 				  	</div>
-				  	<input type="button" onclick="window.location='<?=$redirectURL?>';" class="font-weight-bold col btn btn-light border rounded btn-block border border-left-0" name="submit" value="Sign up with Facebook">
+				  	<input type="button" onclick="window.location='<?=$redirectURLFacebook?>';" class="font-weight-bold col btn btn-light border rounded btn-block border border-left-0" name="submit" value="Sign up with Facebook">
 				</div>
 
 				<div class="input-group col-sm-10 my-2 ">
 				  	<div class="input-group-prepend">
 				    	<span class="input-group-text bg-light border border-right-0 "><i class="fab fa-google " style="color:#DD4B39 ;"  ></i></span>
 				  	</div>
-				  	<input type="button" class="font-weight-bold col btn btn-light border rounded btn-block border border-left-0" name="submit" value="Sign up with Google">
+				  	<input type="button" onclick="window.location='<?=$redirectURLGmail?>';" class="font-weight-bold col btn btn-light border rounded btn-block border border-left-0" name="submit" value="Sign up with Google">
 				</div>
 				<div class="col-sm-10 mt-2 mb-4">
 					<div class="row text-center">

@@ -41,9 +41,79 @@
 			return $return?true:false;
 		}
 
+		public function unlinkFileFromDB($imageName){
+			$imageFile = str_replace("../../", "../", $this->sanitize($imageName));
+			if(file_exists($imageFile)){
+				unlink($imageFile);
+			}
+			return true;
+			
+		}
+
+		public function returnURLGmail(){
+			$gmail = null;
+			$google = new Google_Client();
+			$google->setClientID('90516234623-faht3953u559pufek8kt6ibhu4u4ie3s.apps.googleusercontent.com');
+			$google->setClientSecret('zv08B6KoCTLGpTea338hagb1');
+			$google->setApplicationName('PassersMate');
+			$google->setRedirectUri('http://localhost/passersmate/public/home/getGmailData');
+			$google->addScope("https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email");
+			$loginURL = $google->createAuthUrl();
+			return $loginURL;
+		}
+
+		public function getGmailData(){
+			$google = null;
+			$token = null;
+			$auth = null;
+			$user = null;
+			if(isset($_GET['code']) && !empty($_GET['code'])){
+				$google = new Google_Client();
+				$google->setClientID('90516234623-faht3953u559pufek8kt6ibhu4u4ie3s.apps.googleusercontent.com');
+				$google->setClientSecret('zv08B6KoCTLGpTea338hagb1');
+				$google->setApplicationName('PassersMate');
+				$google->setRedirectUri('http://localhost/passersmate/public/home/getGmailData');
+				$token = $google->fetchAccessTokenWithAuthCode($_GET['code']);
+				$auth = new Google_Service_Oauth2($google);
+				$user = $auth->userinfo_v2_me->get();
+				$gmailIdCheck = $this->model->checkExistSingle($this->seekerTable,$this->seekerGmail,array($this->sanitize($user['id'])));
+				$seekerGmailId = $this->sanitize($user['id']);
+
+				if($gmailIdCheck <= 0){
+				$seekerFName = $this->sanitize($user['givenName']);
+				$seekerLName = $this->sanitize($user['familyName']);
+				$seekerEmail = $this->sanitize($user['email']);
+				$seekerGender = $this->upperFirstOnlySpecialChars($this->sanitize($user['gender']));
+				$seekerLink = $this->sanitize($user['link']);
+				$seekerPic = $this->sanitize($user['picture']);
+				$return = $this->model->insertDB($this->seekerTable,$this->seekerGmailAdd,array($seekerGmailId,$seekerFName,$seekerLName,$seekerEmail,$seekerGender,$seekerLink,$seekerPic));
+					if($return){
+						$_SESSION['seekerUser'] = $return;
+						$fb = null;
+						$accessToken = null;
+						$oauth = null;
+						$user = null;
+						$res = null;
+						$return = null;
+					}
+				}else{
+					$return = $this->model->selectSingleUser($this->seekerTable,$this->seekerUnique,array($seekerGmailId),$this->seekerGmail);
+					if($return){
+						$_SESSION['seekerUser'] = $return;
+						$fb = null;
+						$accessToken = null;
+						$oauth = null;
+						$user = null;
+						$res = null;
+						$return = null;
+					}
+				}
+				$this->toOtherPage("../seeker/dashboard");
+			}
+		}
+
 		public function returnURLFacebook(){
 			$fb = null;
-			$data = [];
 			$fb = new Facebook\Facebook([
 				'app_id' => '170160493603540',
 				'app_secret' => 'e0f71895d4a60525054f55567ccd486f',
@@ -88,9 +158,10 @@
 				$seekerFName = $this->sanitize($user['first_name']);
 				$seekerLName = $this->sanitize($user['last_name']);
 				$seekerEmail = $this->sanitize($user['email']);
-				$seekerGender = $this->sanitize($user['gender']);
+				$seekerGender = $this->upperFirstOnlySpecialChars($this->sanitize($user['gender']));
 				$seekerLink = $this->sanitize($user['link']);
-				$return = $this->model->insertDB($this->seekerTable,$this->seekerFacebookAdd,array($seekerFacebookId,$seekerFName,$seekerLName,$seekerEmail,$seekerGender,$seekerLink));
+				$seekerPic = $this->sanitize($user['picture']['url']);
+				$return = $this->model->insertDB($this->seekerTable,$this->seekerFacebookAdd,array($seekerFacebookId,$seekerFName,$seekerLName,$seekerEmail,$seekerGender,$seekerLink,$seekerPic));
 				if($return){
 					$_SESSION['seekerUser'] = $return;
 					$fb = null;
@@ -99,7 +170,6 @@
 					$user = null;
 					$res = null;
 					$return = null;
-					header("location: ../seeker/dashboard");
 				}
 			}else{
 				$return = $this->model->selectSingleUser($this->seekerTable,$this->seekerUnique,array($seekerFacebookId),$this->seekerFacebook);
@@ -111,9 +181,9 @@
 					$user = null;
 					$res = null;
 					$return = null;
-					header("location: ../seeker/dashboard");
 				}
 			}
+			$this->toOtherPage("../seeker/dashboard");
 		}
 
 		public function showError($div,$message){
@@ -310,7 +380,9 @@
 				}
 			}elseif(isset($_POST['passerUpdateDataWithImage'])){
 				try {
-				$passerProfile = $this->imageUpload("user","profileUploadPasser",$this->passerSession);
+				$imageFile = $this->model->selectSingleUser($this->passerTable,"PasserProfile",array($this->passerSession),$this->passerUnique);
+				$this->unlinkFileFromDB($imageFile);
+				$passerProfile = $this->imageUpload("user/passer","profileUploadPasser",$this->passerSession);
 				$passerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerAddress']));
 				$passerStreet = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerStreet']));
 				$passerCity = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['passerCity']));
@@ -324,6 +396,41 @@
 				}
 			}
 		}
+
+		public function updateSeekerPersonalDetails(){
+			if(isset($_POST['seekerUpdateDataNoImage'])){
+				try {
+				$seekerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['seekerAddress']));
+				$seekerStreet = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['seekerStreet']));
+				$seekerCity = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['seekerCity']));
+				$seekerGender = $this->sanitize($_POST['seekerGender']);
+				$seekerCPNo = $this->sanitize($_POST['SeekerCPNo']);
+				$seekerBirthdate = $this->sanitize(date("Y-m-d",strtotime($_POST['seekerBirthdate'])));
+				$res = $this->model->updateDB($this->seekerTable,$this->seekDashboardPersonalDetails,array($seekerAddress,$seekerStreet,$seekerCity,$seekerGender,$seekerCPNo,$seekerBirthdate),$this->seekerUnique,$this->seekerSession);
+				echo json_encode(array("error"=>"none"));
+				} catch (Exception $e) {
+					echo json_encode(array("error"=>$e->getMessage()));
+				}
+			}elseif(isset($_POST['seekerUpdateDataWithImage'])){
+				try {
+				$imageFile = $this->model->selectSingleUser($this->seekerTable,"SeekerProfile",array($this->seekerSession),$this->seekerUnique);
+				$this->unlinkFileFromDB($imageFile);
+				$seekerProfile = $this->imageUpload("user/seeker","profileUploadSeeker",$this->seekerSession);
+				$seekerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['seekerAddress']));
+				$seekerStreet = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['seekerStreet']));
+				$seekerCity = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['seekerCity']));
+				$seekerGender = $this->sanitize($_POST['seekerGender']);
+				$seekerCPNo = $this->sanitize($_POST['SeekerCPNo']);
+				$seekerBirthdate = $this->sanitize(date("Y-m-d",strtotime($_POST['seekerBirthdate'])));
+				$res = $this->model->updateDB($this->seekerTable,$this->seekDashboardPersonalDetailsWithPhoto,array($seekerAddress,$seekerStreet,$seekerCity,$seekerGender,$seekerCPNo,$seekerBirthdate,$seekerProfile),$this->seekerUnique,$this->seekerSession);
+				echo json_encode(array("error"=>"none"));
+				} catch (Exception $e) {
+					print_r($e->getMessage());
+				}
+			}
+		}
+
+
 
 		public function addJobExperience(){
 			if(isset($_POST['passerJobExperienceData'])){
@@ -361,26 +468,6 @@
 				}
 			}
 		}
-
-		// public function updateJobExperience(){
-		// 	if(isset($_GET['passerJobExperienceDataUpdate'])){
-		// 		try {
-		// 		$idWorkHistory = $this->sanitize($_GET['workExperienceID']);
-		// 		$title = $this->sanitize($this->upperFirstOnlySpecialChars($_GET['jTitle']));
-		// 		$company = $this->sanitize($this->upperFirstOnlySpecialChars($_GET['company']));
-		// 		$startDate = $this->sanitize(date("Y-m-d",strtotime($_GET['startDate'])));
-		// 		$endDate = $this->sanitize(date("Y-m-d",strtotime($_GET['endDate'])));
-		// 		$desc = !empty($_GET["passerWorkDesc"])?$this->sanitize($_GET["passerWorkDesc"]): "";
-		// 		unset($this->passerWorkHistory[0]);
-		// 		unset($this->passerWorkHistory[7]);
-		// 		$res = $this->model->updateDB("passerworkhistory",$this->passerWorkHistory,array($this->passerSession,$title,$company,$desc,$startDate,$endDate),"PasserWorkHistoryID",$idWorkHistory);
-		// 		echo json_encode(array("error"=>"none"));
-		// 		} catch (Exception $e) {
-		// 			echo $e->getMessage();
-		// 		}
-		// 	}
-		// }
-
 
 		public function addEducation(){
 			if(isset($_POST['passerEducation'])){

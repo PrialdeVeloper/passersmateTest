@@ -28,7 +28,7 @@
 						<li class="navbar-item pr-5">
 							<a class="navbar-link text-dark" href="logout">
 								<i class="fas fa-user-circle"></i>
-								<label class="pr-1"><?=$PasserFN;?></label>
+								<label class="pr-1"><?=isset($SeekerFN)?$SeekerFN:$PasserFN;?></label>
 							</a>
 						</li>
 					</ul>	

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2018 at 09:20 AM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.7
+-- Generation Time: Jul 24, 2018 at 12:58 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -206,7 +206,7 @@ CREATE TABLE `passer` (
 --
 
 INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`) VALUES
-(1, 'Jodel', 'Adan', 'B', '2018-07-11', 0, 'Male', 'Qweq', 'Cebu City', 'Xx', 1234526362, 'test@gmail.com', '2', 0, '13040102003962', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/1531999462153199946221.jpg', 0, '2018-07-22 15:12:46'),
+(1, 'Jodel', 'Adan', 'B', '2018-07-11', 0, 'Male', 'Qweq', 'Cebu City', 'Xx', 1234526362, 'test@gmail.com', '2', 0, '13040102003962', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15324286219153242862151.jpg', 0, '2018-07-22 15:12:46'),
 (2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 0, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '2', 0, '14130602029952', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/15322732906153227329042.jpg', 0, '2018-07-22 15:20:53');
 
 -- --------------------------------------------------------
@@ -286,6 +286,13 @@ CREATE TABLE `passerworkhistory` (
   `passerWorkHistoryDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `passerworkhistory`
+--
+
+INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserJobTitle`, `PasserCompany`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`, `passerWorkHistoryDateTime`) VALUES
+(1, NULL, 1, 'Qe', 'Q', 'qwe', '1970-01-01', '1970-01-01', NULL, '2018-07-23 08:25:11');
+
 -- --------------------------------------------------------
 
 --
@@ -310,16 +317,21 @@ CREATE TABLE `seeker` (
   `SeekerID` int(11) NOT NULL,
   `SeekerFN` varchar(255) NOT NULL,
   `SeekerLN` varchar(255) NOT NULL,
+  `SeekerBirthdate` date DEFAULT NULL,
   `SeekerAge` int(11) NOT NULL,
   `SeekerGender` varchar(255) NOT NULL,
-  `SeekerStreetName` varchar(255) NOT NULL,
-  `SeekerPostalCode` int(11) NOT NULL,
+  `SeekerStreet` varchar(255) NOT NULL,
+  `SeekerCity` varchar(255) NOT NULL,
+  `SeekerAddress` varchar(255) NOT NULL,
   `SeekerCPNo` int(11) DEFAULT NULL,
   `SeekerEmail` varchar(255) NOT NULL,
   `SeekerType` varchar(255) NOT NULL,
-  `SeekerFacebookId` bigint(50) DEFAULT NULL,
+  `SeekerFacebookId` char(255) DEFAULT NULL,
   `SeekerFacebookLink` varchar(255) DEFAULT NULL,
+  `SeekerGmailID` char(255) DEFAULT NULL,
+  `SeekerGmailLink` varchar(255) NOT NULL,
   `SeekerStatus` varchar(255) DEFAULT '0',
+  `SeekerProfile` varchar(255) NOT NULL,
   `SeekerUname` varchar(255) NOT NULL,
   `SeekerPass` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -328,8 +340,8 @@ CREATE TABLE `seeker` (
 -- Dumping data for table `seeker`
 --
 
-INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerAge`, `SeekerGender`, `SeekerStreetName`, `SeekerPostalCode`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerStatus`, `SeekerUname`, `SeekerPass`) VALUES
-(1, 'Syrel', 'Prialde', 0, 'male', '', 0, NULL, 'syrelgm@gmail.com', '', 1416471571813746, 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEZAPYkJaX1EwOVpIanl6cS11N0JZAM01LemxVSlBXSG5NRnQ2TTJXRUdtazNFaG5JZAnZAqNkg2ZAm9JS2tPM0dCOW1QeDlzUVNsdVluSU9lRDJjcUZAJamhrYmx6dnh4RWJ6dXY2ZAXlGa0ZAxeThidXJW/', '0', '', '');
+INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`) VALUES
+(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '0', '../../public/etc/images/user/seeker/15324286541153242865421.jpg', '', '');
 
 -- --------------------------------------------------------
 
@@ -627,7 +639,7 @@ ALTER TABLE `passervalidate`
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
-  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `review`

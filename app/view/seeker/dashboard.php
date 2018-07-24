@@ -9,7 +9,15 @@ $ed = "Infinty";
 $reviewer = "Pablo";
 $rate = "Very Good!";
 ?>
+
 <?php 
+	if(isset($data) && !empty($data)){
+		extract($data[0]);
+		if(isset($userDetails) && !empty($userDetails)){
+			extract($userDetails[0]);
+			print_r($data);
+		}
+	} 
 	require "../public/header-footer/seeker/seekerHeader.marvee";
 	require "modal/dashboardModal.html";
 	require "../public/header-footer/jobsNav.marvee";
@@ -23,21 +31,21 @@ $rate = "Very Good!";
 		<!-- 1st box -->
 		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv">
 			<div class="d-flex justify-content-center">
-				<img class="fluid seekerProfile" src="../../public/etc/images/user/dashboardSample.png" alt="Profile"></img>
+				<img class="fluid seekerProfile rounded-circle" src="<?=!empty($SeekerProfile)? $SeekerProfile: '../../public/etc/images/user/dashboardSample.png'?>" alt="Profile"></img>
 			</div>
 			<hr>
 			<div class="container">
 				<div class="row pt-1">
 					<div class="col-sm-1"><i class="fas fa-user ashGray"></i></div>
-					<div class="col-md-auto"><?=$Name;?></div>
+					<div class="col-md-auto"><?=$SeekerFN. " " .$SeekerLN;?></div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-home ashGray"></i></div>
-					<div class="col-md-auto"><?=$address;?></div>
+					<div class="col-md-auto"><?=!empty($completeAddress)?$completeAddress:"<span class='text-muted' data-toggle='modal' data-target='#personalDetails'>Undefined</span>"?></div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-birthday-cake ashGray"></i></div>
-					<div class="col-md-auto"><?=$birthdate;?></div>
+					<div class="col-md-auto"><?=!empty($SeekerBirthdate)?date("F jS, Y",strtotime($SeekerBirthdate)):"<span class='text-muted' data-toggle='modal' data-target='#personalDetails'>Undefined</span>"?></div>
 				</div>
 			</div>
 		</div>
@@ -53,32 +61,28 @@ $rate = "Very Good!";
       		<div class="container">
       			<div class="row pt-1">
 					<div class="col-sm-1"><i class="fas fa-id-card-alt"></i></div>
-					<div class="col-md-auto"><?=$Name;?></div>
+					<div class="col-md-auto"><?=$SeekerFN." ".$SeekerLN;?></div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-map-marker-alt"></i></div>
-					<div class="col-md-auto"><?=$address;?></div>
+					<div class="col-md-auto"><?=!empty($completeAddress)?$completeAddress:"<span class='text-muted' data-toggle='modal' data-target='#personalDetails'>Undefined</span>"?></div>
+				</div>
+				<div class="row pt-2">
+					<div class="col-sm-1"><i class="fas fa-at"></i></div>
+					<div class="col-md-auto"><?=!empty($SeekerEmail)?$SeekerEmail:"<span class='text-muted' data-toggle='modal' data-target='#personalDetails'>Undefined</span>"?></div>
+				</div>
+				<div class="row pt-2">
+					<div class="col-sm-1"><i class="fas fa-birthday-cake"></i></div>
+					<div class="col-md-auto"><?=!empty($SeekerBirthdate)?date("F jS, Y",strtotime($SeekerBirthdate)):"<span class='text-muted' data-toggle='modal' data-target='#personalDetails'>Undefined</span>"?></div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-mobile-alt"></i></div>
-					<div class="col-md-auto"><?=$contact;?></div>
-				</div>
-				<div class="row pt-2">
-					<div class="col-sm-1"><i class="fas fa-mobile-alt"></i></div>
-					<div class="col-md-auto"><?=$contact;?></div>
-				</div>
-				<div class="row pt-2">
-					<div class="col-sm-1"><i class="fas fa-mobile-alt"></i></div>
-					<div class="col-md-auto"><?=$contact;?></div>
-				</div>
-				<div class="row pt-2">
-					<div class="col-sm-1"><i class="fas fa-mobile-alt"></i></div>
-					<div class="col-md-auto"><?=$contact;?></div>
+					<div class="col-md-auto"><?=!empty($SeekerCPNo)?$SeekerCPNo:"<span class='text-muted' data-toggle='modal' data-target='#personalDetails'>Undefined</span>"?></div>
 				</div>
       		</div>
       		<hr>
       		<div class="container d-flex justify-content-center blue font-weight-bold">
-      			<label class="text-center"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Personal Details</span></label>
+      			<label class="text-center"  data-toggle="modal" data-target="#personalDetails"><i class="fas fa-plus-circle"></i>&nbsp;<span>Update Personal Details</span></label>
       		</div>
 		</div>
 		<!-- end of second box -->

@@ -97,7 +97,8 @@
 					<div class="row text-center">
 						<div class= " col-sm-9  d-flex align-items-center"><h6 class="h-50">Don't have a PasserMate account yet?</h6></div>
 						<div class= " col-sm-3" ><input type="submit" class="col btn btn-success "  style="line-height: 50%"
-							 name="submit" value="Sign Up"></div>
+							name="submit" value="Sign Up">
+						</div>
 					</div>					
 				</div>
 				<div class="w-100"></div>

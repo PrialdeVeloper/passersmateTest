@@ -21,14 +21,14 @@
 		}
 
 		public function index(){
-			$data = [];
+			if(!$this->checkSession('passerUser')){
+		 		header("location:../home/login");
+		 	}
+		 	$data = [];
 			$detailsProper = null;
 			$details = null;
 			$userStatus = null;
 			$completeAddress = null;
-			if(!$this->checkSession('passerUser')){
-		 		header("location:../home/login");
-		 	}
 		 	$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($this->passerSession));
 		 	$detailsProper = $details[0];
 		 	$workExperience = $this->model->selectAllFromUser("passerworkhistory",$this->passerUnique,array($this->passerSession));

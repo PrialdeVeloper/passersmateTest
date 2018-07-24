@@ -4,7 +4,9 @@
 		public $seekerTable = "seeker";
 		public $seekerUnique = "SeekerID";
 		public $seekerFacebook = "seekerFacebookId";
-		public $seekerFacebookAdd = array("SeekerFacebookId","SeekerFN","SeekerLN","SeekerEmail","SeekerGender","SeekerFacebookLink");
+		public $seekerGmail = "SeekerGmailID";
+		public $seekerFacebookAdd = array("SeekerFacebookId","SeekerFN","SeekerLN","SeekerEmail","SeekerGender","SeekerFacebookLink","SeekerProfile");
+		public $seekerGmailAdd = array("SeekerGmailID","SeekerFN","SeekerLN","SeekerEmail","SeekerGender","SeekerGmailLink","SeekerProfile");
 
 		public function __construct(){
 			$this->controller = new Controller();
@@ -30,7 +32,7 @@
 			}
 
 
-			$data[] = array("redirectURL"=>$this->returnURLFacebook());
+			$data[] = array("redirectURLFacebook"=>$this->returnURLFacebook(),"redirectURLGmail"=>$this->returnURLGmail());
 			$this->controller->view("all/login",$data);
 
 			if(isset($_POST['passerSubmit'])){

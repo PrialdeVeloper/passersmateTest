@@ -195,7 +195,7 @@ function readURL(input) {
 }
 
 $(function(){
-	$(".inputImage").change(function(){
+	$("input[name=profileUploadPasser]").change(function(){
 		$(this).attr("data-integrity","allow");
 		let imageCheck = checkValidImage("input[name=profileUploadPasser]");
 			if(imageCheck){
@@ -208,7 +208,29 @@ $(function(){
 	});
 });
 
+$(function(){
+	$("input[name=profileUploadSeeker]").change(function(){
+		$(this).attr("data-integrity","allow");
+		let imageCheck = checkValidImage("input[name=profileUploadSeeker]");
+			if(imageCheck){
+				$("#personalDetailsModalError").hide();
+				readURL(this);
+			}else{
+				$('#previewImage').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#personalDetailsModalError","Please choose valid image");
+			}
+	});
+});
+
 // end of previewImage
+
+// trigger input
+$(function(){
+	$("#substituteButtonSeeker").click(function(){
+		$("#addDetailsSeeker").trigger("click");
+	});
+});
+// end of trigger input
 
 
 $(function(){
@@ -550,6 +572,8 @@ $(function(){
 	});
 // end of verifyModal previewImage
 
+
+// personal details
 $(function(){
 	$("#passerDetailsForm").submit(function(event){
 		event.preventDefault();
@@ -627,6 +651,7 @@ $(function(){
 							cache: false,
 							processData:false,
 							success: function(returnStatus){
+								console.log(returnStatus);
 								let obj = JSON.parse(returnStatus);
 								if(obj.error == "none"){
 									window.location = "dashboard";	
@@ -644,6 +669,8 @@ $(function(){
 		}
 	});
 });
+
+// end of personal details
 
 // add work experience
 $(function(){
@@ -850,3 +877,108 @@ $(function(){
 // end of verify passer
 
 // end of dashboard passer
+
+
+
+// dashboard seeker
+
+// personal details seeeker
+$(function(){
+	$("#seekerDetailsForm").submit(function(event){
+		event.preventDefault();
+	let responseUser = confirm("Are you sure you want to save changes?");
+		if(responseUser == true){
+			let address = $("input[name=seekerAddress]");
+			let streetField = $("input[name=seekerStreet]");
+			let cityField = $("input[name=seekerCity]");
+			let birthdate = $("input[name=seekerBirthdate]");
+			let gender = $("#gender");
+			let genderData = ["Male","Female"];
+			let cpNo = $("#seekerNumber");
+			let img = $("#previewImage");
+			let inputImageProfile = $("input[name=profileUploadSeeker]").get[0];
+			if(checkEmpty(address.val()) || checkEmpty(streetField.val()) || checkEmpty(cityField.val()) || checkEmpty(birthdate.val()) || 
+				checkDate(birthdate.val()) == false || gender.val() == "notSelected" 
+				|| checkArraySame(genderData,gender.val()) == false || checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
+				$("#personalDetailsModalError").empty();
+				if(checkEmpty(cpNo.val()) || checkNumberOnlyCount(10,cpNo.val()) == false){
+					showDivError("#personalDetailsModalError","Please input valid cellphone number");
+				}
+				if(gender.val() == "notSelected" || checkArraySame(genderData,gender.val()) == false){
+					showDivError("#personalDetailsModalError","Please select a gender");	
+				}
+				if(checkEmpty(address.val())){
+					showDivError("#personalDetailsModalError","Please input valid Address");
+				}
+				if(checkEmpty(streetField.val())){
+					showDivError("#personalDetailsModalError","Please input valid Street Address");
+				}
+				if(checkEmpty(cityField.val())){
+					showDivError("#personalDetailsModalError","Please input valid City");
+				}
+				if(checkEmpty(birthdate.val()) || checkDate(birthdate.val()) == false){
+					showDivError("#personalDetailsModalError","Please input valid Birthdate");
+				}
+			}else{
+				$("#personalDetailsModalError").hide();
+				if($("input[name=profileUploadSeeker]").attr("data-integrity") === undefined){
+					$.ajax({
+						url: "updateSeekerPersonalDetails",
+						method: "POST",
+						data: {"seekerUpdateDataNoImage": "", "seekerAddress": address.val(), "seekerStreet": streetField.val(), 
+						"seekerCity": cityField.val(), "seekerGender": gender.val(), "SeekerCPNo":cpNo.val(), "seekerBirthdate": birthdate.val()},
+						success: function(returnData){
+							console.log(returnData);
+							let obj = JSON.parse(returnData);
+							if(obj.error =="none"){
+								window.location = "dashboard";	
+							}else{
+								showDivError("#personalDetailsModalError","Sorry, Something went wrong. Please try again later.");
+							}
+						},
+						fail: function(){
+							showDivError("#personalDetailsModalError","Cannot connect to server. Please try again");	
+						}
+					});
+				}
+				else{
+					let imageCheck = checkValidImage("input[name=profileUploadSeeker]");
+					if(imageCheck){
+						let formData = new FormData(this);
+						formData.append("seekerUpdateDataWithImage","");
+						formData.append("seekerAddress",address.val());
+						formData.append("seekerStreet",streetField.val());
+						formData.append("seekerCity",cityField.val());
+						formData.append("seekerGender",gender.val());
+						formData.append("SeekerCPNo",cpNo.val());
+						formData.append("seekerBirthdate",birthdate.val());
+						$.ajax({
+							url: "updateSeekerPersonalDetails",
+							method: "POST",
+							data: formData,
+							contentType: false,
+							cache: false,
+							processData:false,
+							success: function(returnStatus){
+								console.log(returnStatus);
+								let obj = JSON.parse(returnStatus);
+								if(obj.error == "none"){
+									window.location = "dashboard";	
+								}else{
+									showDivError("#personalDetailsModalError","Sorry, Something went wrong. Please try again later.");
+								}
+							},
+						});
+					}
+					else{
+						showDivError("#personalDetailsModalError","Please choose valid image");
+					}
+				}	
+			}
+		}
+	});
+});
+
+// end of personal details seeker
+
+// end of dashboard seeker

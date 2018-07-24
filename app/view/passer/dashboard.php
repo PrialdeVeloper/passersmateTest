@@ -1,22 +1,9 @@
-<?php 
-$Name = 'Marvee Franco';
-$address = 'Sitio Gines (Wak Wak)';
-$birthdate = 'August 01, 1522';
-$contact = '126-2634-252';
-$jtitle = "Asawa";
-$sd = "Nov 6, 2017";
-$ed = "Infinty";
-$reviewer = "Pablo";
-$rate = "Very Good!";
-?>
 <?php
 	$completeAddress = null;
 	if(isset($data) && !empty($data)){
-		// unset($data[0]);
 		extract($data[0]);
 		if(isset($userDetails) && !empty($userDetails)){
 			extract($userDetails[0]);
-			// print_r($data);
 		}
 	} 
 
@@ -123,7 +110,7 @@ $rate = "Very Good!";
 		<div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv">
 			<div class="d-flex justify-content-center mt-4">
 				<label id="ashGray" class="lead text-center">
-				Work experience
+					Work experience
 				</label>
       		</div>
 
