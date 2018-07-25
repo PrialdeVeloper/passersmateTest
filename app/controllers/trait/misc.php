@@ -504,5 +504,66 @@
 				}
 			}
 		}
+
+
+		public function registerAdmin(){
+			if(isset($_POST['registerAdmin'])){
+				$username = $this->sanitize($_POST['adminUsername']);
+				$email = $this->sanitize($_POST['adminEmail']);
+				$password = $this->sanitize($this->hashPassword($_POST['adminPassword']));
+				try {
+					$return = $this->model->insertDB($this->adminTable,$this->adminReg,array($username,$email,$password));
+					$_SESSION['adminUser'] = $return;
+					echo json_encode(array("error"=>"none"));
+				} catch (Exception $e) {
+					echo json_encode(array("error"=>$e->getMessage()));
+				}
+			}
+		}
+
+		public function createPasserUnverified(){
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			$dom = null;
+			$tableCreate = null;
+			$passerUnverified = $this->model->selectAllFromUser("passer","PasserStatus",array(2));
+			foreach ($passerUnverified as $data) {
+				$dom = '
+				<tr>
+                    <td class=""><a href="" class="passerUnverify" data-toggle="modal" data-target="#Modal3" data-passer='.$data['PasserID'].'><span badge badge-warning">'.$data['PasserID'].'</span></a></td>
+                    <td class="">'.$this->sanitize($data['PasserFN']). ' '. $this->sanitize($data['PasserMname']). '. ' . $this->sanitize($data['PasserLN']).'</td>
+                    <td class="">'.$this->sanitize($data['PasserEmail']).'</td>
+                    <td class="">Passer</td>
+                </tr>
+				';
+				$tableCreate = $tableCreate ."".$dom;
+			}
+			return $tableCreate;
+		}
+
+		public function selectCondition(){
+			if(isset($_POST['getData'])){
+				$data = $this->sanitize($_POST['data']);
+				$return = array("passerDetails"=>$this->model->queryDataUnverifiedPasser(array($data)));
+				echo json_encode($return);
+			}
+		}
+
+		public function updateStatus(){
+			if(isset($_POST['userStatus'])){
+				$table = $this->sanitize($_POST['table']);
+				$field = $this->sanitize($_POST['field']);
+				$id = $this->sanitize($_POST['id']);
+				$status = $this->sanitize($_POST['status']);
+				try {
+					$return = $this->model->updateDB($table,array($field),array($status),"PasserID",$id);
+					echo json_encode(array("error"=>"none"));
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}	
+			}
+		}
+
 	}
 ?>

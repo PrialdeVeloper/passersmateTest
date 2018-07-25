@@ -9,12 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/logo-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../etc/admin/assets/images/logo-icon.png">
     <title>PassersMate Admin</title>
     <!-- Custom CSS -->
-    <link href="../../assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
-    <link href="../../assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
-    <link href="../../dist/css/style.min.css" rel="stylesheet">
+    <link href="../etc/admin/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    <link href="../etc/admin/assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
+    <link href="../etc/admin/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,26 +48,26 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand" href="index">
                         <!-- Logo icon -->
                         <b class="logo-icon p-l-10">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="../../assets/images/logo-icon.png" alt="homepage" class="light-logo" style="width:50px" />
+                            <img src="../etc/admin/assets/images/logo-icon.png" alt="homepage" class="light-logo" style="width:50px" />
                            
                         </b>
                         <!--End Logo icon -->
                          <!-- Logo text -->
                         <span class="logo-text">
                              <!-- dark Logo text -->
-                             <img src="../../assets/images/logo-text.png" alt="homepage" class="light-logo" style="width:170px"/>
+                             <img src="../etc/admin/assets/images/logo-text.png" alt="homepage" class="light-logo" style="width:170px"/>
                             
                         </span>
                         <!-- Logo icon -->
                         <!-- <b class="logo-icon"> -->
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <!-- <img src="../../assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
+                            <!-- <img src="../etc/admin/assets/images/logo-text.png" alt="homepage" class="light-logo" /> -->
                             
                         <!-- </b> -->
                         <!--End Logo icon -->
@@ -177,7 +177,7 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../etc/admin/assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated">
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
                                 <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
@@ -209,37 +209,37 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index2.html" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index2" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Contents </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="form-basic.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Form Basic </span></a></li>
-                                <li class="sidebar-item"><a href="form-wizard.html" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Form Wizard </span></a></li>
+                                <li class="sidebar-item"><a href="form-basic" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Form Basic </span></a></li>
+                                <li class="sidebar-item"><a href="form-wizard" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Form Wizard </span></a></li>
                             </ul>
                         </li>
                          <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Job Title </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="jobcategories.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Categories </span></a></li>
-                                <li class="sidebar-item"><a href="jobskills.html" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Skills </span></a></li>
+                                <li class="sidebar-item"><a href="jobcategories" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Categories </span></a></li>
+                                <li class="sidebar-item"><a href="jobskills" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Skills </span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Payments</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="package.html" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu"> Packages </span></a></li>
-                                <li class="sidebar-item"><a href="subscription.html" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Subscription </span></a></li>
-                                <li class="sidebar-item"><a href="gateaway.html" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Payment Gateaways </span></a></li>
-                                <li class="sidebar-item"><a href="transaction.html" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Transactions </span></a></li>
+                                <li class="sidebar-item"><a href="package" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu"> Packages </span></a></li>
+                                <li class="sidebar-item"><a href="subscription" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Subscription </span></a></li>
+                                <li class="sidebar-item"><a href="gateaway" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Payment Gateaways </span></a></li>
+                                <li class="sidebar-item"><a href="transaction" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Transactions </span></a></li>
                             </ul>
                         </li>
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-face"></i><span class="hide-menu">Users</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="allUser.html" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu"> All user </span></a></li>
-                                <li class="sidebar-item"><a href="admin.html" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Admins </span></a></li>
-                                <li class="sidebar-item"><a href="passers.html" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Passers </span></a></li>
-                                <li class="sidebar-item"><a href="seekers.html" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Seekers </span></a></li>
+                                <li class="sidebar-item"><a href="allUser" class="sidebar-link"><i class="mdi mdi-emoticon"></i><span class="hide-menu"> All user </span></a></li>
+                                <li class="sidebar-item"><a href="admin" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Admins </span></a></li>
+                                <li class="sidebar-item"><a href="passers" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Passers </span></a></li>
+                                <li class="sidebar-item"><a href="seekers" class="sidebar-link"><i class="mdi mdi-emoticon-cool"></i><span class="hide-menu"> Seekers </span></a></li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dispute.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Dispute/Reports</span></a></li>
-                      	   <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="confirmation.html" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Confirmation</span></a></li>
+                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dispute" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Dispute/Reports</span></a></li>
+                      	   <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="confirmation" aria-expanded="false"><i class="mdi mdi-chart-bar"></i><span class="hide-menu">Confirmation</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -449,25 +449,26 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="../../dist/js/jquery.ui.touch-punch-improved.js"></script>
-    <script src="../../dist/js/jquery-ui.min.js"></script>
+    <script src="../etc/admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../etc/admin/dist/js/jquery.ui.touch-punch-improved.js"></script>
+    <script src="../etc/admin/dist/js/jquery-ui.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../etc/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../etc/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="../etc/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../etc/admin/assets/extra-libs/sparkline/sparkline.js"></script>
     <!--Wave Effects -->
-    <script src="../../dist/js/waves.js"></script>
+    <script src="../etc/admin/dist/js/waves.js"></script>
     <!--Menu sidebar -->
-    <script src="../../dist/js/sidebarmenu.js"></script>
+    <script src="../etc/admin/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="../../dist/js/custom.min.js"></script>
+    <script src="../etc/admin/dist/js/custom.min.js"></script>
     <!-- this page js -->
-    <script src="../../assets/libs/moment/min/moment.min.js"></script>
-    <script src="../../assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script src="../../dist/js/pages/calendar/cal-init.js"></script>
+    <script src="../etc/admin/assets/libs/moment/min/moment.min.js"></script>
+    <script src="../etc/admin/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="../etc/admin/dist/js/pages/calendar/cal-init.js"></script>
+    <script src="../etc/custom-js-Admin.js"></script>
 
 </body>
 
