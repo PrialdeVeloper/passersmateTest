@@ -95,7 +95,7 @@
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-briefcase text-white"></i></div>
-				<div class="col-md-auto"><label><a href="messages.php" class="text-white">My Projects</a></label></div>
+				<div class="col-md-auto"><label><a href="projects?user=<?=$PasserCOCNo;?>" class="text-white">My Projects</a></label></div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-star text-white"></i></div>
@@ -180,7 +180,7 @@
 				</div>
 				<div class="row pt-1 border-bottom pt-3">
 					<div class="col-sm-1"><i class="fas fa-handshake"></i></div>
-					<div class="col-md-auto">Employement Agreement Record</div>
+					<div class="col-md-auto"><span data-toggle="modal" data-target="#agreementRecord">Employement Agreement Record</span></div>
 				</div>
 				<div class="row pt-1 border-bottom pt-3">
 					<div class="col-sm-1"><i class="fas fa-file-alt"></i></div>
@@ -233,7 +233,7 @@
 		</div>
 		<hr>
 		<div class="container d-flex justify-content-center blue font-weight-bold">
-			<label class="text-center"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add accommodation</span></label>
+			<label class="text-center" data-toggle="modal" data-target="#accommodation"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add accommodation</span></label>
 		</div>
 	</div>
 	<!-- end of 2nd box 4th row -->

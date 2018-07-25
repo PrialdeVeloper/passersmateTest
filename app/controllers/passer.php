@@ -45,6 +45,15 @@
 					<label>Thank you, Mate. Please wait until we validate your account. Until such time, you can browse through your dashboard and update details about yourself for future purposes.</label>
 				</div>
 		 		';
+		 	}elseif($PasserStatus == 1){
+		 		$userStatus = '
+		 		<div class="alert alert-success col text-center" role="alert">
+					<label>Welcome back, Mate. You can now use the full functionality of the service.</label>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    	<span aria-hidden="true">&times;</span>
+				  	</button>
+				</div>
+		 		';
 		 	}
 		 	if(!empty($PasserAddress)){
 				$completeAddress = $PasserAddress;
@@ -74,6 +83,16 @@
 		 	$details = $this->model->selectAllFromUser($this->passerTable,"PasserCOCNo",array($coc));
 		 	$data[] = array("userDetails"=>$details);
 			$this->controller->view("passer/profile",$data);
+		}
+
+		public function projects(){
+			if(empty($_GET['user'])){
+		 		header("location:../home/login");
+		 	}
+		 	$coc = $this->sanitize($_GET['user']);
+		 	$details = $this->model->selectAllFromUser($this->passerTable,"PasserCOCNo",array($coc));
+		 	$data[] = array("userDetails"=>$details);
+			$this->controller->view("passer/projects",$data);
 		}
 		
 	}

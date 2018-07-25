@@ -265,7 +265,7 @@
 								<div class="row">
 									<div class="col-sm-3">
 										<div class="d-flex justify-content-center">
-											<img src="<?=!empty($PasserProfile)?$PasserProfile: '../../public/etc/images/system/calendar.png'?>" class="rounded-circle modalAddDetails" id="previewImage">
+											<img src="<?=!empty($PasserProfile)?$PasserProfile: '../../public/etc/images/system/logo-2.png'?>" class="rounded-circle modalAddDetails" id="previewImage" alt="Your image goes here">
 										</div>
 									</div>
 									<div class="offset-1 col-sm-4 pt-3" id="uploadPhotoDiv">
@@ -2164,15 +2164,15 @@
 			          		</div>	
 
 	       					<div class="col-sm-6">	
-	                            <input type='text' required disabled readonly id='start_datetime_picker' name="startDate" class="form-control date" placeholder="Start Date" />
+	                            <input type='text' required disabled readonly id='start1_datetime_picker' name="startDate" class="form-control date" placeholder="Start Date" />
 			          		</div>	
 
 							<script type="text/javascript">
 							    $(document).ready(function() {
-							    $('#start_datetime_picker').datepicker().on(
+							    $('#start1_datetime_picker').datepicker().on(
 							        'show',
 							        function() {
-							            var modal = $('#start_datetime_picker').closest('.modal');
+							            var modal = $('#start1_datetime_picker').closest('.modal');
 							            var datePicker = $('body').find('.datepicker');
 							            if (!modal.length) {
 							                $(datePicker).css('z-index', 'auto');
@@ -2185,10 +2185,10 @@
 								});
 
 								$(document).ready(function() {
-							    $('#end_datetime_picker').datepicker().on(
+							    $('#end1_datetime_picker').datepicker().on(
 							        'show',
 							        function() {
-							            var modal = $('#end_datetime_picker').closest('.modal');
+							            var modal = $('#end1_datetime_picker').closest('.modal');
 							            var datePicker = $('body').find('.datepicker');
 							            if (!modal.length) {
 							                $(datePicker).css('z-index', 'auto');
@@ -2219,7 +2219,7 @@
 			       			</script> 
 
 			          		<div class="col-sm-6">	
-	                            <input type='text' required disabled readonly id='end_datetime_picker' name="endDate" class="form-control date" placeholder="End Date" />
+	                            <input type='text' required disabled readonly id='end1_datetime_picker' name="endDate" class="form-control date" placeholder="End Date" />
 			          		</div>	
 
 			        	</div>	         	
@@ -2240,3 +2240,119 @@
  		</div>
  	</div>
 	<!-- End of Add Job Experience Modal with DATA-->
+
+	<!-- accommodation modal -->
+	<div class="modal fade " id="accommodation" role="dialog ">
+ 		<div class="modal-dialog modal-dialog-centered rounded" role="document" >
+ 			<div class="modal-content">
+ 				<div class="modal-header ">		          	
+		          	<h5 class="modal-title ">Accommodation</h5>
+		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>	
+		        <form id="jobExperienceModal">
+			        <div class="modal-body bg-light ">
+			        	<!-- <div class="alert alert-danger text-center hidethis" id="jobExperienceModalError"></div> -->
+			        	<div class="row ">
+			        		<div class="col-sm-12 my-1">
+			          			<h5 >Accommodation Type</h5>
+			          		</div>
+			          		<div class="col-sm-12 text-center my-2">
+			          			<div class="form-group">
+									<input list="accommodationType" required class="form-control"  name="accommodationType" placeholder="Type of Accommodation">
+										<datalist id="accommodationType">
+											<option value="In-house"></option>
+											<option value="Offsite"></option>
+										</datalist>
+								</div>
+			          		</div>
+			        	</div>	         	
+			        </div>
+			        <div class="modal-footer border">		
+			        	<div class="row col justify-content-center mx-0" >		        		
+			        		<div class="col-sm-4">
+			        			<button type="submit" name="accommodationData" class="form-control btn btn-success">Save</button>
+			        		</div>
+			        
+			        		<div class="col-sm-4">
+			        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
+			        		</div>
+			        	</div>     				
+			        </div>
+		        </form>	 
+ 			</div>
+ 		</div>
+ 	</div>
+	<!-- end of accomodation modal -->
+
+	<!-- agreementRecord modal -->
+	<div class="modal fade " id="agreementRecord" role="dialog ">
+ 		<div class="modal-dialog modal-dialog-centered rounded modal-lg" role="document" >
+ 			<div class="modal-content">
+ 				<div class="modal-header ">		          	
+		          	<h5 class="modal-title ">Employement Agreement Record</h5>
+		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
+		        </div>	
+		        <form id="jobExperienceModal">
+			        <div class="modal-body " >
+			        	<div class="table-responsive">
+						    <table class="table table-striped">
+			      				<thead class="skyblue text-white">
+						            <tr>
+						                <th>Seeker's Name</th>
+						                <th>Job's Name</th>
+						                <th>Job's Location</th>
+						                <th>Job's Price</th>
+						                <th>Job's Start Date</th>
+						                <th>Job's End Date</th>
+						                <th>Job's Status</th>
+						            </tr>
+						        </thead>
+						        <tbody>
+						            <tr>
+						                <td>Joel Lemuel Abuga</td>
+						                <td>paayos balay</td>
+						                <td>Oprra</td>
+						                <td>20,000</td>
+						                <td>November 18, 2017</td>
+						                <td>November 18, 2018</td>
+						                <td>Acive</td>
+						            </tr>
+						            <tr>
+						               <td>Joel Lemuel Abuga</td>
+						                <td>paayos balay</td>
+						                <td>Oprra</td>
+						                <td>20,000</td>
+						                <td>November 18, 2017</td>
+						                <td>November 18, 2018</td>
+						                <td>Acive</td>
+						            </tr>
+						            <tr>
+						                <td>Joel Lemuel Abuga</td>
+						                <td>paayos balay</td>
+						                <td>Oprra</td>
+						                <td>20,000</td>
+						                <td>November 18, 2017</td>
+						                <td>November 18, 2018</td>
+						                <td>Acive</td>
+						            </tr>
+						        </tbody>
+						    </table>
+						</div>			        	
+			        </div>
+
+			        <div class="modal-footer border">		
+			        	<div class="row col justify-content-center mx-0" >		        		
+			        		<div class="col-sm-4">
+			        			<button type="submit" name="passerJobExperienceData" class="form-control btn btn-success">Save</button>
+			        		</div>
+			        
+			        		<div class="col-sm-4">
+			        			<button type="button" class="form-control btn btn-secondary" data-dismiss="modal">Cancel</button>
+			        		</div>
+			        	</div>     				
+			        </div>
+		        </form>	 
+ 			</div>
+ 		</div>
+ 	</div>
+	<!-- end of agreementRecord modal -->

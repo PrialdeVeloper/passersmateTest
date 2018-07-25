@@ -1,0 +1,3 @@
+0 - unverified
+1 - verified/active
+2 - pending

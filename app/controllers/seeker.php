@@ -49,7 +49,17 @@
 					<label>Thank you, Mate. Please wait until we validate your account. Until such time, you can browse through your dashboard and update details about yourself for future purposes.</label>
 				</div>
 		 		';
+		 	}elseif($SeekerStatus == 1){
+		 		$userStatus = '
+		 		<div class="alert alert-success col text-center" role="alert">
+					<label>Welcome back, Mate. You can now use the full functionality of the service.</label>
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				    	<span aria-hidden="true">&times;</span>
+				  	</button>
+				</div>
+		 		';
 		 	}
+		 	
 
 			$data[] = array("userDetails"=>$details,"completeAddress"=>$completeAddress,"seekerStatus"=>$userStatus);
 			$this->controller->view("seeker/dashboard",$data);
@@ -61,6 +71,10 @@
 
 		public function profile(){
 			$this->controller->view("seeker/profile");
+		}
+
+		public function register(){
+			$this->controller->view("seeker/register");
 		}
 	}
 ?>
