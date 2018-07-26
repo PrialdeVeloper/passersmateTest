@@ -285,6 +285,15 @@
 			}
 		}
 
+		public function checkDateValidity(){
+			if(isset($_GET['validityCheck'])){
+				$month = $this->sanitize($_GET['month']);
+				$date = $this->sanitize($_GET['date']);
+				echo strtotime($month.' month ago');
+				var_dump(strtotime($date) < strtotime($month.' month ago'));
+			}
+		}
+
 		public function checkExist(){
 			if (isset($_POST['dataSend']) && !empty($_POST['dataSend'])) 
 			{
@@ -377,8 +386,9 @@
 					$email = $this->sanitize($_POST['email']);
 					$typeofCertificatePasser = $this->sanitize($_POST['typeofCertificatePasser']);
 					$passerTesdaLink = $this->sanitize($_POST['passerLink']);
+					$expdateField = $this->sanitize(date("Y-m-d",strtotime($_POST['expdateField'])));
 					try {
-						$return = $this->model->insertDB('passer',$this->passerReg,array($cocNumber,$passerFirstname,$passerLastname,$passerMiddlename,$passerPassword,$email,$cocTitle,$typeofCertificatePasser,$passerTesdaLink));
+						$return = $this->model->insertDB('passer',$this->passerReg,array($cocNumber,$passerFirstname,$passerLastname,$passerMiddlename,$passerPassword,$email,$cocTitle,$typeofCertificatePasser,$passerTesdaLink,$expdateField));
 						$_SESSION['passerUser'] = $return;
 						echo json_encode(array("error"=>"none"));
 					} catch (Exception $e) {

@@ -31,3 +31,7 @@
     padding: 1px 3px;
     font: 8px Verdana;
 }
+
+.hidethis{
+	display: none;
+}

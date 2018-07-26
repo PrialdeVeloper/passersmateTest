@@ -350,43 +350,43 @@ if(isset($data) && !empty($data)){
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="fname" class="col-sm-3 control-label col-form-label">Middle Initial</label>
+                                                    <label for="mname" class="col-sm-3 control-label col-form-label">Middle Initial</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control" id="mname" value="D." disabled>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="fname" class="col-sm-3  control-label col-form-label">Last Name</label>
+                                                    <label for="lname" class="col-sm-3  control-label col-form-label">Last Name</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control" id="lname" value="Franco" disabled>
                                                     </div>
                                                 </div>
                                                  <div class="form-group row">
-                                                    <label for="fname" class="col-sm-3  control-label col-form-label">Address</label>
+                                                    <label for="address" class="col-sm-3  control-label col-form-label">Address</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control" id="address" value="General Gines St. Suba Cebu City" disabled>
                                                     </div>
                                                 </div>
                                                  <div class="form-group row">
-                                                    <label for="fname" class="col-sm-3  control-label col-form-label">Gender</label>
+                                                    <label for="gender" class="col-sm-3  control-label col-form-label">Gender</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control" id="gender" value="Female" disabled>
                                                     </div>
                                                 </div>
                                                  <div class="form-group row">
-                                                    <label for="fname" class="col-sm-3  control-label col-form-label">Birthday</label>
+                                                    <label for="birthday" class="col-sm-3  control-label col-form-label">Birthday</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control" id="birthday" value="August 1, 1997" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="fname" class="col-sm-3 control-label col-form-label">Age</label>
+                                                    <label for="age" class="col-sm-3 control-label col-form-label">Age</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control" id="age" value="20" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
-                                                    <label for="fname" class="col-sm-3 control-label col-form-label">Contact #</label>
+                                                    <label for="cnum" class="col-sm-3 control-label col-form-label">Contact #</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control" id="cnum" value="1234556566" disabled>
                                                     </div>
@@ -409,25 +409,25 @@ if(isset($data) && !empty($data)){
                                         </div>
                                            
                                         <div class="form-group row">
-                                            <label for="fname" class="col-sm-3 control-label col-form-label">Certificate Number</label>
+                                            <label for="cocnumber" class="col-sm-3 control-label col-form-label">Certificate Number</label>
                                                 <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="cocnumber" value="12333333333" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="fname" class="col-sm-3 control-label col-form-label">Type of Certificate</label>
+                                            <label for="certificateType" class="col-sm-3 control-label col-form-label">Type of Certificate</label>
                                                 <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="certificateType" value="12333333333" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="fname" class="col-sm-3 control-label col-form-label">Expiration Date</label>
+                                            <label for="expirationDate" class="col-sm-3 control-label col-form-label">Expiration Date</label>
                                                 <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="expirationDate" value="12333333333" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="fname" class="col-sm-3 control-label col-form-label">Job Title</label>
+                                            <label for="jobTitle" class="col-sm-3 control-label col-form-label">Job Title</label>
                                                 <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="jobTitle" value="12333333333" disabled>
                                             </div>
@@ -468,19 +468,19 @@ if(isset($data) && !empty($data)){
                                         </div>
                                            
                                         <div class="form-group row">
-                                            <label for="fname" class="col-sm-3 control-label col-form-label">ID Number</label>
+                                            <label for="idNumber" class="col-sm-3 control-label col-form-label">ID Number</label>
                                                 <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="idNumber" value="12333333333" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="fname" class="col-sm-3 control-label col-form-label">Type of ID</label>
+                                            <label for="idType" class="col-sm-3 control-label col-form-label">Type of ID</label>
                                                 <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="idType" value="Student ID" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
-                                            <label for="fname" class="col-sm-3 control-label col-form-label">Expiration Date</label>
+                                            <label for="expirationDateGovernmentID" class="col-sm-3 control-label col-form-label">Expiration Date</label>
                                                 <div class="col-sm-9">
                                                 <input type="text" class="form-control" id="expirationDateGovernmentID" value="12333333333" disabled>
                                             </div>

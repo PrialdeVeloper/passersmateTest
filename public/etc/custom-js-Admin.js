@@ -1,10 +1,5 @@
 "use strict";
 
-$(function(){
-	$(".hidethis").hide();
-});
-
-
 function checkExistAny(table,field,data){
 	let returnValue;
 	$.ajax({
@@ -187,18 +182,18 @@ $(function(){
 						let expirationDateGovernmentID = $("#expirationDateGovernmentID");
 						headName.empty().html(obj.PasserFN + " " + obj.PasserMname + ". " + obj.PasserLN);
 						image.empty().attr("src",obj.PasserProfile);
-						fname.empty().html(obj.PasserFN);
-						mname.empty().html(obj.PasserMname);
-						lname.empty().html(obj.PasserLN);
-						address.empty().html(obj.PasserAddress);
-						gender.empty().html(obj.PasserGender);
-						birthday.empty().html(obj.PasserBirthdate);
-						age.empty().html(obj.PasserAge);
-						cpnum.empty().html(obj.PasserCPNo);
+						fname.empty().val(obj.PasserFN);
+						mname.empty().val(obj.PasserMname);
+						lname.empty().val(obj.PasserLN);
+						address.empty().val(obj.PasserAddress);
+						gender.empty().val(obj.PasserGender);
+						birthday.empty().val(obj.PasserBirthdate);
+						age.empty().val(obj.PasserAge);
+						cpnum.empty().val(obj.PasserCPNo);
 						cocPic.empty().attr("src",obj.COC);
 						cocnumber.empty().val(obj.PasserCOCNo);
 						certificateType.empty().val(obj.PasserCertificateType);
-						// expirationDate.empty.html(obj.)
+						// expirationDate.empty().val(obj.)
 						jobTitle.empty().val(obj.PasserCertificate);
 						governmentFront.empty().attr("src",obj.frontID);
 						governmentBack.empty().attr("src",obj.backID);

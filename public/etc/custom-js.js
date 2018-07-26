@@ -170,19 +170,6 @@ function checkValidImage(input){
 	}
 }
 
-
-let cocNumber;
-let passerFirstname;
-let passerLastname;
-let passerMiddlename;
-let cocTitle;
-let passerLink;
-let passerPassword;
-let email;
-let typeofCertificatePasser;
-
-
-
 // previewImage
 function readURL(input) {
   if (input.files && input.files[0]) {
@@ -193,6 +180,8 @@ function readURL(input) {
     reader.readAsDataURL(input.files[0]);
   }
 }
+
+
 
 $(function(){
 	$("input[name=profileUploadPasser]").change(function(){
@@ -233,41 +222,99 @@ $(function(){
 // end of trigger input
 
 
+let cocNumber;
+let passerFirstname;
+let passerLastname;
+let passerMiddlename;
+let cocTitle;
+let passerLink;
+let passerPassword;
+let typeofCertificatePasser;
+let cocExpiration;
+let email;
+
+
 $(function(){
-	$("#passerRegister").bind({
-		submit: function(event){
-			event.preventDefault();
-			if(cocNumber == "" || passerFirstname == "" || passerLastname == "" || passerMiddlename == "" || cocTitle == "" 
-				|| passerLink == "" ||  passerPassword == "" || email == "" || typeofCertificatePasser == ""){
-				showDivError("#passerRegError","Please fill up forms with valid and true data!");
-			}
-			else{
-				$("#passerRegError").hide();
-				$.ajax({
-					url: "registerPasser",
-					method: "POST",
-					data: {
-						registerPasser: "", cocNumber: cocNumber, passerFirstname: passerFirstname, 
-						passerLastname: passerLastname, passerMiddlename: passerMiddlename,
-						cocTitle: cocTitle, passerLink: passerLink, passerPassword: passerPassword, 
-						email: email, typeofCertificatePasser: typeofCertificatePasser
-					},
-					success: function(returnData){
-						let obj = JSON.parse(returnData);
-						if(obj.error == "none"){
-							window.location="index";
-						}else{
-							showDivError("#passerRegError",obj.error);
-						}
-					},
-					error: function(){
-						showDivError("#passerRegError","Unable to connect to server! Please try again later");
+	$("#passerRegister").submit(function(event){
+		event.preventDefault();
+		$("#passerRegError").empty();
+		let cnumField = $("input[name=passerCOC]");
+		let fnameField = $("input[name=passerFN]");
+		let lnameField = $("input[name=passerLN]");
+		let passerTitleField = $("input[name=passerTitle]");
+		let expdateField = $("input[name=expdate]");
+		let passerEmailField = $("input[name=passerEmail]");
+		let passerPasswordField = $("input[name=passerPassword]");
+		if(cocNumber === undefined){
+			showDivError("#passerRegError","Please make sure your details has been listed on the fields before continuing the process. Enter your COC number first");
+		}else{
+			if(checkEmpty(expdateField.val()) || checkEmpty(passerEmailField.val()) || checkEmpty(passerPasswordField.val())){
+				if(checkEmpty(expdateField.val())){
+					showDivError("#passerRegError","Please indicate expiration date of your COC ");
+				}
+				if(checkEmpty(passerEmailField.val())){
+					showDivError("#passerRegError","Please enter your valid email address");
+				}
+				if(checkEmpty(passerPasswordField.val())){
+					showDivError("#passerRegError","Please input password which should have atleast 8 characters (atleast 1 number, 7 letters)");
+				}
+			}else{
+				let expression = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+				let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+				if(checkRegex(passerEmailField.val(),expression) == false || checkDate(expdateField.val()) == false 
+					|| checkRegex(passerPasswordField.val(),regex) == false || checkExistAny("passer","PasserEmail",passerEmailField.val())){
+					if(checkRegex(passerEmailField.val(),expression) == false){
+						showDivError("#passerRegError","Please make sure your email address is valid");
 					}
-				});
+					if(checkDate(expdateField.val()) == false){
+						showDivError("#passerRegError","Please make sure to input valid date of COC expiration");
+					}
+					if(checkRegex(passerPasswordField.val(),regex) == false){
+						showDivError("#passerRegError","Error! Password must contain minimum of 8 characters in total and minimum of 1 numeric");
+					}
+					if(checkExistAny("passer","PasserEmail",passerEmailField.val())){
+						showDivError("#passerRegError","Email already exist. Please try another valid email addrress");
+					}
+				}else{
+					$("#passerRegError").hide();
+					$.ajax({
+						url: "registerPasser",
+						method: "POST",
+						data: {
+							"registerPasser": "", "cocNumber": cocNumber, "passerFirstname": passerFirstname, 
+							"passerLastname": passerLastname, "passerMiddlename": passerMiddlename,
+							"cocTitle": cocTitle, "passerLink": passerLink, "passerPassword": passerPassword, 
+							"email": email, "typeofCertificatePasser": typeofCertificatePasser, "expdateField": expdateField.val()
+						},
+						success: function(returnData){
+							let obj = JSON.parse(returnData);
+							if(obj.error == "none"){
+								window.location="index";
+							}else{
+								showDivError("#passerRegError",obj.error);
+							}
+							console.log(returnData);
+						},
+						error: function(){
+							showDivError("#passerRegError","Unable to connect to server! Please try again later");
+						}
+					});
+				}
 			}
 		}
+
+
+
 	});
-});
+})
+
+function checkRegex(data,regex){
+	if(regex.test(data)){
+		return true;
+	}else{
+		return false;
+	}
+}
 
 function checkEmpty(variable){
 	if(variable == ""){
@@ -277,6 +324,7 @@ function checkEmpty(variable){
 		return false;
 	}
 }
+
 
 function checkNumberOnlyCount(countData,data){
 	let regex = new RegExp(/^[0-9]{10}$/);
@@ -319,12 +367,16 @@ function crawl(dataToSend){
 				cocTitle = obj.cert;
 				typeofCertificatePasser = obj.certType;
 				passerLink = obj[1];
+				$("input[name=passerCOC]").attr("disabled","true");
 				$("#passerEmailRegister").removeAttr("disabled");
+				$("#passerEmailRegister").focus();
 				$("#passerPasswordRegister").removeAttr("disabled");
 				$("#passerRegError").hide();
 			}
 			else{
 				$("#passerRegError").empty();
+				$("input[name=passerCOC]").focus();
+				$("input[name=passerCOC]").removeAttr("disabled","true");
 				showDivError("#passerRegError","Sorry, we did not found any records of your COC number. Please try again.");
 				$("div[name=passerFN]").html("First Name");
 				$("div[name=passerLN]").html("Last Name");
@@ -343,7 +395,7 @@ function crawl(dataToSend){
 
 $(function(){
 	$("input[name=passerEmail]").keyup(function(){
-		let expression = /^[\w\-\+]+\@[a-zA-Z0-9\.\-]+\.[a-zA-z0-9]{2,4}$/;
+		let expression = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 		let passerEmail = $(this).val();
 		let emailDiv = $(this);
 		if(passerEmail != ""){
@@ -397,20 +449,43 @@ $(function(){
 });
 
 $(function(){
-	$("input[name=passerCOC]").change(function(){
+	$("input[name=expdate]").change(function(){
+		let expDate = $(this);
+
+		if(checkDate(expDate.val()) == false){
+			showDivError("#passerRegError","Please make sure you have entered a valid date");
+			cocExpiration = "";
+		}else{
+			$("#passerRegError").hide();
+			cocExpiration = expDate.val();
+		}
+	});
+})
+
+$(function(){
+	$("input[name=passerCOC]").keyup(function(){
 		let cocField = $(this);
 		let regex = /^[0-9]{14}$/
 		let reminder = $("#passerRegReminded");
 		reminder.hide();
 		if(cocField.val() != ""){
+			$("#passerRegError").empty();
 			if(regex.test(cocField.val())){
+				let responseUser = confirm("Are you sure your COC number is "+cocField.val() + " ?");
 				if(checkExistAny('passer','PasserCOCNo',cocField.val())){
-					showDivError("#passerRegError","Sorry, COC already Exist! Please check again");
+					showDivError("#passerRegError","Sorry, COC already Exist! Please check your coc number and try again");
 				}else{
-					$("#passerRegError").hide();
-					$(".loading").show();
-					crawl(cocField.val());
+					if(responseUser == true){
+						$(this).blur();
+						$("#passerRegError").hide();
+						$(".loading").show();
+						crawl(cocField.val());
+					}else{
+						showDivError("#passerRegError","Please try again");
+					}
 				}
+			}else{
+				showDivError("#passerRegError","Please make sure to input only 14 digit COC number");
 			}
 		}
 	});	
@@ -1164,21 +1239,21 @@ $(function(){
 
 
 // date
-$(function() {
-	$('#expiration_datetime_picker').datepicker().on(
-	    'show',
-	    function() {
-	        var modal = $('#expiration_datetime_picker').closest('.modal');
-	        var datePicker = $('body').find('.datepicker');
-	        if (!modal.length) {
-	            $(datePicker).css('z-index', 'auto');
-	            return;
-	        }
-	        var zIndexModal = $(modal).css('z-index');
-	        $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
-	        }
-	    );
-});
+// $(function() {
+// 	$('#expiration_datetime_picker').datepicker().on(
+// 	    'show',
+// 	    function() {
+// 	        var modal = $('#expiration_datetime_picker').closest('.modal');
+// 	        var datePicker = $('body').find('.datepicker');
+// 	        if (!modal.length) {
+// 	            $(datePicker).css('z-index', 'auto');
+// 	            return;
+// 	        }
+// 	        var zIndexModal = $(modal).css('z-index');
+// 	        $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+// 	        }
+// 	    );
+// });
 // end of date
 
 // end of dashboard seeker

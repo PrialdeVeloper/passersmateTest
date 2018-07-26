@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2018 at 10:11 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Jul 26, 2018 at 12:08 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -192,6 +194,7 @@ CREATE TABLE `passer` (
   `PasserStatus` varchar(255) NOT NULL DEFAULT '0',
   `PasserRate` int(11) NOT NULL,
   `PasserCOCNo` varchar(255) NOT NULL,
+  `PasserCOCExpiryDate` date NOT NULL,
   `PasserPass` varchar(255) NOT NULL,
   `PasserCertificate` varchar(255) NOT NULL,
   `PasserCertificateType` varchar(100) NOT NULL,
@@ -205,9 +208,11 @@ CREATE TABLE `passer` (
 -- Dumping data for table `passer`
 --
 
-INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`) VALUES
-(1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 9337752834, 'test@gmail.com', '1', 0, '13040102003962', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 0, '2018-07-22 15:12:46'),
-(2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 0, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '4', 0, '14130602029952', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 0, '2018-07-22 15:20:53');
+INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserCOCExpiryDate`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`) VALUES
+(1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 9337752834, 'test@gmail.com', '2', 0, '13040102003962', '0000-00-00', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 0, '2018-07-22 15:12:46'),
+(2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 0, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '0', 0, '14130602029952', '0000-00-00', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 0, '2018-07-22 15:20:53'),
+(3, '', '', '', NULL, 0, '', '', '', '', NULL, '', '0', 0, '', '0000-00-00', '$2y$12$VaHA4bJ8u6qFfHGLiC8M4egPaLsd7koKBBvZKBQdcF6hsdEs974Um', '', '', '', NULL, 0, '2018-07-26 06:12:30'),
+(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 0, 'Male', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325987977153259879744.jpg', 0, '2018-07-26 09:39:02');
 
 -- --------------------------------------------------------
 
@@ -272,8 +277,8 @@ CREATE TABLE `passervalidate` (
 --
 
 INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID`, `selfie`, `COC`, `idType`, `idNumber`, `expirationDate`, `passerValidateDateTime`) VALUES
-(1, 1, '../../public/etc/images/userVerify/passer/15324335384153243353851.jpg', '../../public/etc/images/userVerify/passer/15324335385153243353821.jpg', '../../public/etc/images/userVerify/passer/15324335386153243353841.jpg', '../../public/etc/images/userVerify/passer/15324335387153243353861.jpg', 'Philippine Passport', 23232, '2018-07-05', '2018-07-24 11:58:58'),
-(3, 2, '../../public/etc/images/userVerify/passer/15325451296153254512962.jpg', '../../public/etc/images/userVerify/passer/15325451294153254512912.png', '../../public/etc/images/userVerify/passer/153254512910153254512932.jpg', '../../public/etc/images/userVerify/passer/15325451291153254512942.jpg', 'Philippine Passport', 3232, '2018-07-11', '2018-07-25 18:58:49');
+(1, 1, '../../public/etc/images/userVerify/passer/153257913210153257913221.jpg', '../../public/etc/images/userVerify/passer/15325791329153257913221.png', '../../public/etc/images/userVerify/passer/15325791323153257913211.jpg', '../../public/etc/images/userVerify/passer/15325791325153257913251.jpg', 'Philippine Passport', 2323, '2018-07-18', '2018-07-26 04:25:32'),
+(2, 4, '../../public/etc/images/userVerify/passer/153259840010153259840034.jpg', '../../public/etc/images/userVerify/passer/15325984003153259840024.jpg', '../../public/etc/images/userVerify/passer/15325984006153259840044.jpg', '../../public/etc/images/userVerify/passer/15325984005153259840034.jpg', 'Philippine Passport', 123, '2018-07-10', '2018-07-26 09:46:40');
 
 -- --------------------------------------------------------
 
@@ -602,106 +607,127 @@ ALTER TABLE `switchaccount`
 --
 ALTER TABLE `admin`
   MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `canceljob`
 --
 ALTER TABLE `canceljob`
   MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
   MODIFY `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `dispute`
 --
 ALTER TABLE `dispute`
   MODIFY `DisputeID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
   MODIFY `DocFormsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `multimedia`
 --
 ALTER TABLE `multimedia`
   MODIFY `MultimediaID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
   MODIFY `NotificationID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `offerjob`
 --
 ALTER TABLE `offerjob`
   MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `passereducation`
 --
 ALTER TABLE `passereducation`
   MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `passerskills`
 --
 ALTER TABLE `passerskills`
   MODIFY `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
-  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
   MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
   MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `seeker`
 --
 ALTER TABLE `seeker`
   MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `seekervalidate`
 --
 ALTER TABLE `seekervalidate`
   MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `subscription`
 --
 ALTER TABLE `subscription`
   MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `subscriptiontype`
 --
 ALTER TABLE `subscriptiontype`
   MODIFY `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `subskill`
 --
 ALTER TABLE `subskill`
   MODIFY `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `switchaccount`
 --
 ALTER TABLE `switchaccount`
   MODIFY `SwitchAccountID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints for dumped tables
 --
@@ -800,6 +826,7 @@ ALTER TABLE `subscription`
 --
 ALTER TABLE `subskill`
   ADD CONSTRAINT `subskill_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
