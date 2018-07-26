@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2018 at 12:08 PM
+-- Generation Time: Jul 26, 2018 at 04:31 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -209,10 +209,10 @@ CREATE TABLE `passer` (
 --
 
 INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserCOCExpiryDate`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`) VALUES
-(1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 9337752834, 'test@gmail.com', '2', 0, '13040102003962', '0000-00-00', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 0, '2018-07-22 15:12:46'),
+(1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 9337752834, 'test@gmail.com', '0', 0, '13040102003962', '0000-00-00', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 0, '2018-07-22 15:12:46'),
 (2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 0, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '0', 0, '14130602029952', '0000-00-00', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 0, '2018-07-22 15:20:53'),
 (3, '', '', '', NULL, 0, '', '', '', '', NULL, '', '0', 0, '', '0000-00-00', '$2y$12$VaHA4bJ8u6qFfHGLiC8M4egPaLsd7koKBBvZKBQdcF6hsdEs974Um', '', '', '', NULL, 0, '2018-07-26 06:12:30'),
-(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 0, 'Male', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325987977153259879744.jpg', 0, '2018-07-26 09:39:02');
+(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 0, 'Male', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 0, '2018-07-26 09:39:02');
 
 -- --------------------------------------------------------
 
@@ -354,7 +354,7 @@ CREATE TABLE `seeker` (
 --
 
 INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`) VALUES
-(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '0', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', '');
+(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '3', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', '');
 
 -- --------------------------------------------------------
 
@@ -379,7 +379,8 @@ CREATE TABLE `seekervalidate` (
 --
 
 INSERT INTO `seekervalidate` (`SeekerValidateId`, `SeekerID`, `frontID`, `backID`, `selfie`, `idType`, `idNumber`, `expirationDate`, `seekerValidateDateTime`) VALUES
-(1, 1, '../../public/etc/images/userVerify/seeker/15324384653153243846541.jpg', '../../public/etc/images/userVerify/seeker/15324384651153243846541.jpg', '../../public/etc/images/userVerify/seeker/15324384656153243846541.jpg', 'Philippine Passport', 2323, '2018-07-17', '2018-07-24 13:21:05');
+(1, 1, '../../public/etc/images/userVerify/seeker/15324384653153243846541.jpg', '../../public/etc/images/userVerify/seeker/15324384651153243846541.jpg', '../../public/etc/images/userVerify/seeker/15324384656153243846541.jpg', 'Philippine Passport', 2323, '2018-07-17', '2018-07-24 13:21:05'),
+(2, 1, '../../public/etc/images/userVerify/seeker/15326008361153260083641.jpg', '../../public/etc/images/userVerify/seeker/153260083610153260083661.jpg', '../../public/etc/images/userVerify/seeker/15326008368153260083651.jpg', 'Philippine Passport', 232, '2018-07-19', '2018-07-26 10:27:16');
 
 -- --------------------------------------------------------
 
@@ -702,7 +703,7 @@ ALTER TABLE `seeker`
 -- AUTO_INCREMENT for table `seekervalidate`
 --
 ALTER TABLE `seekervalidate`
-  MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `subscription`

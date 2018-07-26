@@ -238,7 +238,12 @@
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dispute" aria-expanded="false"><i class="fas fa-bullhorn"></i><span class="hide-menu">Dispute/Reports</span></a></li>
-                           <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="confirmation" aria-expanded="false"><i class="fas fa-clipboard-check"></i><span class="hide-menu">Confirmation</span></a></li>
+                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Confirmation</span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="confirmPasser" class="sidebar-link"><i class=" fas fa-users"></i><span class="hide-menu"> Passer </span></a></li>
+                                <li class="sidebar-item"><a href="confirmSeeker" class="sidebar-link"><i class="fas fa-user-secret"></i><span class="hide-menu"> Seeker </span></a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

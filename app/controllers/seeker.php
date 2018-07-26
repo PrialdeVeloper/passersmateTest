@@ -21,6 +21,7 @@
 		 		header("location:../home/login");
 		 	}
 			$data = [];
+			$userStatus = null;
 			$completeAddress = null;
 			$detailsProper = null;
 			$seekerStatus = null;
@@ -56,6 +57,12 @@
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 				    	<span aria-hidden="true">&times;</span>
 				  	</button>
+				</div>
+		 		';
+		 	}elseif($SeekerStatus == 3){
+		 		$userStatus = '
+		 		<div class="alert alert-danger col text-center" role="alert">
+					<label>Sorry but we found inconsistency on your passed documents, Mate. But dont\' worry, you can still <button type="button" class="btn btn-link" data-toggle="modal" data-target="#verification">Click Here</button> to verify you account.</label>			
 				</div>
 		 		';
 		 	}

@@ -497,8 +497,25 @@
 			        					<div class="col">
 			        						<div class="form-group">
 											   	<label for="expirationCOC">Expiration Date</label>
-											    <input type='text' id='expiration_datetime_picker' name="expirationDate" class="form-control date" disabled readonly />
+											    <input type='text' id='expiration_datetime_picker'name="expirationDate" class="form-control date" disabled readonly />
 											</div>
+											<script>
+											$(function() {
+												$('#expiration_datetime_picker').datepicker().on(
+												    'show',
+												    function() {
+												        var modal = $('#expiration_datetime_picker').closest('.modal');
+												        var datePicker = $('body').find('.datepicker');
+												        if (!modal.length) {
+												            $(datePicker).css('z-index', 'auto');
+												            return;
+												        }
+												        var zIndexModal = $(modal).css('z-index');
+												        $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
+												        }
+												    );
+											});
+											</script>
 			        					</div>
 			        				</div>
 			        				

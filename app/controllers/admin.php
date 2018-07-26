@@ -64,14 +64,24 @@
 			$this->controller->view("admin/authentication-register");
 		}
 
-		public function confirmation(){
+		public function confirmPasser(){
 			if(!$this->checkSession('adminUser')){
 				header("location:index");
 			}
 			$data = [];
 			$dom = 
 			$data[] = array("passerUnverified"=>$this->createPasserUnverified());
-			$this->controller->view("admin/confirmation",$data);
+			$this->controller->view("admin/confirmPasser",$data);
+		}
+
+		public function confirmSeeker(){
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			$data = [];
+			$dom = 
+			$data[] = array("seekerUnverified"=>$this->createSeekerUnverified());
+			$this->controller->view("admin/confirmSeeker",$data);
 		}
 
 		public function logout(){

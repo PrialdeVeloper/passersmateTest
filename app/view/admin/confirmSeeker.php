@@ -1,6 +1,15 @@
+<?php 
+$domSeekerUnverified = null;
+if(isset($data) && !empty($data)){
+    extract($data[0]);
+    if(isset($seekerUnverified) && !empty($seekerUnverified)){
+        $domSeekerUnverified = $seekerUnverified;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,7 +23,7 @@
     <!-- Custom CSS -->
     <link href="../etc/admin/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
     <link href="../etc/admin/assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
-     <link rel="stylesheet" type="text/css" href="../etc/admin/assets/libs/quill/dist/quill.snow.css">
+    <link href="../etc/admin/assets/libs/magnific-popup/dist/magnific-popup.css" rel="stylesheet">
     <link href="../etc/admin/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -203,7 +212,7 @@
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-          <aside class="left-sidebar" data-sidebarbg="skin5">
+       <aside class="left-sidebar" data-sidebarbg="skin5">
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
@@ -238,7 +247,8 @@
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dispute" aria-expanded="false"><i class="fas fa-bullhorn"></i><span class="hide-menu">Dispute/Reports</span></a></li>
-                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Confirmation</span></a>
+
+                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Confirmation</span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="confirmPasser" class="sidebar-link"><i class=" fas fa-users"></i><span class="hide-menu"> Passer </span></a></li>
                                 <li class="sidebar-item"><a href="confirmSeeker" class="sidebar-link"><i class="fas fa-user-secret"></i><span class="hide-menu"> Seeker </span></a></li>
@@ -263,7 +273,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Subscriptions</h4>
+                        <h4 class="page-title text-danger">Confirmation</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -284,49 +294,178 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                 <div class="row">
+                <div class="row">
                     <div class="col-md-12 col-sm-12">
-                     <div class="card">
+                    <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">View Subscriptions</h5>
-                                <div class="table-responsive">
-                                    <table id="zero_config" class="table table-striped table-bordered text-center">
-                                        <thead>
-                                            <tr>
-                                                <th>Image</th>
-                                                <th>Full name</th>
-                                                <th>Account Created</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><img src="../etc/admin/assets/images/users/1.png" style="width:40px;"></td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>2016/11/06</td>
-                                                <td class="text-success">Active</td>
-                                                <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Deactivate">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
+                                <h5 class="card-title m-b-0">Confirming Users</h5>
+                            </div>
+                            <div class="table-responsive">
+                            <table id="zero_config" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email address</th>
+                                        <th scope="col">User Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?=$domSeekerUnverified;?>
+                                </tbody>
+                            </table>
+                            </div>
+                               <!-- Modal -->
+                                <div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Marvee Yofa Franco</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                  <!-- Tabs -->
+                        <div class="card">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Personal Details</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#messages" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">Government Issued</span></a> </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content tabcontent-border">
+                                <div class="tab-pane active" id="home" role="tabpanel">
+                                      
+                                    <div class="p-20">
+                                         <div class="card-body">
+                                            <div class="card border shadow">
+                                                 <img name="seekerProfile" src="../etc/admin/assets/images/big/img4.jpg" alt="user" width="100%">
+                                                  <div class="card-body">
+                                                    <p class="card-text"><b>Profile Picture</b></p>
+                                                  </div>
+                                            </div>
+                                            <form class="form-horizontal">
+                                              <!--   <div class="card-header text-white">
+                                                </div> -->
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-sm-3 control-label col-form-label">First Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="fname" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="lname" class="col-sm-3  control-label col-form-label">Last Name</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="lname" disabled>
+                                                    </div>
+                                                </div>
+                                                 <div class="form-group row">
+                                                    <label for="address" class="col-sm-3  control-label col-form-label">Address</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="address" disabled>
+                                                    </div>
+                                                </div>
+                                                 <div class="form-group row">
+                                                    <label for="gender" class="col-sm-3  control-label col-form-label">Gender</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="gender" disabled>
+                                                    </div>
+                                                </div>
+                                                 <div class="form-group row">
+                                                    <label for="birthday" class="col-sm-3  control-label col-form-label">Birthday</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="birthday" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="age" class="col-sm-3 control-label col-form-label">Age</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="age" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="cnum" class="col-sm-3 control-label col-form-label">Contact #</label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" class="form-control" id="cnum" disabled>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-
+                                <div class="tab-pane p-20" id="messages" role="tabpanel">
+                                    <div class="p-20">
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                            <div class="card border shadow">
+                                                <img name="governmentFront" src="../etc/admin/assets/images/big/img4.jpg" alt="user" width="100%">
+                                                <div class="card-body">
+                                                    <p class="card-text"><b>Front of ID</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                            <div class="card border shadow">
+                                                <img name="governmentBack" src="../etc/admin/assets/images/big/img4.jpg" alt="user" width="100%">
+                                                <div class="card-body">
+                                                    <p class="card-text"><b>Back of ID</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                          <div class="row">
+                                            <div class="col-md-12">
+                                            <div class="card border shadow">
+                                                <img name="governmentSelfie" src="../etc/admin/assets/images/big/img4.jpg" alt="user" width="100%">
+                                                <div class="card-body">
+                                                    <p class="card-text"><b>Selfie with ID</b></p>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                           
+                                        <div class="form-group row">
+                                            <label for="idNumber" class="col-sm-3 control-label col-form-label">ID Number</label>
+                                                <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="idNumber" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="idType" class="col-sm-3 control-label col-form-label">Type of ID</label>
+                                                <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="idType" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="expirationDateGovernmentID" class="col-sm-3 control-label col-form-label">Expiration Date</label>
+                                                <div class="col-sm-9">
+                                                <input type="text" class="form-control" id="expirationDateGovernmentID" disabled>
+                                            </div>
+                                        </div>
+                                          <div class="border-top">
+                                            <div class="card-body">
+                                                <button type="button" name="verifySeeker" class="btn btn-success verifySeeker">Verify</button>
+                                                <button type="button" name="denySeeker" class="btn btn-dark denySeeker">Denied</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                          </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                         </div>
                     </div>
-              
-                </div>  
-                <!-- END MODAL -->
+                </div>
+                <!-- END OF MODAL -->
+                        </div>
+                    </div>
+                </div>
 
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -378,71 +517,24 @@
     <!--Custom JavaScript -->
     <script src="../etc/admin/dist/js/custom.min.js"></script>
     <!-- this page js -->
-    <script src="../etc/admin/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
-    <script src="../etc/admin/dist/js/pages/mask/mask.init.js"></script>
-    <script src="../etc/admin/assets/libs/select2/dist/js/select2.full.min.js"></script>
-    <script src="../etc/admin/assets/libs/select2/dist/js/select2.min.js"></script>
-    <script src="../etc/admin/assets/libs/jquery-asColor/dist/jquery-asColor.min.js"></script>
-    <script src="../etc/admin/assets/libs/jquery-asGradient/dist/jquery-asGradient.js"></script>
-    <script src="../etc/admin/assets/libs/jquery-asColorPicker/dist/jquery-asColorPicker.min.js"></script>
-    <script src="../etc/admin/assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
-    <script src="../etc/admin/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="../etc/admin/assets/libs/moment/min/moment.min.js"></script>
+    <script src="../etc/admin/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="../etc/admin/dist/js/pages/calendar/cal-init.js"></script>
        <!-- this page js -->
     <script src="../etc/admin/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="../etc/admin/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
     <script src="../etc/admin/assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script src="../etc/custom-js-Admin.js"></script>
     <script>
         /****************************************
          *       Basic Table                   *
          ****************************************/
         $('#zero_config').DataTable();
     </script>
-      <script src="../etc/admin/assets/libs/quill/dist/quill.min.js"></script>
-    <script>
-        //***********************************//
-        // For select 2
-        //***********************************//
-        $(".select2").select2();
-
-        /*colorpicker*/
-        $('.demo').each(function() {
-        //
-        // Dear reader, it's actually very easy to initialize MiniColors. For example:
-        //
-        //  $(selector).minicolors();
-        //
-        // The way I've done it below is just for the demo, so don't get confused
-        // by it. Also, data- attributes aren't supported at this time...they're
-        // only used for this demo.
-        //
-        $(this).minicolors({
-                control: $(this).attr('data-control') || 'hue',
-                position: $(this).attr('data-position') || 'bottom left',
-
-                change: function(value, opacity) {
-                    if (!value) return;
-                    if (opacity) value += ', ' + opacity;
-                    if (typeof console === 'object') {
-                        console.log(value);
-                    }
-                },
-                theme: 'bootstrap'
-            });
-
-        });
-        /*datwpicker*/
-        jQuery('.mydatepicker').datepicker();
-        jQuery('#datepicker-autoclose').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-
-    </script>
+     <!-- this page js -->
+    <script src="../etc/admin/assets/libs/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
+    <script src="../etc/admin/assets/libs/magnific-popup/meg.init.js"></script>
     <script src="../etc/custom-js-Admin.js"></script>
+
 
 </body>
 

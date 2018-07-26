@@ -1,9 +1,12 @@
 <?php
+	if(isset($data) && !empty($data)){
+		extract($data[0]);
+		if(isset($userDetails) && !empty($userDetails)){
+			extract($userDetails[0]);
+		}
+	} 
 	require_once "../public/header-footer/seeker/seekerHeader.marvee";
 	require_once "../public/header-footer/jobsNav.marvee";
-	if(isset($data) && !empty($data)){
-		// print_r($data);
-	}
 ?>
 
 			<div class="container pt-3">
@@ -36,8 +39,6 @@
 										<select id="gender" class="form-control" name="Gender">
 											<option value="Male" selected>Male</option>
 											<option value="Female">Female</option>
-											<option value="Others">Others</option>
-											<option value="Rather not say">Rather Not Say</option>
 										</select>
 									</div>
 								</div>
@@ -82,8 +83,6 @@
 									<select id="gender" class="form-control" name="Gender">
 										<option value="Male" selected>Male</option>
 										<option value="Female">Female</option>
-										<option value="Others">Others</option>
-										<option value="Rather not say">Rather Not Say</option>
 									</select>
 								</div>
 							</div>

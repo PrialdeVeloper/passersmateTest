@@ -54,6 +54,12 @@
 				  	</button>
 				</div>
 		 		';
+		 	}elseif($SeekerStatus == 3){
+		 		$userStatus = '
+		 		<div class="alert alert-danger col text-center" role="alert">
+					<label>Sorry but we found inconsistency on your passed documents, Mate. But dont\' worry, you can still <button type="button" class="btn btn-link" data-toggle="modal" data-target="#verification">Click Here</button> to verify you account.</label>			
+				</div>
+		 		';
 		 	}
 		 	if(!empty($PasserAddress)){
 				$completeAddress = $PasserAddress;
@@ -79,9 +85,19 @@
 			if(empty($_GET['user'])){
 		 		header("location:../home/login");
 		 	}
+		 	$errorDiv = null;
 		 	$coc = $this->sanitize($_GET['user']);
 		 	$details = $this->model->selectAllFromUser($this->passerTable,"PasserCOCNo",array($coc));
-		 	$data[] = array("userDetails"=>$details);
+		 	extract($details[0]);
+		 	if($PasserStatus !=1 ){
+		 		$errorDiv = '
+		 		<div class="alert alert-danger col text-center" role="alert">
+					<label>Currently, this Passer has not yet been verified so he/she cannot be hired nor messaged.</label>			
+				</div>
+
+		 		';
+		 	}
+		 	$data[] = array("userDetails"=>$details,"passerStatus"=>$errorDiv);
 			$this->controller->view("passer/profile",$data);
 		}
 

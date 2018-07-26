@@ -84,7 +84,12 @@
 		}
 
 		public function search(){
-			$data = array("title"=>"Search");
+			if(!$this->checkSession('seekerUser')){
+		 		header("location:login");
+		 	}
+		 	$data = [];
+		 	$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($_SESSION['seekerUser']));
+			$data[] = array("userDetails"=>$details);
 			$this->controller->view("all/search",$data);
 		}
 	}

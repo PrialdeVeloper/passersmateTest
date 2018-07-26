@@ -1237,23 +1237,4 @@ $(function(){
 
 // end of verify seeker
 
-
-// date
-// $(function() {
-// 	$('#expiration_datetime_picker').datepicker().on(
-// 	    'show',
-// 	    function() {
-// 	        var modal = $('#expiration_datetime_picker').closest('.modal');
-// 	        var datePicker = $('body').find('.datepicker');
-// 	        if (!modal.length) {
-// 	            $(datePicker).css('z-index', 'auto');
-// 	            return;
-// 	        }
-// 	        var zIndexModal = $(modal).css('z-index');
-// 	        $(datePicker).css('z-index', zIndexModal + 999).css("position", "relative");
-// 	        }
-// 	    );
-// });
-// end of date
-
 // end of dashboard seeker

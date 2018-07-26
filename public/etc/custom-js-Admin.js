@@ -150,7 +150,7 @@ $(function(){
 		passerID = dataID;
 		if($("#Modal3").has(":visible")){
 			$.ajax({
-				url: "selectCondition",
+				url: "selectConditionPasser",
 				method: "POST",
 				async: false,
 				data: {"getData":"","data":dataID},
@@ -222,11 +222,11 @@ $(function(){
 			$.ajax({
 				url: "updateStatus",
 				method: "POST",
-				data: {"userStatus":"","table":"passer","field":"PasserStatus","id":myPasserID,"status":"1"},
+				data: {"userStatus":"","table":"passer","field":"PasserStatus","id":myPasserID,"status":"1","userUnique":"PasserID"},
 				success: function(a){
 					let obj = JSON.parse(a);
 					if(obj.error == "none"){
-						window.location = "confirmation";
+						window.location = "confirmPasser";
 					}else{
 						alert(a);
 					}
@@ -249,11 +249,11 @@ $(function(){
 			$.ajax({
 				url: "updateStatus",
 				method: "POST",
-				data: {"userStatus":"","table":"passer","field":"PasserStatus","id":myPasserID,"status":"3"},
+				data: {"userStatus":"","table":"passer","field":"PasserStatus","id":myPasserID,"status":"3","userUnique":"PasserID"},
 				success: function(a){
 					let obj = JSON.parse(a);
 					if(obj.error == "none"){
-						window.location = "confirmation";
+						window.location = "confirmPasser";
 					}else{
 						alert(a);
 					}
@@ -263,6 +263,130 @@ $(function(){
 				}
 			})
 			myPasserID = "";
+		}
+	});
+});
+
+
+let seekerID;
+
+$(function(){
+	$(".seekerUnverify").click(function(){
+		let dataID = $(this).attr("data-seeker");
+		seekerID = dataID;
+		if($("#Modal3").has(":visible")){
+			$.ajax({
+				url: "selectConditionSeeker",
+				method: "POST",
+				async: false,
+				data: {"getData":"","data":dataID},
+				success: function(a){
+					let obj = JSON.parse(a)["seekerDetails"][0];
+					if(obj.SeekerStatus != 2){
+						window.location= "confirmation";
+					}else{
+						let headName = $("#exampleModalLabel");
+						let image = $("img[name=seekerProfile]");
+						let fname = $("#fname");
+						let lname = $("#lname");
+						let address = $("#address");
+						let gender = $("#gender");
+						let birthday = $("#birthday");
+						let age = $("#age");
+						let cpnum = $("#cnum");
+						let cocPic = $("img[name=cocPic]");
+						let cocnumber = $("#cocnumber");
+						let certificateType = $("#certificateType");
+						// let expirationDate = $("#expirationDate");
+						let jobTitle = $("#jobTitle");
+						let governmentFront = $("img[name=governmentFront]");
+						let governmentBack = $("img[name=governmentBack]");
+						let governmentSelfie = $("img[name=governmentSelfie]");
+						let idnum = $("#idNumber");
+						let idType = $("#idType");
+						let expirationDateGovernmentID = $("#expirationDateGovernmentID");
+						headName.empty().html(obj.SeekerFN + " " + obj.SeekerLN);
+						image.empty().attr("src",obj.SeekerProfile);
+						fname.empty().val(obj.SeekerFN);
+						lname.empty().val(obj.SeekerLN);
+						address.empty().val(obj.SeekerAddress);
+						gender.empty().val(obj.SeekerGender);
+						birthday.empty().val(obj.SeekerBirthdate);
+						age.empty().val(obj.SeekerAge);
+						cpnum.empty().val(obj.SeekerCPNo);
+						cocPic.empty().attr("src",obj.COC);
+						cocnumber.empty().val(obj.SeekerCOCNo);
+						certificateType.empty().val(obj.SeekerCertificateType);
+						// expirationDate.empty().val(obj.)
+						jobTitle.empty().val(obj.SeekerCertificate);
+						governmentFront.empty().attr("src",obj.frontID);
+						governmentBack.empty().attr("src",obj.backID);
+						governmentSelfie.empty().attr("src",obj.selfie);
+						idnum.empty().val(obj.idNumber);
+						idType.empty().val(obj.idType);
+						expirationDateGovernmentID.empty().val(obj.expirationDate);
+					}	
+				},
+				fail: function(){
+					alert("failed to connect to server");
+				}
+			});
+		}
+		dataID = "";
+	});
+});
+
+
+$(function(){
+	$(".verifySeeker").click(function(){
+		let responseUser = confirm("Are you sure you want to Approve this user?");
+		let mySeekerID = seekerID;
+		seekerID = "";
+		if(responseUser == true){
+			$.ajax({
+				url: "updateStatus",
+				method: "POST",
+				data: {"userStatus":"","table":"seeker","field":"seekerStatus","id":mySeekerID,"status":"1","userUnique":"SeekerID"},
+				success: function(a){
+					let obj = JSON.parse(a);
+					if(obj.error == "none"){
+						window.location = "confirmSeeker";
+					}else{
+						alert(a);
+					}
+				},
+				fail: function(){
+					alert("Error connecting to server")
+				}
+			})
+			mySeekerID = "";
+		}
+	});
+});
+
+$(function(){
+	$(".denySeeker").click(function(){
+		let responseUser = confirm("Are you sure you want to Deny this user?");
+		let mySeekerID = seekerID;
+		seekerID = "";
+		if(responseUser == true){
+			$.ajax({
+				url: "updateStatus",
+				method: "POST",
+				data: {"userStatus":"","table":"seeker","field":"SeekerStatus","id":mySeekerID,"status":"3","userUnique":"SeekerID"},
+				success: function(a){
+					let obj = JSON.parse(a);
+					if(obj.error == "none"){
+						window.location = "confirmSeeker";
+					}else{
+						alert(a);
+					}
+				},
+				fail: function(){
+					alert("Error connecting to server")
+				}
+			})
+			mySeekerID = "";
 		}
 	});
 });

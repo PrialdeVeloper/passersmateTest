@@ -1,5 +1,9 @@
 <?php
 	trait misc{
+		protected $seekerTable = "seeker";
+		protected $seekerUnique = "SeekerID";
+		protected $passerTable = 'passer';
+		protected $passerUnique = 'PasserID';
 		protected $model = null;
 		protected $controller = null;
 		protected $data = array();
@@ -208,7 +212,12 @@
 		}
 
 		public function logout(){
-			session_destroy();
+			if(isset($_SESSION['passerUser'])){
+				unset($_SESSION['passerUser']);
+			}
+			elseif(isset($_SESSION['seekerUser'])){
+				unset($_SESSION['seekerUser']);
+			}
 			header("location:../home/login");
 		}
 
@@ -552,10 +561,39 @@
 			return $tableCreate;
 		}
 
-		public function selectCondition(){
+		public function createSeekerUnverified(){
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			$dom = null;
+			$tableCreate = null;
+			$seekerUnverified = $this->model->selectAllFromUser("seeker","SeekerStatus",array(2));
+			foreach ($seekerUnverified as $data) {
+				$dom = '
+				<tr>
+                    <td class=""><a href="" class="seekerUnverify" data-toggle="modal" data-target="#Modal3" data-seeker='.$data['SeekerID'].'><span badge badge-warning">'.$data['SeekerID'].'</span></a></td>
+                    <td class="">'.$this->sanitize($data['SeekerFN']). ' ' . $this->sanitize($data['SeekerLN']).'</td>
+                    <td class="">'.$this->sanitize($data['SeekerEmail']).'</td>
+                    <td class="">Seeker</td>
+                </tr>
+				';
+				$tableCreate = $tableCreate ."".$dom;
+			}
+			return $tableCreate;
+		}
+
+		public function selectConditionPasser(){
 			if(isset($_POST['getData'])){
 				$data = $this->sanitize($_POST['data']);
 				$return = array("passerDetails"=>$this->model->queryDataUnverifiedPasser(array($data)));
+				echo json_encode($return);
+			}
+		}
+
+		public function selectConditionSeeker(){
+			if(isset($_POST['getData'])){
+				$data = $this->sanitize($_POST['data']);
+				$return = array("seekerDetails"=>$this->model->queryDataUnverifiedSeeker(array($data)));
 				echo json_encode($return);
 			}
 		}
@@ -566,8 +604,9 @@
 				$field = $this->sanitize($_POST['field']);
 				$id = $this->sanitize($_POST['id']);
 				$status = $this->sanitize($_POST['status']);
+				$userUnique = $this->sanitize($_POST['userUnique']);
 				try {
-					$return = $this->model->updateDB($table,array($field),array($status),"PasserID",$id);
+					$return = $this->model->updateDB($table,array($field),array($status),$userUnique,$id);
 					echo json_encode(array("error"=>"none"));
 				} catch (Exception $e) {
 					echo $e->getMessage();

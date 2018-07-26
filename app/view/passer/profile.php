@@ -8,22 +8,27 @@ $sd = "Nov 6, 2017";
 $ed = "Infinty";
 $reviewer = "Pablo";
 $rate = "Very Good!";
+$read = null;
 ?>
 <?php
 	if(isset($data) && !empty($data)){
-		// unset($data[0]);
 		extract($data[0]);
 		if(isset($userDetails) && !empty($userDetails)){
 			extract($userDetails[0]);
-			print_r($data);
+			// print_r($data);
 		}
 	} 
+
+	if(isset($passerStatus) && !empty($passerStatus)){
+		$read = "disabled readonly";
+	}
 	require "../public/header-footer/seeker/seekerHeader.marvee";
 	require "../public/header-footer/jobsNav.marvee";
 	require "modal/dashboardModal.html";
 ?>
 <!-- content -->
 <div class="container-fluid my-5">
+	<?=$passerStatus;?>
 	<!-- start of 1st row -->
 	<div class="row">
 		<!-- 1st box -->
@@ -54,10 +59,10 @@ $rate = "Very Good!";
 
 				<div class="row pt-5">
 					<div class="col-sm-6 ">
-						<button type="button" class="btn btn-primary btn-block">Offer Job</button>
+						<button type="button" <?=$read?> class="btn btn-primary btn-block">Offer Job</button>
 					</div>
 					<div class="col-sm-6 ">
-						<button type="button" class="btn btn-primary btn-block">Message Me</button>
+						<button type="button" <?=$read?> class="btn btn-primary btn-block">Message Me</button>
 					</div>
 				</div>
 			</div>

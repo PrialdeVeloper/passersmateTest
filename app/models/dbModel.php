@@ -69,6 +69,12 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function queryDataUnverifiedSeeker($data){
+			$this->stmt = $this->con->prepare("select a.SeekerID, a.SeekerFN, a.SeekerLN, a.SeekerBirthdate, a.SeekerAge, a.SeekerGender, a.SeekerStreet, a.SeekerAddress, a.SeekerCPNo, a.SeekerEmail, a.SeekerStatus, a.SeekerProfile, b.frontID, b.backID, b.selfie, b.idType, b.idNumber,b.expirationDate from seekervalidate b left join seeker a  on a.SeekerID = b.seekerID where a.SeekerStatus = 2 and a.SeekerID = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectSingleUser($table,$field,$data,$wherClause){
 			$this->stmt = $this->con->prepare("SELECT $field FROM $table WHERE $wherClause = ?");
 			$this->stmt->execute($data);
