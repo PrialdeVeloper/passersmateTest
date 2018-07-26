@@ -126,43 +126,9 @@
 					</div>
 					<div class="col">
 						<div class="row">
-							<div class="col-sm-6">
-								<div class="container shadowDiv">
-									<div class="row">
-										<div class="col-md-4">
-											<div class="container my-3 pl-3 d-flex justify-content-center">
-												<img src="../../public/etc/images/user/pablo.jpg" class="profile">
-											</div>
-										</div>		
-										<div class="col-md-7 mt-4">
-											<div class="container text-center text-primary">
-												<label class="georgiaFonts">Pablo Franco</label>
-											</div>
-											<div class="container text-center text-secondary">
-												<label class="trebuchet">Carpenter from Pasil, Cebu City</label>
-											</div>
-											<div class="container text-center">
-												<span class="fa fa-star text-warning"></span>
-												<span class="fa fa-star text-warning"></span>
-												<span class="fa fa-star text-warning"></span>
-												<span class="fa fa-star text-warning"></span>
-												<span class="fa fa-star text-warning"></span>
-											</div>
-										</div>	
-									</div>
-									<div class="col-md my-3">
-										<div class="container text-center text-primary">Education, Trainings & Organizations</div>
-										<div class="container text-center text-secondary">Carpentry NC II</div>
-									</div>
-									<div class="col-md">
-										<hr>
-									</div>
-									<div class="col-md d-flex justify-content-center">
-										<button type="button" class="btn btn-lg btn-primary mb-3">View Profile</button>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6">
+							<?=$passerListAll;?>
+
+							<!-- <div class="col-sm-6">
 								<div class="container shadowDiv">
 									<div class="row">
 										<div class="col-md-4">
@@ -197,7 +163,8 @@
 										<button type="button" class="btn btn-lg btn-primary mb-3">View Profile</button>
 									</div>
 								</div>
-							</div>
+							</div> -->
+
 						</div>
 					</div>
 				</div>

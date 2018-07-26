@@ -87,9 +87,57 @@
 			if(!$this->checkSession('seekerUser')){
 		 		header("location:login");
 		 	}
+		 	$dom = null;
+		 	$builder;
 		 	$data = [];
 		 	$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($_SESSION['seekerUser']));
-			$data[] = array("userDetails"=>$details);
+		 	$passerList = $this->model->selectAllFromUser($this->passerTable,"PasserStatus",array(1));
+		 	if(!empty($passerList)){
+		 		foreach ($passerList as $data) {
+		 			$builder = '
+
+ 					<div class="col-sm-6">
+						<div class="container shadowDiv">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="container my-3 pl-3 d-flex justify-content-center">
+										<img src="'.$this->sanitize($data["PasserProfile"]).'" class="profile">
+									</div>
+								</div>		
+								<div class="col-md-7 mt-4">
+									<div class="container text-center text-primary">
+										<label class="georgiaFonts">'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->sanitize($data["PasserLN"]).'</label>
+									</div>
+									<div class="container text-center text-secondary">
+										<label class="trebuchet">'. $this->sanitize($data["PasserCertificate"]) .'</label>
+									</div>
+									<div class="container text-center">
+										<span class="fa fa-star text-warning"></span>
+										<span class="fa fa-star text-warning"></span>
+										<span class="fa fa-star text-warning"></span>
+										<span class="fa fa-star text-warning"></span>
+										<span class="fa fa-star text-warning"></span>
+									</div>
+								</div>	
+							</div>
+							<div class="col-md my-3">
+								<div class="container text-center text-primary">Education, Trainings & Organizations</div>
+								<div class="container text-center text-secondary">'.$this->sanitize($data["PasserCertificateType"]).'</div>
+							</div>
+							<div class="col-md">
+								<hr>
+							</div>
+							<div class="col-md d-flex justify-content-center">
+								<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn btn-lg btn-primary mb-3">View Profile</a>
+							</div>
+						</div>
+					</div>
+
+		 			';
+		 			$dom = $dom."".$builder;
+		 		}
+		 	}
+			$data[] = array("userDetails"=>$details,"passerListAll"=>$dom);
 			$this->controller->view("all/search",$data);
 		}
 	}

@@ -63,6 +63,13 @@
 			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function selectDataFromOtherDB($table,$table2,$field,$field2,$data){
+			$return = null;
+			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = (SELECT $field from $table2 where $field2 = ?)");
+			$this->stmt->execute($data);
+			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function queryDataUnverifiedPasser($data){
 			$this->stmt = $this->con->prepare("select a.PasserID, a.PasserFN, a.PasserLN, a.PasserCOCNo, a.PasserMname, a.PasserBirthdate, a.PasserAge, a.PasserGender, a.PasserStreet, a.PasserAddress, a.PasserCPNo, a.PasserEmail, a.PasserStatus, a.PasserCertificate, a.PasserProfile, a.PasserCertificateType, b.frontID, b.backID, b.selfie, b.COC, b.idType, b.idNumber,b.expirationDate from passervalidate b left join passer a  on a.PasserID = b.passerID where a.PasserStatus = 2 and a.PasserID = ?");
 			$this->stmt->execute($data);

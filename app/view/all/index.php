@@ -50,7 +50,7 @@
 				<!--  Main navigation  -->
 				<ul class="main-nav nav navbar-nav navbar-right">
 					<li><a href="#home">Home</a></li>
-					<li><a href="#news">Passers</a></li>
+					<li><a href="search">Passers</a></li>
 					<li><a href="#news">How it works</a></li>
 					<li><a href="signup">Sign up</a></li>
 					<li><a href="login">Log in</a></li>

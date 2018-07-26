@@ -15,11 +15,9 @@ $read = null;
 		extract($data[0]);
 		if(isset($userDetails) && !empty($userDetails)){
 			extract($userDetails[0]);
-			// print_r($data);
 		}
 	} 
-
-	if(isset($passerStatus) && !empty($passerStatus)){
+	if(isset($passerStatus) && !empty($passerStatus) || isset($seekerError) && !empty($seekerError)){
 		$read = "disabled readonly";
 	}
 	require "../public/header-footer/seeker/seekerHeader.marvee";
@@ -29,12 +27,13 @@ $read = null;
 <!-- content -->
 <div class="container-fluid my-5">
 	<?=$passerStatus;?>
+	<?=$seekerError;?>
 	<!-- start of 1st row -->
 	<div class="row">
 		<!-- 1st box -->
 		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv">
 			<div class="d-flex justify-content-center">
-				<img class="fluid seekerProfile" src="../../public/etc/images/user/dashboardSample.png" alt="Profile"></img>
+				<img class="fluid seekerProfile rounded-circle" src="<?=$PasserProfile;?>" alt="Profile"></img>
 			</div>
 			<hr>
 			<div class="container">
@@ -101,54 +100,7 @@ $read = null;
 					<!-- workExperience content -->
 					<div class="tab-pane container active bg-white" id="work1">
 						<div class="scrollable-content container py-5">
-							<div class="row py-4 border">
-								<h6>Work Experience</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Educational Attainment</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Service Accommodation</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Service Rate</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Work Experience</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Educational Attainment</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Service Accommodation</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Service Rate</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Work Experience</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Educational Attainment</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Service Accommodation</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Service Rate</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Work Experience</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Educational Attainment</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Service Accommodation</h6>
-							</div>
-							<div class="row py-4 border">
-								<h6>Service Rate</h6>
-							</div>
+							<?=$workHistory;?>
 						</div>					
 					</div>
 					<!-- end of workExperience content -->

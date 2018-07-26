@@ -85,20 +85,81 @@
 			if(empty($_GET['user'])){
 		 		header("location:../home/login");
 		 	}
+		 	$builder = null;
+		 	$dom = null;
 		 	$errorDiv = null;
+		 	$seekerError = null;
 		 	$coc = $this->sanitize($_GET['user']);
 		 	$details = $this->model->selectAllFromUser($this->passerTable,"PasserCOCNo",array($coc));
-		 	extract($details[0]);
-		 	if($PasserStatus !=1 ){
-		 		$errorDiv = '
-		 		<div class="alert alert-danger col text-center" role="alert">
-					<label>Currently, this Passer has not yet been verified so he/she cannot be hired nor messaged.</label>			
-				</div>
+		 	if(!empty($details)){
+			 	extract($details[0]);
+			 	if($PasserStatus !=1 ){
+			 		$errorDiv = '
+			 		<div class="alert alert-danger col text-center" role="alert">
+						<label>Currently, this Passer has not yet been verified so he/she cannot be hired nor messaged.</label>			
+					</div>
 
-		 		';
-		 	}
-		 	$data[] = array("userDetails"=>$details,"passerStatus"=>$errorDiv);
-			$this->controller->view("passer/profile",$data);
+			 		';
+			 	}
+
+			 	if(isset($_SESSION['seekerUser'])){
+		 			$seekerSession = $this->sanitize($_SESSION['seekerUser']);
+		 			$seekerDetails = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($seekerSession));
+		 			if(!empty($seekerDetails)){
+		 				extract($seekerDetails[0]);
+		 				if($SeekerStatus != 1){
+		 					$seekerError = '
+					 		<div class="alert alert-danger col text-center" role="alert">
+								<label>Currently, You cannot hire nor message any Passer. Please verify your account first on <a href=../seeker/dashboard> Here</a>.</label>			
+							</div>
+					 		';
+		 				}
+		 			}
+		 		}
+
+			 	$workHistory = $this->model->selectDataFromOtherDB("passerworkhistory","passer","PasserID","PasserCOCNo",array($coc));
+			 	if(!empty($workHistory)){
+			 		foreach ($workHistory as $data) {
+			 			$builder = '
+			 				<div class="container text-center mt-5">
+								<div class="col h3">
+									'.$this->sanitize($data['PasserJobTitle']).'
+								</div>
+								<div class="row mt-3">
+									<div class="col">
+										<div class="col">
+											Start Date
+										</div>
+										<div class="col mt-2">
+											'.$this->sanitize(date("F jS, Y", strtotime($data['PasserWorkHistoryStartDate']))).'
+										</div>
+									</div>
+									<div class="col">
+										<div class="col">
+											End Date
+										</div>
+										<div class="col mt-2">
+											'.$this->sanitize(date("F jS, Y", strtotime($data['PasserWorkHistoryEndDate']))).'
+										</div>
+									</div>
+								</div>
+								<div class="container mt-3">
+									<div class="col">Short Description</div>
+									<div class="col text-center mt-2">
+									'.$this->sanitize($data['PasserWorkHistoryDesc']).'
+									</div>
+								</div>
+							</div>
+			 			';
+			 			$dom = $dom ." ".$builder;
+			 		}
+			 	}
+			 	$data[] = array("userDetails"=>$details,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError);
+				$this->controller->view("passer/profile",$data);
+			}
+			else{
+				header("location:../home/login");
+			}
 		}
 
 		public function projects(){
