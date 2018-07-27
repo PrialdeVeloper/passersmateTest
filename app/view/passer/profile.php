@@ -1,14 +1,6 @@
 <?php 
-$Name = 'Marvee Franco';
-$address = 'Sitio Gines (Wak Wak)';
-$birthdate = 'August 01, 1522';
-$contact = '126-2634-252';
-$jtitle = "Asawa";
-$sd = "Nov 6, 2017";
-$ed = "Infinty";
-$reviewer = "Pablo";
-$rate = "Very Good!";
-$read = null;
+	$offerJob = '<button type="button" class="btn btn-primary btn-block">Offer Job</button>';
+	$messageMe = '<button type="button" class="btn btn-primary btn-block">Message Me</button>';
 ?>
 <?php
 	if(isset($data) && !empty($data)){
@@ -18,7 +10,7 @@ $read = null;
 		}
 	} 
 	if(isset($passerStatus) && !empty($passerStatus) || isset($seekerError) && !empty($seekerError)){
-		$read = "disabled readonly";
+		$offerJob = $messageMe = null;
 	}
 	require "../public/header-footer/seeker/seekerHeader.marvee";
 	require "../public/header-footer/jobsNav.marvee";
@@ -58,10 +50,10 @@ $read = null;
 
 				<div class="row pt-5">
 					<div class="col-sm-6 ">
-						<button type="button" <?=$read?> class="btn btn-primary btn-block">Offer Job</button>
+						<?=$offerJob?>
 					</div>
 					<div class="col-sm-6 ">
-						<button type="button" <?=$read?> class="btn btn-primary btn-block">Message Me</button>
+						<?=$messageMe?>
 					</div>
 				</div>
 			</div>
