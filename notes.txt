@@ -2,3 +2,7 @@
 1 - verified/active
 2 - pending
 3 - denied
+
+
+format sa pagcreate notification
+$this->createNotification("qwe",array("sendTo"=>"SeekerID","id"=>1,"message"=>"hehe"),array("id"=>1));

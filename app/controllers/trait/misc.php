@@ -4,6 +4,8 @@
 		protected $seekerUnique = "SeekerID";
 		protected $passerTable = 'passer';
 		protected $passerUnique = 'PasserID';
+		protected $notifDB = 'notification';
+		protected $notifTable = array("PasserID","SeekerID","notificationType","notificationMessage");
 		protected $model = null;
 		protected $controller = null;
 		protected $data = array();
@@ -52,6 +54,82 @@
 			}
 			return true;
 			
+		}
+
+		public function createNotification($notifType,$to = []){
+			$execute = 1;
+			if($notifType == 'message'){
+				$checkExist = $this->model->checkExistSingle($this->notifDB,$to['sendTo'],array($to['id']));
+				if($checkExist){
+					$execute = 0;
+				}
+			}
+
+			($execute = 1?($to['sendTo'] == "PasserID")?$this->model->insertDB($this->notifDB,$this->notifTable,array($to['id'],NULL,$notifType,$to['message'])):$this->model->insertDB($this->notifDB,$this->notifTable,array(NULL,$to['id'],$notifType,$to['message'])):""); 
+			return true;
+		}
+
+		public function getNotification(){
+			if(isset($_POST['notificationGet'])){
+				$builder = null;
+				$dom = null;
+				$field = (!empty($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$id = (!empty($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+				$notifCount = $this->model->checkAuthenticity($this->notifDB,$field,"notificationStatus",array($id,1));
+				$notificationData = $this->model->selectAllFromUser($this->notifDB,$field,array($id));
+				foreach ($notificationData as $data) {
+					$link = null;
+					$message = null;
+					switch ($data['notificationType']) {
+						case 'updateUserStatus':
+							$link = "dashboard";
+							switch ($data['notificationMessage']) {
+								case '1':
+									$message = "verified your acount";
+									break;
+								case '3':
+									$message = "declined your request to be verified.";
+									break;
+							}
+							break;
+
+						case 'message':
+							$link = "message";
+							break;
+
+						case 'offerJob':
+							// $link = 
+							break;
+					}
+
+					$builder = '
+					<div class="cursor content" onclick="window.location=\''.$link.'\'">
+				  		<div class="notification-item">
+					       	<div class="row mb-2" >
+						      	<div class="col-md-2 col-sm-2 col-xs-2">
+							       	<div class="notify-img ml-2">
+							       		<img src="../../public/etc/images/system/logo-2.png" alt="image" width="40px">
+							       	</div>
+						    	</div>
+								<div class="col-md-9 col-sm-9 col-xs-9 mt-2">
+									<a class="font-weight-bold text-dark">PassersMate </a><small>'. $message.'</small> 
+					      		 </div>
+						    </div>
+						</div>
+				  	</div>
+					';
+					$dom = $dom ."". $builder; 
+				}
+				echo json_encode(array("count"=>$notifCount,"dom"=>$dom));
+			}
+		}
+
+		public function readAllNotification(){
+			if(isset($_POST['notifChange'])){
+				$field = (!empty($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$id = (!empty($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+				$this->model->updateDB($this->notifDB,array("notificationStatus"),array(0),$field,$id);
+			}
 		}
 
 		public function returnURLGmail(){
@@ -606,6 +684,7 @@
 				$status = $this->sanitize($_POST['status']);
 				$userUnique = $this->sanitize($_POST['userUnique']);
 				try {
+					$this->createNotification("updateUserStatus",array("sendTo"=>$userUnique,"id"=>$id,"message"=>$status));
 					$return = $this->model->updateDB($table,array($field),array($status),$userUnique,$id);
 					echo json_encode(array("error"=>"none"));
 				} catch (Exception $e) {

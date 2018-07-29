@@ -4,6 +4,35 @@ body{
   padding:0!important;
 }
 
+/*NOTIFICATIONS*/
+
+.notification-message {   
+    position: absolute;
+    top: -3px;
+    right: 39px;
+    background-color: rgba(212, 19, 13, 1);
+    color: #fff;
+    border-radius: 3px;
+    padding: 1px 3px;
+    font: 8px Verdana;
+}
+.notification-bell {   
+    position: absolute;
+    top: -3px;
+    right: 40px;
+    background-color: rgba(212, 19, 13, 1);
+    color: #fff;
+    border-radius: 3px;
+    padding: 1px 3px;
+    font: 8px Verdana;
+}
+.scroll{
+  height:150px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
 .centerModalTitle{
   margin-left: auto;
 }

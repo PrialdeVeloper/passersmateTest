@@ -130,6 +130,50 @@ function checkExistAny(table,field,data){
 }
 
 
+// notification
+
+$(function(){
+    $("#notification").ready(function(){
+        setInterval(function(){getNotification()},5000);
+    })
+});
+
+
+
+
+function getNotification(){
+	let notifBody = $("#notification");
+	let notifCount = $(".notificationCount");
+	$.ajax({
+		url: "getNotification",
+		data: {"notificationGet":""},
+		method: "POST",
+		success: function(a){
+			let obj = JSON.parse(a);
+			notifCount.html(obj.count);
+			notifBody.html(obj.dom);
+		},
+		fail: function(){
+			alert("cannot connect to server");
+		}
+	});
+}
+
+$(function(){
+	$("#notifClick").click(function(){
+		if(!$("#modalToggle").hasClass("show")){
+			$.ajax({
+				url: "readAllNotification",
+				method: "POST",
+				data: {"notifChange":""}
+			});
+		}
+	});
+})
+
+// end of notification
+
+
 $(function(){
     $(window).resize(function(){
         let screenSize = $(window).width();
@@ -293,7 +337,6 @@ $(function(){
 							}else{
 								showDivError("#passerRegError",obj.error);
 							}
-							console.log(returnData);
 						},
 						error: function(){
 							showDivError("#passerRegError","Unable to connect to server! Please try again later");
