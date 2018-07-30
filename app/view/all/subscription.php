@@ -2,7 +2,7 @@
 require "../public/header-footer/header.marvee";
 ?>
 
-<head class="mt-5">
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
@@ -98,7 +98,7 @@ require "../public/header-footer/header.marvee";
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
-            <div class="container-fluid">
+            <div class="container-fluid mt-5 mb-5">
                 <!-- ============================================================== -->
                 <div class="row">
                 	<div class="col-md-12 text-center">
@@ -197,6 +197,6 @@ require "../public/header-footer/header.marvee";
     <!--Custom JavaScript -->
     <!-- this page js -->
     <script src="../etc/subscription/build/toastr.min.js"></script>
-</body>
-
-</html>
+<?php
+	require "../public/header-footer/passer/passerFooter.marvee";
+?>

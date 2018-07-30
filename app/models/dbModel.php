@@ -76,7 +76,7 @@
 		}
 
 		public function queryDataUnverifiedPasser($data){
-			$this->stmt = $this->con->prepare("select a.PasserID, a.PasserFN, a.PasserLN, a.PasserCOCNo, a.PasserMname, a.PasserBirthdate, a.PasserAge, a.PasserGender, a.PasserStreet, a.PasserAddress, a.PasserCPNo, a.PasserEmail, a.PasserStatus, a.PasserCertificate, a.PasserProfile, a.PasserCertificateType, b.frontID, b.backID, b.selfie, b.COC, b.idType, b.idNumber,b.expirationDate from passervalidate b left join passer a  on a.PasserID = b.passerID where a.PasserStatus = 2 and a.PasserID = ?");
+			$this->stmt = $this->con->prepare("select a.PasserID, a.PasserFN, a.PasserLN, a.PasserCOCNo, a.PasserMname, a.PasserBirthdate, a.PasserAge, a.PasserGender, a.PasserStreet, a.PasserAddress, a.PasserCOCExpiryDate, a.PasserCPNo, a.PasserEmail, a.PasserStatus, a.PasserCertificate, a.PasserProfile, a.PasserCertificateType, b.frontID, b.backID, b.selfie, b.COC, b.idType, b.idNumber,b.expirationDate from passervalidate b left join passer a  on a.PasserID = b.passerID where a.PasserStatus = 2 and a.PasserID = ?");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}

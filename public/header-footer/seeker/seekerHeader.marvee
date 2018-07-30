@@ -152,7 +152,7 @@
 										<label class="pr-1"><?=isset($SeekerFN)?$SeekerFN:$PasserFN;?></label>
 									</a>
 								 <div class="dropdown-menu dropdown-menu-right text-dark">
-								      <a class="dropdown-item text-dark" href="#">
+								      <a class="dropdown-item text-dark" href="dashboard">
 								      	<i class="fas fa-user-circle"></i> <?=isset($SeekerFN)?$SeekerFN:$PasserFN;?> <?=isset($SeekerLN)?$SeekerLN:$PasserLN;?>
 								      	<br>
 								      </a>

@@ -17,6 +17,11 @@ if(isset($data) && !empty($data)){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <style type="text/css">
+        .disabledColor{
+          background-color: #E9ECEF!important;
+        }
+    </style>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="../etc/admin/assets/images/logo-icon.png">
     <title>PassersMate Admin</title>
@@ -417,25 +422,25 @@ if(isset($data) && !empty($data)){
                                         <div class="form-group row">
                                             <label for="cocnumber" class="col-sm-3 control-label col-form-label">Certificate Number</label>
                                                 <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="cocnumber" value="12333333333" disabled>
+                                                <input type="text" class="form-control" id="cocnumber" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="certificateType" class="col-sm-3 control-label col-form-label">Type of Certificate</label>
                                                 <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="certificateType" value="12333333333" disabled>
+                                                <input type="text" class="form-control" id="certificateType" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="expirationDate" class="col-sm-3 control-label col-form-label">Expiration Date</label>
                                                 <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="expirationDate" value="12333333333" disabled>
+                                                <input type="text" class="form-control" id="expirationDate" disabled>
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="jobTitle" class="col-sm-3 control-label col-form-label">Job Title</label>
                                                 <div class="col-sm-9">
-                                                <input type="text" class="form-control" id="jobTitle" value="12333333333" disabled>
+                                                    <div class="container-fluid form-control disabledColor" id="jobTitle"></div>
                                             </div>
                                         </div>
                                     </div>

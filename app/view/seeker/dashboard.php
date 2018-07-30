@@ -123,6 +123,13 @@ $rate = "Very Good!";
 					</label>
 				</div>
 			</div>
+			<div class="row pt-2 hoverAccountSeeker">
+				<div class="col-sm-1 ml-3"><i class="fas fa-money-bill-wave-alt text-white"></i></div>
+				<div class="col-md-auto">
+					<label class="text-white cursor" onclick="window.location='../home/subscription'" id="smaller">Billing
+					</label>
+				</div>
+			</div>
 		</div>
 		<!-- end of 1st box 2nd row -->
 		<!-- 2nd box 2nd row -->
@@ -149,7 +156,7 @@ $rate = "Very Good!";
 	</div>
 	<!-- end of 2nd row -->
 	<!-- 3rd row -->
-	<div class="row my-4">
+	<div class="row my-4 mt-5">
 		<!-- start of 1st box 3rd row -->
 		<div class="col-md-4 offset-sm-1 border rounded bg-white mx-5 shadowDiv" id="myQuickLinks">
 			<div class="d-flex justify-content-center mt-4">

@@ -172,7 +172,7 @@ $(function(){
 						let cocPic = $("img[name=cocPic]");
 						let cocnumber = $("#cocnumber");
 						let certificateType = $("#certificateType");
-						// let expirationDate = $("#expirationDate");
+						let expirationDate = $("#expirationDate");
 						let jobTitle = $("#jobTitle");
 						let governmentFront = $("img[name=governmentFront]");
 						let governmentBack = $("img[name=governmentBack]");
@@ -193,8 +193,8 @@ $(function(){
 						cocPic.empty().attr("src",obj.COC);
 						cocnumber.empty().val(obj.PasserCOCNo);
 						certificateType.empty().val(obj.PasserCertificateType);
-						// expirationDate.empty().val(obj.)
-						jobTitle.empty().val(obj.PasserCertificate);
+						expirationDate.empty().val(obj.PasserCOCExpiryDate);
+						jobTitle.empty().append(obj.PasserCertificate);
 						governmentFront.empty().attr("src",obj.frontID);
 						governmentBack.empty().attr("src",obj.backID);
 						governmentSelfie.empty().attr("src",obj.selfie);

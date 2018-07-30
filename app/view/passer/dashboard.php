@@ -166,10 +166,6 @@
 				</label>
       		</div>
       		<div class="container-fluid">
-      			<div class="row pt-1 border-bottom">
-					<div class="col-sm-1"><i class="far fa-eye"></i></div>
-					<div class="col-md-auto">Preview Profile</div>
-				</div>
 				<div class="row pt-1 border-bottom pt-3">
 					<div class="col-sm-1"><i class="fas fa-briefcase"></i></div>
 					<div class="col-md-auto"><span data-toggle="modal" data-target="#myJobs">My Jobs</span></div>
