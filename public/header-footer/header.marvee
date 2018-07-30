@@ -23,7 +23,12 @@
 							</a>
 						</li>
 						<li class="navbar-item pr-5">
-							<a class="navbar-link text-dark" href="#">
+							<a class="navbar-link text-dark" href="subscription">
+								Pricing
+							</a>
+						</li>
+						<li class="navbar-item pr-5">
+							<a class="navbar-link text-dark" href="faq">
 								How it works
 							</a>
 						</li>

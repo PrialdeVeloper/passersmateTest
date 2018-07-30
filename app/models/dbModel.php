@@ -56,6 +56,11 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function selectAllField($field,$from){
+			$this->stmt = $this->con->query("SELECT $field FROM $from");
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectAllFromUser($table,$field,$data){
 			$return = null;
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ?");

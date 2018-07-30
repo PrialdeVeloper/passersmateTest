@@ -140,6 +140,82 @@
 			$data[] = array("userDetails"=>$details,"passerListAll"=>$dom);
 			$this->controller->view("all/search",$data);
 		}
+
+		public function subscription(){
+			if(!$this->checkSession('seekerUser')){
+		 		header("location:login");
+		 	}
+		 	$this->controller->view("all/subscription");
+		}
+
+		public function basic(){
+			if(!$this->checkSession('seekerUser')){
+		 		header("location:login");
+		 	}
+		 	$this->controller->view("all/subBasic");
+		}
+
+		public function silver(){
+			if(!$this->checkSession('seekerUser')){
+		 		header("location:login");
+		 	}
+		 	$this->controller->view("all/subSilver");
+		}
+
+		public function gold(){
+			if(!$this->checkSession('seekerUser')){
+		 		header("location:login");
+		 	}
+		 	$this->controller->view("all/subGold");
+		}
+
+		public function checkout(){
+			if(!$this->checkSession('seekerUser')){
+		 		header("location:login");
+		 	}
+			if(isset($_SESSION['paymentID'])){
+				unset($_SESSION['paymentID']);
+			}
+			if(isset($_SESSION['forwardLink'])){
+				unset($_SESSION['forwardLink']);
+			}
+		 	$valid = $this->model->checkExistSingle("subscriptiontype","SubscriptionName",array($this->sanitize(strtolower($_POST['checkout']))));
+		 	if(!isset($_POST['checkout']) || $valid <= 0){
+		 		header("location: subscription");
+		 	}
+		 	$link = "search";
+		 	if(isset($_GET['forwardTo'])){
+		 		$_SESSION['forwardLink'] = $this->sanitize($_GET['forwardTo']);
+		 	}
+		 	$price = null;
+		 	$priceAlone = null;
+		 	$queryOption = $this->model->selectAllFromUser("subscriptiontype","SubscriptionName",array(strtolower($this->sanitize($_POST['checkout']))));
+		 	extract($queryOption[0]);
+		 	$_SESSION['paymentID'] = $SubscriptionTypeID;
+		 	$option = ucfirst($SubscriptionName);
+		 	$price = "&#8369;".$SubscriptionPrice." per ".$SubscriptionValidity;
+		 	$data = [];
+		 	$data[] = array("option"=>$option,"price"=>$price,"priceAlone"=>"&#8369;".$SubscriptionPrice);
+		 	$this->controller->view("all/subCheckout",$data);
+		}
+
+		public function subscribe(){
+			if(!$this->checkSession('seekerUser') || !isset($_SESSION['paymentID'])){
+		 		header("location:subscription");
+		 	}
+		 	$validity = $this->model->selectSingleUser("subscriptiontype","SubscriptionValidity",array($_SESSION['paymentID']),"SubscriptionTypeID");
+		 	$dateNow = date("Y-m-d");
+		 	$subEnd = date("Y-m-d", strtotime("+1 ".$validity, strtotime($dateNow)));
+		 	$forwardLink = (isset($_SESSION['forwardLink'])?$_SESSION['forwardLink']:"search");
+		 	unset($_SESSION['forwardLink']);
+		 	$insert = $this->model->insertDB("subscription",$this->subscriptionTable,array($_SESSION['paymentID'],$_SESSION['seekerUser'],$dateNow,$subEnd,"paypal"));
+		 	if($insert){
+		 		$this->createNotification("subscription",array("sendTo"=>"SeekerID","id"=>$_SESSION['seekerUser'],"message"=>1));
+		 		unset($_SESSION['paymentID']);
+		 		$this->toOtherPage($forwardLink);
+		 	}
+		}
+
 	}
 
 ?>

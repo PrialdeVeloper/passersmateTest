@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 29, 2018 at 05:42 PM
+-- Generation Time: Jul 30, 2018 at 09:09 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -155,7 +155,8 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificationType`, `notificationMessage`, `notificationStatus`) VALUES
-(1, NULL, 1, 'updateUserStatus', '1', 0);
+(1, NULL, 1, 'updateUserStatus', '1', 0),
+(2, 1, NULL, 'subscription', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -399,8 +400,16 @@ CREATE TABLE `subscription` (
   `SeekerID` int(11) NOT NULL,
   `SubscriptionStart` date NOT NULL,
   `SubscriptionEnd` date NOT NULL,
-  `Payment` int(11) DEFAULT NULL
+  `PaymentMethod` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subscription`
+--
+
+INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, `SubscriptionStart`, `SubscriptionEnd`, `PaymentMethod`) VALUES
+(1, 1, 1, '2018-07-30', '2018-07-31', '0'),
+(2, 3, 1, '2018-07-30', '2019-07-30', 'paypal');
 
 -- --------------------------------------------------------
 
@@ -420,7 +429,9 @@ CREATE TABLE `subscriptiontype` (
 --
 
 INSERT INTO `subscriptiontype` (`SubscriptionTypeID`, `SubscriptionName`, `SubscriptionValidity`, `SubscriptionPrice`) VALUES
-(1, 'Sname', 'valid', 2000);
+(1, 'basic', 'day', 80),
+(2, 'silver', 'month', 2500),
+(3, 'gold', 'year', 5000);
 
 -- --------------------------------------------------------
 
@@ -650,7 +661,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
@@ -710,13 +721,13 @@ ALTER TABLE `seekervalidate`
 -- AUTO_INCREMENT for table `subscription`
 --
 ALTER TABLE `subscription`
-  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `subscriptiontype`
 --
 ALTER TABLE `subscriptiontype`
-  MODIFY `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subskill`

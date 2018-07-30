@@ -11,6 +11,7 @@
 		protected $data = array();
 		protected $trait = null;
 		protected $options = ['cost' => 12,];
+		public $subscriptionTable = array("SubscriptionTypeID","SeekerID","SubscriptionStart","SubscriptionEnd","PaymentMethod");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -97,8 +98,20 @@
 							$link = "message";
 							break;
 
-						case 'offerJob':
-							// $link = 
+						case 'subscription':
+							$link = "search";
+							switch ($data['notificationMessage']) {
+								case '0':
+									$message = "You may want to subscribe first!";
+									$link = "subscription";
+									break;
+								case '1':
+									$message = "You have successfully Subscribed.";
+									break;
+								case '2':
+									$message = "Your subscription has ended.";
+									break;
+							}
 							break;
 					}
 
@@ -286,7 +299,6 @@
 		}
 
 		public function __construct(){
-			
 		}
 
 		public function logout(){

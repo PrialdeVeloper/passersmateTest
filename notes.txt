@@ -5,4 +5,12 @@
 
 
 format sa pagcreate notification
-$this->createNotification("qwe",array("sendTo"=>"SeekerID","id"=>1,"message"=>"hehe"),array("id"=>1));
+$this->createNotification("subscription",array("sendTo"=>"SeekerID","id"=>$_SESSION['seekerUser'],"message"=>1));
+
+forwardTo - for subscription from search
+
+
+subscription
+0 = no subscription
+1 = successful subscription
+2 = end subscription

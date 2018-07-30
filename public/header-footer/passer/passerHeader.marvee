@@ -20,10 +20,128 @@
 								<i class="fas fa-envelope"></i>
 							</a>
 						</li>
-						<li class="navbar-item pr-5">
-							<a class="navbar-link text-dark" href="#">
-								<i class="far fa-bell"></i>
+						<li class="navbar-item pr-5 dropdown" id="modalToggle">
+							<a class="navbar-link text-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="far fa-bell" id="notifClick"></i>
+								<span class="notification-bell notificationCount">0</span>
 							</a>
+
+							 <!-- notification -->
+
+							<div class="dropdown-menu dropdown-menu-right" style="width:350px">
+							 <a class="dropdown-item" href="#">
+							 	<div class="dropdown-header text-center">
+								 <b>Notifications <label class="text-primary">(<span class="notificationCount">0</span>)</label></b>
+							  	</div>
+							  </a>
+
+							  <div class="dropdown-divider"></div>
+							  <div class="dropdown-body scroll" id="notification">
+							  	  <!-- <div class="dropdown-divider"></div>
+							  	<a href="" class="content">
+							  		 <div class="notification-item " style="background:#f2f7ff;">
+								       <div class="row">
+									       <div class="col-md-2 col-sm-2 col-xs-2">
+									       	<div class="notify-img ml-2">
+									       		<img src="../../public/etc/images/system/marvee.jpg" alt="" width="40px">
+									       	</div>
+									       </div>
+        									<div class="col-md-9 col-sm-9 col-xs-9 mt-2">
+        										<a href="" class="font-weight-bold text-dark">MYDF</a><small> file a dispute</small> 
+        										<i class="fa fa-bullhorn text-danger"></i>
+								      		 </div>
+								      </div>
+								  </div>
+							  	</a>
+							  		  <div class="dropdown-divider"></div>
+							  	<a href="" class="content">
+							  		 <div class="notification-item">
+								       <div class="row">
+									       <div class="col-md-2 col-sm-2 col-xs-2">
+									       	<div class="notify-img ml-2">
+									       		<img src="../../public/etc/images/system/marvee.jpg" alt="" width="40px">
+									       	</div>
+									       </div>
+        									<div class="col-md-9 col-sm-9 col-xs-9 mt-2">
+        										<a href="" class="font-weight-bold text-dark">PassersMate</a><small> you can now avail BASIC plan</small> 
+        										<i class="fa fa-credit-card text-secondary"></i>
+								      		 </div>
+								      </div>
+								  </div>
+							  	</a>
+							  	<div class="dropdown-divider"></div>
+							  	<a href="" class="content">
+							  		 <div class="notification-item">
+								       <div class="row">
+									       <div class="col-md-2 col-sm-2 col-xs-2">
+									       	<div class="notify-img ml-2">
+									       		<img src="../../public/etc/images/system/marvee.jpg" alt="" width="40px">
+									       	</div>
+									       </div>
+        									<div class="col-md-9 col-sm-9 col-xs-9 mt-2">
+        										<a href="" class="font-weight-bold text-dark">Syrel Prialde</a><small> offered you a job</small> 
+        										<i class="fa fa-suitcase text-primary"></i>
+								      		 </div>
+								      </div>
+								  </div>
+							  	</a>
+							  	<div class="dropdown-divider"></div>
+							  	<a href="" class="content">
+							  		 <div class="notification-item">
+								       <div class="row">
+									       <div class="col-md-2 col-sm-2 col-xs-2">
+									       	<div class="notify-img ml-2">
+									       		<img src="../../public/etc/images/system/marvee.jpg" alt="" width="40px">
+									       	</div>
+									       </div>
+        									<div class="col-md-9 col-sm-9 col-xs-9 mt-2">
+        										<a href="" class="font-weight-bold text-dark">Syrel Prialde</a><small> cancel the job offer</small> 
+        										<i class="fa fa-window-close text-danger"></i>
+								      		 </div>
+								      </div>
+								  </div>
+							  	</a>
+							  	<div class="dropdown-divider"></div>
+							  	<a href="" class="content">
+							  		 <div class="notification-item">
+								       <div class="row">
+									       <div class="col-md-2 col-sm-2 col-xs-2">
+									       	<div class="notify-img ml-2">
+									       		<img src="../../public/etc/images/system/marvee.jpg" alt="" width="40px">
+									       	</div>
+									       </div>
+        									<div class="col-md-9 col-sm-9 col-xs-9 mt-2">
+        										<a href="" class="font-weight-bold text-dark">Syrel Prialde</a><small> sign an Employment Agreement form with you</small> 
+        										<i class="fa fa-sticky-note text-secondary"></i>
+								      		 </div>
+								      </div>
+								  </div>
+							  	</a>
+							  		<div class="dropdown-divider"></div>
+							  	<a href="" class="content">
+							  		 <div class="notification-item">
+								       <div class="row">
+									       <div class="col-md-2 col-sm-2 col-xs-2">
+									       	<div class="notify-img ml-2">
+									       		<img src="../../public/etc/images/system/marvee.jpg" alt="" width="40px">
+									       	</div>
+									       </div>
+        									<div class="col-md-9 col-sm-9 col-xs-9 mt-2">
+        										<a href="" class="font-weight-bold text-dark">You</a><small> are officially hired with</small>
+        										<a href="" class="font-weight-bold text-dark"> Syrel Prialde</a>
+        										<i class="fas fa-handshake text-info"></i>
+								      		 </div>
+								      </div>
+								  </div>
+							  	</a> -->
+							  </div>
+							   <!-- END OF DROPDOWN SCROLL -->
+							    <div class="dropdown-divider"></div>
+							 	<div class="dropdown-footer ml-1">
+								 	<a href=""><small class="font-weight-bold">See all Notifications</small></a>
+							  	</div>
+							</div>
+								  <!-- end of notification -->
 						</li>
 						<li class="navbar-item pr-5">
 							<a class="navbar-link text-dark" href="logout">
