@@ -359,6 +359,18 @@ function checkRegex(data,regex){
 	}
 }
 
+function toastError(message){
+	toastr.error(message);
+}
+
+function toastSuccess(message){
+	toastr.success(message);
+}
+
+function toastWarning(message){
+	toastr.warning(message);
+}
+
 function checkEmpty(variable){
 	if(variable == ""){
 		return true;
@@ -1095,6 +1107,79 @@ $(function(){
 });
 
 // end of personal details seeker
+
+// jocreate
+$(function(){
+	$("#joFormCreate").submit(function(event){
+		event.preventDefault();
+		let workAddress = $("#workAddressCreate");
+		let workStart = $("#workCreateDateStart");
+		let workEnd = $("#workCreateDateEnd");
+		let salary = $("#salaryCreate");
+		let paymentMethod = $("#paymentMethod");
+		let accomodationType = $("#accomodationType");
+		let validPaymentMethod = ["Online","Onsite"];
+		let validAccomodationType = ["In-House","Offsite"];
+		
+		if(checkEmpty(workAddress.val()) || checkEmpty(workStart.val()) || checkEmpty(workEnd.val())
+			 || checkEmpty(salary.val()) || checkEmpty(paymentMethod.val()) || checkEmpty(accomodationType.val())){
+			if(checkEmpty(workAddress.val())){
+				toastError("Please input your Address which needs work");
+			}
+			if(checkEmpty(workStart.val())){
+				toastError("Please indicate your work starting date");
+			}
+			if(checkEmpty(workEnd.val())){
+				toastError("Please indicate your work estimated end date");
+			}
+			if(checkEmpty(salary.val())){
+				toastError("Please indicate your salary offer");
+			}
+			if(checkEmpty(paymentMethod.val())){
+				toastError("Please indicate your payment method");
+			}
+			if(checkEmpty(accomodationType.val())){
+				toastError("Please indicate your work accomodation type");
+			}
+		}else{
+			if(Date.parse(workEnd.val()) < Date.parse(workStart.val()) || isNaN(salary.val()) 
+				|| checkArraySame(validPaymentMethod,paymentMethod.val()) == false 
+				|| checkArraySame(validAccomodationType,accomodationType.val()) == false){
+				if(Date.parse(workEnd.val()) < Date.parse(workStart.val())){
+					toastError("Please make sure your start date is not greater than end date");
+				}
+				if(isNaN(salary.val())){
+					toastError("Please make sure your salary input is valid");
+				}
+				if(checkArraySame(validPaymentMethod,paymentMethod.val()) == false){
+					toastError("Please choose only from valid payment types");
+				}
+				if(checkArraySame(validAccomodationType,accomodationType.val()) == false){
+					toastError("Please choose only from valid accomodation types");
+				}
+			}else{
+				$.ajax({
+					url: "addJobForm",
+					method: "POST",
+					data: {"createJobForm":"","workAddress":workAddress.val(),"workStart":workStart.val(),"workEnd":workEnd.val(),"salary":salary.val(),
+					"paymentMethod":paymentMethod.val(),"accomodationType":accomodationType.val()},
+					success :function(a){
+						let obj = JSON.parse(a);
+						if(obj.error == "none"){
+							toastSuccess("Form Added!");
+							window.setTimeout(function(){window.location='joboffer'},1000)
+						}
+					},
+					fail: function(){
+						alert("cannot connect to server");
+					}
+				});
+			}
+		}
+
+	});
+})
+// end of jocreate
 
 
 // verifyModal previewImage

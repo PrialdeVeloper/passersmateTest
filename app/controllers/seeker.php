@@ -83,5 +83,16 @@
 		public function register(){
 			$this->controller->view("seeker/register");
 		}
+
+		public function joboffer(){
+			if(!$this->checkSession('seekerUser')){
+		 		header("location:../home/login");
+		 	}
+		 	$data = [];
+			$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
+			$data[] = array("userDetails"=>$details);
+			$this->controller->view("seeker/jobOffer",$data);
+		}
+		
 	}
 ?>

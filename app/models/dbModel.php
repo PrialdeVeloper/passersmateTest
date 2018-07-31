@@ -61,6 +61,12 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function selectAllLimit($table,$field,$field2,$offset,$count,$data){
+			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ? and $field2 = ? LIMIT $offset,$count");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);;
+		}
+
 		public function selectAllFromUser($table,$field,$data){
 			$return = null;
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ?");

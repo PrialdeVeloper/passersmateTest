@@ -12,6 +12,7 @@
 		protected $trait = null;
 		protected $options = ['cost' => 12,];
 		public $subscriptionTable = array("SubscriptionTypeID","SeekerID","SubscriptionStart","SubscriptionEnd","PaymentMethod");
+		public $offerJobTable = array("SeekerID","WorkingAddress","StartDate","EndDate","Salary","PaymentMethod","AccomodationType");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -612,6 +613,47 @@
 					echo $e->getMessage();
 				}
 			}
+		}
+
+		public function addJobForm(){
+			if(isset($_POST['createJobForm'])){
+				$passerID = $_SESSION['seekerUser'];
+				$workingAddress = $this->sanitize($_POST['workAddress']);
+				$workStart = $this->sanitize(date("Y-m-d",strtotime($_POST['workStart'])));
+				$workEnd = $this->sanitize(date("Y-m-d",strtotime($_POST['workEnd'])));
+				$salary = $this->sanitize($_POST['salary']);
+				$paymentMethod = $this->sanitize($_POST['paymentMethod']);
+				$accomodationType = $this->sanitize($_POST['accomodationType']);
+				try {
+					$return = $this->model->insertDB("offerjobform",$this->offerJobTable,array($passerID,$workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType));
+						if($return){
+							echo json_encode(array("error"=>"none"));
+						}else{
+							echo json_encode(array("error"=>$return));
+						}
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+
+			}
+		}
+
+		public function paginationScript($table,$id,$field,$field2,$page,$offset,$limit){
+			// table location session field1 field2 page offset limit
+			$totalPage = $this->model->checkExistSingle($table,$field,array($id));
+			$totalPages = ceil($totalPage/$limit);
+			$totalPage = null;
+			$offset = ($page-1) * $limit;
+			if(is_numeric($page)){
+				$result = $this->model->selectAllLimit($table,$field,$field2,$offset,$limit,array($id,1));
+				return $result;
+			}
+		}
+
+
+
+		public function trylang(){
+			$return = $this->paginationScript("offerjobform",$_SESSION['userSeeker'],)
 		}
 
 

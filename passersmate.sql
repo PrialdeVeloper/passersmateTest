@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 30, 2018 at 09:09 AM
+-- Generation Time: Jul 31, 2018 at 03:49 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -156,7 +156,10 @@ CREATE TABLE `notification` (
 
 INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificationType`, `notificationMessage`, `notificationStatus`) VALUES
 (1, NULL, 1, 'updateUserStatus', '1', 0),
-(2, 1, NULL, 'subscription', '1', 0);
+(2, NULL, 5, 'updateUserStatus', '1', 0),
+(3, 2, NULL, 'updateUserStatus', '1', 0),
+(4, 2, NULL, 'subscription', '1', 0),
+(5, 1, NULL, 'subscription', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -176,6 +179,32 @@ CREATE TABLE `offerjob` (
   `PaymentMethod` varchar(255) NOT NULL,
   `Payment` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `offerjobform`
+--
+
+CREATE TABLE `offerjobform` (
+  `OfferJobFormID` int(11) NOT NULL,
+  `SeekerID` int(11) NOT NULL,
+  `WorkingAddress` text NOT NULL,
+  `StartDate` date NOT NULL,
+  `EndDate` date NOT NULL,
+  `Salary` double NOT NULL,
+  `PaymentMethod` varchar(255) NOT NULL,
+  `AccomodationType` varchar(255) NOT NULL,
+  `OfferJobFormStatus` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offerjobform`
+--
+
+INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `OfferJobFormStatus`) VALUES
+(1, 1, 'qwe', '2018-07-01', '2018-07-02', 255, 'Online', 'In-House', 1),
+(2, 1, 'qwe', '2018-07-16', '2018-07-19', 255, 'Online', 'Offsite', 1);
 
 -- --------------------------------------------------------
 
@@ -217,7 +246,8 @@ INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `Passer
 (1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 9337752834, 'test@gmail.com', '1', 0, '13040102003962', '0000-00-00', '$2y$12$jYJaVsEMCGuEBd6pvjl85u1mUVOSOL3kS.n43a5Qy4dpGdNjyApjG', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 0, '2018-07-22 15:12:46'),
 (2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 0, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '0', 0, '14130602029952', '0000-00-00', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 0, '2018-07-22 15:20:53'),
 (3, '', '', '', NULL, 0, '', '', '', '', NULL, '', '0', 0, '', '0000-00-00', '$2y$12$VaHA4bJ8u6qFfHGLiC8M4egPaLsd7koKBBvZKBQdcF6hsdEs974Um', '', '', '', NULL, 0, '2018-07-26 06:12:30'),
-(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 0, 'Male', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 0, '2018-07-26 09:39:02');
+(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 0, 'Male', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 0, '2018-07-26 09:39:02'),
+(5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', 0, '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16');
 
 -- --------------------------------------------------------
 
@@ -243,7 +273,14 @@ INSERT INTO `passereducation` (`educationID`, `passerID`, `educationAttainment`,
 (3, 1, 'Qwe', 'Qew', 'qwe'),
 (4, 1, 'College', 'Qw', 'qwe'),
 (5, 1, 'Elementary', 'Qwe', ''),
-(6, 1, 'Nursery', 'Qwe', '');
+(6, 1, 'Nursery', 'Qwe', ''),
+(7, 5, 'Nursery', '', 'Nakapasar'),
+(8, 5, 'College', '', 'naswq'),
+(9, 5, 'College', '', 'qwe'),
+(10, 5, 'Highschool', '', 'qweqwe'),
+(11, 5, 'Highschool', 'Access Computer College', 'qwe'),
+(12, 5, 'Elementary', 'Access Computer College', ''),
+(13, 5, 'Nursery', 'Aie College', 'BOGO');
 
 -- --------------------------------------------------------
 
@@ -284,7 +321,8 @@ CREATE TABLE `passervalidate` (
 INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID`, `selfie`, `COC`, `idType`, `idNumber`, `expirationDate`, `passerValidateDateTime`) VALUES
 (1, 1, '../../public/etc/images/userVerify/passer/153257913210153257913221.jpg', '../../public/etc/images/userVerify/passer/15325791329153257913221.png', '../../public/etc/images/userVerify/passer/15325791323153257913211.jpg', '../../public/etc/images/userVerify/passer/15325791325153257913251.jpg', 'Philippine Passport', 2323, '2018-07-18', '2018-07-26 04:25:32'),
 (2, 4, '../../public/etc/images/userVerify/passer/153259840010153259840034.jpg', '../../public/etc/images/userVerify/passer/15325984003153259840024.jpg', '../../public/etc/images/userVerify/passer/15325984006153259840044.jpg', '../../public/etc/images/userVerify/passer/15325984005153259840034.jpg', 'Philippine Passport', 123, '2018-07-10', '2018-07-26 09:46:40'),
-(3, 1, '../../public/etc/images/userVerify/passer/15328746213153287462131.jpg', '../../public/etc/images/userVerify/passer/15328746213153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746215153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746218153287462141.jpg', 'Philippine Passport', 2323, '2018-07-20', '2018-07-29 14:30:21');
+(3, 1, '../../public/etc/images/userVerify/passer/15328746213153287462131.jpg', '../../public/etc/images/userVerify/passer/15328746213153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746215153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746218153287462141.jpg', 'Philippine Passport', 2323, '2018-07-20', '2018-07-29 14:30:21'),
+(4, 5, '../../public/etc/images/userVerify/passer/15329364978153293649755.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', '../../public/etc/images/userVerify/passer/15329364973153293649735.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', 'Student ID', 123123, '2018-06-04', '2018-07-30 07:41:37');
 
 -- --------------------------------------------------------
 
@@ -310,7 +348,8 @@ CREATE TABLE `passerworkhistory` (
 --
 
 INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserJobTitle`, `PasserCompany`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`, `passerWorkHistoryDateTime`) VALUES
-(1, NULL, 1, 'Qe', 'Q', 'qwe', '1970-01-01', '1970-01-01', NULL, '2018-07-23 08:25:11');
+(1, NULL, 1, 'Qe', 'Q', 'qwe', '1970-01-01', '1970-01-01', NULL, '2018-07-23 08:25:11'),
+(2, NULL, 5, 'Singer', 'Waterfront', 'Dako kug kita. HAHAH', '2018-07-17', '2018-07-18', NULL, '2018-07-30 07:34:59');
 
 -- --------------------------------------------------------
 
@@ -360,7 +399,8 @@ CREATE TABLE `seeker` (
 --
 
 INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`) VALUES
-(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '1', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', '');
+(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '1', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', ''),
+(2, 'Marvee Yofa', 'Franco', NULL, 0, 'Female', '', '', '', NULL, 'francoyochi@gmail.com', '', '1668043639982457', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEd2ejZA2eFlSV09zd3RadWJRRTEzdFRkWm1fVHlnczVCN1pqTnZA5QUJoNEkxeUlHNHd4YUliUldBWm02c09fMnZAYbDZAUUnJ5Mmc4cVpFYWRyUExPdHpMN2FZAeGxYajh4UjUwd25yZAWllZAkNDMmR0/', NULL, '', '1', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1668043639982457&amp;height=200&amp;width=200&amp;ext=1535530327&amp;hash=AeT60qKEE-Hc1jO0', '', '');
 
 -- --------------------------------------------------------
 
@@ -386,7 +426,8 @@ CREATE TABLE `seekervalidate` (
 
 INSERT INTO `seekervalidate` (`SeekerValidateId`, `SeekerID`, `frontID`, `backID`, `selfie`, `idType`, `idNumber`, `expirationDate`, `seekerValidateDateTime`) VALUES
 (1, 1, '../../public/etc/images/userVerify/seeker/15324384653153243846541.jpg', '../../public/etc/images/userVerify/seeker/15324384651153243846541.jpg', '../../public/etc/images/userVerify/seeker/15324384656153243846541.jpg', 'Philippine Passport', 2323, '2018-07-17', '2018-07-24 13:21:05'),
-(2, 1, '../../public/etc/images/userVerify/seeker/15326008361153260083641.jpg', '../../public/etc/images/userVerify/seeker/153260083610153260083661.jpg', '../../public/etc/images/userVerify/seeker/15326008368153260083651.jpg', 'Philippine Passport', 232, '2018-07-19', '2018-07-26 10:27:16');
+(2, 1, '../../public/etc/images/userVerify/seeker/15326008361153260083641.jpg', '../../public/etc/images/userVerify/seeker/153260083610153260083661.jpg', '../../public/etc/images/userVerify/seeker/15326008368153260083651.jpg', 'Philippine Passport', 232, '2018-07-19', '2018-07-26 10:27:16'),
+(3, 2, '../../public/etc/images/userVerify/seeker/15329384533153293845362.jpg', '../../public/etc/images/userVerify/seeker/15329384536153293845332.jpg', '../../public/etc/images/userVerify/seeker/15329384539153293845362.jpg', 'Student ID', 123123123, '2018-05-08', '2018-07-30 08:14:13');
 
 -- --------------------------------------------------------
 
@@ -408,8 +449,8 @@ CREATE TABLE `subscription` (
 --
 
 INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, `SubscriptionStart`, `SubscriptionEnd`, `PaymentMethod`) VALUES
-(1, 1, 1, '2018-07-30', '2018-07-31', '0'),
-(2, 3, 1, '2018-07-30', '2019-07-30', 'paypal');
+(1, 1, 2, '2018-07-30', '2018-07-31', 'paypal'),
+(2, 1, 1, '2018-07-31', '2018-08-01', 'paypal');
 
 -- --------------------------------------------------------
 
@@ -529,6 +570,13 @@ ALTER TABLE `offerjob`
   ADD PRIMARY KEY (`OfferJobID`),
   ADD KEY `PasserID` (`PasserID`),
   ADD KEY `SeekerID` (`SeekerID`);
+
+--
+-- Indexes for table `offerjobform`
+--
+ALTER TABLE `offerjobform`
+  ADD PRIMARY KEY (`OfferJobFormID`),
+  ADD KEY `offerjobform_ibfk_1` (`SeekerID`);
 
 --
 -- Indexes for table `passer`
@@ -661,7 +709,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
@@ -670,16 +718,22 @@ ALTER TABLE `offerjob`
   MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `offerjobform`
+--
+ALTER TABLE `offerjobform`
+  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `passereducation`
 --
 ALTER TABLE `passereducation`
-  MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `passerskills`
@@ -691,13 +745,13 @@ ALTER TABLE `passerskills`
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
-  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
-  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `review`
@@ -709,13 +763,13 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `seeker`
 --
 ALTER TABLE `seeker`
-  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seekervalidate`
 --
 ALTER TABLE `seekervalidate`
-  MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `subscription`
@@ -791,6 +845,12 @@ ALTER TABLE `notification`
 ALTER TABLE `offerjob`
   ADD CONSTRAINT `offerjob_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `offerjob_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `offerjobform`
+--
+ALTER TABLE `offerjobform`
+  ADD CONSTRAINT `offerjobform_ibfk_1` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `passereducation`
