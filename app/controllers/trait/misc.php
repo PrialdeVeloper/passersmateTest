@@ -49,6 +49,31 @@
 			return $return?true:false;
 		}
 
+		public function selectAndAuthenticate(){
+			if(isset($_POST['select'])){
+				$user = $this->sanitize($_POST['user']);
+				$id = ($user == "SeekerID"?$_SESSION['seekerUser']:$_SESSION['passerUser']);
+				$table = $this->sanitize($_POST['table']);
+				$field = $this->sanitize($_POST['field']);
+				$data = $this->sanitize($_POST['data']);
+				$checkAuthenticity = $this->checkAuthenticity($table,$user,$field,array($id,$data));
+				if($checkAuthenticity){
+					try {
+					$operation = $this->model->selectAllFromUser($table,$field,array($data));
+					if($operation){
+						echo json_encode(array("error"=>"none","data"=>$operation));
+					}else{
+						echo json_encode(array("error"=>$operation));
+					}
+					} catch (Exception $e) {
+						echo $e->getMessage();
+					}
+				}else{
+					echo json_encode(array("error"=>"wrongUser"));
+				}
+			}
+		}
+
 		public function unlinkFileFromDB($imageName){
 			$imageFile = str_replace("../../", "../", $this->sanitize($imageName));
 			if(file_exists($imageFile)){
@@ -617,7 +642,7 @@
 
 		public function addJobForm(){
 			if(isset($_POST['createJobForm'])){
-				$passerID = $_SESSION['seekerUser'];
+				$seekerID = $_SESSION['seekerUser'];
 				$workingAddress = $this->sanitize($_POST['workAddress']);
 				$workStart = $this->sanitize(date("Y-m-d",strtotime($_POST['workStart'])));
 				$workEnd = $this->sanitize(date("Y-m-d",strtotime($_POST['workEnd'])));
@@ -625,7 +650,7 @@
 				$paymentMethod = $this->sanitize($_POST['paymentMethod']);
 				$accomodationType = $this->sanitize($_POST['accomodationType']);
 				try {
-					$return = $this->model->insertDB("offerjobform",$this->offerJobTable,array($passerID,$workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType));
+					$return = $this->model->insertDB("offerjobform",$this->offerJobTable,array($seekerID,$workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType));
 						if($return){
 							echo json_encode(array("error"=>"none"));
 						}else{
@@ -634,28 +659,75 @@
 				} catch (Exception $e) {
 					echo $e->getMessage();
 				}
-
 			}
 		}
 
-		public function paginationScript($table,$id,$field,$field2,$page,$offset,$limit){
-			// table location session field1 field2 page offset limit
-			$totalPage = $this->model->checkExistSingle($table,$field,array($id));
+		public function editJobForm(){
+			if(isset($_POST['updateJobForm'])){
+				$workingAddress = $this->sanitize($_POST['workAddress']);
+				$jobFormID = $this->sanitize($_POST['jobFormID']);
+				$workStart = $this->sanitize(date("Y-m-d",strtotime($_POST['workStart'])));
+				$workEnd = $this->sanitize(date("Y-m-d",strtotime($_POST['workEnd'])));
+				$salary = $this->sanitize($_POST['salary']);
+				$paymentMethod = $this->sanitize($_POST['paymentMethod']);
+				$accomodationType = $this->sanitize($_POST['accomodationType']);
+				try {
+					unset($this->offerJobTable[0]);
+					$return = $this->model->updateDB("offerjobform",$this->offerJobTable,array($workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType),"OfferJobFormID",$jobFormID);
+						if($return){
+							echo json_encode(array("error"=>"none"));
+						}else{
+							echo json_encode(array("error"=>$return));
+						}
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+			}
+		}
+
+		public function paginationScript($table,$field,$field1Ans,$field2,$field2Ans,$page,$offset,$limit){
+			$result = $totalPage = $totalPages = $offset = null;
+			$totalPage = $this->model->checkExistSingle($table,$field,array($field1Ans));
 			$totalPages = ceil($totalPage/$limit);
 			$totalPage = null;
 			$offset = ($page-1) * $limit;
+			$first = ($page <= 1)?"disabled":"";
+			$prevLI = ($page <= 1)?"disabled":"";
+			$prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1);
+
+			$nextLI = ($page >= $totalPages)?"disabled":"";
+			$nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1);
+			$lastLI = ($page >= $totalPages)?"disabled":"";
+			$lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages;
+
+			$pagination = '
+				<nav>
+				  <ul class="pagination">
+				    <li class="page-item '.$first.'"><a class="page-link" href="?page=1">First</a></li>
+				    <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+				    <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+				    <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+				  </ul>
+				</nav>
+				';
 			if(is_numeric($page)){
-				$result = $this->model->selectAllLimit($table,$field,$field2,$offset,$limit,array($id,1));
-				return $result;
+				$result = $this->model->selectAllLimit($table,$field,$field2,$offset,$limit,array($field1Ans,$field2Ans));
 			}
+			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}
 
 
 
 		public function trylang(){
-			$return = $this->paginationScript("offerjobform",$_SESSION['userSeeker'],)
+			if(!isset($_GET['page']) || $_GET['page'] <=0){
+				$page = 1;
+			}else{
+				$page = $_GET['page'];
+			}
+			$return = $this->paginationScript("offerjobform","SeekerID",$_SESSION['seekerUser'],"OfferJobFormStatus",1,$page,1,5);
+			$qwe = json_decode($return, true);
+			print_r($qwe['pagination']);
 		}
-
 
 		public function registerAdmin(){
 			if(isset($_POST['registerAdmin'])){

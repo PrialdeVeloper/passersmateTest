@@ -88,9 +88,77 @@
 			if(!$this->checkSession('seekerUser')){
 		 		header("location:../home/login");
 		 	}
+		 	if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+			$dom = $builder = $return = $paginationData = null;
 		 	$data = [];
 			$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
-			$data[] = array("userDetails"=>$details);
+			$return = $this->paginationScript("offerjobform","SeekerID",$this->seekerSession,"OfferJobFormStatus",1,$page,1,2);
+			$paginationData = json_decode($return,true);
+				// <span class="badge badge-success font-weight-bold">Default</span>
+			if(empty($paginationData['data'])){
+				$dom = '
+
+				<div class="alert alert-danger font-weight-bold" role="alert">
+						 There\'s no Job Offer Form created!
+					</div>
+				';
+			}
+			foreach ($paginationData['data'] as $data) {
+				$builder = '
+				   	<div>
+	                  <div class="card-body p-0">
+	                  	<div class="pb-2  mt-2">
+	                  		<div class="row">
+							    <div class="col-md-6">
+							      <label>Working Address: <b> '.$this->sanitize($data['WorkingAddress']).'</b></label>
+							    </div>
+							    <div class="col">
+							    	<a href="" class="font-weight-bold text-dark" name="updateJobOfferForm" style="font-size: 15px;" data-toggle="modal" data-target="#update">
+							    		<u>Edit</u></a> | 
+							    	<a href="" class="font-weight-bold text-dark" name="deleteJobOfferForm" style="font-size: 15px;" data-toggle="modal" data-target="#delete">
+							    		<u>Delete</u></a>
+							    		<input type="hidden" name="sleepingAway" value="'.$this->sanitize($data['OfferJobFormID']).'">
+							    </div>
+				  			</div>
+				  <div class="row">
+				    <div class="col">
+				      <label>Start Date: <b> '.$this->sanitize(date("F jS, Y", strtotime($data['StartDate']))).'</b></label>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="col">
+				      <label>End Date: <b> '.$this->sanitize(date("F jS, Y", strtotime($data['EndDate']))).'</b></label>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="col">
+				      <label>Salary: <b> Php '.$this->sanitize(($data['Salary'])).'</b></label>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="col">
+				      <label>Payment Method: <b> Through '.$this->sanitize($data['PaymentMethod']).'</b></label>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="col">
+				      <label>Accommodation Type: <b> '.$this->sanitize($data['AccomodationType']).'</b></label>
+				    </div>
+				  </div>
+				  <button type="submit" class="btn btn-primary ml-1 font-weight-bold" disabled="">Set as Default</button>
+                              		
+                                </div>
+                              </div>
+                            </div>
+
+				';
+				$dom = $dom. "" .$builder;
+			}
+			$data[] = array("userDetails"=>$details,"paginationDom"=>$paginationData['pagination'],"jobOfferFormDom"=>$dom);
 			$this->controller->view("seeker/jobOffer",$data);
 		}
 		

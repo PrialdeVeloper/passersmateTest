@@ -1108,7 +1108,7 @@ $(function(){
 
 // end of personal details seeker
 
-// jocreate
+// offerjobCreate
 $(function(){
 	$("#joFormCreate").submit(function(event){
 		event.preventDefault();
@@ -1179,7 +1179,7 @@ $(function(){
 
 	});
 })
-// end of jocreate
+// end of offerjobCreate
 
 
 // verifyModal previewImage
@@ -1362,6 +1362,121 @@ $(function(){
 		}
 	});
 });
+
+
+let idJobOffer;
+
+// display jobofferForm
+$(function(){
+	$("a[name='updateJobOfferForm']").click(function(){
+		let id = $(this).parent().find("input[name=sleepingAway]").val();
+		$.ajax({
+			url: "selectAndAuthenticate",
+			method: "POST",
+			data: {"select":"","user":"SeekerID","table":"offerjobform","field":"OfferJobFormID","data":id},
+			async: false,
+			success: function(a){
+				let obj = JSON.parse(a);
+				if(obj.error == "none"){
+					idJobOffer = id;
+					let workAddressUpdate = $("#workAddressUpdate");
+					let startDateUpdate = $("#startDateUpdate");
+					let endDateUpdate = $("#endDateUpdate");
+					let salaryUpdate = $("#salaryUpdate");
+					let paymentMethodUpdate = $("select[name=paymentMethodUpdate]");
+					let accomodationTypeUpdate = $("#accomodationTypeUpdate");
+					workAddressUpdate.val(obj.data[0].WorkingAddress);
+					startDateUpdate.val(obj.data[0].StartDate);
+					endDateUpdate.val(obj.data[0].EndDate);
+					salaryUpdate.val(obj.data[0].Salary);
+					paymentMethodUpdate.val(obj.data[0].PaymentMethod).change();
+					accomodationTypeUpdate.val(obj.data[0].AccomodationType).change();
+				}else{
+					if(obj.error = "wrongUser"){
+						window.location = 'joboffer';
+					}
+				}
+			},
+		});
+	});
+});
+// end of display jobOfferForm
+
+
+// offerjobCreate
+$(function(){
+	$("#updateOfferJob").submit(function(event){
+		event.preventDefault();
+		let workAddress = $("#workAddressUpdate");
+		let workStart = $("#startDateUpdate");
+		let workEnd = $("#endDateUpdate");
+		let salary = $("#salaryUpdate");
+		let paymentMethod = $("#paymentMethodUpdate");
+		let accomodationType = $("#accomodationTypeUpdate");
+		let validPaymentMethod = ["Online","Onsite"];
+		let validAccomodationType = ["In-House","Offsite"];
+		
+		if(checkEmpty(workAddress.val()) || checkEmpty(workStart.val()) || checkEmpty(workEnd.val())
+			 || checkEmpty(salary.val()) || checkEmpty(paymentMethod.val()) || checkEmpty(accomodationType.val())){
+			if(checkEmpty(workAddress.val())){
+				toastError("Please input your Address which needs work");
+			}
+			if(checkEmpty(workStart.val())){
+				toastError("Please indicate your work starting date");
+			}
+			if(checkEmpty(workEnd.val())){
+				toastError("Please indicate your work estimated end date");
+			}
+			if(checkEmpty(salary.val())){
+				toastError("Please indicate your salary offer");
+			}
+			if(checkEmpty(paymentMethod.val())){
+				toastError("Please indicate your payment method");
+			}
+			if(checkEmpty(accomodationType.val())){
+				toastError("Please indicate your work accomodation type");
+			}
+		}else{
+			if(Date.parse(workEnd.val()) < Date.parse(workStart.val()) || isNaN(salary.val()) 
+				|| checkArraySame(validPaymentMethod,paymentMethod.val()) == false 
+				|| checkArraySame(validAccomodationType,accomodationType.val()) == false){
+				if(Date.parse(workEnd.val()) < Date.parse(workStart.val())){
+					toastError("Please make sure your start date is not greater than end date");
+				}
+				if(isNaN(salary.val())){
+					toastError("Please make sure your salary input is valid");
+				}
+				if(checkArraySame(validPaymentMethod,paymentMethod.val()) == false){
+					toastError("Please choose only from valid payment types");
+				}
+				if(checkArraySame(validAccomodationType,accomodationType.val()) == false){
+					toastError("Please choose only from valid accomodation types");
+				}
+			}else{
+				$.ajax({
+					url: "editJobForm",
+					method: "POST",
+					data: {"updateJobForm":"","jobFormID":idJobOffer,"workAddress":workAddress.val(),"workStart":workStart.val(),"workEnd":workEnd.val(),"salary":salary.val(),
+					"paymentMethod":paymentMethod.val(),"accomodationType":accomodationType.val()},
+					success :function(a){
+						let obj = JSON.parse(a);
+						if(obj.error == "none"){
+							idJobOffer = "";
+							toastSuccess("Form Edited!");
+							window.setTimeout(function(){window.location='joboffer'},1000)
+						}
+					},
+					fail: function(){
+						alert("cannot connect to server");
+					}
+				});
+			}
+		}
+
+	});
+})
+// end of offerjobCreate
+
 
 // end of verify seeker
 
