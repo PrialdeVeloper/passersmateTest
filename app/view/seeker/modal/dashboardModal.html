@@ -342,7 +342,7 @@
 									<div class="col-md-6 offset-md-0 col-lg offset-lg-4">
 										<div class="form-group">
 										    <label for="birthday">Birthday</label>
-										    <input type="text" name="seekerBirthdate" value="<?php echo isset($SeekerBirthdate)? $SeekerBirthdate: ''; ?>" class="form-control datepicker" disabled placeholder="Month/Date/Year">
+										    <input type="text" name="seekerBirthdate" value="<?php echo isset($SeekerBirthdate)? $SeekerBirthdate: ''; ?>" class="form-control <?php echo !isset($SeekerBirthdate)? datepicker: ''; ?>" disabled placeholder="Month/Date/Year">
 										</div>
 									</div>
 									<div class="col-md-6 offset-md-0 col-lg">

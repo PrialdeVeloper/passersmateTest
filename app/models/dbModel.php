@@ -51,8 +51,25 @@
 			return implode("=?,",$data)."=?";
 		}
 
+		private function andData($data){
+			return implode($data," LIKE ? and ")." LIKE ?";
+		}
+
+		public function ownQuery($query){
+			$this->stmt = $this->con->query($query);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectAll($from){
 			$this->stmt = $this->con->query("SELECT * FROM $from");
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function selectAllDynamicLike($table,$field,$where,$data){
+			$select = $this->addComma($field);
+			$fieldsQ = $this->andData($where);
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE ($fieldsQ) ORDER BY PasserFee DESC LIMIT 1,5");
+			$this->stmt->execute($data);
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 

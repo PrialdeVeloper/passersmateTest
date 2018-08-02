@@ -131,15 +131,20 @@ function checkExistAny(table,field,data){
 
 
 // notification
+$.fn.exists = function(callback) {
+  if (this.length) {
+    var args = [].slice.call(arguments, 1);
+    callback.call(this, args);
+  }
+  return this;
+};
+
 
 $(function(){
-    $("#notification").ready(function(){
+    $("#notification").exists(function(){
         setInterval(function(){getNotification()},5000);
     })
 });
-
-
-
 
 function getNotification(){
 	let notifBody = $("#notification");
@@ -197,6 +202,14 @@ function checkDate(variable){
 	}
 }
 
+function checkValidEmail(variable){
+	let expression = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	if(checkRegex(variable,expression)){
+		return true;
+	}else{
+		return false;
+	}
+}
 
 function showDivError(div,message){
 	$(div).append("<div class='col'>"+message+"</div>");
@@ -264,6 +277,42 @@ $(function(){
 	});
 });
 // end of trigger input
+
+// search Passer
+$(function(){
+	let field = [];
+	field = ["PasserFN","PasserLN","PasserMname"];
+	$.ajax({
+		url: "paginationScriptOwnQuery",
+		method: "POST",
+		data: {"fields":field},
+		success: function(a){
+			console.log(a);
+		}
+	});
+});
+
+// $(function(){
+// 	$("#passerListContent").exists(function(){
+// 		let pagination = $("#paginationSearchPasser");
+// 		let page = $("#currentPagePasser");
+// 		let resultCount = $("#resultCountPasser");
+// 		$.ajax({
+// 			url: "paginationScriptOwnQuery",
+// 			method: "POST",
+// 			data: {"getResult":"","fields":{"qwe","qwe"}},
+// 			success: function(a){
+// 				let obj = JSON.parse(a);
+// 				pagination.html(obj.pagination);
+// 				page.html(obj.page);
+// 				resultCount.html(obj.resultCount);
+// 				console.log(a);
+// 			}
+// 		});
+// 	});
+// });
+// end of search passer
+
 
 
 let cocNumber;
@@ -378,6 +427,10 @@ function checkEmpty(variable){
 	else{
 		return false;
 	}
+}
+
+function delayRedirect(link){
+	window.setTimeout(function(){window.location=link},1000)
 }
 
 
@@ -1011,6 +1064,123 @@ $(function(){
 
 // dashboard seeker
 
+// register seeker
+$(function(){
+	$("#seekerRegister").submit(function(event){
+		event.preventDefault();
+		let fname = $("input[name=seekerFN]");
+		let lname = $("input[name=seekerLN]");
+		let birthdate = $("input[name=seekerBdate]");
+		let gender = $("select[name=passerGender]");
+		let genderData = ["Male","Female"];
+		let email = $("input[name=seekerEmail]");
+		let address = $("input[name=seekerAddress]");
+		let street = $("input[name=seekerStreet]");
+		let city = $("input[name=seekerCity]");
+		let cpno = $("input[name=seekerCPNo]");
+		let username = $("input[name=seekerUsername]");
+		let password = $("input[name=seekerPassword]");
+		let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+		$("#seekerError").empty();
+		if(checkEmpty(fname.val()) || checkEmpty(lname.val()) || checkEmpty(birthdate.val()) || checkEmpty(gender.val())  
+			|| checkEmpty(email.val()) || checkEmpty(address.val()) || checkEmpty(street.val()) || checkEmpty(city.val())
+			 || checkEmpty(cpno.val()) || checkEmpty(username.val()) || checkEmpty(password.val())){
+			if(checkEmpty(fname.val())){
+				showDivError("#seekerError","Please enter your firstname");
+			}
+			if(checkEmpty(lname.val())){
+				showDivError("#seekerError","Please enter your lastname");
+			}
+			if(checkEmpty(birthdate.val())){
+				showDivError("#seekerError","Please enter your birthdate");
+			}
+			if(checkEmpty(gender.val())){
+				showDivError("#seekerError","Please enter your gender");
+			}
+			if(checkEmpty(email.val())){
+				showDivError("#seekerError","Please enter your email");
+			}
+			if(checkEmpty(address.val())){
+				showDivError("#seekerError","Please enter your address");
+			}
+			if(checkEmpty(street.val())){
+				showDivError("#seekerError","Please enter your street address");
+			}
+			if(checkEmpty(city.val())){
+				showDivError("#seekerError","Please enter your city");
+			}
+			if(checkEmpty(cpno.val())){
+				showDivError("#seekerError","Please enter your Cellphone number");
+			}
+			if(checkEmpty(username.val())){
+				showDivError("#seekerError","Please enter your username");
+			}
+			if(checkEmpty(password.val())){
+				showDivError("#seekerError","Please enter your password");
+			}
+		}else{
+			let checkNumber = /\d/;
+			if(checkRegex(fname.val(),checkNumber) == true || checkRegex(lname.val(),checkNumber) == true || checkDate(birthdate.val()) == false
+				|| checkArraySame(genderData,gender.val()== false) ||  checkValidEmail(email.val()) == false 
+				|| checkExistAny("seeker","SeekerEmail",email.val()) || checkNumberOnlyCount(10,cpno.val()) == false 
+				|| checkExistAny("seeker","SeekerUname",username.val()) || checkRegex(password.val(),regex) == false || isNaN(cpno.val())){
+				if(checkRegex(fname.val(),checkNumber) == true){
+					showDivError("#seekerError","Please make sure there is no unnecessary characters on your firstname");
+				}
+				if(checkRegex(lname.val(),checkNumber) == true){
+					showDivError("#seekerError","Please make sure there is no unnecessary characters on your lastname");
+				}
+				if(checkDate(birthdate.val()) == false){
+					showDivError("#seekerError","Please input valid birthdate");
+				}
+				if(checkArraySame(genderData,gender.val()== false)){
+					showDivError("#seekerError","Please select only from the listed gender");
+				}
+				if(checkValidEmail(email.val()) == false){
+					showDivError("#seekerError","Please input valid email");
+				}
+				if(checkExistAny("seeker","SeekerEmail",email.val())){
+					showDivError("#seekerError","Email is alreay taken. Please try another email");
+				}
+				if(checkNumberOnlyCount(10,cpno.val()) == false){
+					showDivError("#seekerError","Please input 10 digits only (excluding 0 on first number)");
+				}
+				if(checkExistAny("seeker","SeekerUname",username.val())){
+					showDivError("#seekerError","Username is alreay taken. Please try another email");
+				}
+				if(checkRegex(password.val(),regex) == false){
+					showDivError("#seekerError","Please make sure your password has 8 characters and atleast 1 digit and 7 letters");
+				}
+				if(isNaN(cpno.val())){
+					showDivError("#seekerError","Please make sure your cellphone number has no unnecessary characters");
+				}
+			}else{
+				$.ajax({
+					url: "registerSeeker",
+					method: "POST",
+					data: {"registerSeeker":"","SeekerFN":fname.val(),"SeekerLN":lname.val(),"SeekerBirthdate":birthdate.val(),"SeekerGender":gender.val(),
+					"SeekerStreet":street.val(),"SeekerCity":city.val(),"SeekerAddress":address.val(),"SeekerCPNo":cpno.val(),"SeekerEmail":email.val(),
+					"SeekerUname":username.val(),"SeekerPass":password.val()},
+					success: function(a){
+						let obj = JSON.parse(a);
+						if(obj.error == "none"){
+							$("#seekerError").hide();
+							window.location = 'dashboard';
+						}else{
+							console.log(a);
+						}
+					},
+					fail: function(){
+
+					}
+				});
+			}
+		}
+	});
+});
+// end of register seeker
+
 // personal details seeeker
 $(function(){
 	$("#seekerDetailsForm").submit(function(event){
@@ -1363,6 +1533,8 @@ $(function(){
 	});
 });
 
+// end of verify seeker
+
 
 let idJobOffer;
 
@@ -1477,7 +1649,59 @@ $(function(){
 })
 // end of offerjobCreate
 
+// setDefault
+$(function(){
+	$(".setDefault").click(function(){
+		let id = $(this).parent().find("input[name=sleepingAway]").val();
+		let responseUser = confirm("Are you sure you want this Job offer form to be default?");
+		if(responseUser == true){
+			$.ajax({
+				url: "setDefaultJobForm",
+				method: "POST",
+				data: {"setDefaultJobForm":"","id":id},
+				success: function(a){
+					let obj = JSON.parse(a);
+					if(obj.error == "none"){
+						toastSuccess("Successfully set to default");
+						delayRedirect("joboffer")
+					}else if(obj.error == "wrongUser"){
+						toastError("You have no authority over the Job offer you choosed. Please try again");
+					}else{
+						console.log(a);
+					}
+				}
+			});
+		}
 
-// end of verify seeker
+	});
+});
+// end of setDefault
+
+// delete offerjobForm
+
+$(function(){
+	$("a[name=deleteJobOfferForm]").click(function(){
+		let id = $(this).parent().find("input[name=sleepingAway]").val();
+		$("button[name=yesDeleteOfferJobForm]").click(function(){
+			$.ajax({
+				url: "deleteJobForm",
+				method: "POST",
+				data: {"deleteJobForm":"","id":id},
+				success: function(a){
+					let obj = JSON.parse(a);
+					if(obj.error == "none"){
+						toastSuccess("Successfully Deleted");
+						delayRedirect("joboffer");
+					}else if(obj.error == "wrongUser"){
+						toastError("You have no authority over the Job offer you choosed. Please try again");
+					}else{
+						console.log(a);
+					}
+				}
+			});
+		});
+	});
+});
+// end of delete offerjobForm
 
 // end of dashboard seeker

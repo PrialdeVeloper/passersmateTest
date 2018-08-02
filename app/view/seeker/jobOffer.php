@@ -243,8 +243,8 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 			        <p>Are you sure you want to delete this one?</p>
 			      </div>
 			      <div class="modal-footer">
-			        <button type="button" class="btn btn-secondary" onclick="toastr.success('You have successfully deleted the JO Form');" data-dismiss="modal">Yes</button>
-			        <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
+			        <button type="button" class="btn btn-secondary" name="yesDeleteOfferJobForm" data-dismiss="modal">Yes</button>
+			        <button type="button" class="btn btn-primary" name="noDeleteOfferJobForm" data-dismiss="modal">No</button>
 			      </div>
 			    </div>
 			  </div>

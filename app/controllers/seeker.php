@@ -3,9 +3,10 @@
 		public $seekerTable = "seeker";
 		public $seekerUnique = "SeekerID";
 		public $seekerFacebook = "seekerFacebookId";
-		public $seekDashboardPersonalDetails = array("SeekerAddress","SeekerStreet","SeekerCity","SeekerGender","SeekerCPNo","SeekerBirthdate");
+		public $seekDashboardPersonalDetails = array("SeekerAddress","SeekerStreet","SeekerCity","SeekerGender","SeekerCPNo","SeekerBirthdate","SeekerAge");
 		public $seekDashboardPersonalDetailsWithPhoto = array("SeekerAddress","SeekerStreet","SeekerCity","SeekerGender","SeekerCPNo","SeekerBirthdate","SeekerProfile");
 		public $seekerValidate = array("SeekerID","frontID","backID","selfie","idType","idNumber","expirationDate");
+		public $seekerDB = array("SeekerFN","SeekerLN","SeekerBirthdate","SeekerAge","SeekerGender","SeekerStreet","SeekerCity","SeekerAddress","SeekerCPNo","SeekerEmail","SeekerUname","SeekerPass");
 		protected $seekerSession;
 		public function __construct(){
 			$this->controller = new Controller();
@@ -72,15 +73,14 @@
 			$this->controller->view("seeker/dashboard",$data);
 		}
 
-		public function login(){
-			$this->controller->view("seeker/login");
-		}
-
 		public function profile(){
 			$this->controller->view("seeker/profile");
 		}
 
 		public function register(){
+			if($this->checkSession('seekerUser')){
+		 		header("location:dashboard");
+		 	}
 			$this->controller->view("seeker/register");
 		}
 
@@ -98,7 +98,9 @@
 			$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
 			$return = $this->paginationScript("offerjobform","SeekerID",$this->seekerSession,"OfferJobFormStatus",1,$page,1,2);
 			$paginationData = json_decode($return,true);
-				// <span class="badge badge-success font-weight-bold">Default</span>
+			$badge = null;
+			$defaultButton = '<button type="button" class="btn btn-primary ml-1 font-weight-bold setDefault">Set as Default</button>';
+				
 			if(empty($paginationData['data'])){
 				$dom = '
 
@@ -108,7 +110,12 @@
 				';
 			}
 			foreach ($paginationData['data'] as $data) {
+				if($data['offerjobformDefault'] == 1){
+					$badge = '<span class="badge badge-success font-weight-bold">Default</span>';
+					$defaultButton = null;
+				}
 				$builder = '
+					'.$badge.'
 				   	<div>
 	                  <div class="card-body p-0">
 	                  	<div class="pb-2  mt-2">
@@ -149,14 +156,15 @@
 				      <label>Accommodation Type: <b> '.$this->sanitize($data['AccomodationType']).'</b></label>
 				    </div>
 				  </div>
-				  <button type="submit" class="btn btn-primary ml-1 font-weight-bold" disabled="">Set as Default</button>
-                              		
-                                </div>
-                              </div>
-                            </div>
+				  '.$defaultButton.'
+                    </div>
+                  </div>
+                </div>
 
 				';
 				$dom = $dom. "" .$builder;
+				$badge = null;
+				$defaultButton = '<button type="button" class="btn btn-primary ml-1 font-weight-bold setDefault">Set as Default</button>';
 			}
 			$data[] = array("userDetails"=>$details,"paginationDom"=>$paginationData['pagination'],"jobOfferFormDom"=>$dom);
 			$this->controller->view("seeker/jobOffer",$data);

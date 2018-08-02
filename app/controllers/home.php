@@ -30,10 +30,9 @@
 			}elseif($this->checkSession('seekerUser')){
 				header("location:../seeker/dashboard");
 			}
-
-
 			$data[] = array("redirectURLFacebook"=>$this->returnURLFacebook(),"redirectURLGmail"=>$this->returnURLGmail());
 			$this->controller->view("all/login",$data);
+			
 
 			if(isset($_POST['passerSubmit'])){
 				$email = !empty($_POST['passerEmail'])?$this->sanitize($_POST['passerEmail']):"";
@@ -57,8 +56,8 @@
 				}
 			}
 			elseif(isset($_POST['seekerSubmit'])){
-				$email = !empty($_POST['passerEmail'])?$this->sanitize($_POST['passerEmail']):"";
-				$password = !empty($_POST['passerPass'])?$this->sanitize($_POST['passerPass']):"";
+				$email = !empty($_POST['seekerEmail'])?$this->sanitize($_POST['seekerEmail']):"";
+				$password = !empty($_POST['seekerPass'])?$this->sanitize($_POST['seekerPass']):"";
 				if(!empty($email) && !empty($password)){
 					$returnPassword = $this->model->selectSingleUser("seeker","seekerPass",array($email),"SeekerEmail");
 					if(empty($returnPassword)){
@@ -72,7 +71,15 @@
 							$this->toOtherPage("../seeker/dashboard");
 						}
 						else{
-							$this->showError("#passerLoginError","Login unsuccessful. Please check your email or password.");
+							echo
+							"
+							<script>
+							$(function(){
+								$('.seekerTab').trigger('click');			
+								});
+							</script>
+							";
+							$this->showError("#seekerLoginError","Login unsuccessful. Please check your email or password.");
 						}
 					}
 				}
@@ -106,10 +113,10 @@
 								</div>		
 								<div class="col-md-7 mt-4">
 									<div class="container text-center text-primary">
-										<label class="georgiaFonts">'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->sanitize($data["PasserLN"]).'</label>
+										<label class="georgiaFonts">'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'</label>
 									</div>
 									<div class="container text-center text-secondary">
-										<label class="trebuchet">'. $this->sanitize($data["PasserCertificate"]) .'</label>
+										<label class="trebuchet">'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'</label>
 									</div>
 									<div class="container text-center">
 										<span class="fa fa-star text-warning"></span>

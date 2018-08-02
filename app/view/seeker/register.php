@@ -1,9 +1,9 @@
 <?php 
 	require "../public/header-footer/header.marvee";
 ?>
-		<div class="loading hidethis">
-		</div>
      	<div class="container-fluid my-4 col-12 col-sm-6 ">
+     		<div class="alert alert-danger hidethis text-center" id="seekerError" role="alert">
+			</div>
      		<form class="shadow-lg p-3 mb-5 bg-white rounded pt-3" id="seekerRegister">
      			<!-- <div class="alert alert-danger text-center hidethis" id="passerRegError">
      			</div>
@@ -33,8 +33,8 @@
 
 				<div class=" col-sm-5 mt-1">
 					<div class="form-group">
-						<label for="gender">Seeker's Age</label>
-						<input type="text" name="seekerAge" class="form-control" placeholder="Age">
+						<label for="gender">Birthday</label>
+						<input type="text" name="seekerBdate" readonly disabled class="form-control datepicker" placeholder="Birthday">
 					</div>
 					
 				</div>
@@ -43,17 +43,14 @@
 					<div class="form-group">
 						<label for="gender">Gender</label>
 						<select name="passerGender" id="gender" class="custom-select" >
-							<option value="notSelected">I am</option>
-							<option value="Male">Male</option>
+							<option selected value="Male">Male</option>
 							<option value="Female">Female</option>
 						</select>
 					</div>
 				</div>
 
 				<div class=" col-sm-10 mt-1 input-group">
-					<input type="text" name="seekerEmail" class="form-control rounded-right" required placeholder="Email" id="seekerEmailRegister">
-					<div class="input-group-append hidethis" id="emailError">
-					</div>	
+					<input type="text" name="seekerEmail" class="form-control rounded-right" placeholder="Email" id="seekerEmailRegister">
 				</div>
 				<div class="w-100"></div>
 
@@ -61,19 +58,19 @@
 				<div class="col-sm-10 mt-2">
 					<div class="form-group">
 					    <label for="address">Address</label>
-					    <input type="text" required class="form-control" value="" name="seekerAddress" id="email" placeholder="Region/Province/State">
+					    <input type="text" class="form-control" value="" name="seekerAddress" id="email" placeholder="Region/Province/State">
 					</div>
 				</div>
 						
 				<div class="col-sm-5 mt-1">
 					<div class="form-group">
-					   <input type="text" required value="" class="form-control" name="seekerStreet" placeholder="Street Address">
+					   <input type="text" value="" class="form-control" name="seekerStreet" placeholder="Street Address">
 					</div>
 				</div>
 
 				<div class="col-sm-5 mt-1">
 					<div class="form-group">
-					   <input list="cities" required class="form-control" value="" name="seekerCity" placeholder="City">
+					   <input list="cities" class="form-control" name="seekerCity" placeholder="City">
 				   		<datalist id="cities"> 
 				      	 <option value="Alaminos"></option>
 				         <option value="Angeles"></option>
@@ -235,11 +232,11 @@
 				</div>
 
 				<div class=" col-sm-10 my-2 input-group">
-					<input type="text" name="seekerUsername"  class="form-control" required placeholder="Username" id="">					
+					<input type="text" name="seekerUsername"  class="form-control" placeholder="Username" id="">					
 				</div>
 
 				<div class=" col-sm-10 my-2 input-group">
-					<input type="password" name="seekerPassword"  class="form-control passwordField" required placeholder="Password" id="seekerPasswordRegister">
+					<input type="password" name="seekerPassword"  class="form-control passwordField" placeholder="Password" id="seekerPasswordRegister">
 					<div class="input-group-append">
 						<span class="input-group-text cursor passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
 					</div>	

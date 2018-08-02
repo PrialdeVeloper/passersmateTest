@@ -3,6 +3,7 @@
 	require "modal/loginModal.html";
 	if(isset($data) || !empty($data)){
 		extract($data[0]);
+
 	}
 ?>
  	<div class="container-fluid my-4 col-12 col-sm-5" id="passerLogin">
@@ -79,7 +80,7 @@
  	</div>
 
  	<div class="container-fluid my-4 col-12 col-sm-5 hidethis" id="seekerLogin">
- 		<form class="shadow-lg px-3 mb-5 bg-white rounded ">
+ 		<form class="shadow-lg px-3 mb-5 bg-white rounded" method="POST">
      		<div class="row justify-content-center ">
      			<ul class="nav nav-pills px-0 col-12" id="myForm">			 
 		      		<li class="col-md-6 text-center  bg-light rounded">
@@ -103,7 +104,7 @@
      			<div class="w-100"></div>
 
 				<div class=" col-sm-10">
-					<input type="email" value="<?= isset($_POST['passerEmail'])?$_POST['passerEmail']:"" ?>" required name="passerEmail" class="form-control" placeholder="me@example.com">
+					<input type="email" value="<?= isset($_POST['seekerEmail'])?$_POST['seekerEmail']:"" ?>" required name="seekerEmail" class="form-control" placeholder="me@example.com">
 				</div>
 				<div class="w-100"></div>
 
@@ -113,7 +114,7 @@
      			<div class="w-100"></div>
 
 				<div class=" col-sm-10  input-group">
-					<input type="password" name="passerPass" id="myInput" class="form-control passwordField" placeholder="Password">
+					<input type="password" name="seekerPass" id="myInput" class="form-control passwordField" placeholder="Password">
 					<div class="input-group-append">
 						<span class="input-group-text cursor passwordShowHide"><i class="text-primary fas fa-eye"></i></span>
 					</div>									

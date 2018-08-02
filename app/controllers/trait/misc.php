@@ -59,12 +59,13 @@
 				$checkAuthenticity = $this->checkAuthenticity($table,$user,$field,array($id,$data));
 				if($checkAuthenticity){
 					try {
-					$operation = $this->model->selectAllFromUser($table,$field,array($data));
-					if($operation){
-						echo json_encode(array("error"=>"none","data"=>$operation));
-					}else{
-						echo json_encode(array("error"=>$operation));
-					}
+						$operation = $this->model->selectAllFromUser($table,$field,array($data));
+						if($operation){
+							echo json_encode(array("error"=>"none","data"=>$operation));
+						}
+						else{
+							echo json_encode(array("error"=>$operation));
+						}
 					} catch (Exception $e) {
 						echo $e->getMessage();
 					}
@@ -555,6 +556,32 @@
 			}
 		}
 
+		public function registerSeeker(){
+			if(isset($_POST['registerSeeker'])){
+				$yearToday = date("Y");
+				$SeekerFN = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['SeekerFN']));
+				$SeekerLN = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['SeekerLN']));
+				$SeekerBirthdate = $this->sanitize(date("Y-m-d",strtotime($_POST['SeekerBirthdate'])));
+				$SeekerAge = $yearToday - (date("Y",strtotime($SeekerBirthdate)));
+				$SeekerGender = $this->sanitize($_POST['SeekerGender']);
+				$SeekerStreet = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['SeekerStreet']));
+				$SeekerCity = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['SeekerCity']));
+				$SeekerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['SeekerAddress']));
+				$SeekerCPNo = $this->sanitize($_POST['SeekerCPNo']);
+				$SeekerEmail = $this->sanitize($_POST['SeekerEmail']);
+				$SeekerUname = $this->sanitize($_POST['SeekerUname']);
+				$SeekerPass = $this->hashPassword($this->sanitize($_POST['SeekerPass']));
+				$insert = $this->model->insertDB($this->seekerTable,$this->seekerDB,array($SeekerFN,$SeekerLN,$SeekerBirthdate,$SeekerAge,
+					$SeekerGender,$SeekerStreet,$SeekerCity,$SeekerAddress,$SeekerCPNo,$SeekerEmail,$SeekerUname,$SeekerPass));
+				if($insert){
+					$_SESSION['seekerUser'] = $insert;
+					echo json_encode(array("error"=>"none"));
+				}else{
+					echo $insert;
+				}
+			}
+		}
+
 		public function updateSeekerPersonalDetails(){
 			if(isset($_POST['seekerUpdateDataNoImage'])){
 				try {
@@ -564,7 +591,8 @@
 				$seekerGender = $this->sanitize($_POST['seekerGender']);
 				$seekerCPNo = $this->sanitize($_POST['SeekerCPNo']);
 				$seekerBirthdate = $this->sanitize(date("Y-m-d",strtotime($_POST['seekerBirthdate'])));
-				$res = $this->model->updateDB($this->seekerTable,$this->seekDashboardPersonalDetails,array($seekerAddress,$seekerStreet,$seekerCity,$seekerGender,$seekerCPNo,$seekerBirthdate),$this->seekerUnique,$this->seekerSession);
+				$age = date("Y") - (date("Y",strtotime($seekerBirthdate)));
+				$res = $this->model->updateDB($this->seekerTable,$this->seekDashboardPersonalDetails,array($seekerAddress,$seekerStreet,$seekerCity,$seekerGender,$seekerCPNo,$seekerBirthdate,$age),$this->seekerUnique,$this->seekerSession);
 				echo json_encode(array("error"=>"none"));
 				} catch (Exception $e) {
 					echo json_encode(array("error"=>$e->getMessage()));
@@ -683,6 +711,88 @@
 					echo $e->getMessage();
 				}
 			}
+		}
+
+		public function setDefaultJobForm(){
+			if(isset($_POST['setDefaultJobForm'])){
+				$id = $this->sanitize($_POST['id']);
+				$checkAuthenticity = $this->checkAuthenticity("offerjobform","SeekerID","OfferJobFormID",array($_SESSION['seekerUser'],$id));
+				if($checkAuthenticity){
+					$checkAuthenticity = null;
+					$reset = $this->model->updateDB("offerjobform",array("offerjobformDefault"),array(0),"offerjobformDefault","1");
+					if($reset){
+						$reset = null;
+						$default = $this->model->updateDB("offerjobform",array("offerjobformDefault"),array(1),"OfferJobFormID",$id);
+						if($default){
+							echo json_encode(array("error"=>"none"));
+						}else
+						echo $default;
+					}
+				}
+				else{
+					echo json_encode(array("error"=>"wrongUser"));
+				}
+			}
+		}
+
+		public function deleteJobForm(){
+			if(isset($_POST['deleteJobForm'])){
+				$id = $this->sanitize($_POST['id']);
+				$checkAuthenticity = $this->checkAuthenticity("offerjobform","SeekerID","OfferJobFormID",array($_SESSION['seekerUser'],$id));
+				if($checkAuthenticity){
+					$checkAuthenticity = null;
+					$delete = $this->model->updateDB("offerjobform",array("OfferJobFormStatus"),array(0),"OfferJobFormID",$id);
+					if($delete){
+						echo json_encode(array("error"=>"none"));
+					}else
+					echo $delete;
+				}
+				else{
+					echo json_encode(array("error"=>"wrongUser"));
+				}
+			}
+		}
+
+		public function paginationScriptOwnQuery(){
+			if(isset($_POST['getResult'])){
+				echo "qwe";
+				
+			}
+			// foreach ($_POST['fields'] as $datas) {
+			// 	print_r($datas);
+			// }
+				$select = (isset($_POST['select'])?$_POST['select']:array("*"));
+				$result = $totalPage = $totalPages = $offset = null;
+				$result = $this->model->selectAllDynamicLike("passer",$select,$_POST['fields'],array("%%","%%","%B%"));
+				$limit = 2;
+				$page = 1;
+				$totalPage = count($result);
+				$totalPages = ceil($totalPage/$limit);
+				$offset = ($page-1) * $limit;
+				$first = ($page <= 1)?"disabled":"";
+				$prevLI = ($page <= 1)?"disabled":"";
+				$prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1);
+
+				$nextLI = ($page >= $totalPages)?"disabled":"";
+				$nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1);
+				$lastLI = ($page >= $totalPages)?"disabled":"";
+				$lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages;
+
+				$pagination = '
+					<nav>
+					  <ul class="pagination">
+					    <li class="page-item '.$first.'"><a class="page-link" href="?page=1">First</a></li>
+					    <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+					    <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+					    <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+					  </ul>
+					</nav>
+					';
+				if(is_numeric($page)){
+
+				}
+				echo json_encode(array("pagination"=>$pagination,"data"=>$result,"resultCount"=>$totalPages,"page"=>$page));
+			
 		}
 
 		public function paginationScript($table,$field,$field1Ans,$field2,$field2Ans,$page,$offset,$limit){
