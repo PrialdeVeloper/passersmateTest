@@ -778,10 +778,10 @@
 				$pagination = '
 					<nav>
 					  <ul class="pagination">
-					    <li class="page-item '.$first.'"><a class="page-link" href="?page=1">First</a></li>
-					    <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
-					    <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
-					    <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+					    <li class="page-item '.$first.'"><a class="page-link" name="firstPage" href="?page=1">First</a></li>
+					    <li class="page-item '.$prevLI.'"><a class="page-link" name="prevPage" href="'.$prevLink.'">Prev</a></li>
+					    <li class="page-item '.$nextLI.'"><a class="page-link" name="nextPage" href="'.$nextLink.'">Next</a></li>
+					    <li class="page-item '.$lastLI.'"><a class="page-link" name="lastPage" href="'.$lastLink.'">Last</a></li>
 					  </ul>
 					</nav>
 					';
@@ -821,19 +821,6 @@
 				$result = $this->model->selectAllLimit($table,$field,$field2,$offset,$limit,array($field1Ans,$field2Ans));
 			}
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
-		}
-
-
-
-		public function trylang(){
-			if(!isset($_GET['page']) || $_GET['page'] <=0){
-				$page = 1;
-			}else{
-				$page = $_GET['page'];
-			}
-			$return = $this->paginationScript("offerjobform","SeekerID",$_SESSION['seekerUser'],"OfferJobFormStatus",1,$page,1,5);
-			$qwe = json_decode($return, true);
-			print_r($qwe['pagination']);
 		}
 
 		public function registerAdmin(){

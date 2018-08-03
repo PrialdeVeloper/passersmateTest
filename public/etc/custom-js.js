@@ -295,13 +295,17 @@ $(function(){
 		let fields = [];
 		let data = [];
 		let page;
+		if(gender == "Any"){
+			gender = "%"+""+"%";
+		}
 		if(!getURLData("page")){
 			page = 1
 		}else{
 			page = getURLData("page");
 		}
-		fields = ['PasserCertificate','PasserRate','PasserGender'];
-		data = ["%"+jobTitle+"%","%"+budget+"%","%"+gender+"%"];
+		fields = ['PasserCertificate','PasserRate','PasserGender','PasserStatus'];
+		data = ["%"+jobTitle+"%","%"+budget+"%",gender,1];
+		history.pushState("","","?search=&jobtitle="+jobTitle+"&budget="+budget+"&gender="+gender+"&page="+page);
 		$.ajax({
 			url: "paginationScriptOwnQuery",
 			method: "POST",
@@ -311,23 +315,73 @@ $(function(){
 				maxpage.empty().html(obj.resultCount);
 				currentPage.empty().html(obj.page);
 				paginationDOM.empty().html(obj.pagination);
-				console.log(a);
-				createDOMSearch(obj.data);
+				createPaginationCustom();
+				searchCreateDOm(obj.data);
 			}
 		});
 	});
 });
 
-function createDOMSearch(data){
+$(function(){
+	$("#searchPasserBody").exists(function(){
+		if(getURLData("page") > 1){
+			let jobTitle = $("input[name=jobTitle]");
+			let budget = $("input[name=budget]");
+			let gender = $("select[name=Gender]");
+			if(getURLData("jobtitle") != ""){
+				jobTitle.val(getURLData("jobtitle"));
+			}
+			if(getURLData("budget") != ""){
+				budget.val(getURLData("budget"));
+			}
+			if(getURLData("gender") != ""){
+				gender.val("Any");
+			}
+			jobTitle.trigger("keyup");
+		}
+	});
+})
+
+function searchCreateDOm(jsonData){
+	let passerContainer = $("#passerListContent");
 	$.ajax({
-		url: "search",
+		url: "searchCreateDom",
 		method: "POST",
-		data: {"data":data},
+		data: {"domCreate":"","data":jsonData},
 		success: function(a){
-			console.log(a);
+			passerContainer.empty().html(a);
 		}
 	});
 }
+
+function createPaginationCustom(){
+	let firstPage = $("a[name=firstPage]");
+	let nextPageValue = $("a[name=nextPage]");
+	let prevPageValue = $("a[name=prevPage]");
+	let lastPage = $("a[name=lastPage]");
+	let currentPage = getURLData("page");
+	if(nextPageValue.attr("href") != "#"){
+		let nextUrl = new URL(window.location.href);
+		nextUrl.searchParams.set("page",Number(currentPage) + Number(1));
+		nextPageValue.attr("href",nextUrl);
+	}
+	if(prevPageValue.attr("href") != "#"){
+		let prevUrl = new URL(window.location.href);
+		prevUrl.searchParams.set("page",Number(currentPage) - Number(1));
+		prevPageValue.attr("href",prevUrl);
+	}
+	if(firstPage.attr("href") != "#"){
+		let firstUrl = new URL(window.location.href);
+		firstUrl.searchParams.set("page",firstPage.attr("href").substring(6));
+		firstPage.attr("href",firstUrl);
+	}
+	if(lastPage.attr("href") != "#"){
+		let lastUrl = new URL(window.location.href);
+		lastUrl.searchParams.set("page",lastPage.attr("href").substring(6));
+		lastPage.attr("href",lastUrl);
+	}
+}
+
 // });
 // $(function(){
 // 	let field = [];

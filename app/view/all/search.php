@@ -9,7 +9,7 @@
 	require_once "../public/header-footer/jobsNav.marvee";
 ?>
 
-			<div class="container pt-3">
+			<div class="container pt-3" id="searchPasserBody">
 				<div class="row justify-content-center">
 					<div class="col-10">
 						<form method="GET" action="#">
@@ -37,7 +37,8 @@
 									<div class="form-group">
 										<label for="gender">Gender:</label>
 										<select id="gender" class="form-control" name="Gender">
-											<option value="Male" selected>Male</option>
+											<option value="Any" selected>Any</option>
+											<option value="Male">Male</option>
 											<option value="Female">Female</option>
 										</select>
 									</div>
