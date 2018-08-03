@@ -754,18 +754,15 @@
 		}
 
 		public function paginationScriptOwnQuery(){
-			if(isset($_POST['getResult'])){
-				echo "qwe";
-				
-			}
-			// foreach ($_POST['fields'] as $datas) {
-			// 	print_r($datas);
-			// }
+			if(isset($_POST['getData'])){
+				$result = $totalPage = $totalPages = $offset = $page = null;
+				$field = $_POST['field'];
+				$data = $_POST['data'];
+				$table = $_POST['table'];
+				$limit = $_POST['limit'];
+				$page = $_POST['page'];
 				$select = (isset($_POST['select'])?$_POST['select']:array("*"));
-				$result = $totalPage = $totalPages = $offset = null;
-				$result = $this->model->selectAllDynamicLike("passer",$select,$_POST['fields'],array("%%","%%","%B%"));
-				$limit = 2;
-				$page = 1;
+				$result = $this->model->selectAllDynamicLike($table,$select,$field,$data);
 				$totalPage = count($result);
 				$totalPages = ceil($totalPage/$limit);
 				$offset = ($page-1) * $limit;
@@ -789,10 +786,10 @@
 					</nav>
 					';
 				if(is_numeric($page)){
-
+					$data = $this->model->selectAllDynamicLikeLimit($table,$select,$field,$data,$offset,$limit);
 				}
-				echo json_encode(array("pagination"=>$pagination,"data"=>$result,"resultCount"=>$totalPages,"page"=>$page));
-			
+				echo json_encode(array("pagination"=>$pagination,"data"=>$data,"resultCount"=>$totalPages,"page"=>$page));
+			}
 		}
 
 		public function paginationScript($table,$field,$field1Ans,$field2,$field2Ans,$page,$offset,$limit){

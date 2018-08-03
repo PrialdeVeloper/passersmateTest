@@ -65,10 +65,18 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function selectAllDynamicLikeLimit($table,$field,$where,$data,$offset,$limit){
+			$select = $this->addComma($field);
+			$fieldsQ = $this->andData($where);
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE ($fieldsQ) LIMIT $offset,$limit");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectAllDynamicLike($table,$field,$where,$data){
 			$select = $this->addComma($field);
 			$fieldsQ = $this->andData($where);
-			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE ($fieldsQ) ORDER BY PasserFee DESC LIMIT 1,5");
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE ($fieldsQ)");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}

@@ -17,7 +17,7 @@
 								<div class="col-sm">
 									<div class="form-group">
 										<label for="JOjobTitleModal">Job Title:</label>
-										<input list="JOjobTitleModal" name="browser" class="form-control">
+										<input list="JOjobTitleModal" name="jobTitle" class="form-control">
 									  	<datalist id="JOjobTitleModal">
 										    <option value="Carpenter">
 										    <option value="BABOY">

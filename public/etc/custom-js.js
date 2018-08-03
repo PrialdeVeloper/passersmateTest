@@ -211,6 +211,10 @@ function checkValidEmail(variable){
 	}
 }
 
+function getURLData(dataname){
+	return (location.search.split(dataname + '=')[1] || '').split('&')[0];
+}
+
 function showDivError(div,message){
 	$(div).append("<div class='col'>"+message+"</div>");
 	$(div).show();
@@ -279,36 +283,62 @@ $(function(){
 // end of trigger input
 
 // search Passer
+
 $(function(){
-	let field = [];
-	field = ["PasserFN","PasserLN","PasserMname"];
+	$("input[name=jobTitle], input[name=budget], select[name=Gender]").bind("keyup change",function(){
+		let jobTitle = $("input[name=jobTitle]").val();
+		let budget = $("input[name=budget]").val();
+		let gender = $("select[name=Gender]").val();
+		let maxpage = $("#resultCountPasser");
+		let currentPage = $("#currentPagePasser");
+		let paginationDOM = $("#paginationSearchPasser");
+		let fields = [];
+		let data = [];
+		let page;
+		if(!getURLData("page")){
+			page = 1
+		}else{
+			page = getURLData("page");
+		}
+		fields = ['PasserCertificate','PasserRate','PasserGender'];
+		data = ["%"+jobTitle+"%","%"+budget+"%","%"+gender+"%"];
+		$.ajax({
+			url: "paginationScriptOwnQuery",
+			method: "POST",
+			data: {"getData":"","field":fields,"data":data,"table":"passer","limit":1,"page":page},
+			success: function(a){
+				let obj = JSON.parse(a);
+				maxpage.empty().html(obj.resultCount);
+				currentPage.empty().html(obj.page);
+				paginationDOM.empty().html(obj.pagination);
+				console.log(a);
+				createDOMSearch(obj.data);
+			}
+		});
+	});
+});
+
+function createDOMSearch(data){
 	$.ajax({
-		url: "paginationScriptOwnQuery",
+		url: "search",
 		method: "POST",
-		data: {"fields":field},
+		data: {"data":data},
 		success: function(a){
 			console.log(a);
 		}
 	});
-});
-
+}
+// });
 // $(function(){
-// 	$("#passerListContent").exists(function(){
-// 		let pagination = $("#paginationSearchPasser");
-// 		let page = $("#currentPagePasser");
-// 		let resultCount = $("#resultCountPasser");
-// 		$.ajax({
-// 			url: "paginationScriptOwnQuery",
-// 			method: "POST",
-// 			data: {"getResult":"","fields":{"qwe","qwe"}},
-// 			success: function(a){
-// 				let obj = JSON.parse(a);
-// 				pagination.html(obj.pagination);
-// 				page.html(obj.page);
-// 				resultCount.html(obj.resultCount);
-// 				console.log(a);
-// 			}
-// 		});
+// 	let field = [];
+// 	field = ["PasserFN","PasserLN","PasserMname"];
+// 	$.ajax({
+// 		url: "paginationScriptOwnQuery",
+// 		method: "POST",
+// 		data: {"fields":field},
+// 		success: function(a){
+// 			console.log(a);
+// 		}
 // 	});
 // });
 // end of search passer
