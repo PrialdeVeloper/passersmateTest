@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="../etc/bootstrap/js/gijgo/gijgo.min.js"></script>
 		<script type="text/javascript" src="../etc/bootstrap/js/popper.min.js"></script>
 		<script type="text/javascript" src="../etc/bootstrap/js/bootstrap.min.js"></script>
-
+		<script type="text/javascript" src="../etc/subscription/build/toastr.min.js"></script>
 		<script type="text/javascript" src="../etc/custom-js.js"></script>';
 		}
 		else{
@@ -32,6 +32,7 @@
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/gijgo/gijgo.min.js"></script>
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/popper.min.js"></script>
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../public/etc/subscription/build/toastr.min.js"></script>
 		<script type="text/javascript" src="../../public/etc/custom-js.js"></script>';
 		}
 	?>

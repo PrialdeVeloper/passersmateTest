@@ -3,6 +3,7 @@ if(isset($data) && !empty($data)){
     extract($data[0]);
     if(isset($userDetails) && !empty($userDetails)){
       extract($userDetails[0]);
+      print_r($data);
     }
 }  
 require "../public/header-footer/seeker/seekerHeader.marvee";
@@ -69,7 +70,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                                   <label>Name</label>
                                 </div>
                                  <div class="col-md-8">
-                                  <p>Marvee Yofa Franco</p>
+                                  <p><?php echo ucwords((isset($SeekerFN)?$SeekerFN." " . $SeekerLN:$PasserFN. " ".$PasserMname.". " . $PasserLN))?></p>
                                 </div>
                               </div>
                                <div class="form-group row font-weight-bold" style="font-size: 15px">
@@ -77,52 +78,54 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                                   <label>Email Address</label>
                                 </div>
                                  <div class="col-md-6">
-                                  <p>francoyogie@gmail.com</p>
+                                  <p><?php echo (isset($SeekerEmail)?$SeekerEmail:$PasserEmail); ?></p>
                                 </div>
                                  <div class="col-md-3 accordion">
                                     <a role= "button" class="collapsed font-weight-bold text-success" data-toggle="collapse" data-target="#email" aria-expanded="false" aria-controls="email"  style="font-size: 16px"><u><small>Change email address</small></u></a>
                                 </div>
                               </div>
                               <!-- ACCORDION CHANGE EMAIL ADDRESS -->
-                              <div class="row bg-light ">
-                                <div class="col-md-12">
-                                    <div id="email" class="collapse"  data-parent="#email">
-                                    <div class="form-group row ">
-                                      <div class="col-md-3 mt-2">
-                                        <label>New Email Address</label>
+                              <form id="emailPersonalDetailsChange">
+                                <div class="row bg-light ">
+                                  <div class="col-md-12">
+                                      <div id="email" class="collapse"  data-parent="#email">
+                                      <div class="form-group row ">
+                                        <div class="col-md-3 mt-2">
+                                          <label>New Email Address</label>
+                                        </div>
+                                         <div class="col-md-9 mt-2">
+                                          <input type="text" name="accountSettingsEmail">
+                                        </div>
                                       </div>
-                                       <div class="col-md-9 mt-2">
-                                        <input type="text" name="">
+                                      <div class="form-group row">
+                                        <div class="col-md-10 font-weight-bold" style="font-size:16px">
+                                        <small class="text-danger">For your security, you must re-enter your password to continue.</small>
+                                        </div>
                                       </div>
-                                    </div>
-                                    <div class="form-group row">
-                                      <div class="col-md-10 font-weight-bold" style="font-size:16px">
-                                      <small class="text-danger">For your security, you must re-enter your password to continue.</small>
+                                       <div class="form-group row">
+                                        <div class="col-md-3 mt-2">
+                                          <label>Password</label>
+                                        </div>
+                                         <div class="col-md-9 mt-2">
+                                          <input type="password" name="accountSettingsEmailPassword">
+                                        </div>
                                       </div>
-                                    </div>
-                                     <div class="form-group row">
-                                      <div class="col-md-3 mt-2">
-                                        <label>Password</label>
-                                      </div>
-                                       <div class="col-md-9 mt-2">
-                                        <input type="password" name="">
-                                      </div>
-                                    </div>
-                                     <div class="form-group row">
-                                      <div class="col-md-12">
-                                         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="toastr.success('You have successfully change your email');">Change Email</button>
+                                       <div class="form-group row">
+                                        <div class="col-md-12">
+                                           <button type="submit" class="btn btn-primary" data-dismiss="modal">Change Email</button>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
+                              </form>
                               <!-- END OF ACCORDION CHANGE EMAIL ADDRESS -->
                                <div class="form-group row font-weight-bold" style="font-size: 15px">
                                 <div class="col-md-3">
                                   <label>Phone Number</label>
                                 </div>
                                  <div class="col-md-6">
-                                  <p>09154861084</p>
+                                  <p>+63 <?php echo (isset($SeekerCPNo)?$SeekerCPNo:$PasserCPNo); ?></p>
                                 </div>
                                  <div class="col-md-3">
                                      <a role= "button" class="collapsed font-weight-bold text-success" data-toggle="collapse" data-target="#number" aria-expanded="false" aria-controls="number"  style="font-size: 16px"><u><small>Change phone number</small></u></a>

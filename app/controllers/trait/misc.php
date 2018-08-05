@@ -913,5 +913,53 @@
 			}
 		}
 
+		public function editAccountSettings(){
+			if(isset($_POST['editAccountSettings'])){
+				$checkEmail = $action = $data = $id = $table = $user = $email = $cpno = $userStatus = $data = $checkExistEmail= null;
+				$action = $this->sanitize($_POST['action']);
+				$data = $_POST['data'];
+				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+				$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+				$user = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$email = (isset($_SESSION['passerUser'])?"PasserEmail":"SeekerEmail");
+				$cpno = (isset($_SESSION['passerUser'])?"PasserCPNo":"SeekerCPNo");
+				$userStatus = (isset($_SESSION['passerUser'])?"PasserStatus":"SeekerStatus");
+				$dataUser = $this->model->selectAllFromUser($table,$user,array($id));
+				extract($dataUser[0]);
+				$emailOld = (isset($SeekerEmail)?$SeekerEmail:$PasserEmail);
+				$password = (isset($SeekerPass)?$SeekerPass:$PasserPass);
+				switch ($action) {
+					case 'email':
+						if($data['email'] == $emailOld){
+							echo json_encode(array("error"=>"sameEmail"));
+						}elseif($this->model->checkExistSingle($table,$email,array($data['email']))){
+							echo json_encode(array("error"=>"emailExist"));
+						}else{
+							$checkPassword = $this->verifyHash($data['password'],$password);
+								if($checkPassword){
+									$update = $this->model->updateDB($table,array($email),array($data['email']),$user,$id);
+									if($update){
+										echo json_encode(array("error"=>"none"));
+									}
+								}
+								else{
+									echo json_encode(array("error"=>"incorrectPassword"));
+								}
+							}
+						break;
+					case 'phone':
+						# code...
+						break;
+					case 'password':
+						# code...
+						break;
+					case 'status':
+						# code...
+						break;
+					
+				}
+			}
+		}
+
 	}
 ?>

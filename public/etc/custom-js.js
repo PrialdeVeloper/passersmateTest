@@ -70,6 +70,51 @@ $(function(){
 
 // end of search
 
+// account settings edit
+
+// email edit
+$(function(){
+	$("#emailPersonalDetailsChange").submit(function(event){
+		event.preventDefault();
+		let email = $("input[name=accountSettingsEmail]");
+		let password = $("input[name=accountSettingsEmailPassword]");
+		let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+		if(checkEmpty(email.val()) || checkEmpty(password.val()) || checkRegex(password.val(),regex) == false 
+			|| checkValidEmail(email.val()) == false){
+			if(checkEmpty(email.val()) || checkValidEmail(email.val()) == false){
+				toastError("Please valid email address to replace your old email address");
+			}
+			if(checkEmpty(password.val()) || checkRegex(password.val(),regex) == false){
+				toastError("Please input a 8 character password with atleast 1 numeric and 7 letters");
+			}
+		}else{
+			let data = {"email":email.val(),"password":password.val()};
+			$.ajax({
+				url: "editAccountSettings",
+				method: "POST",
+				data: {"editAccountSettings":"","action":"email","data":data},
+				success: function(a){
+					console.log(a);
+					let obj = JSON.parse(a);
+					if(obj.error == "sameEmail"){
+						toastError("Please choose another email to replace your old email");
+					}else if(obj.error == "incorrectPassword"){
+						toastError("Sorry, your password entered is incorrect. Please try again");
+					}else if(obj.error == "emailExist"){
+						toastError("Sorry, Email already exist. Please try another email");
+					}else if(obj.error == "none"){
+						toastSuccess("Successfully edited your email!");
+						delayRedirect('accountsettings');
+					}
+				},
+			});
+		}
+	});
+})
+// end of email edit
+
+// end of account settings edit
+
 // registerPasser
 
 var delay = (function(){
