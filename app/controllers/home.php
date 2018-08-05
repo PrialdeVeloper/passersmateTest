@@ -201,9 +201,6 @@
 		}
 
 		public function subscription(){
-			if(!$this->checkSession('seekerUser')){
-		 		header("location:login");
-		 	}
 		 	$this->controller->view("all/subscription");
 		}
 
@@ -273,6 +270,22 @@
 		 		unset($_SESSION['paymentID']);
 		 		$this->toOtherPage($forwardLink);
 		 	}
+		}
+
+		public function accountsettings(){
+			$dashboard = $user = null;
+			$data = [];
+			if(!$this->checkSession('seekerUser') && !$this->checkSession('passerUser')){
+		 		header("location:login");
+		 	}elseif($this->checkSession('seekerUser')){
+		 		$dashboard = "../seeker/dashboard";
+		 		$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($_SESSION['seekerUser']));
+		 	}elseif($this->checkSession('passerUser')){
+		 		$dashboard = "../passer/dashboard";
+		 		$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
+		 	}
+		 	$data[] = array("dashboard"=>$dashboard,"userDetails"=>$details);
+			$this->controller->view("all/accountSettings",$data);
 		}
 
 	}

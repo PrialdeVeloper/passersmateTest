@@ -1,4 +1,12 @@
 <?php include_once "../public/etc/etcCompile.marvee"; ?>
+<?php  
+$destination = null;
+$x = pathinfo($_SERVER["QUERY_STRING"]); 
+$url = str_replace("url=", "", $x['dirname']);
+if($url == "home"){
+	$destination = (isset($_SESSION['passerUser'])?"../passer/dashboard":"../seeker/dashboard");
+}
+?>
 	<body class="bg-light">
 		<header>
 			<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigation">
@@ -152,12 +160,12 @@
 										<label class="pr-1"><?=isset($SeekerFN)?$SeekerFN:$PasserFN;?></label>
 									</a>
 								 <div class="dropdown-menu dropdown-menu-right text-dark">
-								      <a class="dropdown-item text-dark" href="dashboard">
+								      <a class="dropdown-item text-dark" href="<?php echo $destination; ?>">
 								      	<i class="fas fa-user-circle"></i> <?=isset($SeekerFN)?$SeekerFN:$PasserFN;?> <?=isset($SeekerLN)?$SeekerLN:$PasserLN;?>
 								      	<br>
 								      </a>
 								      <br>
-								      <a class="dropdown-item text-dark" href="#">
+								      <a class="dropdown-item text-dark" href="../home/accountsettings">
 								      	<i class="fa fa-cog"></i> Account Settings</a>
 								      <div class="dropdown-divider"></div>
 								      <a class="dropdown-item text-dark" href="logout"> Logout</a>
