@@ -14,7 +14,7 @@
 	}
 	require "../public/header-footer/seeker/seekerHeader.marvee";
 	require "../public/header-footer/jobsNav.marvee";
-	require "modal/dashboardModal.html";
+	require "modal/profileModal.html";
 ?>
 <!-- content -->
 <div class="container-fluid my-5">
@@ -50,7 +50,9 @@
 
 				<div class="row pt-5">
 					<div class="col-sm-6 ">
-						<?=$offerJob?>
+						<button type="button" class="btn btn-primary btn-block " data-toggle="modal" data-target="#offer">
+                          Offer Job
+                        </button>
 					</div>
 					<div class="col-sm-6 ">
 						<?=$messageMe?>

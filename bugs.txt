@@ -1,3 +1,4 @@
 1. Dates
 2. Add company
 3. Add passer link to seeker dashboard
+4. Guba ang Gmail

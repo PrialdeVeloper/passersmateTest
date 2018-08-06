@@ -107,7 +107,7 @@ $rate = "Very Good!";
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-people-carry text-white"></i></div>
-				<div class="col-md-auto"><label><a href="messages.php" class="text-white">My Choosen Partners</a></label></div>
+				<div class="col-md-auto"><label><a href="choosenPasser" class="text-white">My Choosen Partners</a></label></div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-star text-white"></i></div>
@@ -173,8 +173,8 @@ $rate = "Very Good!";
 				</div>
       		</div>
       		<hr>
-      		<div class="container d-flex justify-content-center blue font-weight-bold">
-      			<label class="text-center" data-toggle="modal" data-target="#JOFormModal"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add your <abbr title="Add Job Offer form for your compliance">JO Form(s)</abbr></span></label>
+      		<div class="container d-flex justify-content-center blue  font-weight-bold">
+      			<div class="col-md-auto"><label><a href="jobOffer"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add your <abbr title="Add Job Offer form for your compliance">JO Form(s)</abbr></span></a></label></div>
       		</div>
 		</div>
 		<!-- end of 1st box 3rd row -->

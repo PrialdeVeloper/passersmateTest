@@ -884,6 +884,38 @@ $(function(){
 	});
 // end of verifyModal previewImage
 
+// 5th image naa sa project.php
+	$(function(){
+		$("#substituteButton5").click(function(){
+			$("#addDetailsPasser5").trigger("click");
+		});
+	});
+
+	function readURL5(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+			$('#previewImage5').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	$(function(){
+		$(".inputImage5").change(function(){
+			$(this).attr("data-integrity","allow");
+				let imageCheck = checkValidImage("input[name=projectImagePasser]");
+			if(imageCheck){
+				$("#verifyModalError").hide();
+				readURL5(this);
+			}else{
+				$('#previewImage5').attr('src', "../../public/etc/images/system/calendar.png");
+				showDivError("#verifyModalError","Please choose valid image");
+			}
+		});
+	});
+
+
 
 // personal details
 $(function(){

@@ -170,5 +170,15 @@
 			$this->controller->view("seeker/jobOffer",$data);
 		}
 		
+		public function choosenpasser(){
+			if(!$this->checkSession('seekerUser')){
+		 		header("location:../home/login");
+		 	}
+		 	$data = [];
+			$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
+			$data[] = array("userDetails"=>$details);
+			$this->controller->view("seeker/choosenPasser",$data);
+		}
+		
 	}
 ?>
