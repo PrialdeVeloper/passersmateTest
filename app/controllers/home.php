@@ -310,6 +310,10 @@
 			$this->controller->view("all/accountSettings",$data);
 		}
 
+		public function messages(){
+			$this->controller->view("all/chat");
+		}
+
 	}
 
 ?>

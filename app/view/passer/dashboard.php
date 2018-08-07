@@ -91,7 +91,7 @@
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-comments text-white"></i></div>
-				<div class="col-md-auto"><label><a href="message.php" class="text-white">Messages</a></label></div>
+				<div class="col-md-auto"><label><a href="../home/messages" class="text-white">Messages</a></label></div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-briefcase text-white"></i></div>
