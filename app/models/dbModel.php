@@ -92,6 +92,14 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);;
 		}
 
+		public function selectSort($select,$table,$field,$data,$order,$limit){
+			$select = $this->addComma($select);
+			$return = null;
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE $field = ? ORDER BY $order LIMIT $limit");
+			$this->stmt->execute($data);
+			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectAllFromUser($table,$field,$data){
 			$return = null;
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ?");
@@ -128,6 +136,13 @@
 			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM $table WHERE $field = ? and $field2 = ?");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchColumn();
+		}
+
+		public function selectTwoCondition($select,$table,$field,$field2,$data){
+			$select = $this->addComma($select);
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE $field = ? and $field2 = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 

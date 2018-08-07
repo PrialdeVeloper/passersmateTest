@@ -16,3 +16,10 @@ subscription
 0 = no subscription
 1 = successful subscription
 2 = end subscription
+
+query limit text
+SELECT LEFT(PasserPass, 2) FROM passer
+
+$timestamp = "2013-09-30 01:16:06";
+echo date("F jS, Y", strtotime($timestamp)); //September 30th, 2013
+strtotime("now")

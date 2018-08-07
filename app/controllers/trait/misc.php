@@ -11,10 +11,13 @@
 		protected $data = array();
 		protected $trait = null;
 		protected $options = ['cost' => 12,];
+		public $subscriptionDB = "subscription";
 		public $subscriptionTable = array("SubscriptionTypeID","SeekerID","SubscriptionStart","SubscriptionEnd","PaymentMethod");
 		public $offerJobTable = array("SeekerID","WorkingAddress","StartDate","EndDate","Salary","PaymentMethod","AccomodationType");
 		public $disableDB = 'disabledusers';
 		public $disableTable = array("PasserID","SeekerID","DeactivateReason");
+		public $messageTable = "message";
+		public $messageDB = array("PasserID","SeekerID","MessageContent");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -43,6 +46,10 @@
 			else{
 				return false;
 			}
+		}
+
+		public function seekerCheckSubscriptionStatus(){
+			
 		}
 
 		public function checkAuthenticity($table,$field,$field2,$data){

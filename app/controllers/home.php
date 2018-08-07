@@ -311,7 +311,30 @@
 		}
 
 		public function messages(){
-			$this->controller->view("all/chat");
+			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = null;
+			$data = [];
+			if(!$this->checkSession('seekerUser') && !$this->checkSession('passerUser')){
+		 		header("location:login");
+		 	}elseif($this->checkSession('seekerUser')){
+		 		$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($_SESSION['seekerUser']));
+		 		$user = $this->seekerUnique;
+		 		$id = $_SESSION['seekerUser'];
+		 		$otherUserID = $this->passerUnique;
+		 		$subscription = $this->model->selectAllFromUser($this->subscriptionDB,$this->seekerUnique,array($_SESSION['seekerUser']));
+		 		print_r($subscription);
+		 	}elseif($this->checkSession('passerUser')){
+		 		$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
+		 		$user = $this->passerUnique;
+		 		$id = $_SESSION['passerUser'];
+		 		$otherUserID = $this->seekerUnique;
+		 	}
+		 	if(empty($_GET['t'])){
+		 		$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),$user,1);
+		 		$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
+		 	}
+		 	extract($details[0]);
+		 	$data[] = array("userDetails"=>$details);
+			$this->controller->view("all/chat",$data);
 		}
 
 	}

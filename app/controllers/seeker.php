@@ -26,6 +26,13 @@
 			$completeAddress = null;
 			$detailsProper = null;
 			$seekerStatus = null;
+			$subscription = null;
+			$subscription = $this->model->selectTwoCondition(array("*"),$this->subscriptionDB,$this->seekerUnique,"SubscriptionStatus",array($_SESSION['seekerUser'],"ongoing"));
+			foreach ($subscription as $data) {
+				if($data['SubscriptionEnd'] < date("Y-m-d")){
+					$this->createNotification("subscription",array("sendTo"=>"SeekerID","id"=>$_SESSION['seekerUser'],"message"=>1));
+				}				
+			}
 			$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
 			$detailsProper = $details[0];
 			extract($detailsProper);

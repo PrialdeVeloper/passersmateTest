@@ -3,7 +3,6 @@ if(isset($data) && !empty($data)){
     extract($data[0]);
     if(isset($userDetails) && !empty($userDetails)){
       extract($userDetails[0]);
-      print_r($data);
     }
 }  
 require "../public/header-footer/seeker/seekerHeader.marvee";
