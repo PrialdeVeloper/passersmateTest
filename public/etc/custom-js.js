@@ -489,6 +489,24 @@ $(function(){
 });
 
 $(function(){
+	$("#messageSend").submit(function(event){
+		event.preventDefault();
+		let message = $(".write_msg").val();
+		let otherUser = getURLData("t");
+		if(checkEmpty(message) == false){
+			$.ajax({
+				url: "sendMessage",
+				method: "POST",
+				data: {"message":message,"sender":otherUser},
+				fail: function(){
+					alert("cannot connect to server");
+				}
+			});
+		}
+	});
+});
+
+$(function(){
 	$("#searchPasserBody").exists(function(){
 		if(getURLData("page") > 1){
 			let jobTitle = $("input[name=jobTitle]");
@@ -547,23 +565,6 @@ function createPaginationCustom(){
 		lastPage.attr("href",lastUrl);
 	}
 }
-
-// });
-// $(function(){
-// 	let field = [];
-// 	field = ["PasserFN","PasserLN","PasserMname"];
-// 	$.ajax({
-// 		url: "paginationScriptOwnQuery",
-// 		method: "POST",
-// 		data: {"fields":field},
-// 		success: function(a){
-// 			console.log(a);
-// 		}
-// 	});
-// });
-// end of search passer
-
-
 
 let cocNumber;
 let passerFirstname;

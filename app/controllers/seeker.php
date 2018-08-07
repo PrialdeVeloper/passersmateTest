@@ -15,6 +15,7 @@
 			if($this->checkSession('seekerUser')){
 		 		$this->seekerSession = $_SESSION['seekerUser'];
 		 	}
+		 	$this->seekerCheckSubscriptionStatus();
 		}
 
 		public function index(){

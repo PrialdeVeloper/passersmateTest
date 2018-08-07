@@ -320,8 +320,10 @@
 		 		$user = $this->seekerUnique;
 		 		$id = $_SESSION['seekerUser'];
 		 		$otherUserID = $this->passerUnique;
-		 		$subscription = $this->model->selectAllFromUser($this->subscriptionDB,$this->seekerUnique,array($_SESSION['seekerUser']));
-		 		print_r($subscription);
+		 		$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$user,"SubscriptionStatus",array($id,"ongoing"));
+		 		if($subscription <= 0){
+		 			$this->toOtherPage("subscription");
+		 		}
 		 	}elseif($this->checkSession('passerUser')){
 		 		$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
 		 		$user = $this->passerUnique;

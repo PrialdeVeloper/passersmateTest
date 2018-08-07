@@ -107,6 +107,14 @@
 			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function selectAllFromUserSort($select,$table,$field,$data,$order,$sort){
+			$return = null;
+			$select = $this->addComma($select);
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE $field = ? ORDER BY $order $sort");
+			$this->stmt->execute($data);
+			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectDataFromOtherDB($table,$table2,$field,$field2,$data){
 			$return = null;
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = (SELECT $field from $table2 where $field2 = ?)");

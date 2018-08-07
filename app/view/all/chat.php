@@ -201,16 +201,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                         </div>
                       </div>
                       <div class="inbox_chat">
-                        <div class="chat_list active_chat">
-                          <div class="chat_people">
-                            <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                            <div class="chat_ib">
-                              <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                              <p>Test, which is a new approach to have all solutions 
-                                astrology under one roof.</p>
-                            </div>
-                          </div>
-                        </div>
+                        
                       </div>
                     </div>
                     <div class="headind_srch">
@@ -265,11 +256,13 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                         </div>
                       </div>
                       <div class="type_msg">
-                        <div class="input_msg_write">
-                          <textarea class="form-control write_msg" rows="2" placeholder="Type a message..." style="font-size:16px"></textarea>
-                          <button class="msg_send_btn" type="button"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+                        <form id="messageSend">
+                          <div class="input_msg_write">
+                            <input class="form-control write_msg h-100" rows="2" cols="50" placeholder="Type a message..." style="font-size:16px;">
+                            <button type="submit" class="msg_send_btn" type="button"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+                          </div>
                         </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
     </div></div>

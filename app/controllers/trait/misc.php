@@ -49,7 +49,19 @@
 		}
 
 		public function seekerCheckSubscriptionStatus(){
-			
+			$subscription = null;
+			if(!$this->checkSession('seekerUser')){
+				header("location:../seeker/dashboard");
+			}
+			$subscription = $this->model->selectTwoCondition(array("*"),$this->subscriptionDB,$this->seekerUnique,"SubscriptionStatus",array($_SESSION['seekerUser'],"ongoing"));
+			if(!empty($subscription)){
+				foreach ($subscription as $data) {
+					if($data['SubscriptionEnd'] < date("Y-m-d")){
+						$this->model->updateDB($this->subscriptionDB,array("SubscriptionStatus"),array("ended"),$this->seekerUnique,$_SESSION['seekerUser']);
+						$this->createNotification("subscription",array("sendTo"=>"SeekerID","id"=>$_SESSION['seekerUser'],"message"=>2));
+					}
+				}
+			}
 		}
 
 		public function checkAuthenticity($table,$field,$field2,$data){
@@ -101,19 +113,87 @@
 					$execute = 0;
 				}
 			}
-
 			($execute = 1?($to['sendTo'] == "PasserID")?$this->model->insertDB($this->notifDB,$this->notifTable,array($to['id'],NULL,$notifType,$to['message'])):$this->model->insertDB($this->notifDB,$this->notifTable,array(NULL,$to['id'],$notifType,$to['message'])):""); 
 			return true;
+		}
+
+		public function sendMessage(){
+			$message = $sender = $reciever = $send = null;
+			if(isset($_POST['message'])){
+				$message = $this->sanitize($_POST['message']);
+				$reciever = $this->sanitize($_POST['sender']);
+				$sender = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+				$send = (isset($_SESSION['seekerUser'])?$this->model->insertDB($this->messageTable,$this->messageDB,array($reciever,$sender,$message)):$this->model->insertDB($this->messageTable,$this->messageDB,array($sender,$reciever,$message)));
+			}
+		}
+
+		public function createSidebarMessage(){
+			$field = $id = $sidebarData = $table = $userDetails = $passer = $seeker = $builder = $dom = null;
+			$checkAgain = array();
+			// if(isset($_POST['sidebarData'])){
+				$field = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);	
+				$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);	
+				$sidebarData = $this->model->selectAllFromUserSort(array("*"),$this->messageTable,$field,array($id),"MessageID","DESC");
+				if(isset($_SESSION['passerUser'])){
+					foreach ($sidebarData as $data) {
+						if(!in_array($data[$this->seekerUnique], $checkAgain)){
+							$userDetails = $this->model->selectAllFromUser($table,$field,array($data[$this->seekerUnique]));
+							$builder = 
+							'
+							<div class="chat_list active_chat">
+	                          <div class="chat_people">
+	                            <div class="chat_img"> <img src="" alt="sunil"> </div>
+	                            <div class="chat_ib">
+	                              <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
+	                              <p>Test, which is a new approach to have all solutions 
+	                                astrology under one roof.</p>
+	                            </div>
+	                          </div>
+	                        </div>
+							';
+							array_push($checkAgain,$data[$this->seekerUnique]);
+						}
+					}
+				}else{
+					foreach ($sidebarData as $data) {
+						if(!in_array($data[$this->passerUnique], $checkAgain)){
+							$userDetails = $this->model->selectAllFromUser($table,$field,array($data[$this->passerUnique]));
+							foreach ($userDetails as $passer) {
+								print_r($passer);
+								$builder = 
+								'
+								<div class="chat_list active_chat">
+		                          <div class="chat_people">
+		                            <div class="chat_img"> <img src="'.$this->sanitize($seekerProfile).'" alt="sunil"> </div>
+		                            <div class="chat_ib">
+		                              <h5>'.$this->sanitize($seekerFN).'" "'.$this->sanitize($seekerLN).'<span class="chat_date">Dec 25</span></h5>
+		                              <p>Test, which is a new approach to have all solutions 
+		                                astrology under one roof.</p>
+		                            </div>
+		                          </div>
+		                        </div>
+								';
+							}
+							array_push($checkAgain,$data[$this->passerUnique]);
+						}
+					}
+
+					
+
+				}	
+			// }
 		}
 
 		public function getNotification(){
 			if(isset($_POST['notificationGet'])){
 				$builder = null;
 				$dom = null;
+				$user = null;
 				$field = (!empty($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
 				$id = (!empty($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
 				$notifCount = $this->model->checkAuthenticity($this->notifDB,$field,"notificationStatus",array($id,1));
-				$notificationData = $this->model->selectAllFromUser($this->notifDB,$field,array($id));
+				$notificationData = $this->model->selectAllFromUserSort(array("*"),$this->notifDB,$field,array($id),"notificationID","DESC");
 				foreach ($notificationData as $data) {
 					$link = null;
 					$message = null;
