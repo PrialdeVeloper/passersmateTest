@@ -113,6 +113,127 @@ $(function(){
 })
 // end of email edit
 
+// edit cpno
+$(function(){
+	$("#cpnoPersonalDetailsChange").submit(function(event){
+		event.preventDefault();
+		let cpno = $("input[name=accountSettingsCPNo]");
+		let password = $("input[name=accountSettingsCPNoPassword]");
+		let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+		if(checkEmpty(cpno.val()) || checkEmpty(password.val()) || checkNumberOnlyCount(10,cpno.val()) == false){
+			if(checkEmpty(cpno.val()) || checkNumberOnlyCount(10,cpno.val()) == false){
+				toastError("Please input your valid 10 digit number");
+			}
+			if(checkEmpty(password.val()) || checkRegex(password.val(),regex) == false){
+				toastError("Please input a 8 character password with atleast 1 numeric and 7 letters");
+			}
+		}else{
+			let data = {"cpno":cpno.val(),"password":password.val()};
+			$.ajax({
+				url: "editAccountSettings",
+				method: "POST",
+				data: {"editAccountSettings":"","action":"phone","data":data},
+				success: function(a){
+					console.log(a);
+					let obj = JSON.parse(a);
+					if(obj.error == "samecpNo"){
+						toastError("Your new cp number must not be the same to your old cp number");
+					}else if(obj.error == "incorrectPassword"){
+						toastError("Sorry, your password entered is incorrect. Please try again");
+					}else if(obj.error == "cpNoExist"){
+						toastError("Sorry, cp number already exist. Please try another cp numer");
+					}else if(obj.error == "none"){
+						toastSuccess("Successfully edited your cp number!");
+						delayRedirect('accountsettings');
+					}
+				},
+			});
+		}
+	});
+});
+// end of edit cpno
+
+// edit password
+$(function(){
+	$("#passwordPersonalDetailsChange").submit(function(event){
+		event.preventDefault();
+		let password = $("input[name=accountSettingsCurrentPassword]");
+		let newPassword = $("input[name=accountSettingsNewPassword]");
+		let newPasswordAgain = $("input[name=accountSettingsNewPasswordAgain]");
+		let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+		if(checkEmpty(password.val()) || checkRegex(password.val(),regex) == false 
+			|| checkEmpty(newPassword.val()) || checkRegex(newPassword.val(),regex) == false  
+			|| newPassword.val() != newPasswordAgain.val() || checkEmpty(newPasswordAgain.val())){
+			if(checkEmpty(password.val()) || checkRegex(password.val(),regex) == false){
+				toastError("Please input your current password atleast 1 numeric and 7 letters");
+			}
+			if(checkEmpty(newPassword.val()) || checkRegex(newPassword.val(),regex) == false){
+				toastError("Please input your new password password atleast 1 numeric and 7 letters");
+			}
+			if(newPassword.val() != newPasswordAgain.val() || checkEmpty(newPasswordAgain.val())){
+				toastError("Please make sure your password matches with your password typed");
+			}
+		}else{
+			let data = {"password":password.val(),"newPassword":newPassword.val()};
+			$.ajax({
+				url: "editAccountSettings",
+				method: "POST",
+				data: {"editAccountSettings":"","action":"password","data":data},
+				success: function(a){
+					console.log(a);
+					let obj = JSON.parse(a);
+					if(obj.error == "samePassword"){
+						toastError("Please make sure your new password is different from current password");
+					}else if(obj.error == "incorrectPassword"){
+						toastError("Sorry, your password entered is incorrect. Please try again");
+					}else if(obj.error == "none"){
+						toastSuccess("Successfully edited your password!");
+						delayRedirect('accountsettings');
+					}
+				},
+			});
+		}
+	});
+});
+// end of edit password
+
+// deactivate
+$(function(){
+	$("#statusPersonalDetailsChange").submit(function(event){
+		event.preventDefault();
+		let reason = $("select[name=accountSettingsStatusReason]");
+		let reasonValid = ["Temporary","unNeeded","unUseful","noJobs"];
+		let password = $("input[name=accountSettingsStatusPassword]");
+		let regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+		if(checkEmpty(reason.val()) || checkRegex(password.val(),regex) == false || checkArraySame(reasonValid,reason.val()) == false){
+			if(checkEmpty(reason.val()) || checkArraySame(reasonValid,reason.val()) == false){
+				toastError("Please choose from range of valid reasons listed");
+			}
+			if(checkEmpty(password.val()) || checkRegex(password.val(),regex) == false){
+				toastError("Please input a 8 character password with atleast 1 numeric and 7 letters");
+			}
+		}else{
+			let data = {"reason":reason.val(),"password":password.val()};
+			$.ajax({
+				url: "editAccountSettings",
+				method: "POST",
+				data: {"editAccountSettings":"","action":"status","data":data},
+				success: function(a){
+					console.log(a);
+					let obj = JSON.parse(a);
+					if(obj.error == "incorrectPassword"){
+						toastError("Sorry, your password entered is incorrect. Please try again");
+					}else if(obj.error == "none"){
+						toastSuccess("Your account is now deactivated, Thanks for your time Mate!");
+						delayRedirect('logout');
+					}
+				},
+			});
+		}
+	});
+})
+// end of deactivate
+
 // end of account settings edit
 
 // registerPasser

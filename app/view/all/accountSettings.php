@@ -86,15 +86,62 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                               </div>
                               <!-- ACCORDION CHANGE EMAIL ADDRESS -->
                               <form id="emailPersonalDetailsChange">
+                                  <div class="row bg-light ">
+                                    <div class="col-md-12">
+                                        <div id="email" class="collapse"  data-parent="#email">
+                                        <div class="form-group row ">
+                                          <div class="col-md-3 mt-2">
+                                            <label>New Email Address</label>
+                                          </div>
+                                           <div class="col-md-9 mt-2">
+                                            <input type="text" name="accountSettingsEmail">
+                                          </div>
+                                        </div>
+                                        <div class="form-group row">
+                                          <div class="col-md-10 font-weight-bold" style="font-size:16px">
+                                          <small class="text-danger">For your security, you must re-enter your password to continue.</small>
+                                          </div>
+                                        </div>
+                                         <div class="form-group row">
+                                          <div class="col-md-3 mt-2">
+                                            <label>Password</label>
+                                          </div>
+                                           <div class="col-md-9 mt-2">
+                                            <input type="password" name="accountSettingsEmailPassword">
+                                          </div>
+                                        </div>
+                                         <div class="form-group row">
+                                          <div class="col-md-12">
+                                             <button type="submit" class="btn btn-primary" data-dismiss="modal">Change Email</button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                                <!-- END OF ACCORDION CHANGE EMAIL ADDRESS -->
+                                <form id="cpnoPersonalDetailsChange">
+                                 <div class="form-group row font-weight-bold" style="font-size: 15px">
+                                  <div class="col-md-3">
+                                    <label>Phone Number</label>
+                                  </div>
+                                   <div class="col-md-6">
+                                    <p>+63 <?php echo (isset($SeekerCPNo)?$SeekerCPNo:$PasserCPNo); ?></p>
+                                  </div>
+                                   <div class="col-md-3">
+                                       <a role= "button" class="collapsed font-weight-bold text-success" data-toggle="collapse" data-target="#number" aria-expanded="false" aria-controls="number"  style="font-size: 16px"><u><small>Change phone number</small></u></a>
+                                  </div>
+                                </div>
+                                <!-- ACCORDION CHANGE CONTACT NUMBER-->
                                 <div class="row bg-light ">
                                   <div class="col-md-12">
-                                      <div id="email" class="collapse"  data-parent="#email">
+                                      <div id="number" class="collapse"  data-parent="#number">
                                       <div class="form-group row ">
                                         <div class="col-md-3 mt-2">
-                                          <label>New Email Address</label>
+                                          <label>New Phone Number</label>
                                         </div>
                                          <div class="col-md-9 mt-2">
-                                          <input type="text" name="accountSettingsEmail">
+                                          +63 <input type="text" name="accountSettingsCPNo">
                                         </div>
                                       </div>
                                       <div class="form-group row">
@@ -107,63 +154,18 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                                           <label>Password</label>
                                         </div>
                                          <div class="col-md-9 mt-2">
-                                          <input type="password" name="accountSettingsEmailPassword">
+                                          <input type="password" name="accountSettingsCPNoPassword">
                                         </div>
                                       </div>
                                        <div class="form-group row">
                                         <div class="col-md-12">
-                                           <button type="submit" class="btn btn-primary" data-dismiss="modal">Change Email</button>
+                                           <button type="submit" class="btn btn-primary" data-dismiss="modal">Change number</button>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
                               </form>
-                              <!-- END OF ACCORDION CHANGE EMAIL ADDRESS -->
-                               <div class="form-group row font-weight-bold" style="font-size: 15px">
-                                <div class="col-md-3">
-                                  <label>Phone Number</label>
-                                </div>
-                                 <div class="col-md-6">
-                                  <p>+63 <?php echo (isset($SeekerCPNo)?$SeekerCPNo:$PasserCPNo); ?></p>
-                                </div>
-                                 <div class="col-md-3">
-                                     <a role= "button" class="collapsed font-weight-bold text-success" data-toggle="collapse" data-target="#number" aria-expanded="false" aria-controls="number"  style="font-size: 16px"><u><small>Change phone number</small></u></a>
-                                </div>
-                              </div>
-                              <!-- ACCORDION CHANGE CONTACT NUMBER-->
-                              <div class="row bg-light ">
-                                <div class="col-md-12">
-                                    <div id="number" class="collapse"  data-parent="#number">
-                                    <div class="form-group row ">
-                                      <div class="col-md-3 mt-2">
-                                        <label>New Phone Number</label>
-                                      </div>
-                                       <div class="col-md-9 mt-2">
-                                        <input type="text" name="">
-                                      </div>
-                                    </div>
-                                    <div class="form-group row">
-                                      <div class="col-md-10 font-weight-bold" style="font-size:16px">
-                                      <small class="text-danger">For your security, you must re-enter your password to continue.</small>
-                                      </div>
-                                    </div>
-                                     <div class="form-group row">
-                                      <div class="col-md-3 mt-2">
-                                        <label>Password</label>
-                                      </div>
-                                       <div class="col-md-9 mt-2">
-                                        <input type="password" name="">
-                                      </div>
-                                    </div>
-                                     <div class="form-group row">
-                                      <div class="col-md-12">
-                                         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="toastr.success('You have successfully change your phone number');">Change number</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
                               <!-- END OF ACCORDION CONTACT NUMBER -->
                               <hr>
                                <div class="form-group row font-weight-bold p-0" style="font-size: 15px">
@@ -178,48 +180,50 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                                 </div>
                               </div>
                                <!-- ACCORDION CHANGE PASSWORD-->
-                              <div class="row bg-light ">
-                                <div class="col-md-12">
-                                    <div id="password" class="collapse"  data-parent="#password">
+                              <form id="passwordPersonalDetailsChange">
+                                <div class="row bg-light ">
+                                  <div class="col-md-12">
+                                      <div id="password" class="collapse"  data-parent="#password">
+                                         <div class="form-group row">
+                                        <div class="col-md-10 font-weight-bold" style="font-size:16px">
+                                        <small class="text-danger">It's a good idea to use a strong password that you're not using elsewhere.</small>
+                                        </div>
+                                     </div>
+                                      <div class="form-group row ">
+                                        <div class="col-md-3">
+                                          <label>Current Password</label>
+                                        </div>
+                                         <div class="col-md-9">
+                                          <input type="Password" name="accountSettingsCurrentPassword">
+                                        </div>
+                                      </div>
                                        <div class="form-group row">
-                                      <div class="col-md-10 font-weight-bold" style="font-size:16px">
-                                      <small class="text-danger">It's a good idea to use a strong password that you're not using elsewhere.</small>
+                                        <div class="col-md-3 mt-2">
+                                          <label>New Password</label>
+                                        </div>
+                                         <div class="col-md-9 mt-2">
+                                          <input type="password" name="accountSettingsNewPassword">
+                                        </div>
                                       </div>
-                                   </div>
-                                    <div class="form-group row ">
-                                      <div class="col-md-3">
-                                        <label>Current Password</label>
+                                        <div class="form-group row">
+                                        <div class="col-md-3 mt-2">
+                                          <label>Re-type new</label>
+                                        </div>
+                                         <div class="col-md-9 mt-2">
+                                          <input type="password" name="accountSettingsNewPasswordAgain">
+                                        </div>
                                       </div>
-                                       <div class="col-md-9">
-                                        <input type="Password" name="">
-                                      </div>
-                                    </div>
-                                     <div class="form-group row">
-                                      <div class="col-md-3 mt-2">
-                                        <label>New Password</label>
-                                      </div>
-                                       <div class="col-md-9 mt-2">
-                                        <input type="password" name="">
-                                      </div>
-                                    </div>
-                                      <div class="form-group row">
-                                      <div class="col-md-3 mt-2">
-                                        <label>Re-type new</label>
-                                      </div>
-                                       <div class="col-md-9 mt-2">
-                                        <input type="password" name="">
-                                      </div>
-                                    </div>
-                                    <hr>
-                                     <div class="form-group row">
-                                      <div class="col-md-12">
-                                         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="toastr.success('You have successfully change your password');">Change password</button>
+                                      <hr>
+                                       <div class="form-group row">
+                                        <div class="col-md-12">
+                                           <button type="submit" class="btn btn-primary" data-dismiss="modal">Change password</button>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <hr>
+                                <hr>
+                              </form>
                               <!-- END OF ACCORDION CHANGE PASSWORD -->
                                <div class="form-group row font-weight-bold p-0" style="font-size: 15px">
                                 <div class="col-md-12">
@@ -232,49 +236,51 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                                  </div>
                                 </div>
                               </div>
-                                   <!-- ACCORDION CHANGE PASSWORD-->
-                              <div class="row bg-light ">
-                                <div class="col-md-12">
-                                    <div id="deact" class="collapse"  data-parent="#deact">
-                                       <div class="form-group row">
-                                      <div class="col-md-12 font-weight-bold" style="font-size:16px">
-                                      <small class="text-danger">Deactivating your account will disable your profile and remove your name and photo from the PassersMate search area. Some information may still be visible to other users, such as your name in their transaction list and messages you sent.</small>
-                                      </div>
-                                   </div>
-                                    <div class="form-group row">
-                                      <div class="col-md-3">
-                                        <label>Password</label>
-                                      </div>
-                                       <div class="col-md-9">
-                                        <input type="Password" name=""><br>
-                                        <small class="text-danger">For your security, you must re-enter your password to continue.</small>
-                                      </div>
-                                    </div>
+                                   <!-- ACCORDION STATUS-->
+                              <form id="statusPersonalDetailsChange">
+                                <div class="row bg-light ">
+                                  <div class="col-md-12">
+                                      <div id="deact" class="collapse"  data-parent="#deact">
+                                         <div class="form-group row">
+                                        <div class="col-md-12 font-weight-bold" style="font-size:16px">
+                                        <small class="text-danger">Deactivating your account will disable your profile and remove your name and photo from the PassersMate search area. Some information may still be visible to other users, such as your name in their transaction list and messages you sent.</small>
+                                        </div>
+                                     </div>
                                       <div class="form-group row">
-                                      <div class="col-md-3">
-                                        <label>Reason for leaving</label>
+                                        <div class="col-md-3">
+                                          <label>Password</label>
+                                        </div>
+                                         <div class="col-md-9">
+                                          <input type="Password" name="accountSettingsStatusPassword"><br>
+                                          <small class="text-danger">For your security, you must re-enter your password to continue.</small>
+                                        </div>
                                       </div>
-                                       <div class="col-md-9">
-                                        <select class="custom-select">
-                                          <option selected>Click this area</option>
-                                          <option value="1">This is temporary, I'll be back</option>
-                                          <option value="2">I don't need this anymore</option>
-                                          <option value="3">I don't find PassersMate useful</option>
-                                          <option value="3">I don't get jobs</option>
-                                        </select>
+                                        <div class="form-group row">
+                                        <div class="col-md-3">
+                                          <label>Reason for leaving</label>
+                                        </div>
+                                         <div class="col-md-9">
+                                          <select class="custom-select" name="accountSettingsStatusReason">
+                                            <option selected>Click this area</option>
+                                            <option value="Temporary">This is temporary, I'll be back</option>
+                                            <option value="unNeeded">I don't need this anymore</option>
+                                            <option value="unUseful">I don't find PassersMate useful</option>
+                                            <option value="noJobs">I don't get jobs</option>
+                                          </select>
+                                        </div>
                                       </div>
-                                    </div>
-                                    <hr>
-                                     <div class="form-group row">
-                                      <div class="col-md-12">
-                                         <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal" onclick="toastr.success('Your account is now deactivated, Thanks for your time Mate');">Deactivate</button>
+                                      <hr>
+                                       <div class="form-group row">
+                                        <div class="col-md-12">
+                                           <button type="submit" class="btn btn-primary font-weight-bold" data-dismiss="modal">Deactivate</button>
+                                        </div>
                                       </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <hr>
-                                <!-- END OF ACCORDION CHANGE PASSWORD -->
+                                <hr>
+                              </form>
+                                <!-- END OF ACCORDION STATUS -->
                             </div>
                           </div>
                         </div>

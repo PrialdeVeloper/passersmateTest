@@ -2,6 +2,8 @@
 1 - verified/active
 2 - pending
 3 - denied
+4 - (user)deactivate
+5 - (admin)deactivate
 
 
 format sa pagcreate notification

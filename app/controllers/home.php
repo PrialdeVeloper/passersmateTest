@@ -33,7 +33,7 @@
 			$data[] = array("redirectURLFacebook"=>$this->returnURLFacebook(),"redirectURLGmail"=>$this->returnURLGmail());
 			$this->controller->view("all/login",$data);
 			
-
+			$status = null;
 			if(isset($_POST['passerSubmit'])){
 				$email = !empty($_POST['passerEmail'])?$this->sanitize($_POST['passerEmail']):"";
 				$password = !empty($_POST['passerPass'])?$this->sanitize($_POST['passerPass']):"";
@@ -43,11 +43,19 @@
 						$this->showError("#passerLoginError","Login unsuccessful. Please check your email or password.");
 					}else{
 						if($this->verifyHash($password,$returnPassword)){
-							$_SESSION['passerUser'] = $this->model->selectSingleUser("passer","PasserID",array($email),"PasserEmail");
-							$password = null;
-							$returnPassword = null;
-							$email = null;
-							$this->toOtherPage("../passer/dashboard");
+							$status =  $this->model->selectSingleUser("passer","PasserStatus",array($email),"PasserEmail");
+							print_r($status);
+							if($status == 4 || $status == 5){
+								$this->showError("#passerLoginError","Login unsuccessful. Your account has been deactivated. Please contact admin for assistance.");
+							}
+							else{
+								$_SESSION['passerUser'] = $this->model->selectSingleUser("passer","PasserID",array($email),"PasserEmail");
+								$password = null;
+								$returnPassword = null;
+								$email = null;
+								$this->toOtherPage("../passer/dashboard");
+							}
+
 						}
 						else{
 							$this->showError("#passerLoginError","Login unsuccessful. Please check your email or password.");
@@ -64,11 +72,25 @@
 						$this->showError("#seekerLoginError","Login unsuccessful. Please check your email or password.");
 					}else{
 						if($this->verifyHash($password,$returnPassword)){
-							$_SESSION['seekerUser'] = $this->model->selectSingleUser("seeker","seekerID",array($email),"SeekerEmail");
-							$password = null;
-							$returnPassword = null;
-							$email = null;
-							$this->toOtherPage("../seeker/dashboard");
+							$status =  $this->model->selectSingleUser("seeker","SeekerStatus",array($email),"SeekerEmail");
+							if($status == 4 || $status == 5){
+								echo
+								"
+								<script>
+								$(function(){
+									$('.seekerTab').trigger('click');			
+									});
+								</script>
+								";
+								$this->showError("#seekerLoginError","Login unsuccessful. Your account has been deactivated. Please contact admin for assistance.");
+							}
+							else{
+								$_SESSION['seekerUser'] = $this->model->selectSingleUser("seeker","seekerID",array($email),"SeekerEmail");
+								$password = null;
+								$returnPassword = null;
+								$email = null;
+								$this->toOtherPage("../seeker/dashboard");
+							}
 						}
 						else{
 							echo

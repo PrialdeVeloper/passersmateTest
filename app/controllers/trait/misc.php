@@ -13,6 +13,8 @@
 		protected $options = ['cost' => 12,];
 		public $subscriptionTable = array("SubscriptionTypeID","SeekerID","SubscriptionStart","SubscriptionEnd","PaymentMethod");
 		public $offerJobTable = array("SeekerID","WorkingAddress","StartDate","EndDate","Salary","PaymentMethod","AccomodationType");
+		public $disableDB = 'disabledusers';
+		public $disableTable = array("PasserID","SeekerID","DeactivateReason");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -915,7 +917,7 @@
 
 		public function editAccountSettings(){
 			if(isset($_POST['editAccountSettings'])){
-				$checkEmail = $action = $data = $id = $table = $user = $email = $cpno = $userStatus = $data = $checkExistEmail= null;
+				$checkEmail = $action = $data = $id = $table = $user = $email = $cpno = $userStatus = $data = $cpnoOld = $checkExistEmail = $newPassword = $insert = null;
 				$action = $this->sanitize($_POST['action']);
 				$data = $_POST['data'];
 				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
@@ -923,11 +925,13 @@
 				$user = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
 				$email = (isset($_SESSION['passerUser'])?"PasserEmail":"SeekerEmail");
 				$cpno = (isset($_SESSION['passerUser'])?"PasserCPNo":"SeekerCPNo");
+				$password = (isset($_SESSION['passerUser'])?"PasserPass":"SeekerPass");
 				$userStatus = (isset($_SESSION['passerUser'])?"PasserStatus":"SeekerStatus");
 				$dataUser = $this->model->selectAllFromUser($table,$user,array($id));
 				extract($dataUser[0]);
 				$emailOld = (isset($SeekerEmail)?$SeekerEmail:$PasserEmail);
-				$password = (isset($SeekerPass)?$SeekerPass:$PasserPass);
+				$cpnoOld = (isset($SeekerCPNo)?$SeekerCPNo:$PasserCPNo);
+				$passwordOld = (isset($SeekerPass)?$SeekerPass:$PasserPass);
 				switch ($action) {
 					case 'email':
 						if($data['email'] == $emailOld){
@@ -935,9 +939,9 @@
 						}elseif($this->model->checkExistSingle($table,$email,array($data['email']))){
 							echo json_encode(array("error"=>"emailExist"));
 						}else{
-							$checkPassword = $this->verifyHash($data['password'],$password);
+							$checkPassword = $this->verifyHash($data['password'],$passwordOld);
 								if($checkPassword){
-									$update = $this->model->updateDB($table,array($email),array($data['email']),$user,$id);
+									$update = $this->model->updateDB($table,array($email),array($this->sanitize($data['email'])),$user,$id);
 									if($update){
 										echo json_encode(array("error"=>"none"));
 									}
@@ -948,15 +952,49 @@
 							}
 						break;
 					case 'phone':
-						# code...
+						if($data['cpno'] == $cpnoOld){
+							echo json_encode(array("error"=>"samecpNo"));
+						}elseif($this->model->checkExistSingle($table,$cpno,array($data['cpno']))){
+							echo json_encode(array("error"=>"cpNoExist"));
+						}else{
+							$checkPassword = $this->verifyHash($data['password'],$passwordOld);
+								if($checkPassword){
+									$update = $this->model->updateDB($table,array($cpno),array($this->sanitize($data['cpno'])),$user,$id);
+									if($update){
+										echo json_encode(array("error"=>"none"));
+									}
+								}
+								else{
+									echo json_encode(array("error"=>"incorrectPassword"));
+								}
+							}
 						break;
 					case 'password':
-						# code...
+						if($this->verifyHash($data['newPassword'],$passwordOld)){
+							echo json_encode(array("error"=>"samePassword"));
+						}elseif(!$this->verifyHash($data['password'],$passwordOld)){
+							echo json_encode(array("error"=>"incorrectPassword"));
+						}else{
+							$newPassword = $this->hashPassword($data['newPassword']);
+							$update = $this->model->updateDB($table,array($password),array($this->sanitize($newPassword)),$user,$id);
+							if($update){
+								echo json_encode(array("error"=>"none"));
+							}
+						}
 						break;
 					case 'status':
-						# code...
+						if(!$this->verifyHash($data['password'],$passwordOld)){
+							echo json_encode(array("error"=>"incorrectPassword"));
+						}else{
+							$update = $this->model->updateDB($table,array($userStatus),array(4),$user,$id);
+							if($update){
+								$insert = (isset($_SESSION['passerUser'])?$this->model->insertDB($this->disableDB,$this->disableTable,array($id,NULL,$this->sanitize($data['reason']))):$this->model->insertDB($this->disableDB,$this->disableTable,array(NULL,$id,$this->sanitize($data['reason']))));
+								if($insert){
+									echo json_encode(array("error"=>"none"));
+								}
+							}
+						}
 						break;
-					
 				}
 			}
 		}
