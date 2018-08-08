@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2018 at 09:54 AM
+-- Generation Time: Aug 08, 2018 at 10:05 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -170,7 +170,8 @@ INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `M
 (27, 2, 3, 'qwe', '2018-08-08 06:38:58', 1),
 (28, 2, 3, 'qwe', '2018-08-08 06:39:42', 1),
 (29, 2, 3, 'qwe', '2018-08-08 06:39:45', 1),
-(30, 1, 3, 'can I be the one?', '2018-08-08 07:53:48', 1);
+(30, 1, 3, 'can I be the one?', '2018-08-08 07:53:48', 1),
+(31, 1, 3, 'qwe', '2018-08-08 07:58:58', 1);
 
 -- --------------------------------------------------------
 
@@ -461,8 +462,9 @@ CREATE TABLE `seeker` (
 INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`) VALUES
 (1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '1', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', ''),
 (2, 'Marvee Yofa', 'Franco', NULL, 0, 'Female', '', '', '', NULL, 'francoyochi@gmail.com', '', '1668043639982457', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEd2ejZA2eFlSV09zd3RadWJRRTEzdFRkWm1fVHlnczVCN1pqTnZA5QUJoNEkxeUlHNHd4YUliUldBWm02c09fMnZAYbDZAUUnJ5Mmc4cVpFYWRyUExPdHpMN2FZAeGxYajh4UjUwd25yZAWllZAkNDMmR0/', NULL, '', '1', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1668043639982457&amp;height=200&amp;width=200&amp;ext=1535530327&amp;hash=AeT60qKEE-Hc1jO0', '', ''),
-(3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 1513513515, 'qwe@gmail.com', '', NULL, NULL, NULL, '', '1', '', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW'),
-(4, 'May', 'Franco', '2018-08-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Suba', 2147483647, 'francoyogie@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15332818502153328185034.jpg', 'franco', '$2y$12$vhJF9oSUtFTE0zqf1PYifOFyGvqfMZA4ao8e7yW0VdOunHZU9Tw12');
+(3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 1513513515, 'qwe@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15337153612153371536163.jpg', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW'),
+(4, 'May', 'Franco', '2018-08-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Suba', 2147483647, 'francoyogie@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15332818502153328185034.jpg', 'franco', '$2y$12$vhJF9oSUtFTE0zqf1PYifOFyGvqfMZA4ao8e7yW0VdOunHZU9Tw12'),
+(5, 'Syrel', 'Prialde', NULL, 0, 'Male', '', '', '', NULL, 'prialde01@gmail.com', '', NULL, NULL, '118416846115335852813', 'https://plus.google.com/118416846115335852813', '0', 'https://lh4.googleusercontent.com/-kYuWnXUzfcI/AAAAAAAAAAI/AAAAAAAAAAA/AAnnY7ry8ZDeqsrb-PjviuoLSg6sO99sIw/mo/photo.jpg', '', '');
 
 -- --------------------------------------------------------
 
@@ -777,7 +779,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `multimedia`
@@ -843,7 +845,7 @@ ALTER TABLE `review`
 -- AUTO_INCREMENT for table `seeker`
 --
 ALTER TABLE `seeker`
-  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `seekervalidate`

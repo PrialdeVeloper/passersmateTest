@@ -182,7 +182,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
             <!-- Container fluid  -->
             <!-- ============================================================== -->
            <div class="container mt-5">
-              <a href="<?php echo $dashboard ?>">
+              <a href="<?php echo $dashboard; ?>">
                 <h4><u>Back to your Dashboard</u></h4>
               </a>
             <div class="messaging" id="messageBody">
