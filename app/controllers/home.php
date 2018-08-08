@@ -311,11 +311,12 @@
 		}
 
 		public function messages(){
-			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = null;
+			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = $checkValidChat = $dashboard = null;
 			$data = [];
 			if(!$this->checkSession('seekerUser') && !$this->checkSession('passerUser')){
 		 		header("location:login");
 		 	}elseif($this->checkSession('seekerUser')){
+		 		$dashboard = "../seeker/dashboard";
 		 		$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($_SESSION['seekerUser']));
 		 		$user = $this->seekerUnique;
 		 		$id = $_SESSION['seekerUser'];
@@ -325,6 +326,7 @@
 		 			$this->toOtherPage("subscription");
 		 		}
 		 	}elseif($this->checkSession('passerUser')){
+		 		$dashboard = "../passer/dashboard";
 		 		$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
 		 		$user = $this->passerUnique;
 		 		$id = $_SESSION['passerUser'];
@@ -333,9 +335,15 @@
 		 	if(empty($_GET['t'])){
 		 		$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),$user,1);
 		 		$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
+		 	}else{
+		 		$checkValidChat = $this->model->checkAuthenticity($this->messageTable,$user,$otherUserID,array($id,$this->sanitize($_GET['t'])));
+		 		if($checkValidChat <= 0){
+		 			$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),$user,1);
+		 			$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
+		 		}
 		 	}
 		 	extract($details[0]);
-		 	$data[] = array("userDetails"=>$details);
+		 	$data[] = array("userDetails"=>$details,"dashboard"=>$dashboard);
 			$this->controller->view("all/chat",$data);
 		}
 

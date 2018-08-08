@@ -128,61 +128,97 @@
 		}
 
 		public function createSidebarMessage(){
-			$field = $id = $sidebarData = $table = $userDetails = $passer = $seeker = $builder = $dom = null;
+			$field = $id = $sidebarData = $table = $userDetails = $passer = $messageLimited = $passerData = $seeker = $seekerData = $builder = $dom = $rawDate = $convertedDate = $sidebarDate = null;
 			$checkAgain = array();
-			// if(isset($_POST['sidebarData'])){
+			if(isset($_POST['sidebarData'])){
 				$field = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
 				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);	
 				$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);	
 				$sidebarData = $this->model->selectAllFromUserSort(array("*"),$this->messageTable,$field,array($id),"MessageID","DESC");
-				if(isset($_SESSION['passerUser'])){
-					foreach ($sidebarData as $data) {
-						if(!in_array($data[$this->seekerUnique], $checkAgain)){
-							$userDetails = $this->model->selectAllFromUser($table,$field,array($data[$this->seekerUnique]));
-							$builder = 
-							'
-							<div class="chat_list active_chat">
-	                          <div class="chat_people">
-	                            <div class="chat_img"> <img src="" alt="sunil"> </div>
-	                            <div class="chat_ib">
-	                              <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-	                              <p>Test, which is a new approach to have all solutions 
-	                                astrology under one roof.</p>
-	                            </div>
-	                          </div>
-	                        </div>
-							';
-							array_push($checkAgain,$data[$this->seekerUnique]);
-						}
-					}
-				}else{
+				if(isset($_SESSION['seekerUser'])){
 					foreach ($sidebarData as $data) {
 						if(!in_array($data[$this->passerUnique], $checkAgain)){
-							$userDetails = $this->model->selectAllFromUser($table,$field,array($data[$this->passerUnique]));
-							foreach ($userDetails as $passer) {
-								print_r($passer);
+							array_push($checkAgain,$data[$this->passerUnique]);
+							$rawDate = $data['MessageTimeAndDate'];
+							$convertedDate = date("Y-m-d",strtotime($rawDate));
+							switch ($convertedDate) {
+								case strtotime($convertedDate) == strtotime(date("Y-m-d")):
+									$sidebarDate = date('g:ia', strtotime($rawDate));
+									break;
+
+								case strtotime($convertedDate) <= strtotime(date("Y-m-d",strtotime("+7 day"))):
+									$sidebarDate = date("D",strtotime($convertedDate));
+									break;
+
+								case strtotime($convertedDate) > strtotime(date("Y-m-d",strtotime("+7 day"))):
+									$sidebarDate = date("M d",strtotime($convertedDate));
+									break;
+							}
+							$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
+							$passer = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($data['PasserID']));
+							foreach ($passer as $passerData) {
 								$builder = 
 								'
-								<div class="chat_list active_chat">
+								<div class="chat_list active_chat cursor" onclick="window.location=\'messages?t='.$this->sanitize($passerData['PasserID']).'\'">
 		                          <div class="chat_people">
-		                            <div class="chat_img"> <img src="'.$this->sanitize($seekerProfile).'" alt="sunil"> </div>
+		                            <div class="chat_img"> 
+		                            	<img class="messageSidebarImage" src="'.$this->sanitize($passerData['PasserProfile']).'" alt="Profile Picture"> 
+		                            </div>
 		                            <div class="chat_ib">
-		                              <h5>'.$this->sanitize($seekerFN).'" "'.$this->sanitize($seekerLN).'<span class="chat_date">Dec 25</span></h5>
-		                              <p>Test, which is a new approach to have all solutions 
-		                                astrology under one roof.</p>
+		                              <h5>'.$this->sanitize($passerData['PasserFN'])." ".$this->sanitize($passerData['PasserLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
+		                              <p>'.$this->sanitize($messageLimited).'</p>
 		                            </div>
 		                          </div>
 		                        </div>
 								';
+								$dom = $dom."".$builder;
 							}
-							array_push($checkAgain,$data[$this->passerUnique]);
 						}
 					}
+					echo $dom;
+				}else{
+					foreach ($sidebarData as $data) {
+						if(!in_array($data[$this->seekerUnique], $checkAgain)){
+							array_push($checkAgain,$data[$this->seekerUnique]);
+							$rawDate = $data['MessageTimeAndDate'];
+							$convertedDate = date("Y-m-d",strtotime($rawDate));
+							switch ($convertedDate) {
+								case strtotime($convertedDate) == strtotime(date("Y-m-d")):
+									$sidebarDate = date('g:ia', strtotime($rawDate));
+									break;
 
-					
+								case strtotime($convertedDate) <= strtotime(date("Y-m-d",strtotime("+7 day"))):
+									$sidebarDate = date("D",strtotime($convertedDate));
+									break;
 
-				}	
-			// }
+								case strtotime($convertedDate) > strtotime(date("Y-m-d",strtotime("+7 day"))):
+									$sidebarDate = date("M d",strtotime($convertedDate));
+									break;
+							}
+							$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
+							$seeker = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($data['SeekerID']));
+							foreach ($seeker as $seekerData) {
+								$builder = 
+								'
+								<div class="chat_list active_chat cursor" onclick="window.location=\'messages?t='.$this->sanitize($seekerData['SeekerID']).'\'">
+		                          <div class="chat_people">
+		                            <div class="chat_img"> 
+		                            	<img class="messageSidebarImage" src="'.$this->sanitize($seekerData['SeekerProfile']).'" alt="Profile Picture"> 
+		                            </div>
+		                            <div class="chat_ib">
+		                              <h5>'.$this->sanitize($seekerData['SeekerFN'])." ".$this->sanitize($seekerData['SeekerLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
+		                              <p>'.$this->sanitize($messageLimited).'</p>
+		                            </div>
+		                          </div>
+		                        </div>
+								';
+								$dom = $dom."".$builder;
+							}
+						}
+					}
+					echo $dom;
+				}
+			}
 		}
 
 		public function getNotification(){

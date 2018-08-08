@@ -487,7 +487,8 @@ $(function(){
 		});
 	});
 });
-
+// message
+// send message
 $(function(){
 	$("#messageSend").submit(function(event){
 		event.preventDefault();
@@ -498,6 +499,9 @@ $(function(){
 				url: "sendMessage",
 				method: "POST",
 				data: {"message":message,"sender":otherUser},
+				success: function(){
+					$(".write_msg").val("");
+				},
 				fail: function(){
 					alert("cannot connect to server");
 				}
@@ -505,7 +509,30 @@ $(function(){
 		}
 	});
 });
+// end of send message
 
+// display message sidebar
+$(function(){
+	$(".inbox_chat").exists(function(){
+		if(!checkEmpty(getURLData("t"))){
+			setInterval(function(){getChatSidebarData()},5000);
+		}
+	});
+});
+
+function getChatSidebarData(){
+	let chatBody = $(".inbox_chat");
+	$.ajax({
+		url: "createSidebarMessage",
+		method: "POST",
+		data: "sidebarData",
+		success: function(a){
+			chatBody.html(a);
+		}
+	});
+}
+// end of display message sidebar
+// end of message
 $(function(){
 	$("#searchPasserBody").exists(function(){
 		if(getURLData("page") > 1){

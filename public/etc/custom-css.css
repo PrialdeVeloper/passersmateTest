@@ -387,6 +387,12 @@ div#sidebar{
   border-radius: 50%;
 }
 
+.messageSidebarImage{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
 .customTextSignup{
   font-family: "Comic Sans MS", cursive, sans-serif;
   font-size: 1.8rem;
