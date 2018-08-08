@@ -515,7 +515,7 @@ $(function(){
 $(function(){
 	$(".inbox_chat").exists(function(){
 		if(!checkEmpty(getURLData("t"))){
-			setInterval(function(){getChatSidebarData()},5000);
+			setInterval(function(){getChatSidebarData()},2000);
 		}
 	});
 });

@@ -21,7 +21,25 @@
 		}
 
 		public function index(){
-			$this->controller->view("all/index",['qwe'=>'qwe']);
+			$table = $id = $userName = $userData = $field = $dashboardLoc =  null;
+			$data = [];
+			$login = 
+			'
+				<li><a href="signup">Sign up</a></li>
+				<li><a href="login">Log in</a></li>
+			';
+			if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
+				$dashboardLoc = (isset($_SESSION['passerUser'])?"../passer/dashboard":"../seeker/dashboard");
+				$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+				$field = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+				$userData = $this->model->selectAllFromUser($table,$field,array($id));
+				extract($userData[0]);
+				$userName = (isset($_SESSION['passerUser'])?$PasserFN:$SeekerFN);
+				$login = '<li><a href="'.$dashboardLoc.'"><i class="fa fa-user-circle" aria-hidden="true"></i> '.$userName.'</a></li>';
+			}
+			$data[] = array("loginDynamic"=>$login);
+			$this->controller->view("all/index",$data);
 		}
 
 		public function login(){
@@ -333,12 +351,12 @@
 		 		$otherUserID = $this->seekerUnique;
 		 	}
 		 	if(empty($_GET['t'])){
-		 		$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),$user,1);
+		 		$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),"MessageID","DESC",1);
 		 		$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
 		 	}else{
 		 		$checkValidChat = $this->model->checkAuthenticity($this->messageTable,$user,$otherUserID,array($id,$this->sanitize($_GET['t'])));
 		 		if($checkValidChat <= 0){
-		 			$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),$user,1);
+		 			$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),"MessageID","DESC",1);
 		 			$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
 		 		}
 		 	}

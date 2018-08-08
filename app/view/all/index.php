@@ -1,3 +1,8 @@
+<?php 
+if(isset($data) && !empty($data)){
+	extract($data[0]);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,8 +58,7 @@
 					<li><a href="subscription">Pricing</a></li>
 					<li><a href="search">Passers</a></li>
 					<li><a href="faq">How it works</a></li>
-					<li><a href="signup">Sign up</a></li>
-					<li><a href="login">Log in</a></li>
+					<?php echo $loginDynamic; ?>
 						</ul>
 					</li>
 				</ul>
