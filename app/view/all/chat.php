@@ -90,6 +90,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
     .incoming_msg_img {
       display: inline-block;
       width: 6%;
+      margin:26px 0 26px;
     }
     .received_msg {
       display: inline-block;
@@ -160,6 +161,12 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
       height: 516px;
       overflow-y: auto;
     }
+    .msg_history img{
+      padding-bottom: 1%;
+      width: 100px;
+      height: 30px;
+      border-radius: 50%;
+    }
 </style>
 </head>
 
@@ -206,54 +213,17 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                     </div>
                     <div class="headind_srch">
                         <div class="recent_heading">
-                          <h4>Sunil Rajput</h4>
+                          <h4 id="chatmateOther"></h4>
                         </div>
                         <div class="srch_bar">
                           <div class="stylish-input-group">
                             <button class="btn btn-info font-weight-bold" style="height:30px;font-size:14px">Create an Agreement <i class="fas fa-file"></i></button>
-                            </span> </div>
+                          </div>
                         </div>
                       </div>
                     <div class="mesgs">
                       <div class="msg_history">
-                        <div class="incoming_msg">
-                          <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                          <div class="received_msg">
-                            <div class="received_withd_msg">
-                              <p>Test which is a new approach to have all
-                                solutions</p>
-                              <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                          </div>
-                        </div>
-                        <div class="outgoing_msg">
-                          <div class="sent_msg">
-                            <p>Test which is a new approach to have all
-                              solutions</p>
-                            <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                        </div>
-                        <div class="incoming_msg">
-                          <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                          <div class="received_msg">
-                            <div class="received_withd_msg">
-                              <p>Test, which is a new approach to have</p>
-                              <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                          </div>
-                        </div>
-                        <div class="outgoing_msg">
-                          <div class="sent_msg">
-                            <p>Apollo University, Delhi, India Test</p>
-                            <span class="time_date"> 11:01 AM    |    Today</span> </div>
-                        </div>
-                        <div class="incoming_msg">
-                          <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                          <div class="received_msg">
-                            <div class="received_withd_msg">
-                              <p>We work directly with our designers and suppliers,
-                                and sell direct to you, which means quality, exclusive
-                                products, at a price anyone can afford.</p>
-                              <span class="time_date"> 11:01 AM    |    Today</span></div>
-                          </div>
-                        </div>
+
                       </div>
                       <div class="type_msg">
                         <form id="messageSend">
@@ -261,11 +231,12 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                             <input class="form-control write_msg h-100" rows="2" cols="50" placeholder="Type a message..." style="font-size:16px;">
                             <button type="submit" class="msg_send_btn" type="button"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
                           </div>
+                        </form>
                         </div>
-                      </form>
+                      </div>
                     </div>
                   </div>
-    </div></div>
+                </div>
               <!-- End Container fluid  -->
            
          

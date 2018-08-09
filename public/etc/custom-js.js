@@ -532,6 +532,34 @@ function getChatSidebarData(){
 	});
 }
 // end of display message sidebar
+
+// get Messages
+$(function(){
+	$("#chatmateOther").exists(function(){
+		if(!checkEmpty(getURLData("t"))){
+			setInterval(function(){getMessagesData(getURLData("t"))},2000);
+		}
+	});
+});
+
+function getMessagesData(id){
+	$('.msg_history').scrollTop($('.msg_history')[0].scrollHeight - $('.msg_history')[0].clientHeight);
+	let chatBody = $(".msg_history");
+	let otherUserName = $("#chatmateOther");
+	$.ajax({
+		url: "getMessageUser",
+		method: "POST",
+		data: {"otherUserID":id},
+		success: function(a){
+			let obj = JSON.parse(a);
+			chatBody.html(obj.dom);
+			otherUserName.html(obj.otherUserName);
+		}
+	});
+}
+// end of get Messages
+
+
 // end of message
 $(function(){
 	$("#searchPasserBody").exists(function(){

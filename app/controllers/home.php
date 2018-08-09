@@ -352,7 +352,12 @@
 		 	}
 		 	if(empty($_GET['t'])){
 		 		$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),"MessageID","DESC",1);
-		 		$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
+		 		if(!empty($otherUser)){
+		 			$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
+		 		}else{
+		 			$this->toOtherPage("login");
+		 		}
+		 		
 		 	}else{
 		 		$checkValidChat = $this->model->checkAuthenticity($this->messageTable,$user,$otherUserID,array($id,$this->sanitize($_GET['t'])));
 		 		if($checkValidChat <= 0){

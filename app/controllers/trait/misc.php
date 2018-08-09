@@ -17,7 +17,7 @@
 		public $disableDB = 'disabledusers';
 		public $disableTable = array("PasserID","SeekerID","DeactivateReason");
 		public $messageTable = "message";
-		public $messageDB = array("PasserID","SeekerID","MessageContent");
+		public $messageDB = array("PasserID","SeekerID","MessageContent","MessageSender");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -118,13 +118,73 @@
 		}
 
 		public function sendMessage(){
-			$message = $sender = $reciever = $send = null;
+			$message = $sender = $reciever = $send = $messageSenderUser = null;
 			if(isset($_POST['message'])){
 				$message = $this->sanitize($_POST['message']);
 				$reciever = $this->sanitize($_POST['sender']);
 				$sender = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
-				$send = (isset($_SESSION['seekerUser'])?$this->model->insertDB($this->messageTable,$this->messageDB,array($reciever,$sender,$message)):$this->model->insertDB($this->messageTable,$this->messageDB,array($sender,$reciever,$message)));
+				$messageSenderUser = (isset($_SESSION['passerUser'])?"Passer":"Seeker");
+				$send = (isset($_SESSION['seekerUser'])?$this->model->insertDB($this->messageTable,$this->messageDB,array($reciever,$sender,$message,$messageSenderUser)):$this->model->insertDB($this->messageTable,$this->messageDB,array($sender,$reciever,$message,$messageSenderUser)));
 			}
+		}
+
+		public function getMessageUser(){
+			$user = $otherUser = $otherUserID = $otherUserData = $otherUserTable = $otherUserUnique = $otherUserProfile = $otherUserFullName = $otherUserMessages = $dom = $builder = $dateRaw = $sentDate =null;
+			if(!isset($_POST['otherUserID'])){
+				$this->toOtherPage("messages");
+			}
+			$otherUserID = $this->sanitize($_POST['otherUserID']);
+			$user = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);	
+			$otherUser = (isset($_SESSION['passerUser'])?"Seeker":"Passer");
+			$otherUserTable = (isset($_SESSION['passerUser'])?$this->seekerTable:$this->passerTable);
+			$otherUserUnique = (isset($_SESSION['passerUser'])?$this->seekerUnique:$this->passerUnique);
+			$otherUserData = $this->model->selectAllFromUser($otherUserTable,$otherUserUnique,array($otherUserID));
+			extract($otherUserData[0]);
+			$otherUserProfile = (isset($PasserProfile)?$PasserProfile:$SeekerProfile);
+			$otherUserFullName = (isset($PasserFN)?$PasserFN." ".$PasserLN:$SeekerFN." ".$SeekerLN);
+			$otherUserMessages = $this->model->selectAllFromUserSort(array("*"),$this->messageTable,$otherUserUnique,array($otherUserID),"MessageID","ASC");
+			if(!empty($otherUserMessages)){
+				foreach ($otherUserMessages as $data) {
+					$dateRaw = $data['MessageTimeAndDate'];
+					if(strtotime("Y",strtotime($dateRaw)) > strtotime("+1 year",strtotime(date("Y")))){
+						$sentDate = date("g:i A",strtotime($dateRaw))." | ".date("M d 'y",strtotime($dateRaw));
+					}else{
+						$sentDate = date("g:i A",strtotime($dateRaw))." | ".date("F d",strtotime($dateRaw));
+					}
+					if($data['MessageSender'] == $otherUser){
+						$builder = 
+						'
+						<div class="incoming_msg">
+	                      <div class="incoming_msg_img"> 
+	                      	<img src="'.$this->sanitize($otherUserProfile).'" alt="sunil"> 
+	                      </div>
+	                      <div class="received_msg">
+	                        <div class="received_withd_msg">
+	                          <p>'.$this->sanitize($data['MessageContent']).'</p>
+	                          <span class="time_date">'.$sentDate.'</span>
+	                        </div>
+	                      </div>
+	                    </div>
+						';
+					}else{
+						$builder = 
+						'
+						<div class="outgoing_msg">
+	                      <div class="sent_msg">
+	                        <p>'.$this->sanitize($data['MessageContent']).'</p>
+	                        <span class="time_date">'.$sentDate.'</span> 
+	                      </div>
+	                    </div>
+						';
+					}
+					$dom = $dom."".$builder;
+					$dateRaw = $sentDate = null;
+				}
+			}
+			else{
+				$dom = "No Messages";
+			}
+			echo json_encode(array("dom"=>$dom,"otherUserName"=>$otherUserFullName));
 		}
 
 		public function createSidebarMessage(){
@@ -1118,9 +1178,8 @@
 							}
 						}
 						break;
+					}
 				}
 			}
 		}
-
-	}
 ?>
