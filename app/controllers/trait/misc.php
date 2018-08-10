@@ -188,7 +188,7 @@
 		}
 
 		public function createSidebarMessage(){
-			$field = $id = $sidebarData = $table = $userDetails = $passer = $messageLimited = $passerData = $seeker = $seekerData = $builder = $dom = $rawDate = $convertedDate = $sidebarDate = null;
+			$field = $id = $sidebarData = $table = $userDetails = $passer = $messageLimited = $passerData = $seeker = $seekerData = $builder = $dom = $rawDate = $convertedDate = $sidebarDate = $messageStatus = null;
 			$checkAgain = array();
 			if(isset($_POST['sidebarData'])){
 				$field = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
@@ -217,9 +217,10 @@
 							$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
 							$passer = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($data['PasserID']));
 							foreach ($passer as $passerData) {
+								$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
 								$builder = 
 								'
-								<div class="chat_list active_chat cursor" onclick="window.location=\'messages?t='.$this->sanitize($passerData['PasserID']).'\'">
+								<div class="chat_list '.$messageStatus.' cursor" onclick="window.location=\'messages?t='.$this->sanitize($passerData['PasserID']).'\'">
 		                          <div class="chat_people">
 		                            <div class="chat_img"> 
 		                            	<img class="messageSidebarImage" src="'.$this->sanitize($passerData['PasserProfile']).'" alt="Profile Picture"> 
@@ -258,9 +259,10 @@
 							$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
 							$seeker = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($data['SeekerID']));
 							foreach ($seeker as $seekerData) {
+								$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
 								$builder = 
 								'
-								<div class="chat_list active_chat cursor" onclick="window.location=\'messages?t='.$this->sanitize($seekerData['SeekerID']).'\'">
+								<div class="chat_list '.$messageStatus.' cursor" onclick="window.location=\'messages?t='.$this->sanitize($seekerData['SeekerID']).'\'">
 		                          <div class="chat_people">
 		                            <div class="chat_img"> 
 		                            	<img class="messageSidebarImage" src="'.$this->sanitize($seekerData['SeekerProfile']).'" alt="Profile Picture"> 

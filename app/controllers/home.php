@@ -329,7 +329,16 @@
 		}
 
 		public function messages(){
-			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = $checkValidChat = $dashboard = null;
+			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = $checkValidChat = $dashboard = $messageForm = $noMessagePrompt = $MessageID = null;
+			$messageForm = 
+			'
+				<form id="messageSend">
+                  <div class="input_msg_write">
+                    <input class="form-control write_msg h-100" rows="2" cols="50" placeholder="Type a message..." style="font-size:16px;">
+                    <button type="submit" class="msg_send_btn" type="button"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+                  </div>
+                </form>
+			';
 			$data = [];
 			if(!$this->checkSession('seekerUser') && !$this->checkSession('passerUser')){
 		 		header("location:login");
@@ -341,7 +350,12 @@
 		 		$otherUserID = $this->passerUnique;
 		 		$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$user,"SubscriptionStatus",array($id,"ongoing"));
 		 		if($subscription <= 0){
-		 			$this->toOtherPage("subscription");
+		 			$messageForm = 
+		 			'
+		 			<div class="alert alert-danger" role="alert">
+					  You don\'t have ongoing subscription. Please <a href="subscription">subscribe</a> first to Continue.
+					</div>
+		 			';
 		 		}
 		 	}elseif($this->checkSession('passerUser')){
 		 		$dashboard = "../passer/dashboard";
@@ -349,16 +363,35 @@
 		 		$user = $this->passerUnique;
 		 		$id = $_SESSION['passerUser'];
 		 		$otherUserID = $this->seekerUnique;
+		 		if(!empty($_GET['t'])){
+		 			$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$this->seekerUnique,"SubscriptionStatus",array($this->sanitize($_GET['t']),"ongoing"));
+			 		if($subscription <= 0){
+			 			$messageForm = 
+			 			'
+			 			<div class="alert alert-danger" role="alert">
+						  This seeker has no active Subscription. So he cannot send a message to you right now.
+						</div>
+			 			';
+			 		}
+		 		}
 		 	}
 		 	if(empty($_GET['t'])){
 		 		$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),"MessageID","DESC",1);
 		 		if(!empty($otherUser)){
 		 			$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
 		 		}else{
-		 			$this->toOtherPage("login");
+		 			$noMessagePrompt = 
+		 			'
+		 			<div class="container text-center"><p class="display-4">No message</p></div>
+		 			';
 		 		}
 		 		
 		 	}else{
+		 		$MessageID = $this->model->selectTwoCondition(array("*"),$this->messageTable,$user,$otherUserID,array($id,$this->sanitize($_GET['t'])));
+		 		foreach ($MessageID as $dataID) {
+		 			$this->model->updateDB($this->messageTable,array("MessageStatus"),array(0),"MessageID",$dataID['MessageID']);
+		 		}
+		 		print_r($MessageID);
 		 		$checkValidChat = $this->model->checkAuthenticity($this->messageTable,$user,$otherUserID,array($id,$this->sanitize($_GET['t'])));
 		 		if($checkValidChat <= 0){
 		 			$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),"MessageID","DESC",1);
@@ -366,7 +399,7 @@
 		 		}
 		 	}
 		 	extract($details[0]);
-		 	$data[] = array("userDetails"=>$details,"dashboard"=>$dashboard);
+		 	$data[] = array("userDetails"=>$details,"dashboard"=>$dashboard,"messageForm"=>$messageForm,"noMessage"=>$noMessagePrompt);
 			$this->controller->view("all/chat",$data);
 		}
 

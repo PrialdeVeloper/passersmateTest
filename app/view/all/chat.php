@@ -86,6 +86,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
     .inbox_chat { height: 550px; overflow-y: scroll;}
 
     .active_chat{ background:#ebebeb;}
+    .read_chat{ background:#fff;}
 
     .incoming_msg_img {
       display: inline-block;
@@ -223,15 +224,10 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                       </div>
                     <div class="mesgs">
                       <div class="msg_history">
-
+                        <?php echo $noMessage; ?>
                       </div>
                       <div class="type_msg">
-                        <form id="messageSend">
-                          <div class="input_msg_write">
-                            <input class="form-control write_msg h-100" rows="2" cols="50" placeholder="Type a message..." style="font-size:16px;">
-                            <button type="submit" class="msg_send_btn" type="button"><i class="fas fa-paper-plane" aria-hidden="true"></i></button>
-                          </div>
-                        </form>
+                        <?php echo $messageForm; ?>
                         </div>
                       </div>
                     </div>
