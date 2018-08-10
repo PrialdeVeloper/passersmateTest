@@ -1,3 +1,19 @@
+<style type="text/css">
+	/*ul.menu li a{
+		z-index: 1;
+		position: relative;
+	}*/
+
+	ul.menu li div.submenu{
+		z-index: 1000;
+		position: relative;		
+	}
+
+	div.a a{
+		word-wrap: break-word; 
+		white-space: normal;
+	}
+</style>
 
 			<!-- jobs -->
 			<div class="mt-4 d-flex justify-content-center">
@@ -6,31 +22,288 @@
 							<span class="navbar-toggler-icon"></span>
 						</button>
 						<div class="collapse navbar-collapse" id="navWorks">
-							<ul class="nav navbar-nav text-center">
-								<li class="navbar-item pr-5">
-									<a class="navbar-link text-dark" href="#">
+							<ul class="nav navbar-nav menu ">
+								<li class="navbar-item dropdown px-5 ">
+									<a class="navbar-link text-dark " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 										Arts & Multimedia
 									</a>
+									<div class="dropdown-menu scrollable-menu submenu col a"  style="max-width:300px; " aria-labelledby="navbarDropdown">
+										<a class="dropdown-item"  href="#">Illustration NC II</a>
+										<a class="dropdown-item" href="#">Photography NC II</a>
+										<a class="dropdown-item" href="#">Visual Graphic Design NC III</a>
+										<a class="dropdown-item" href="#">Performing Arts Ballroom Dancing NC II</a>
+										<a class="dropdown-item" href="#">Performing Arts Dance NC II</a>
+										<a class="dropdown-item" href="#">Performing Arts Song NC II</a>
+										<a class="dropdown-item" style="" href="#">Landscape Installation and Maintenance (Softscape) NC II</a>
+										<a class="dropdown-item" href="#">Technical Drafting NC II</a>			
+									</div>
 								</li>
-								<li class="navbar-item pr-5">
-									<a class="navbar-link text-dark" href="#">
+
+								<li class="navbar-item dropdown px-5 ">
+									<a class="navbar-link text-dark " href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 										Information Technology
 									</a>
+									<div class="dropdown-menu scrollable-menu submenu col a" style="max-width:310px;" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="#"></a>
+										<a class="dropdown-item" href="#"> </a>
+									</div>
 								</li>
-								<li class="navbar-item pr-5">
-									<a class="navbar-link text-dark" href="#">
-										Carpentry, Engineering & Automotive
+
+								<li class="navbar-item dropdown  px-5">
+									<a class="navbar-link text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										 Engineering & Automotive
 									</a>
+									<div class="dropdown-menu scrollable-menu submenu  col a" style="max-width:310px;" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="#">Air Duct Servicing NC II</a>
+										<a class="dropdown-item" href="#">Auto Engine Rebuilding NC II</a>
+										<a class="dropdown-item" href="#">Automotive Body Painting Finishing NC I</a>
+										<a class="dropdown-item" href="#">Automotive Body Painting Finishing NC II</a>
+										<a class="dropdown-item" href="#">Automotive Body Painting Finishing NC III</a>
+										<a class="dropdown-item" href="#">Automotive Body Repairing NC II</a>
+										<a class="dropdown-item" href="#">Automotive Electrical Assembly NC II</a>
+										<a class="dropdown-item" href="#">Automotive Electrical Assembly NC III</a>
+										<a class="dropdown-item" href="#">Automotive Mechanical Assembly NC II</a>
+										<a class="dropdown-item" href="#">Automotive Mechanical Assembly NC III</a>
+										<a class="dropdown-item" href="#">Automotive Servicing NC I</a>
+										<a class="dropdown-item" href="#">Automotive Servicing NC II</a>
+										<a class="dropdown-item" href="#">Automotive Servicing NC III</a>
+										<a class="dropdown-item" href="#">Automotive Servicing NC III with LPG Conversion/Retrofitting and Repowering</a>
+										<a class="dropdown-item" href="#">Automotive Servicing NC IV</a>
+										<a class="dropdown-item" href="#">Automotive Wiring Harness Assembly NC II</a>
+										<a class="dropdown-item" href="#">Broadband Installation Fixed Wireless Systems NC II</a>
+										<a class="dropdown-item" href="#">Building Wiring Installation NC II</a>
+										<a class="dropdown-item" href="#">Cable Television Installation NC II</a>
+										<a class="dropdown-item" href="#">CAD/CAM Operation NC III</a>
+										<a class="dropdown-item" href="#">Carpentry NC II</a>
+										<a class="dropdown-item" href="#">Carpentry NC III</a>
+										<a class="dropdown-item" href="#">CATV Operation and Maintenance NC III</a>
+										<a class="dropdown-item" href="#">CNC Lathe Machine Operation NC II</a>
+										<a class="dropdown-item" href="#">CNC Lathe Machine Operation NC III</a>
+										<a class="dropdown-item" href="#">CNC Milling Machine Operation NC II</a>
+										<a class="dropdown-item" href="#">CNC Milling Machine Operation NC III</a>
+										<a class="dropdown-item" href="#">Construction Lift Passenger Material Elevator Operation NC II </a>
+										<a class="dropdown-item" href="#">Construction Painting NC II</a>
+										<a class="dropdown-item" href="#">Construction Painting NC III</a>
+										<a class="dropdown-item" href="#">Diesel Power Plant Maintenance NC III</a>
+										<a class="dropdown-item" href="#">Diesel Power Plant Operation and Maintenance NC II</a>
+										<a class="dropdown-item" href="#">Diesel Power Plant Operation and Maintenance NC III</a>
+										<a class="dropdown-item" href="#">Electric Power Distribution Line Construction NC II</a>
+										<a class="dropdown-item" href="#">Electrical Installation and Maintenance NC II</a>
+										<a class="dropdown-item" href="#">Electrical Installation and Maintenance NC III</a>
+										<a class="dropdown-item" href="#">Electrical Installation and Maintenance NC IV</a>
+										<a class="dropdown-item" href="#">Flux Cored Arc Welding (FCAW) NC I</a>
+										<a class="dropdown-item" href="#">Flux Cored Arc Welding (FCAW) NC II</a>
+										<a class="dropdown-item" href="#">Flux Cored Arc Welding (FCAW) NC III</a>
+										<a class="dropdown-item" href="#">Forging NC II</a>
+										<a class="dropdown-item" href="#">Forging NC III</a>
+										<a class="dropdown-item" href="#">Foundry Melting/Casting NC II</a>
+										<a class="dropdown-item" href="#">Foundry Melting/Casting NC III</a>
+										<a class="dropdown-item" href="#">Foundry Molding NC II</a>
+										<a class="dropdown-item" href="#">Foundry Molding NC III</a>
+										<a class="dropdown-item" href="#">Foundry Pattern Making NC II</a>
+										<a class="dropdown-item" href="#">Foundry Pattern Making NC III</a>
+										<a class="dropdown-item" href="#">Gas Metal Arc Welding (GMAW) NC I</a>
+										<a class="dropdown-item" href="#">Gas Metal Arc Welding (GMAW) NC II</a>
+										<a class="dropdown-item" href="#">Gas Metal Arc Welding (GMAW) NC III</a>
+										<a class="dropdown-item" href="#">Gas Tungsten Arc Welding (GTAW) NC II</a>
+										<a class="dropdown-item" href="#">Gas Tungsten Arc Welding (GTAW) NC IV</a>
+										<a class="dropdown-item" href="#">Gas Welding NC I</a>
+										<a class="dropdown-item" href="#">Gas Welding NC II</a>
+										<a class="dropdown-item" href="#">Heat Treatment NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Backhoe Loader NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Bulldozer NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Concrete Pump NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Container Stacker NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Crawler Crane NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Forklift NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Gantry Crane NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Hydraulic Excavator NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Motor Grader NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Off-Highway Dump Truck (Articulated) NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Off-Highway Dump Truck (Rigid) NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Paver NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Road Roller Compactor NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Rough Terrain NC II </a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Screed Operation NC I</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Tower Crane NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Transit Mixer NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Truck Mounted Crane NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Operation: Wheel Loader NC II</a>
+										<a class="dropdown-item" href="#">Heavy Equipment Services (Mechanical)</a>
+										<a class="dropdown-item" href="#">Ice Plant Refrigeration Servicing NC III</a>
+										<a class="dropdown-item" href="#">Instrumentation and Control Servicing NC II</a>
+										<a class="dropdown-item" href="#">Instrumentation and Control Servicing NC III</a>
+										<a class="dropdown-item" href="#">Instrumentation and Control Servicing NC IV</a>
+										<a class="dropdown-item" href="#">Jewelry Making (Fine Jewelry) NC II</a>
+										<a class="dropdown-item" href="#">Jewelry Making NC III</a>
+										<a class="dropdown-item" href="#">Laboratory and Metrology Calibration Services NC II</a>
+										<a class="dropdown-item" href="#">Laboratory and Metrology Calibration Services NC III</a>
+										<a class="dropdown-item" href="#">Machining NC I</a>
+										<a class="dropdown-item" href="#">Machining NC II</a>
+										<a class="dropdown-item" href="#">Machining NC III</a>
+										<a class="dropdown-item" href="#">Marine Electricity NC II</a>
+										<a class="dropdown-item" href="#">Masonry NC I</a>
+										<a class="dropdown-item" href="#">Masonry NC II</a>
+										<a class="dropdown-item" href="#">Masonry NC III</a>
+										<a class="dropdown-item" href="#">Mechanical Drafting NC I</a>
+										<a class="dropdown-item" href="#">Mechatronics Servicing NC II</a>
+										<a class="dropdown-item" href="#">Mechatronics Servicing NC III</a>
+										<a class="dropdown-item" href="#">Mechatronics Servicing NC IV</a>
+										<a class="dropdown-item" href="#">Metal Stamping</a>
+										<a class="dropdown-item" href="#">Motorcycle/Small Engine Servicing NC II</a>
+										<a class="dropdown-item" href="#">Moldmaking NC II</a>
+										<a class="dropdown-item" href="#">Painting Machine Operation NC II</a>
+										<a class="dropdown-item" href="#">Pipefitting NC II</a>
+										<a class="dropdown-item" href="#">Plant Maintenance NC I</a>
+										<a class="dropdown-item" href="#">Plant Maintenance NC II</a>
+										<a class="dropdown-item" href="#">Plant Maintenance NC III</a>
+										<a class="dropdown-item" href="#">Plumbing NC I</a>
+										<a class="dropdown-item" href="#">Plumbing NC II</a>
+										<a class="dropdown-item" href="#">Plumbing NC III</a>
+										<a class="dropdown-item" href="#">Press Machine Operation NC I</a>
+										<a class="dropdown-item" href="#">Process Inspection NC II</a>
+										<a class="dropdown-item" href="#">Process Inspection NC III</a>
+										<a class="dropdown-item" href="#">PV System Design NC III</a>
+										<a class="dropdown-item" href="#">PV System Servicing NC III</a>
+										<a class="dropdown-item" href="#">PV System Installation NC II</a>
+										<a class="dropdown-item" href="#">Pyrotechnics NC II</a>
+										<a class="dropdown-item" href="#">Rating Forming Part of an Engineering Watch (STCW Regulation III/4)</a>
+										<a class="dropdown-item" href="#">Refrigeration and Air Conditioning Servicing (RAC) NC I</a>
+										<a class="dropdown-item" href="#">Refrigeration and Air Conditioning Servicing (RAC) NC II</a>
+										<a class="dropdown-item" href="#">Refrigeration and Air Conditioning Servicing (RAC) NC III</a>
+										<a class="dropdown-item" href="#">Refrigeration and Air-Conditioning Servicing NC II (Domestic Refrigeration and Air-Conditioning)</a>
+										<a class="dropdown-item" href="#">Reinforced Steel Bar Installation NC II</a>
+										<a class="dropdown-item" href="#">Rice Machinery Operations NC II</a>
+										<a class="dropdown-item" href="#">Rigging NC I</a>
+										<a class="dropdown-item" href="#">Rubber Processing NC II</a>
+										<a class="dropdown-item" href="#">Rubber Production NC II</a>
+										<a class="dropdown-item" href="#">Scaffold Erection NC II</a>
+										<a class="dropdown-item" href="#">Shielded Metal Arc Welding (SMAW) NC I</a>
+										<a class="dropdown-item" href="#">Shielded Metal Arc Welding (SMAW) NC II</a>
+										<a class="dropdown-item" href="#">Shielded Metal Arc Welding (SMAW) NC III</a>
+										<a class="dropdown-item" href="#">Shielded Metal Arc Welding (SMAW) NC IV</a>
+										<a class="dropdown-item" href="#">Structural Erection  NC II</a>
+										<a class="dropdown-item" href="#">Submerged Arc Welding (SAW) NC I</a>
+										<a class="dropdown-item" href="#">Submerged Arc Welding (SAW) NC II</a>
+										<a class="dropdown-item" href="#">Formworks Installation NC II</a>
+										<a class="dropdown-item" href="#">Technical Drafting NC II</a>
+										<a class="dropdown-item" href="#">Telecom OSP and Subscriber Line Installation Copper Cablepots and DSL NC II</a>
+										<a class="dropdown-item" href="#">Telecom OSP Installation Fiber Optic Cable NC II</a>
+										<a class="dropdown-item" href="#">Tinsmithing (Automotive Production) NC II</a>
+										<a class="dropdown-item" href="#">Tool and Die Making NC II</a>
+										<a class="dropdown-item" href="#">Transmission Line Installation and Maintenance NC II</a>
+										<a class="dropdown-item" href="#">Transmission Line Installation and Maintenance NC III</a>
+										<a class="dropdown-item" href="#">Transport Refrigeration and Air Conditioning Servicing NC II</a>
+										<a class="dropdown-item" href="#">Tile Setting NC II</a>
+										<a class="dropdown-item" href="#">Able Seafarer Deck (STCW Regulation II/5)</a>
+										<a class="dropdown-item" href="#">Able Seafarer Deck (STCW Regulation III/5)</a>
+										<a class="dropdown-item" href="#">Driving (Articulated Vehicle) NC III</a>
+										<a class="dropdown-item" href="#">Driving NC II</a>
+										<a class="dropdown-item" href="#">Driving (Passenger Bus / Straight Truck) NC III</a>
+										<a class="dropdown-item" href="#">Rating Forming Part of a Navigational Watch (STCW Regulation II/4)</a>
+									</div>
 								</li>
-								<li class="navbar-item pr-5">
-									<a class="navbar-link text-dark" href="#">
+								
+								<li class="navbar-item dropdown  px-5 ">
+									<a class="navbar-link text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
 										Lifestyle & Entertainment
 									</a>
+									<div class="dropdown-menu scrollable-menu submenu col a" style="max-width:310px;" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="#"></a>
+										<a class="dropdown-item" href="#"> </a>
+									</div>
 								</li>
-								<li class="navbar-item" id="navigationWorks">
-									<a class="navbar-link text-dark" href="#">
-										Others
+								<li class="navbar-item dropdown px-5 " id="navigationWorks">
+									<a class="navbar-link text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										Other Categories
 									</a>
+									<div class="dropdown-menu scrollable-menu submenu col a" style="max-width:310px;" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="#">TESDA Trainer Qualification Level I </a>
+										<a class="dropdown-item" href="#">TESDA Trainer Qualification Level II</a>
+										<a class="dropdown-item" href="#"> Barangay Health Services NC II</a>
+										<a class="dropdown-item" href="#">Biomedical Equipment Services NC II</a>
+										<a class="dropdown-item" href="#">Caregiving NC II</a>
+										<a class="dropdown-item" href="#">Dental Hygiene NC IV</a>
+										<a class="dropdown-item" href="#">Dental Laboratory Technology Services (Fixed Dentures Restorations) NC II</a>
+										<a class="dropdown-item" href="#">Dental Laboratory Technology Services NC I</a>
+										<a class="dropdown-item" href="#">Dental Laboratory Technology Services (Removable Dentures Appliances) NC II</a>
+										<a class="dropdown-item" href="#">Emergency Medical Services NC II</a>
+										<a class="dropdown-item" href="#">Hilot/Wellness Massage NC II</a>
+										<a class="dropdown-item" href="#">Institutional Health Care Services NC II</a>
+										<a class="dropdown-item" href="#">Massage Therapy NC II</a>
+										<a class="dropdown-item" href="#">Medical Coding and Billing NC II</a>
+										<a class="dropdown-item" href="#">Medical Transcription NC II</a>
+										<a class="dropdown-item" href="#">Ophthalmic Lens Services NC II</a>
+										<a class="dropdown-item" href="#">Pharmacy Services NC II</a>
+										<a class="dropdown-item" href="#">Bread and Pastry Production NC II</a>
+										<a class="dropdown-item" href="#">Commercial Cooking NC II</a>
+										<a class="dropdown-item" href="#">Commercial Cooking NC III</a>
+										<a class="dropdown-item" href="#">Commercial Cooking NC IV</a>
+										<a class="dropdown-item" href="#">Food and Beverage Services NC II</a>
+										<a class="dropdown-item" href="#">Food and Beverage Services NC III</a>
+										<a class="dropdown-item" href="#">Food and Beverage Services NC IV</a>
+										<a class="dropdown-item" href="#">Food Processing NC II</a>
+										<a class="dropdown-item" href="#">Food Processing NC III</a>
+										<a class="dropdown-item" href="#">Food Processing NC IV</a>
+										<a class="dropdown-item" href="#">Consumer Electronics Servicing NC II</a>
+										<a class="dropdown-item" href="#">Consumer Electronics Servicing NC III</a>
+										<a class="dropdown-item" href="#">Consumer Electronics Servicing NC IV</a>
+										<a class="dropdown-item" href="#">Fish Products Packaging NC II</a>
+										<a class="dropdown-item" href="#">Attractions and Theme Parks Operation NC II</a>
+										<a class="dropdown-item" href="#">Bartending NC II</a>
+										<a class="dropdown-item" href="#">Barbering NC II</a>
+										<a class="dropdown-item" href="#">Beauty Care NC II</a>
+										<a class="dropdown-item" href="#">Beauty Care NC III</a>
+										<a class="dropdown-item" href="#">Bookkeeping NC III</a>
+										<a class="dropdown-item" href="#">Finishing Course for Call Center Agents</a>
+										<a class="dropdown-item" href="#">Contact Center NC II</a>
+										<a class="dropdown-item" href="#">Customer Services NC II</a>
+										<a class="dropdown-item" href="#">Dressmaking (Casual) NC II</a>
+										<a class="dropdown-item" href="#">Events Management Services NC III</a>
+										<a class="dropdown-item" href="#">Fashion Design (Apparel) NC III</a>
+										<a class="dropdown-item" href="#">Fish Port / Wharf Operations NC I</a>
+										<a class="dropdown-item" href="#">Fishing Gear Repair and Maintenance NC III</a>
+										<a class="dropdown-item" href="#">Footwear Making NC II</a>
+										<a class="dropdown-item" href="#">Front Office Services NC II</a>
+										<a class="dropdown-item" href="#">Furniture Making Finishing NC II</a>
+										<a class="dropdown-item" href="#">Hairdressing with Cosmetology NC II</a>
+										<a class="dropdown-item" href="#">Household Services NC II</a>
+										<a class="dropdown-item" href="#">Housekeeping NC II</a>
+										<a class="dropdown-item" href="#">Housekeeping NC III</a>
+										<a class="dropdown-item" href="#">Housekeeping NC IV</a>
+										<a class="dropdown-item" href="#">Microfinance Technology NC II</a>
+										<a class="dropdown-item" href="#">Tour Guiding Services NC II</a>
+										<a class="dropdown-item" href="#">Travel Service NC II</a>
+										<a class="dropdown-item" href="#">Tourism Promotion Services NC II</a>
+										<a class="dropdown-item" href="#">Tailoring NC II</a>
+										<a class="dropdown-item" href="#">Agricultural Crops Production NC I</a>
+										<a class="dropdown-item" href="#">Agricultural Crops Production NC I</a>
+										<a class="dropdown-item" href="#">Animal Health Care and Management NC III</a>
+										<a class="dropdown-item" href="#">Animal Production NC II</a>
+										<a class="dropdown-item" href="#">Artificial Insemination (Large Ruminants) NC II</a>
+										<a class="dropdown-item" href="#">Artificial Insemination (Swine) NC II</a>
+										<a class="dropdown-item" href="#">Horticulture NC II</a>
+										<a class="dropdown-item" href="#">Horticulture NC III</a>
+										<a class="dropdown-item" href="#">Organic Agriculture Production NC II</a>
+										<a class="dropdown-item" href="#">Pest Management Vegetables NC II</a>
+										<a class="dropdown-item" href="#">Slaughtering Operations NC II</a>
+										<a class="dropdown-item" href="#">2D Digital Animation NC III </a>
+										<a class="dropdown-item" href="#">2D Game Art Development NC III</a>
+										<a class="dropdown-item" href="#">3D Animation NC III</a>
+										<a class="dropdown-item" href="#">3D Game Art Development NC III</a>
+										<a class="dropdown-item" href="#">Animation NC II</a>
+										<a class="dropdown-item" href="#">Computer Hardware Servicing NC II</a>
+										<a class="dropdown-item" href="#">Programming NC IV</a>
+										<a class="dropdown-item" href="#">Aquaculture NC II</a>
+										<a class="dropdown-item" href="#">Fish Capture NC I</a>
+										<a class="dropdown-item" href="#">Fish Capture NC II</a>
+										<a class="dropdown-item" href="#">Englist</a>
+										<a class="dropdown-item" href="#">Japanese</a>
+										<a class="dropdown-item" href="#">Korean</a>
+										<a class="dropdown-item" href="#">Mandarin</a>
+										<a class="dropdown-item" href="#">Arabic</a>
+										<a class="dropdown-item" href="#">Spanish</a>
+									</div>
 								</li>
 							</ul>	
 						</div>

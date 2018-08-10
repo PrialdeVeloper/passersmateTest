@@ -122,10 +122,10 @@
 
 					<div class="col">
 						<ul class="nav justify-content-center">
-							<li class="nav-item dropdown dashedBorder">								
+							<li class="nav-item dropdown dashedBorder text-center">								
 								<button class=" btn btn-link dropdown-toggle textDecorationNone" type="button" data-toggle="dropdown" data-submenu>
-						        	Click Here to Edit your work experiences.
-						    	</button>
+						        	Click Here 
+						    	</button><label class="text-center">to Edit your work experiences.</label>
 								<div class="dropdown-menu scrollable-menu" role="menu">
 									<button class="dropdown-item btn btn-link" data-toggle="modal" data-toggle="tab" href="#withData">Work Experience</button>
 									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#educational1">Educational</button>
