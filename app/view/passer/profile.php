@@ -2,7 +2,7 @@
 	$offerJob = '<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#offer">
 				 Offer Job
 				</button>';
-	$messageMe = '<button type="button" class="btn btn-primary btn-block">Message Me</button>';
+	$messageMe = '<button type="button" id="chatPasser" class="btn btn-primary btn-block">Message Me</button>';
 ?>
 
 <?php
@@ -244,6 +244,9 @@ $education =
 <div class="container-fluid my-5">
 	<?=$passerStatus;?>
 	<?=$seekerError;?>
+	<div class="alert alert-danger col text-center hidethis" id="passerProfileError" role="alert">
+				
+	</div>
 	<!-- start of 1st row -->
 	<div class="row">
 		<!-- 1st box -->

@@ -391,7 +391,6 @@
 		 		foreach ($MessageID as $dataID) {
 		 			$this->model->updateDB($this->messageTable,array("MessageStatus"),array(0),"MessageID",$dataID['MessageID']);
 		 		}
-		 		print_r($MessageID);
 		 		$checkValidChat = $this->model->checkAuthenticity($this->messageTable,$user,$otherUserID,array($id,$this->sanitize($_GET['t'])));
 		 		if($checkValidChat <= 0){
 		 			$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),"MessageID","DESC",1);

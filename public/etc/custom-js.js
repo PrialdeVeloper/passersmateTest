@@ -488,6 +488,52 @@ $(function(){
 	});
 });
 // message
+
+// add user message
+$(function(){
+	$("#chatPasser").exists(function(){
+		$(this).click(function(){
+			let passerCOC = getURLData("user");
+			let divErrorProfile = $("#passerProfileError");
+			let message
+			if(isNaN(passerCOC)){
+				showDivError(divErrorProfile,"Passer is invalid. Please refresh page to fix");
+			}else{
+				$.ajax({
+					url: "addPasserToMessage",
+					method: "POST",
+					data: {"addtomessage":"","passerCOC":passerCOC},
+					success: function(a){
+						let obj = JSON.parse(a);
+						if(obj.error == "notFound"){
+							showDivError(divErrorProfile,"Passer not found. Please try to search again.");
+						}
+						if(obj.error == "notActivatedPasser"){
+							showDivError(divErrorProfile,"Passer is currently unavailable for chat or hire.");
+						}
+						if(obj.error == "notActivatedSeeker"){
+							showDivError(divErrorProfile,"Please make sure you are already verify by Passersmate <a href=../seeker/dashboard> Here</a>");
+						}
+						if(obj.error == "noSubscription"){
+							showDivError(divErrorProfile,"Please make sure you have an active subscription by applying <a href=../home/subscription> Here</a>");
+						}
+						if(obj.error == "none"){
+							divErrorProfile.empty().hide();
+							window.location ="../home/messages";
+						}
+						console.log(a);
+					},
+					fail: function(){
+						alert("cannot connect to server.");
+					}
+				});
+			}
+		});
+	})
+})
+// end of add user message
+
+
 // send message
 $(function(){
 	$("#messageSend").submit(function(event){
@@ -499,7 +545,7 @@ $(function(){
 				url: "sendMessage",
 				method: "POST",
 				data: {"message":message,"sender":otherUser},
-				success: function(){
+				success: function(a){
 					$(".write_msg").val("");
 				},
 				fail: function(){
@@ -543,7 +589,6 @@ $(function(){
 });
 
 function getMessagesData(id){
-	$('.msg_history').scrollTop($('.msg_history')[0].scrollHeight - $('.msg_history')[0].clientHeight);
 	let chatBody = $(".msg_history");
 	let otherUserName = $("#chatmateOther");
 	$.ajax({
@@ -554,6 +599,7 @@ function getMessagesData(id){
 			let obj = JSON.parse(a);
 			chatBody.html(obj.dom);
 			otherUserName.html(obj.otherUserName);
+			$('.msg_history').scrollTop($('.msg_history')[0].scrollHeight - $('.msg_history')[0].clientHeight);
 		}
 	});
 }
@@ -727,7 +773,7 @@ function toastWarning(message){
 }
 
 function checkEmpty(variable){
-	if(variable == ""){
+	if(variable.trim() == ""){
 		return true;
 	}
 	else{

@@ -48,6 +48,19 @@
 			}
 		}
 
+		public function getDetailsSeeker($seeker){
+			return $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($seeker));
+		}
+
+		public function seekerIsSubscribed(){
+			$subscription = null;
+			if(!$this->checkSession('seekerUser')){
+				header("location:../seeker/dashboard");
+			}
+			$subscription = $this->model->selectTwoCondition(array("*"),$this->subscriptionDB,"SubscriptionStatus",$this->seekerUnique,array("ongoing",$_SESSION['seekerUser']));
+			return (empty($subscription) ?false:true);
+		}
+
 		public function seekerCheckSubscriptionStatus(){
 			$subscription = null;
 			if(!$this->checkSession('seekerUser')){
@@ -117,14 +130,56 @@
 			return true;
 		}
 
+		public function addPasserToMessage(){
+			$passerID = $addMessage = $checkExist = null;
+			if(isset($_POST['addtomessage'])){
+				$passerID = $this->model->selectAllFromUser($this->passerTable,"PasserCOCNo",array($this->sanitize($_POST['passerCOC'])));
+				if(!empty($passerID)){
+					extract($passerID[0]);
+					if($PasserStatus == 1){
+						extract($this->getDetailsSeeker($_SESSION['seekerUser'])[0]);
+						if($SeekerStatus ==1){
+							if($this->seekerIsSubscribed()){
+								$checkExist = $this->model->selectAllDynamic($this->messageTable,array("*"),array($this->passerUnique,$this->seekerUnique),array($PasserID,$_SESSION['seekerUser']));
+								if(empty($checkExist)){
+									$addMessage = $this->model->insertDB($this->messageTable,$this->messageDB,array($PasserID,$_SESSION['seekerUser'],"",""));
+									if($addMessage){
+										echo json_encode(array("error"=>"none"));
+									}
+								}else{
+									echo json_encode(array("error"=>"none"));
+								}
+							}else{
+								echo json_encode(array("error"=>"noSubscription"));
+							}
+						}else{
+							echo json_encode(array("error"=>"notActivatedSeeker"));
+						}
+					}else{
+						echo json_encode(array("error"=>"notActivatedPasser"));
+					}
+				}else{
+					echo json_encode(array("error"=>"notFound"));
+				}
+			}
+		}
 		public function sendMessage(){
-			$message = $sender = $reciever = $send = $messageSenderUser = null;
+			$message = $sender = $reciever = $send = $messageSenderUser = $checkSubscription = null;
+			$flag = 1;
 			if(isset($_POST['message'])){
 				$message = $this->sanitize($_POST['message']);
 				$reciever = $this->sanitize($_POST['sender']);
 				$sender = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
 				$messageSenderUser = (isset($_SESSION['passerUser'])?"Passer":"Seeker");
-				$send = (isset($_SESSION['seekerUser'])?$this->model->insertDB($this->messageTable,$this->messageDB,array($reciever,$sender,$message,$messageSenderUser)):$this->model->insertDB($this->messageTable,$this->messageDB,array($sender,$reciever,$message,$messageSenderUser)));
+				if(isset($_SESSION['seekerUser'])){
+					echo $this->seekerIsSubscribed();
+					if($this->seekerIsSubscribed() == false){
+						$flag = 0;
+					}
+				}
+				if($flag > 0){
+					$send = (isset($_SESSION['seekerUser'])?$this->model->insertDB($this->messageTable,$this->messageDB,array($reciever,$sender,$message,$messageSenderUser)):$this->model->insertDB($this->messageTable,$this->messageDB,array($sender,$reciever,$message,$messageSenderUser)));
+				}
 			}
 		}
 
@@ -145,40 +200,42 @@
 			$otherUserMessages = $this->model->selectAllFromUserSort(array("*"),$this->messageTable,$otherUserUnique,array($otherUserID),"MessageID","ASC");
 			if(!empty($otherUserMessages)){
 				foreach ($otherUserMessages as $data) {
-					$dateRaw = $data['MessageTimeAndDate'];
-					if(strtotime("Y",strtotime($dateRaw)) > strtotime("+1 year",strtotime(date("Y")))){
-						$sentDate = date("g:i A",strtotime($dateRaw))." | ".date("M d 'y",strtotime($dateRaw));
-					}else{
-						$sentDate = date("g:i A",strtotime($dateRaw))." | ".date("F d",strtotime($dateRaw));
+					if(!empty($data['MessageContent'])){
+						$dateRaw = $data['MessageTimeAndDate'];
+						if(strtotime("Y",strtotime($dateRaw)) > strtotime("+1 year",strtotime(date("Y")))){
+							$sentDate = date("g:i A",strtotime($dateRaw))." | ".date("M d 'y",strtotime($dateRaw));
+						}else{
+							$sentDate = date("g:i A",strtotime($dateRaw))." | ".date("F d",strtotime($dateRaw));
+						}
+						if($data['MessageSender'] == $otherUser){
+							$builder = 
+							'
+							<div class="incoming_msg">
+		                      <div class="incoming_msg_img"> 
+		                      	<img src="'.$this->sanitize($otherUserProfile).'" alt="sunil"> 
+		                      </div>
+		                      <div class="received_msg">
+		                        <div class="received_withd_msg">
+		                          <p>'.$this->sanitize($data['MessageContent']).'</p>
+		                          <span class="time_date">'.$sentDate.'</span>
+		                        </div>
+		                      </div>
+		                    </div>
+							';
+						}else{
+							$builder = 
+							'
+							<div class="outgoing_msg">
+		                      <div class="sent_msg">
+		                        <p>'.$this->sanitize($data['MessageContent']).'</p>
+		                        <span class="time_date">'.$sentDate.'</span> 
+		                      </div>
+		                    </div>
+							';
+						}
+						$dom = $dom."".$builder;
+						$dateRaw = $sentDate = null;
 					}
-					if($data['MessageSender'] == $otherUser){
-						$builder = 
-						'
-						<div class="incoming_msg">
-	                      <div class="incoming_msg_img"> 
-	                      	<img src="'.$this->sanitize($otherUserProfile).'" alt="sunil"> 
-	                      </div>
-	                      <div class="received_msg">
-	                        <div class="received_withd_msg">
-	                          <p>'.$this->sanitize($data['MessageContent']).'</p>
-	                          <span class="time_date">'.$sentDate.'</span>
-	                        </div>
-	                      </div>
-	                    </div>
-						';
-					}else{
-						$builder = 
-						'
-						<div class="outgoing_msg">
-	                      <div class="sent_msg">
-	                        <p>'.$this->sanitize($data['MessageContent']).'</p>
-	                        <span class="time_date">'.$sentDate.'</span> 
-	                      </div>
-	                    </div>
-						';
-					}
-					$dom = $dom."".$builder;
-					$dateRaw = $sentDate = null;
 				}
 			}
 			else{
@@ -188,7 +245,7 @@
 		}
 
 		public function createSidebarMessage(){
-			$field = $id = $sidebarData = $table = $userDetails = $passer = $messageLimited = $passerData = $seeker = $seekerData = $builder = $dom = $rawDate = $convertedDate = $sidebarDate = $messageStatus = null;
+			$field = $id = $sidebarData = $table = $passer = $messageLimited = $passerData = $seeker = $seekerData = $builder = $dom = $rawDate = $convertedDate = $sidebarDate = $messageStatus = null;
 			$checkAgain = array();
 			if(isset($_POST['sidebarData'])){
 				$field = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
@@ -197,84 +254,88 @@
 				$sidebarData = $this->model->selectAllFromUserSort(array("*"),$this->messageTable,$field,array($id),"MessageID","DESC");
 				if(isset($_SESSION['seekerUser'])){
 					foreach ($sidebarData as $data) {
-						if(!in_array($data[$this->passerUnique], $checkAgain)){
-							array_push($checkAgain,$data[$this->passerUnique]);
-							$rawDate = $data['MessageTimeAndDate'];
-							$convertedDate = date("Y-m-d",strtotime($rawDate));
-							switch ($convertedDate) {
-								case strtotime($convertedDate) == strtotime(date("Y-m-d")):
-									$sidebarDate = date('g:ia', strtotime($rawDate));
-									break;
+						if(!empty($data['MessageContent'])){
+							if(!in_array($data[$this->passerUnique], $checkAgain)){
+								array_push($checkAgain,$data[$this->passerUnique]);
+								$rawDate = $data['MessageTimeAndDate'];
+								$convertedDate = date("Y-m-d",strtotime($rawDate));
+								switch ($convertedDate) {
+									case strtotime($convertedDate) == strtotime(date("Y-m-d")):
+										$sidebarDate = date('g:ia', strtotime($rawDate));
+										break;
 
-								case strtotime($convertedDate) <= strtotime(date("Y-m-d",strtotime("+7 day"))):
-									$sidebarDate = date("D",strtotime($convertedDate));
-									break;
+									case strtotime($convertedDate) <= strtotime(date("Y-m-d",strtotime("+7 day"))):
+										$sidebarDate = date("D",strtotime($convertedDate));
+										break;
 
-								case strtotime($convertedDate) > strtotime(date("Y-m-d",strtotime("+7 day"))):
-									$sidebarDate = date("M d",strtotime($convertedDate));
-									break;
-							}
-							$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
-							$passer = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($data['PasserID']));
-							foreach ($passer as $passerData) {
-								$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
-								$builder = 
-								'
-								<div class="chat_list '.$messageStatus.' cursor" onclick="window.location=\'messages?t='.$this->sanitize($passerData['PasserID']).'\'">
-		                          <div class="chat_people">
-		                            <div class="chat_img"> 
-		                            	<img class="messageSidebarImage" src="'.$this->sanitize($passerData['PasserProfile']).'" alt="Profile Picture"> 
-		                            </div>
-		                            <div class="chat_ib">
-		                              <h5>'.$this->sanitize($passerData['PasserFN'])." ".$this->sanitize($passerData['PasserLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
-		                              <p>'.$this->sanitize($messageLimited).'</p>
-		                            </div>
-		                          </div>
-		                        </div>
-								';
-								$dom = $dom."".$builder;
+									case strtotime($convertedDate) > strtotime(date("Y-m-d",strtotime("+7 day"))):
+										$sidebarDate = date("M d",strtotime($convertedDate));
+										break;
+								}
+								$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
+								$passer = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($data['PasserID']));
+								foreach ($passer as $passerData) {
+									$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
+									$builder = 
+									'
+									<div class="chat_list '.$messageStatus.' cursor" onclick="window.location=\'messages?t='.$this->sanitize($passerData['PasserID']).'\'">
+			                          <div class="chat_people">
+			                            <div class="chat_img"> 
+			                            	<img class="messageSidebarImage" src="'.$this->sanitize($passerData['PasserProfile']).'" alt="Profile Picture"> 
+			                            </div>
+			                            <div class="chat_ib">
+			                              <h5>'.$this->sanitize($passerData['PasserFN'])." ".$this->sanitize($passerData['PasserLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
+			                              <p>'.$this->sanitize($messageLimited).'</p>
+			                            </div>
+			                          </div>
+			                        </div>
+									';
+									$dom = $dom."".$builder;
+								}
 							}
 						}
 					}
 					echo $dom;
 				}else{
 					foreach ($sidebarData as $data) {
-						if(!in_array($data[$this->seekerUnique], $checkAgain)){
-							array_push($checkAgain,$data[$this->seekerUnique]);
-							$rawDate = $data['MessageTimeAndDate'];
-							$convertedDate = date("Y-m-d",strtotime($rawDate));
-							switch ($convertedDate) {
-								case strtotime($convertedDate) == strtotime(date("Y-m-d")):
-									$sidebarDate = date('g:ia', strtotime($rawDate));
-									break;
+						if(!empty($data['MessageContent'])){
+							if(!in_array($data[$this->seekerUnique], $checkAgain)){
+								array_push($checkAgain,$data[$this->seekerUnique]);
+								$rawDate = $data['MessageTimeAndDate'];
+								$convertedDate = date("Y-m-d",strtotime($rawDate));
+								switch ($convertedDate) {
+									case strtotime($convertedDate) == strtotime(date("Y-m-d")):
+										$sidebarDate = date('g:ia', strtotime($rawDate));
+										break;
 
-								case strtotime($convertedDate) <= strtotime(date("Y-m-d",strtotime("+7 day"))):
-									$sidebarDate = date("D",strtotime($convertedDate));
-									break;
+									case strtotime($convertedDate) <= strtotime(date("Y-m-d",strtotime("+7 day"))):
+										$sidebarDate = date("D",strtotime($convertedDate));
+										break;
 
-								case strtotime($convertedDate) > strtotime(date("Y-m-d",strtotime("+7 day"))):
-									$sidebarDate = date("M d",strtotime($convertedDate));
-									break;
-							}
-							$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
-							$seeker = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($data['SeekerID']));
-							foreach ($seeker as $seekerData) {
-								$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
-								$builder = 
-								'
-								<div class="chat_list '.$messageStatus.' cursor" onclick="window.location=\'messages?t='.$this->sanitize($seekerData['SeekerID']).'\'">
-		                          <div class="chat_people">
-		                            <div class="chat_img"> 
-		                            	<img class="messageSidebarImage" src="'.$this->sanitize($seekerData['SeekerProfile']).'" alt="Profile Picture"> 
-		                            </div>
-		                            <div class="chat_ib">
-		                              <h5>'.$this->sanitize($seekerData['SeekerFN'])." ".$this->sanitize($seekerData['SeekerLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
-		                              <p>'.$this->sanitize($messageLimited).'</p>
-		                            </div>
-		                          </div>
-		                        </div>
-								';
-								$dom = $dom."".$builder;
+									case strtotime($convertedDate) > strtotime(date("Y-m-d",strtotime("+7 day"))):
+										$sidebarDate = date("M d",strtotime($convertedDate));
+										break;
+								}
+								$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
+								$seeker = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($data['SeekerID']));
+								foreach ($seeker as $seekerData) {
+									$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
+									$builder = 
+									'
+									<div class="chat_list '.$messageStatus.' cursor" onclick="window.location=\'messages?t='.$this->sanitize($seekerData['SeekerID']).'\'">
+			                          <div class="chat_people">
+			                            <div class="chat_img"> 
+			                            	<img class="messageSidebarImage" src="'.$this->sanitize($seekerData['SeekerProfile']).'" alt="Profile Picture"> 
+			                            </div>
+			                            <div class="chat_ib">
+			                              <h5>'.$this->sanitize($seekerData['SeekerFN'])." ".$this->sanitize($seekerData['SeekerLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
+			                              <p>'.$this->sanitize($messageLimited).'</p>
+			                            </div>
+			                          </div>
+			                        </div>
+									';
+									$dom = $dom."".$builder;
+								}
 							}
 						}
 					}
