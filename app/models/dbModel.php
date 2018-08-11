@@ -59,6 +59,10 @@
 			return implode($data," = ? and ")." = ?";
 		}
 
+		private function andDataNoLastQuestionMark($data){
+			return implode($data," = ? and ");
+		}
+
 		public function ownQuery($query){
 			$this->stmt = $this->con->query($query);
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -127,7 +131,17 @@
 			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
-		public function selectDataFromOtherDB($table,$table2,$field,$field2,$data){
+		public function selectDataFromOtherDBLike($select,$tableFirst,$whereFirst,$selectSecond,$table2,$whereSecond,$data,$order,$sort){
+			$selected = $this->addComma($select);
+			$fieldsQ = $this->andDataNoLastQuestionMark($whereFirst);
+			$fieldsQOther = $this->likeData($whereSecond);
+			$return = null;
+			$this->stmt = $this->con->prepare("SELECT $selected FROM $tableFirst WHERE $fieldsQ IN (SELECT $selectSecond FROM $table2 WHERE $fieldsQOther) ORDER BY $order $sort");
+			$this->stmt->execute($data);
+			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function selectDataFromOtherDBDynamic($table,$table2,$field,$field2,$data){
 			$return = null;
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = (SELECT $field from $table2 where $field2 = ?)");
 			$this->stmt->execute($data);

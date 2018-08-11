@@ -216,7 +216,7 @@
 		                      </div>
 		                      <div class="received_msg">
 		                        <div class="received_withd_msg">
-		                          <p>'.$this->sanitize($data['MessageContent']).'</p>
+		                          <p>'.$data['MessageContent'].'</p>
 		                          <span class="time_date">'.$sentDate.'</span>
 		                        </div>
 		                      </div>
@@ -227,7 +227,7 @@
 							'
 							<div class="outgoing_msg">
 		                      <div class="sent_msg">
-		                        <p>'.$this->sanitize($data['MessageContent']).'</p>
+		                        <p>'.$data['MessageContent'].'</p>
 		                        <span class="time_date">'.$sentDate.'</span> 
 		                      </div>
 		                    </div>
@@ -272,7 +272,7 @@
 										$sidebarDate = date("M d",strtotime($convertedDate));
 										break;
 								}
-								$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
+								$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($data['MessageContent'], 0,10)."...":$data['MessageContent']);
 								$passer = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($data['PasserID']));
 								foreach ($passer as $passerData) {
 									$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
@@ -285,7 +285,7 @@
 			                            </div>
 			                            <div class="chat_ib">
 			                              <h5>'.$this->sanitize($passerData['PasserFN'])." ".$this->sanitize($passerData['PasserLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
-			                              <p>'.$this->sanitize($messageLimited).'</p>
+			                              <p>'.$messageLimited.'</p>
 			                            </div>
 			                          </div>
 			                        </div>
@@ -316,7 +316,7 @@
 										$sidebarDate = date("M d",strtotime($convertedDate));
 										break;
 								}
-								$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($this->sanitize($data['MessageContent']), 0,10)."...":$this->sanitize($data['MessageContent']));
+								$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($data['MessageContent'], 0,10)."...":$data['MessageContent']);
 								$seeker = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($data['SeekerID']));
 								foreach ($seeker as $seekerData) {
 									$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
@@ -329,7 +329,112 @@
 			                            </div>
 			                            <div class="chat_ib">
 			                              <h5>'.$this->sanitize($seekerData['SeekerFN'])." ".$this->sanitize($seekerData['SeekerLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
-			                              <p>'.$this->sanitize($messageLimited).'</p>
+			                              <p>'.$messageLimited.'</p>
+			                            </div>
+			                          </div>
+			                        </div>
+									';
+									$dom = $dom."".$builder;
+								}
+							}
+						}
+					}
+					echo $dom;
+				}
+			}
+		}
+
+
+		public function searchSidebarMessage(){
+			$currentField = $id = $sidebarData = $table = $passer = $messageLimited = $passerData = $seeker = $seekerData = $builder = $dom = $rawDate = $convertedDate = $sidebarDate = $messageStatus = $inputName = $otherTable = $otherUserID = $otherUserName = null;
+			$checkAgain = array();
+			if(isset($_POST['searchSidebarData'])){
+				$inputName = $this->sanitize($_POST['name']);
+				$currentField = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);	
+				$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+				$otherTable = (isset($_SESSION['passerUser'])?$this->seekerTable:$this->passerTable);
+				$otherUserID = (isset($_SESSION['passerUser'])?$this->seekerUnique:$this->passerUnique);
+				$otherUserName = (isset($_SESSION['passerUser'])?"SeekerFN":"PasserFN");
+				$sidebarData = $this->model->selectDataFromOtherDBLike(array("*"),$this->messageTable,array($currentField,$otherUserID),$otherUserID,$otherTable,array($otherUserName),array($id,$inputName),"MessageID","DESC");
+				if(isset($_SESSION['seekerUser'])){
+					foreach ($sidebarData as $data) {
+						if(!empty($data['MessageContent'])){
+							if(!in_array($data[$this->passerUnique], $checkAgain)){
+								array_push($checkAgain,$data[$this->passerUnique]);
+								$rawDate = $data['MessageTimeAndDate'];
+								$convertedDate = date("Y-m-d",strtotime($rawDate));
+								switch ($convertedDate) {
+									case strtotime($convertedDate) == strtotime(date("Y-m-d")):
+										$sidebarDate = date('g:ia', strtotime($rawDate));
+										break;
+
+									case strtotime($convertedDate) <= strtotime(date("Y-m-d",strtotime("+7 day"))):
+										$sidebarDate = date("D",strtotime($convertedDate));
+										break;
+
+									case strtotime($convertedDate) > strtotime(date("Y-m-d",strtotime("+7 day"))):
+										$sidebarDate = date("M d",strtotime($convertedDate));
+										break;
+								}
+								$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($data['MessageContent'], 0,10)."...":$data['MessageContent']);
+								$passer = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($data['PasserID']));
+								foreach ($passer as $passerData) {
+									$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
+									$builder = 
+									'
+									<div class="chat_list '.$messageStatus.' cursor" onclick="window.location=\'messages?t='.$this->sanitize($passerData['PasserID']).'\'">
+			                          <div class="chat_people">
+			                            <div class="chat_img"> 
+			                            	<img class="messageSidebarImage" src="'.$this->sanitize($passerData['PasserProfile']).'" alt="Profile Picture"> 
+			                            </div>
+			                            <div class="chat_ib">
+			                              <h5>'.$this->sanitize($passerData['PasserFN'])." ".$this->sanitize($passerData['PasserLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
+			                              <p>'.$messageLimited.'</p>
+			                            </div>
+			                          </div>
+			                        </div>
+									';
+									$dom = $dom."".$builder;
+								}
+							}
+						}
+					}
+					echo $dom;
+				}else{
+					foreach ($sidebarData as $data) {
+						if(!empty($data['MessageContent'])){
+							if(!in_array($data[$this->seekerUnique], $checkAgain)){
+								array_push($checkAgain,$data[$this->seekerUnique]);
+								$rawDate = $data['MessageTimeAndDate'];
+								$convertedDate = date("Y-m-d",strtotime($rawDate));
+								switch ($convertedDate) {
+									case strtotime($convertedDate) == strtotime(date("Y-m-d")):
+										$sidebarDate = date('g:ia', strtotime($rawDate));
+										break;
+
+									case strtotime($convertedDate) <= strtotime(date("Y-m-d",strtotime("+7 day"))):
+										$sidebarDate = date("D",strtotime($convertedDate));
+										break;
+
+									case strtotime($convertedDate) > strtotime(date("Y-m-d",strtotime("+7 day"))):
+										$sidebarDate = date("M d",strtotime($convertedDate));
+										break;
+								}
+								$messageLimited = (strlen($this->sanitize($data['MessageContent'])) > 10?substr($data['MessageContent'], 0,10)."...":$data['MessageContent']);
+								$seeker = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($data['SeekerID']));
+								foreach ($seeker as $seekerData) {
+									$messageStatus = ($data['MessageStatus'] == 1?"active_chat":"read_chat");
+									$builder = 
+									'
+									<div class="chat_list '.$messageStatus.' cursor" onclick="window.location=\'messages?t='.$this->sanitize($seekerData['SeekerID']).'\'">
+			                          <div class="chat_people">
+			                            <div class="chat_img"> 
+			                            	<img class="messageSidebarImage" src="'.$this->sanitize($seekerData['SeekerProfile']).'" alt="Profile Picture"> 
+			                            </div>
+			                            <div class="chat_ib">
+			                              <h5>'.$this->sanitize($seekerData['SeekerFN'])." ".$this->sanitize($seekerData['SeekerLN']).'<span class="chat_date">'.$sidebarDate.'</span></h5>
+			                              <p>'.$messageLimited.'</p>
 			                            </div>
 			                          </div>
 			                        </div>

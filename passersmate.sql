@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2018 at 01:34 PM
+-- Generation Time: Aug 11, 2018 at 06:35 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -150,7 +150,19 @@ CREATE TABLE `message` (
 
 INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `MessageSender`, `MessageTimeAndDate`, `MessageStatus`) VALUES
 (1, 1, 3, '', '', '2018-08-11 11:31:24', 0),
-(2, 1, 3, 'hello', 'Seeker', '2018-08-11 11:33:46', 0);
+(2, 1, 3, 'hello', 'Seeker', '2018-08-11 11:33:46', 0),
+(3, 1, 3, 'hi', 'Passer', '2018-08-11 13:41:05', 0),
+(4, 1, 3, 'what\'s up?', 'Passer', '2018-08-11 13:41:14', 0),
+(5, 1, 3, '&lt;script&gt;alert(&quot;qwe&quot;)&lt;/script&gt;', 'Passer', '2018-08-11 13:41:26', 0),
+(6, 1, 3, 'no xss', 'Passer', '2018-08-11 13:42:10', 0),
+(7, 1, 3, '&lt;script&gt;alert(&quot;qwe&quot;)&lt;/script&gt;', 'Passer', '2018-08-11 13:42:56', 0),
+(8, 1, 3, 'qwe', 'Seeker', '2018-08-11 14:12:13', 0),
+(9, 1, 3, 'qwe', 'Seeker', '2018-08-11 14:18:01', 0),
+(10, 1, 3, 'zxcxz', 'Seeker', '2018-08-11 14:18:04', 0),
+(11, 1, 3, 'qweqweqwe', 'Seeker', '2018-08-11 14:21:49', 0),
+(12, 1, 3, 'wew', 'Seeker', '2018-08-11 14:24:37', 0),
+(13, 1, 3, 'qwe', 'Seeker', '2018-08-11 14:24:43', 0),
+(14, 1, 3, 'asd', 'Passer', '2018-08-11 16:12:39', 0);
 
 -- --------------------------------------------------------
 
@@ -760,7 +772,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `multimedia`

@@ -559,11 +559,30 @@ $(function(){
 
 // display message sidebar
 $(function(){
+	let realtime = 0;
+	let chatBody = $(".inbox_chat");
 	$(".inbox_chat").exists(function(){
 		if(!checkEmpty(getURLData("t"))){
-			setInterval(function(){getChatSidebarData()},2000);
+			realtime = setInterval(function(){getChatSidebarData()},2000);
 		}
 	});
+
+	 $('.search-bar').keyup(function(){
+	 	let name = $(this).val();
+	 	if(checkEmpty(name) == false){
+	 		clearInterval(realtime);
+	 		$.ajax({
+	 			url: "searchSidebarMessage",
+	 			method: "POST",
+	 			data: {"searchSidebarData":"","name":name},
+	 			success: function(a){
+	 				chatBody.html(a);
+	 			}
+	 		});
+	 	}else{
+	 		realtime = setInterval(function(){getChatSidebarData()},2000);
+	 	}
+	  });
 });
 
 function getChatSidebarData(){
