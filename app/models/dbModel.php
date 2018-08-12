@@ -141,7 +141,7 @@
 			return $return = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
-		public function selectDataFromOtherDBDynamic($table,$table2,$field,$field2,$data){
+		public function selectDataFromOtherDB($table,$table2,$field,$field2,$data){
 			$return = null;
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = (SELECT $field from $table2 where $field2 = ?)");
 			$this->stmt->execute($data);

@@ -8,7 +8,7 @@
      			<div class="alert alert-danger text-center hidethis" id="passerRegError">
      			</div>
      			<div class="alert alert-success text-center" id="passerRegReminded">
-     				Please enter your Cetificate number first
+     				Please enter your Certificate number first
      			</div>
      		<div class="row justify-content-center  my-3 ">
 
@@ -70,7 +70,7 @@
 				<div class="col-sm-10 my-2">
 					<div class="col-sm">
 						<div class="container">
-							<h6>By registering you wil agree with PASSERSMATE <a href="#">Terms and condition</a></h6>
+							<h6>By signing up you will agree with PASSERSMATE <a href="#">Terms and condition</a></h6>
 						</div>
 					</div>
 				</div>

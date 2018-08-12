@@ -356,7 +356,7 @@
 				$otherTable = (isset($_SESSION['passerUser'])?$this->seekerTable:$this->passerTable);
 				$otherUserID = (isset($_SESSION['passerUser'])?$this->seekerUnique:$this->passerUnique);
 				$otherUserName = (isset($_SESSION['passerUser'])?"SeekerFN":"PasserFN");
-				$sidebarData = $this->model->selectDataFromOtherDBLike(array("*"),$this->messageTable,array($currentField,$otherUserID),$otherUserID,$otherTable,array($otherUserName),array($id,$inputName),"MessageID","DESC");
+				$sidebarData = $this->model->selectDataFromOtherDBLike(array("*"),$this->messageTable,array($currentField,$otherUserID),$otherUserID,$otherTable,array($otherUserName),array($id,"%".$inputName."%"),"MessageID","DESC");
 				if(isset($_SESSION['seekerUser'])){
 					foreach ($sidebarData as $data) {
 						if(!empty($data['MessageContent'])){
