@@ -336,9 +336,6 @@
 
 		public function messages(){
 			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = $checkValidChat = $dashboard = $messageForm = $noMessagePrompt = $MessageID = $jobForm = null;
-			if(!$this->checkSession('seekerUser')){
-				header("location: login");
-			}
 			$messageForm = 
 			'
 				<form id="messageSend">
