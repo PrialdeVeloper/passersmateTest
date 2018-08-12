@@ -1,5 +1,13 @@
 
 <?php include_once "../public/etc/etcCompile.marvee"; ?>
+<?php 
+$passerLink = "../home/search";
+$x = pathinfo($_SERVER["QUERY_STRING"]); 
+$url = str_replace("url=", "", $x['dirname']);
+if($url == "home"){
+	$passerLink = "search";
+}
+?>
 
 	<body class="bg-light">
 		<header>
@@ -18,7 +26,7 @@
 							</a>
 						</li>
 						<li class="navbar-item pr-5">
-							<a class="navbar-link text-dark" href="#">
+							<a class="navbar-link text-dark" href="<?php echo $passerLink; ?>">
 								Passers
 							</a>
 						</li>

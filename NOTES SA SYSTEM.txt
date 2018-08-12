@@ -1,0 +1,5 @@
+1. Kuan dapat makita ang search area bisan wala pa ni login ang users. Kana ganing naa sa header nga "Passer".
+2. Sa categories naman dapat makapislit na cya dayun maadto sa iyang gi choose nga categories like carpenter then maka retrieve list of carpenters
+3.By the way, please ko add "Passers" sa header sa mga user if naka login na sila.
+4. sa chat please ko usab sa no message nga font dayun ang text color kay textinfo and then delete the create the agreement sa Passer account.
+5.

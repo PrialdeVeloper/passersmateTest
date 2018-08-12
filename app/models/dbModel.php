@@ -105,7 +105,13 @@
 		public function selectAllLimit($table,$field,$field2,$offset,$count,$data){
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ? and $field2 = ? LIMIT $offset,$count");
 			$this->stmt->execute($data);
-			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);;
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function selectAllLimitSingle($table,$field,$offset,$count,$data){
+			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ? LIMIT $offset,$count");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		public function selectSort($select,$table,$field,$data,$order,$sort,$limit){

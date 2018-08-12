@@ -976,12 +976,13 @@
 				try {
 				$title = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['jTitle']));
 				$company = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['company']));
+				$companyNumber = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['companyNumber']));
 				$startDate = $this->sanitize(date("Y-m-d",strtotime($_POST['startDate'])));
 				$endDate = $this->sanitize(date("Y-m-d",strtotime($_POST['endDate'])));
 				$desc = !empty($_POST["passerWorkDesc"])?$this->sanitize($_POST["passerWorkDesc"]): "";
 				unset($this->passerWorkHistory[0]);
-				unset($this->passerWorkHistory[7]);
-				$res =  $this->model->insertDB("passerworkhistory",$this->passerWorkHistory,array($this->passerSession,$title,$company,$desc,$startDate,$endDate));
+				unset($this->passerWorkHistory[8]);
+				$res =  $this->model->insertDB("passerworkhistory",$this->passerWorkHistory,array($this->passerSession,$title,$company,$companyNumber,$desc,$startDate,$endDate));
 				echo json_encode(array("error"=>"none"));
 				} catch (Exception $e) {
 					echo $e->getMessage();
@@ -1172,6 +1173,38 @@
 				';
 			if(is_numeric($page)){
 				$result = $this->model->selectAllLimit($table,$field,$field2,$offset,$limit,array($field1Ans,$field2Ans));
+			}
+			return json_encode(array("pagination"=>$pagination,"data"=>$result));
+		}
+
+		public function paginationScriptSingle($table,$field,$field1Ans,$page,$offset,$limit,$add){
+			$add = (!empty($add)?"&".$add:"");
+			$result = $totalPage = $totalPages = $offset = null;
+			$totalPage = $this->model->checkExistSingle($table,$field,array($field1Ans));
+			$totalPages = ceil($totalPage/$limit);
+			$totalPage = null;
+			$offset = ($page-1) * $limit;
+			$first = ($page <= 1)?"disabled":"";
+			$prevLI = ($page <= 1)?"disabled":"";
+			$prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1)."".$add;
+
+			$nextLI = ($page >= $totalPages)?"disabled":"";
+			$nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1)."".$add;
+			$lastLI = ($page >= $totalPages)?"disabled":"";
+			$lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages."".$add;
+
+			$pagination = '
+				<nav>
+				  <ul class="pagination">
+				    <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
+				    <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+				    <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+				    <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+				  </ul>
+				</nav>
+				';
+			if(is_numeric($page)){
+				$result = $this->model->selectAllLimitSingle($table,$field,$offset,$limit,array($field1Ans));
 			}
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}

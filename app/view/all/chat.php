@@ -213,15 +213,11 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                       </div>
                     </div>
                     <div class="headind_srch">
-                        <div class="recent_heading">
-                          <h4 id="chatmateOther"></h4>
-                        </div>
-                        <div class="srch_bar">
-                          <div class="stylish-input-group">
-                            <button class="btn btn-info font-weight-bold" style="height:30px;font-size:14px">Create an Agreement <i class="fas fa-file"></i></button>
-                          </div>
-                        </div>
+                      <div class="recent_heading">
+                        <h4 id="chatmateOther"></h4>
                       </div>
+                      <?php echo $jobForm;?>
+                    </div>
                     <div class="mesgs">
                       <div class="msg_history">
                         <?php echo $noMessage; ?>

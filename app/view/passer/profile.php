@@ -8,14 +8,21 @@
 <?php
 	if(isset($data) && !empty($data)){
 		extract($data[0]);
-		if(isset($userDetails) && !empty($userDetails)){
-			extract($userDetails[0]);
+		if(isset($passerDetails) && !empty($passerDetails)){
+			extract($passerDetails[0]);
+			if(isset($userDetails) && !empty($userDetails)){
+				extract($userDetails[0]);
+			}
 		}
 	} 
 	if(isset($passerStatus) && !empty($passerStatus) || isset($seekerError) && !empty($seekerError)){
 		$offerJob = $messageMe = null;
 	}
-	require "../public/header-footer/seeker/seekerHeader.marvee";
+	if(!empty($userDetails)){
+		require_once "../public/header-footer/seeker/seekerHeader.marvee";
+	}else{
+		require "../public/header-footer/header.marvee";
+	}
 	require "../public/header-footer/jobsNav.marvee";
 	require "modal/profileModal.html";
 ?>
@@ -102,85 +109,6 @@ $project =
 			</div>
 		</div>	
 	';
-
-// workExperience contents
-$workExperience = 
-	'
-		<div class="row ">
-			<div class="col-sm-12 text-center pt-4 pb-3">
-				<label><h3>Work Experience</h3></label>
-			</div>
-		</div>	
-		<div class="row justify-content-center">
-			<div class="card shadowDiv col-sm-10">
-				<div class="card-header bg-white">
-					<i class="h2 fas fa-briefcase" style="color: darkblue;"></i>
-				</div>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Job Title</label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung Unsa Iyang JobTITLE amaw man diay ko</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Company</label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung Unsa Iyang Company amaw man diay ko</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Contact Number</label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung Unsa Iyang ContactNumber amaw man diay ko</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Description <small style="opacity: 0.5">(optional)</small></label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung Unsa Iyang Description amaw man diay ko</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Date Started </label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung kanus-a Nagsugod ang tanan amaw man diay ko</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Date Ended </label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung kanu-sa ka nagMahay amaw man diay ko</label>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>	
-		<div class="row justify-content-center pt-4">
-			<nav aria-label="Page navigation example ">
-				<ul class="pagination ">
-					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
-			</nav>
-		</div>	
-	';
-
 // education contents
 $education = 
 	'
@@ -319,7 +247,7 @@ $education =
 				<div class="tab-content">
 					<!-- workExperience content -->
 					<div class="tab-pane container active" id="work1">
-						<?=$workExperience;?>							
+						<?=$workHistory;?>							
 					</div>
 					<!-- end of workExperience content -->
 

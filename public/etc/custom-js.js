@@ -1263,10 +1263,11 @@ $(function(){
 		event.preventDefault();
 		let jobTitle = $("input[name=jTitle]").val();
 		let company = $("input[name=company").val();
+		let companyNumber = $("input[name=companyNumber]").val();
 		let description = $("input[name=workDescription]").val();
 		let startDate = $("input[name=startDate]").val();
 		let endDate = $("input[name=endDate]").val();
-		if(checkEmpty(jobTitle) || checkEmpty(company) || checkEmpty(startDate) || checkEmpty(endDate)
+		if(checkEmpty(jobTitle) || checkEmpty(company) || checkEmpty(companyNumber) || isNaN(companyNumber) || checkEmpty(startDate) || checkEmpty(endDate)
 			|| Date.parse(endDate) < Date.parse(startDate)){
 				$("#jobExperienceModalError").empty();
 				if(checkEmpty(jobTitle)){
@@ -1274,6 +1275,12 @@ $(function(){
 				}
 				if(checkEmpty(company)){
 					showDivError("#jobExperienceModalError","Please enter Company Name");
+				}
+				if(checkEmpty(companyNumber)){
+					showDivError("#jobExperienceModalError","Please enter Company Number");
+				}
+				if(isNaN(companyNumber)){
+					showDivError("#jobExperienceModalError","Please enter Valid Company Number");
 				}
 				if(checkEmpty(startDate)){
 					showDivError("#jobExperienceModalError","Please enter Start Date of Job");

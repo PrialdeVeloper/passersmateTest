@@ -183,19 +183,25 @@
 		}
 
 		public function search(){
-			if(!$this->checkSession('seekerUser')){
-		 		header("location:login");
-		 	}
 		 	$dom = null;
 		 	$builder;
 		 	$data = [];
-		 	$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($_SESSION['seekerUser']));
+		 	$details = null;
+		 	$table = null;
+		 	$userUnique = null;
+		 	$sessionActive = null;
+		 	if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
+		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+		 		$userUnique = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+		 		$sessionActive = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+		 		$details = $this->model->selectAllFromUser($table,$userUnique,array($sessionActive));
+			}
 		 	$passerList = $this->model->selectAllFromUser($this->passerTable,"PasserStatus",array(1));
 		 	if(!empty($passerList)){
 		 		foreach ($passerList as $data) {
 		 			$builder = '
 
- 					<div class="col-sm-6">
+ 					<div class="col-sm-6 pt-5">
 						<div class="container shadowDiv">
 							<div class="row">
 								<div class="col-md-4">
@@ -329,7 +335,10 @@
 		}
 
 		public function messages(){
-			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = $checkValidChat = $dashboard = $messageForm = $noMessagePrompt = $MessageID = null;
+			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = $checkValidChat = $dashboard = $messageForm = $noMessagePrompt = $MessageID = $jobForm = null;
+			if(!$this->checkSession('seekerUser')){
+				header("location: login");
+			}
 			$messageForm = 
 			'
 				<form id="messageSend">
@@ -357,6 +366,16 @@
 					</div>
 		 			';
 		 		}
+		 		if(!empty($_GET['t'])){
+			 		$jobForm = 
+			 		'
+			 		 <div class="srch_bar">
+			            <div class="stylish-input-group">
+			              <button onclick="agreement?passer=" class="btn btn-info font-weight-bold" style="height:30px;font-size:14px">Create an Agreement <i class="fas fa-file"></i></button>
+			            </div>
+			          </div>
+			 		';
+		 		}
 		 	}elseif($this->checkSession('passerUser')){
 		 		$dashboard = "../passer/dashboard";
 		 		$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
@@ -375,15 +394,21 @@
 			 		}
 		 		}
 		 	}
-		 	if(empty($_GET['t'])){
+		 	if(empty($_GET['t'])){	
 		 		$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),"MessageID","DESC",1);
 		 		if(!empty($otherUser)){
 		 			$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
 		 		}else{
 		 			$noMessagePrompt = 
 		 			'
-		 			<div class="container text-center"><p class="display-4">No message</p></div>
+		 			<div class="container text-center"><p class="h4">No message</p></div>
 		 			';
+
+		 			$messageForm = 
+			 			'
+			 			<div class="container" role="alert">
+						</div>
+			 			';
 		 		}
 		 		
 		 	}else{
@@ -398,7 +423,7 @@
 		 		}
 		 	}
 		 	extract($details[0]);
-		 	$data[] = array("userDetails"=>$details,"dashboard"=>$dashboard,"messageForm"=>$messageForm,"noMessage"=>$noMessagePrompt);
+		 	$data[] = array("userDetails"=>$details,"dashboard"=>$dashboard,"messageForm"=>$messageForm,"noMessage"=>$noMessagePrompt,"jobForm"=>$jobForm);
 			$this->controller->view("all/chat",$data);
 		}
 

@@ -5,7 +5,11 @@
 			extract($userDetails[0]);
 		}
 	} 
-	require_once "../public/header-footer/seeker/seekerHeader.marvee";
+	if(!empty($userDetails)){
+		require_once "../public/header-footer/seeker/seekerHeader.marvee";
+	}else{
+		require "../public/header-footer/header.marvee";
+	}
 	require_once "../public/header-footer/jobsNav.marvee";
 ?>
 

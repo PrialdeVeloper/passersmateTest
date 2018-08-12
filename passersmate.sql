@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2018 at 06:35 PM
+-- Generation Time: Aug 12, 2018 at 08:52 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -42,7 +42,8 @@ CREATE TABLE `admin` (
 INSERT INTO `admin` (`AdminID`, `username`, `email`, `password`) VALUES
 (1, 'syrel', 'test@gmail.com', '$2y$12$A5beirOzKPlwQUpZAHe4YuM1jgWRkGOrWdhFMh/5RJCzN04TjVj/i'),
 (2, 'crimson', 'francoyogie@gmail.com', '$2y$12$as7ENGvmZtzGqUns2n23VeME0QTxt9ORwDzHSP31O3JenOVpvOATm'),
-(3, 'test', 'qweee@gmail.com', '$2y$12$lPC0SBHSHnbUqFeT1Etvu.YACEGPZweAot65MvI5n55BDIPloz0hu');
+(3, 'test', 'qweee@gmail.com', '$2y$12$lPC0SBHSHnbUqFeT1Etvu.YACEGPZweAot65MvI5n55BDIPloz0hu'),
+(4, 'crimsonadmin', 'crimson@gmail.com', '$2y$12$drMX/W2kLszEMn.FvraJu.yk3IWOFeZ7zchKr2ditnO8E1qEJFqn6');
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,10 @@ INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `M
 (11, 1, 3, 'qweqweqwe', 'Seeker', '2018-08-11 14:21:49', 0),
 (12, 1, 3, 'wew', 'Seeker', '2018-08-11 14:24:37', 0),
 (13, 1, 3, 'qwe', 'Seeker', '2018-08-11 14:24:43', 0),
-(14, 1, 3, 'asd', 'Passer', '2018-08-11 16:12:39', 0);
+(14, 1, 3, 'asd', 'Passer', '2018-08-11 16:12:39', 0),
+(15, 4, 3, '', '', '2018-08-12 04:48:39', 0),
+(16, 4, 3, 'hello', 'Seeker', '2018-08-12 04:48:53', 0),
+(18, 4, 3, 'hi', 'Seeker', '2018-08-12 11:22:15', 0);
 
 -- --------------------------------------------------------
 
@@ -211,7 +215,8 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (10, 3, NULL, 'subscription', '1', 0),
 (11, 3, NULL, 'subscription', '2', 0),
 (12, 3, NULL, 'subscription', '2', 0),
-(13, 3, NULL, 'subscription', '2', 0);
+(13, 3, NULL, 'subscription', '2', 0),
+(14, NULL, 6, 'updateUserStatus', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -258,8 +263,9 @@ CREATE TABLE `offerjobform` (
 INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `offerjobformDefault`, `OfferJobFormStatus`) VALUES
 (1, 1, 'qwe', '2018-07-31', '2018-08-20', 255, 'Onsite', 'Offsite', 0, 1),
 (2, 1, 'try', '2018-08-05', '2018-08-10', 255, 'Online', 'In-House', 0, 1),
-(3, 4, 'General Gines St. Suba Cebu City', '2018-08-06', '2018-08-10', 1000, 'Onsite', 'Offsite', 1, 0),
-(4, 3, 'guadalupe', '2018-08-22', '2018-08-24', 500, 'Online', 'In-House', 0, 1);
+(3, 4, 'General Gines St. Suba Cebu City', '2018-08-06', '2018-08-10', 1000, 'Onsite', 'Offsite', 0, 0),
+(4, 3, 'guadalupe', '2018-08-22', '2018-08-24', 500, 'Online', 'In-House', 0, 1),
+(5, 3, 'qwe', '2018-07-31', '2018-08-30', 255, 'Online', 'In-House', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -302,7 +308,8 @@ INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `Passer
 (2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 0, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '0', 0, '14130602029952', '0000-00-00', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 0, '2018-07-22 15:20:53'),
 (3, '', '', '', NULL, 0, '', '', '', '', NULL, '', '0', 0, '', '0000-00-00', '$2y$12$VaHA4bJ8u6qFfHGLiC8M4egPaLsd7koKBBvZKBQdcF6hsdEs974Um', '', '', '', NULL, 0, '2018-07-26 06:12:30'),
 (4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 0, 'Female', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 0, '2018-07-26 09:39:02'),
-(5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', 0, '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16');
+(5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', 0, '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16'),
+(6, 'Frederick', 'Lorenzana', 'F', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Suba', 9154861084, 'sheldon@gmail.com', '1', 0, '13131601010336', '2018-08-16', '$2y$12$EYhujIRajkByoky0ivzoj.bUnAZzOZLERoNjFd5VPliAHDxv3/0kK', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369231', '../../public/etc/images/user/passer/15340694706153406947026.jpg', 0, '2018-08-12 10:21:25');
 
 -- --------------------------------------------------------
 
@@ -377,7 +384,8 @@ INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID
 (1, 1, '../../public/etc/images/userVerify/passer/153257913210153257913221.jpg', '../../public/etc/images/userVerify/passer/15325791329153257913221.png', '../../public/etc/images/userVerify/passer/15325791323153257913211.jpg', '../../public/etc/images/userVerify/passer/15325791325153257913251.jpg', 'Philippine Passport', 2323, '2018-07-18', '2018-07-26 04:25:32'),
 (2, 4, '../../public/etc/images/userVerify/passer/153259840010153259840034.jpg', '../../public/etc/images/userVerify/passer/15325984003153259840024.jpg', '../../public/etc/images/userVerify/passer/15325984006153259840044.jpg', '../../public/etc/images/userVerify/passer/15325984005153259840034.jpg', 'Philippine Passport', 123, '2018-07-10', '2018-07-26 09:46:40'),
 (3, 1, '../../public/etc/images/userVerify/passer/15328746213153287462131.jpg', '../../public/etc/images/userVerify/passer/15328746213153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746215153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746218153287462141.jpg', 'Philippine Passport', 2323, '2018-07-20', '2018-07-29 14:30:21'),
-(4, 5, '../../public/etc/images/userVerify/passer/15329364978153293649755.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', '../../public/etc/images/userVerify/passer/15329364973153293649735.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', 'Student ID', 123123, '2018-06-04', '2018-07-30 07:41:37');
+(4, 5, '../../public/etc/images/userVerify/passer/15329364978153293649755.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', '../../public/etc/images/userVerify/passer/15329364973153293649735.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', 'Student ID', 123123, '2018-06-04', '2018-07-30 07:41:37'),
+(5, 6, '../../public/etc/images/userVerify/passer/15340693224153406932246.jpg', '../../public/etc/images/userVerify/passer/15340693229153406932226.jpg', '../../public/etc/images/userVerify/passer/153406932210153406932216.jpg', '../../public/etc/images/userVerify/passer/15340693225153406932256.jpg', 'Student ID', 14281034, '2018-08-30', '2018-08-12 10:22:02');
 
 -- --------------------------------------------------------
 
@@ -391,6 +399,7 @@ CREATE TABLE `passerworkhistory` (
   `PasserID` int(11) NOT NULL,
   `PasserJobTitle` varchar(255) NOT NULL,
   `PasserCompany` varchar(255) NOT NULL,
+  `PasserCompanyNumber` bigint(20) DEFAULT NULL,
   `PasserWorkHistoryDesc` varchar(255) NOT NULL,
   `PasserWorkHistoryStartDate` date NOT NULL,
   `PasserWorkHistoryEndDate` date NOT NULL,
@@ -402,9 +411,12 @@ CREATE TABLE `passerworkhistory` (
 -- Dumping data for table `passerworkhistory`
 --
 
-INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserJobTitle`, `PasserCompany`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`, `passerWorkHistoryDateTime`) VALUES
-(1, NULL, 1, 'Qe', 'Q', 'qwe', '1970-01-01', '1970-01-01', NULL, '2018-07-23 08:25:11'),
-(2, NULL, 5, 'Singer', 'Waterfront', 'Dako kug kita. HAHAH', '2018-07-17', '2018-07-18', NULL, '2018-07-30 07:34:59');
+INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserJobTitle`, `PasserCompany`, `PasserCompanyNumber`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`, `passerWorkHistoryDateTime`) VALUES
+(1, NULL, 1, 'Qe', 'Q', 0, 'qwe', '1970-01-01', '1970-01-01', NULL, '2018-07-23 08:25:11'),
+(2, NULL, 5, 'Singer', 'Waterfront', 0, 'Dako kug kita. HAHAH', '2018-07-17', '2018-07-18', NULL, '2018-07-30 07:34:59'),
+(3, NULL, 1, 'Qwe', 'Qwe', 0, 'qweq', '2018-08-01', '0000-00-00', 2018, '2018-08-12 15:56:21'),
+(4, NULL, 1, 'Qwe', 'Qwe', 1323, 'qwe', '2018-08-01', '0000-00-00', 2018, '2018-08-12 15:57:27'),
+(5, NULL, 1, 'Qwe', 'Qwe', 232, 'qwe', '2018-08-01', '2018-08-16', NULL, '2018-08-12 15:59:06');
 
 -- --------------------------------------------------------
 
@@ -511,7 +523,7 @@ CREATE TABLE `subscription` (
 INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, `SubscriptionStart`, `SubscriptionEnd`, `PaymentMethod`, `SubscriptionStatus`) VALUES
 (1, 1, 2, '2018-07-30', '2018-07-31', 'paypal', 'ended'),
 (2, 1, 1, '2018-07-31', '2018-08-01', 'paypal', 'ended'),
-(3, 1, 3, '2018-08-07', '2018-10-05', 'paypal', 'ongoing');
+(3, 1, 3, '2018-08-07', '2018-10-05', 'paypal', 'ended');
 
 -- --------------------------------------------------------
 
@@ -736,7 +748,7 @@ ALTER TABLE `switchaccount`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `canceljob`
@@ -772,7 +784,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `multimedia`
@@ -784,7 +796,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
@@ -796,13 +808,13 @@ ALTER TABLE `offerjob`
 -- AUTO_INCREMENT for table `offerjobform`
 --
 ALTER TABLE `offerjobform`
-  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `passereducation`
@@ -820,13 +832,13 @@ ALTER TABLE `passerskills`
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
-  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
-  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `review`

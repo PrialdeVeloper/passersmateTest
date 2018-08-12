@@ -4,7 +4,7 @@
 		public $passerReg = array("PasserCOCNo","PasserFN","PasserLN","PasserMname","PasserPass","PasserEmail","PasserCertificate","PasserCertificateTyPe","PasserTESDALink","PasserCOCExpiryDate");
 		public $passDashboardPersonalDetails = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate");
 		public $passDashboardPersonalDetailsWithPhoto = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserProfile");
-		public $passerWorkHistory = array("OfferJobID","PasserID","PasserJobTitle","PasserCompany","PasserWorkHistoryDesc","PasserWorkHistoryStartDate","PasserWorkHistoryEndDate","PasserWorkHistoryWorkDays");
+		public $passerWorkHistory = array("OfferJobID","PasserID","PasserJobTitle","PasserCompany","PasserCompanyNumber","PasserWorkHistoryDesc","PasserWorkHistoryStartDate","PasserWorkHistoryEndDate","PasserWorkHistoryWorkDays");
 		public $passerEducation = array("passerID","educationAttainment","educationSchool","educationAccomplishment");
 		public $passerValidate = array("passerID","frontID","backID","selfie","COC","idType","idNumber","expirationDate");
 		protected $passerTable = 'passer';
@@ -85,12 +85,24 @@
 			if(empty($_GET['user'])){
 		 		header("location:../home/login");
 		 	}
-		 	$builder = null;
-		 	$dom = null;
+		 	$builder = $table = $userUnique = $id = null;
+		 	$dom = $page = null;
 		 	$errorDiv = null;
 		 	$seekerError = null;
 		 	$coc = $this->sanitize($_GET['user']);
+		 	$userDetails = null;
+	 		if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
 		 	$details = $this->model->selectAllFromUser($this->passerTable,"PasserCOCNo",array($coc));
+		 	if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
+		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+				$userUnique = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+				$userDetails = $this->model->selectAllFromUser($table,$userUnique,array($id));
+		 	}
 		 	if(!empty($details)){
 			 	extract($details[0]);
 			 	if($PasserStatus !=1 ){
@@ -114,47 +126,93 @@
 							</div>
 					 		';
 		 				}
+		 				else{
+		 					if($this->seekerIsSubscribed() == false){
+		 						$seekerError = '
+						 		<div class="alert alert-danger col text-center" role="alert">
+									<label>Currently, You cannot hire nor message any passer because you don\'t have any active subscription. Please subscribe <a href=../home/subscription> Here</a>.</label>			
+								</div>
+					 		';
+		 					}
+		 				}
 		 			}
 		 		}
 
-			 	$workHistory = $this->model->selectDataFromOtherDB("passerworkhistory","passer","PasserID","PasserCOCNo",array($coc));
+			 	$workHistory = $this->paginationScriptSingle("passerworkhistory","PasserID",$PasserID,$page,1,1,"user=".$coc);
+			 	$workHistory = json_decode($workHistory,true);
 			 	if(!empty($workHistory)){
-			 		foreach ($workHistory as $data) {
+			 		foreach ($workHistory['data'] as $data) {
 			 			$builder = '
-			 				<div class="container text-center mt-5">
-								<div class="col h3">
-									'.$this->sanitize($data['PasserJobTitle']).'
+			 				<div class="row ">
+								<div class="col-sm-12 text-center pt-4 pb-3">
+									<label><h3>Work Experience</h3></label>
 								</div>
-								<div class="row mt-3">
-									<div class="col">
-										<div class="col">
-											Start Date
+							</div>	
+							<div class="row justify-content-center">
+								<div class="card shadowDiv col-sm-10">
+									<div class="card-header bg-white">
+										<i class="h2 fas fa-briefcase" style="color: darkblue;"></i>
+									</div>
+									<div class="card-body">
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Job Title</label>
+											</div>
+											<div class="col-sm-8">
+												<label>'.$this->sanitize($data['PasserJobTitle']).'</label>
+											</div>
 										</div>
-										<div class="col mt-2">
-											'.$this->sanitize(date("F jS, Y", strtotime($data['PasserWorkHistoryStartDate']))).'
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Company</label>
+											</div>
+											<div class="col-sm-8">
+												<label>'.$this->sanitize($data['PasserCompany']).'</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Contact Number</label>
+											</div>
+											<div class="col-sm-8">
+												<label>'.$this->sanitize($data['PasserCompanyNumber']).'</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Description <small style="opacity: 0.5">(optional)</small></label>
+											</div>
+											<div class="col-sm-8">
+												<label>'.$this->sanitize($data['PasserWorkHistoryDesc']).'</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Date Started </label>
+											</div>
+											<div class="col-sm-8">
+												<label>'.$this->sanitize(date("F jS, Y", strtotime($data['PasserWorkHistoryStartDate']))).'</label>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-sm-4">
+												<label>Date Ended </label>
+											</div>
+											<div class="col-sm-8">
+												<label>'.$this->sanitize(date("F jS, Y", strtotime($data['PasserWorkHistoryEndDate']))).'</label>
+											</div>
 										</div>
 									</div>
-									<div class="col">
-										<div class="col">
-											End Date
-										</div>
-										<div class="col mt-2">
-											'.$this->sanitize(date("F jS, Y", strtotime($data['PasserWorkHistoryEndDate']))).'
-										</div>
-									</div>
 								</div>
-								<div class="container mt-3">
-									<div class="col">Short Description</div>
-									<div class="col text-center mt-2">
-									'.$this->sanitize($data['PasserWorkHistoryDesc']).'
-									</div>
-								</div>
+							</div>
+							<div class="row justify-content-center pt-4">
+								'.$workHistory['pagination'].'
 							</div>
 			 			';
 			 			$dom = $dom ." ".$builder;
 			 		}
 			 	}
-			 	$data[] = array("userDetails"=>$details,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError);
+			 	$data[] = array("passerDetails"=>$details,"userDetails"=>$userDetails,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError);
 				$this->controller->view("passer/profile",$data);
 			}
 			else{
