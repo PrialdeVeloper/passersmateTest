@@ -433,7 +433,7 @@
 		}
 
 		public function agreement(){
-			$passerDetails = $details = $error = $passerDetails = null;
+			$passerDetails = $details = $error = $passerDetails = $seekerDetails = null;
 			$data = [];
 			if(!$this->checkSession('seekerUser') || !$this->checkSession('agreementPasser')){
 				header("location: login");			
@@ -441,10 +441,13 @@
 			if($this->seekerIsSubscribed()){
 				$passerDetails = $this->getDetailsPasser($_SESSION['agreementPasser']);
 				if($passerDetails[0]['PasserStatus']  == 1){
-
+					$seekerDetails = $this->getDetailsSeeker($_SESSION['seekerUser']);
+					if($seekerDetails[0]['SeekerStatus'] != 1){
+						$error = 'Sorry, you can\'t hire anyone at the moment. Please submit needed forms <a href="../seeker/dashboard"> Here</a>.';
+					}
 				}
 				else{
-					$error = 'Sorry, Your choosen passer cannot be hired for the moment because he/she is not validated by passersmate';
+					$error = 'Sorry, Your choosen passer cannot be hired for the moment because he/she is not validated by passersmate. You still can choose other passer <a href="search">here</a>';
 				}
 			}else{
 				$error = 'Sorry, you have no active subscription. Please subscribe <a href="subscription">here.</a>';

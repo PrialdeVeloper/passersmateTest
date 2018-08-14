@@ -3,7 +3,7 @@ $sendAgreement =
 '
   <div class="card-footer">
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12" id="agreementEdit">
         <a href="" class="text-left" data-toggle="modal" data-target="#edit"><h5><u>Edit your Employment Agreement Form</u></h5></a>
       </div>
       <div class="col-md-12 text-right">
@@ -85,7 +85,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               					<h4><u>Back to your Dashboard</u></h4>
               				</a>
                       <?php echo $error; ?>
-              				<div class="card shadow">
+              				<div class="card shadow" id="agreementDiv">
               					<div class="card-header">
               						<h4>Employment Agreement Form</h4>
               						<small class="font-weight-bold text-danger">Note: This will serve as your agreement between your choosen Passer.
@@ -137,45 +137,67 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               							<div class="col-md-12 mt-3">
               								<p style="font-size: 15px" >
               									The Passer's service with the Service Seeker will start on 
-              									<u class="font-weight-bold">Start Date.</u>
+              									<u class="font-weight-bold startDate">Start Date.</u>
               								</p>
               							</div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                3. The estimated end date of service
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                The Passer's service with the Service Seeker will estimatedly end on 
+                                <u class="font-weight-bold endDate">estimated End Date.</u>
+                              </p>
+                            </div>
               							<div class="col-md-12 mt-3">
               								<p style="font-size: 15px" class="font-weight-bold">
-              									3. Place of work
+              									4. Place of work
               								</p>
               							</div>
               							<div class="col-md-12 mt-3">
               								<p style="font-size: 15px" >
-              									The Passer's normal place of work will be 
-              									<u class="font-weight-bold">Working Address.</u>
+              									The Passer's place of work will be 
+              									<u class="font-weight-bold workingAddress">Working Address.</u>
               								</p>
               							</div>
               							<div class="col-md-12 mt-3">
               								<p style="font-size: 15px" class="font-weight-bold">
-              									4. Payment
+              									5. Payment
               								</p>
               							</div>
               							<div class="col-md-12 mt-3">
               								<p style="font-size: 15px" >
               									Payment is at the rate of
-              									<u class="font-weight-bold">Salary.</u>
+              									<a class="font-weight-bold">&#8369; </a><u class="font-weight-bold salary">Salary.</u>
               								</p>
               							</div>
+                              <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                6. Payment Method
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                Payment method is
+                                <u class="font-weight-bold paymentMethod">Payment Method.</u>
+                              </p>
+                            </div>
               							<div class="col-md-12 mt-3">
               								<p style="font-size: 15px" class="font-weight-bold">
-              									5. Preferred Type of Accommodation
+              									7. Preferred Type of Accommodation
               								</p>
               							</div>
               							<div class="col-md-12 mt-3">
               								<p style="font-size: 15px" >
               									The preferred type of accommodation is
-              									<u class="font-weight-bold">Type of accommodation.</u>
+              									<u class="font-weight-bold accommodationType">Type of accommodation.</u>
               								</p>
               							</div>
               							<div class="form-group col-md-12 mt-3 form-check">
-									    <input type="checkbox" class="form-check-input" id="agreement">
-									    <label class="form-check-label" for="agreement"> I reviewed and accept the terms and condition of the Employment Agreement.</label>
+									    <input type="checkbox" class="form-check-input" id="agreementCheckbox">
+									    <label class="form-check-label" for="agreementCheckbox"> I reviewed and accept the terms and condition of the Employment Agreement.</label>
 									  </div>
               						</div>
               						<div class="row">
@@ -232,86 +254,81 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                   </p>
   							</div>
   							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px">(2) 
-                    <u class="font-weight-bold"><?php echo ucwords($PasserFN." ".$PasserLN); ?></u> of <u class="font-weight-bold"><?php echo $PasserAddress." ".$PasserStreet.", ".$PasserCity; ?></u>, ("The Passer")
-                  </p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px">
-  									IT IS AGREED that the Service Seeker will employ the Passer and the Passer will work for the Service Seeker on the following terms and conditions:
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" class="font-weight-bold">
-  									1. Job Title
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" >
-  									The Passer's position is that of <input type="text" name="" value="The Job Title">.
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" class="font-weight-bold">
-  									2. The start date of service
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" >
-  									The Passer's service with the Service Seeker will start on 
-  									<input type="text" name="" value="The Start Date of Job">.
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" class="font-weight-bold">
-  									3. Place of work
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" >
-  									The Passer's normal place of work will be 
-  									<input type="text" name="" value="The Working Address">.
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" class="font-weight-bold">
-  									4. Payment
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" >
-  									Payment is at the rate of
-  									<input type="text" name="" value="The Salary">.
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" class="font-weight-bold">
-  									5. Work Materials
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" >
-  									The work material is provided by
-  									<select class="form-control">
-									  <option>Seeker</option>
-									  <option>Passer</option>
-									</select>
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" class="font-weight-bold">
-  									6. Preferred Type of Accommodation
-  								</p>
-  							</div>
-  							<div class="col-md-12 mt-3">
-  								<p style="font-size: 15px" >
-  									The preferred type of accommodation is
-  									<select class="form-control">
-									  <option>Onsite</option>
-									  <option>Offsite</option>
-									</select>
-  								</p>
-  							</div>
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                1. Job Title
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                The Passer's position is that of <u class="font-weight-bold"><?php echo $PasserCertificate; ?>.</u>
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                2. The start date of service
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                The Passer's service with the Service Seeker will start on 
+                                <input type="text" disabled readonly class="datepicker" name="startDateModal">
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                3. The estimated end date of service
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                The Passer's service with the Service Seeker will estimatedly end on 
+                                <input type="text" disabled readonly class="datepicker" name="endDateModal">
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                4. Place of work
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                The Passer's place of work will be 
+                                <input type="text" disabled readonly class="datepicker" name="workingAddressModal">
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                5. Payment
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                Payment is at the rate of
+                               <a class="font-weight-bold">&#8369; </a><input type="text" name="salaryModal">
+                              </p>
+                            </div>
+                              <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                6. Payment Method
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                Payment method is
+                                <input type="text" name="paymentMethodModal">
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" class="font-weight-bold">
+                                7. Preferred Type of Accommodation
+                              </p>
+                            </div>
+                            <div class="col-md-12 mt-3">
+                              <p style="font-size: 15px" >
+                                The preferred type of accommodation is
+                                <u class="font-weight-bold accommodationType">Type of accommodation.</u>
+                              </p>
+                            </div>
   						</div>
   					</form>
                    	 </div>

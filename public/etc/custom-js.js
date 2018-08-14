@@ -2115,3 +2115,58 @@ $(function(){
 // end of delete offerjobForm
 
 // end of dashboard seeker
+
+// offerjob
+$(function(){
+	$("#agreementDiv").exists(function(){
+		let offerDiv = $("#agreementDiv");
+		let errorDiv = $(".agreementError");
+		let agreementEditButton = $("#agreementEdit");
+		let startDate = $(".startDate");
+		let startDateModal = $("input[name=startDateModal]");
+		let endDate = $(".endDate");
+		let endDateModal = $("input[name=endDateModal]");
+		let workingAddress = $(".workingAddress");
+		let workingAddressModal = $("input[name=workingAddressModal]");
+		let salary = $(".salary");
+		let salaryModal = $("input[name=salaryModal]");
+		let paymentMethod = $(".paymentMethod");
+		let paymentMethodModal = $("input[name=paymentMethodModal]");
+		let accommodationType = $(".accommodationType");
+		let accommodationTypeModal = $("input[name=accommodationTypeModal]");
+		$.ajax({
+			url: "jobOfferData",
+			method: "POST",
+			data: "offerDetails",
+			success: function(a){
+				let obj = JSON.parse(a);
+				if(obj.error == "none" || obj.error == "noJobFormSaved"){
+					switch(obj.error){
+						case "noJobFormSaved":
+							agreementEditButton.empty();
+						break;
+						case "none":
+						console.log(obj);
+							let offerForm = obj.data; 
+							startDate.html(offerForm.StartDate);
+							startDateModal.val(offerForm.StartDate);
+							endDate.html(offerForm.EndDate);
+							endDateModal.val(offerForm.EndDate);
+							paymentMethod.html(offerForm.PaymentMethod);
+							paymentMethodModal.val(offerForm.PaymentMethod);
+							workingAddress.html(offerForm.WorkingAddress);
+							workingAddressModal.val(offerForm.WorkingAddress);
+							salary.html(offerForm.Salary);
+							salaryModal.val(offerForm.Salary);
+							accommodationType.html(offerForm.AccomodationType);
+							accommodationTypeModal.val(offerForm.AccomodationType);
+						break;
+					}
+				}else{
+					offerDiv.empty();
+				}
+			}
+		});
+	});
+});
+// end of offerjob

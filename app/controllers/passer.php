@@ -138,7 +138,7 @@
 		 		}elseif(!$this->checkSession('seekerUser') && $PasserStatus == 1){
 		 			$seekerError = '
 				 		<div class="alert alert-danger col text-center" role="alert">
-							<label>Please login <a href="login">here</a> to message or hire this passer</label>			
+							<label>Please login as Seeker <a href="login">here</a> to message or hire this passer</label>			
 						</div>
 			 		';
 		 		}

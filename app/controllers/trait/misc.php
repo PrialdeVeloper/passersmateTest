@@ -1388,9 +1388,29 @@
 			}
 
 			public function jobOfferData(){
+				$offerJob = $offerJobChanged = $startDateChanged = $endDateChanged = null;
 				if(isset($_POST['offerDetails'])){
-					if(isset($_SESSION['agreementPasser'])){
-
+					if($this->seekerIsSubscribed()){
+						if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
+							if($this->getDetailsPasser($_SESSION['agreementPasser'])[0]['PasserStatus'] == 1){
+								$offerJob = $this->model->selectTwoCondition(array("*"),"offerjobform","SeekerID","offerjobformDefault",array($_SESSION['seekerUser'],1));
+								if(count($offerJob) > 0){
+									$startDateChanged = date("F jS, Y", strtotime($offerJob[0]['StartDate']));
+									$endDateChanged = date("F jS, Y", strtotime($offerJob[0]['EndDate']));
+									$offerJobChanged = array_replace($offerJob[0], array("StartDate"=>$startDateChanged,"EndDate"=>$endDateChanged));
+									echo json_encode(array("error"=>"none","data"=>$offerJobChanged));
+								}
+								else{
+									echo json_encode(array("error"=>"noJobFormSaved"));
+								}
+							}
+							else{
+								echo json_encode(array("error"=>"passerNotVerified"));
+							}
+						}
+						else{
+							echo json_encode(array("error"=>"seekerNotVerified"));
+						}
 					}
 					else{
 						echo json_encode(array("error"=>"noSubscription"));
