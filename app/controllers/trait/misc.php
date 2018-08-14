@@ -52,6 +52,10 @@
 			return $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($seeker));
 		}
 
+		public function getDetailsPasser($passer){
+			return $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($passer));
+		}
+
 		public function seekerIsSubscribed(){
 			$subscription = null;
 			if(!$this->checkSession('seekerUser')){
@@ -1379,6 +1383,17 @@
 							}
 						}
 						break;
+					}
+				}
+			}
+
+			public function jobOfferData(){
+				if(isset($_POST['offerDetails'])){
+					if(isset($_SESSION['agreementPasser'])){
+
+					}
+					else{
+						echo json_encode(array("error"=>"noSubscription"));
 					}
 				}
 			}

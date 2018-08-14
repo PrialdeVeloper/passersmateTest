@@ -105,12 +105,11 @@
 		 	}
 		 	if(!empty($details)){
 			 	extract($details[0]);
-			 	if($PasserStatus !=1 ){
+			 	if($PasserStatus !=1){
 			 		$errorDiv = '
 			 		<div class="alert alert-danger col text-center" role="alert">
 						<label>Currently, this Passer has not yet been verified so he/she cannot be hired nor messaged.</label>			
 					</div>
-
 			 		';
 			 	}
 
@@ -136,6 +135,12 @@
 		 					}
 		 				}
 		 			}
+		 		}elseif(!$this->checkSession('seekerUser') && $PasserStatus == 1){
+		 			$seekerError = '
+				 		<div class="alert alert-danger col text-center" role="alert">
+							<label>Please login <a href="login">here</a> to message or hire this passer</label>			
+						</div>
+			 		';
 		 		}
 
 			 	$workHistory = $this->paginationScriptSingle("passerworkhistory","PasserID",$PasserID,$page,1,1,"user=".$coc);

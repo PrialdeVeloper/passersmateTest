@@ -346,6 +346,11 @@
                 </form>
 			';
 			$data = [];
+
+			if($this->checkSession('agreementPasser')){
+				unset($_SESSION['agreementPasser']);
+			}
+
 			if(!$this->checkSession('seekerUser') && !$this->checkSession('passerUser')){
 		 		header("location:login");
 		 	}elseif($this->checkSession('seekerUser')){
@@ -363,12 +368,14 @@
 					</div>
 		 			';
 		 		}
-		 		if(!empty($_GET['t'])){
+		 		if(!empty($_GET['t']) && $subscription > 0){
 			 		$jobForm = 
 			 		'
 			 		 <div class="srch_bar">
 			            <div class="stylish-input-group">
-			              <button onclick="agreement?passer=" class="btn btn-info font-weight-bold" style="height:30px;font-size:14px">Create an Agreement <i class="fas fa-file"></i></button>
+			              <a href="agreement" class="text-white btn btn-info font-weight-bold" style="height:30px;font-size:14px">
+			              	Create an Agreement <i class="fas fa-file"></i>
+			              </a>
 			            </div>
 			          </div>
 			 		';
@@ -418,10 +425,34 @@
 		 			$otherUser = $this->model->selectSort(array("*"),$this->messageTable,$user,array($id),"MessageID","DESC",1);
 		 			$this->toOtherPage("messages?t=".$otherUser[0][$otherUserID]);
 		 		}
+		 		$_SESSION['agreementPasser'] = $this->sanitize($_GET['t']);
 		 	}
 		 	extract($details[0]);
 		 	$data[] = array("userDetails"=>$details,"dashboard"=>$dashboard,"messageForm"=>$messageForm,"noMessage"=>$noMessagePrompt,"jobForm"=>$jobForm);
 			$this->controller->view("all/chat",$data);
+		}
+
+		public function agreement(){
+			$passerDetails = $details = $error = $passerDetails = null;
+			$data = [];
+			if(!$this->checkSession('seekerUser') || !$this->checkSession('agreementPasser')){
+				header("location: login");			
+			}
+			if($this->seekerIsSubscribed()){
+				$passerDetails = $this->getDetailsPasser($_SESSION['agreementPasser']);
+				if($passerDetails[0]['PasserStatus']  == 1){
+
+				}
+				else{
+					$error = 'Sorry, Your choosen passer cannot be hired for the moment because he/she is not validated by passersmate';
+				}
+			}else{
+				$error = 'Sorry, you have no active subscription. Please subscribe <a href="subscription">here.</a>';
+			}
+			$passerDetails = $this->getDetailsPasser($_SESSION['agreementPasser'])[0];
+			$details = $this->getDetailsSeeker($_SESSION['seekerUser'])[0];
+			$data[] = array("userDetails"=>$details,"passerDetails"=>$passerDetails,"error"=>$error);
+			$this->controller->view("all/agreement",$data);
 		}
 
 	}

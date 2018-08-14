@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2018 at 08:52 PM
+-- Generation Time: Aug 14, 2018 at 04:04 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -166,7 +166,16 @@ INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `M
 (14, 1, 3, 'asd', 'Passer', '2018-08-11 16:12:39', 0),
 (15, 4, 3, '', '', '2018-08-12 04:48:39', 0),
 (16, 4, 3, 'hello', 'Seeker', '2018-08-12 04:48:53', 0),
-(18, 4, 3, 'hi', 'Seeker', '2018-08-12 11:22:15', 0);
+(18, 4, 3, 'hi', 'Seeker', '2018-08-12 11:22:15', 0),
+(19, 5, 3, '', '', '2018-08-12 19:48:59', 0),
+(20, 5, 3, 'Hello', 'Seeker', '2018-08-12 19:49:16', 0),
+(21, 5, 3, 'BABA', 'Seeker', '2018-08-12 19:49:21', 0),
+(22, 1, 3, 'qwe', 'Seeker', '2018-08-12 20:04:28', 0),
+(23, 1, 3, 'tqet', 'Seeker', '2018-08-12 20:06:31', 0),
+(24, 1, 3, 'qwe', 'Seeker', '2018-08-12 20:14:04', 0),
+(25, 1, 3, 'qwe', 'Seeker', '2018-08-12 20:14:35', 0),
+(26, 1, 3, 'ewq', 'Passer', '2018-08-12 20:14:38', 0),
+(27, 1, 3, 'trtrtr', 'Passer', '2018-08-12 20:32:25', 0);
 
 -- --------------------------------------------------------
 
@@ -216,7 +225,10 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (11, 3, NULL, 'subscription', '2', 0),
 (12, 3, NULL, 'subscription', '2', 0),
 (13, 3, NULL, 'subscription', '2', 0),
-(14, NULL, 6, 'updateUserStatus', '1', 0);
+(14, NULL, 6, 'updateUserStatus', '1', 0),
+(15, 3, NULL, 'subscription', '1', 0),
+(16, 3, NULL, 'subscription', '2', 0),
+(17, 3, NULL, 'subscription', '2', 0);
 
 -- --------------------------------------------------------
 
@@ -264,8 +276,8 @@ INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `Sta
 (1, 1, 'qwe', '2018-07-31', '2018-08-20', 255, 'Onsite', 'Offsite', 0, 1),
 (2, 1, 'try', '2018-08-05', '2018-08-10', 255, 'Online', 'In-House', 0, 1),
 (3, 4, 'General Gines St. Suba Cebu City', '2018-08-06', '2018-08-10', 1000, 'Onsite', 'Offsite', 0, 0),
-(4, 3, 'guadalupe', '2018-08-22', '2018-08-24', 500, 'Online', 'In-House', 0, 1),
-(5, 3, 'qwe', '2018-07-31', '2018-08-30', 255, 'Online', 'In-House', 1, 1);
+(4, 3, 'guadalupe', '2018-08-22', '2018-08-24', 500, 'Online', 'In-House', 1, 1),
+(5, 3, 'qwe', '2018-07-31', '2018-08-30', 255, 'Online', 'In-House', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -309,7 +321,9 @@ INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `Passer
 (3, '', '', '', NULL, 0, '', '', '', '', NULL, '', '0', 0, '', '0000-00-00', '$2y$12$VaHA4bJ8u6qFfHGLiC8M4egPaLsd7koKBBvZKBQdcF6hsdEs974Um', '', '', '', NULL, 0, '2018-07-26 06:12:30'),
 (4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 0, 'Female', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 0, '2018-07-26 09:39:02'),
 (5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', 0, '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16'),
-(6, 'Frederick', 'Lorenzana', 'F', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Suba', 9154861084, 'sheldon@gmail.com', '1', 0, '13131601010336', '2018-08-16', '$2y$12$EYhujIRajkByoky0ivzoj.bUnAZzOZLERoNjFd5VPliAHDxv3/0kK', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369231', '../../public/etc/images/user/passer/15340694706153406947026.jpg', 0, '2018-08-12 10:21:25');
+(6, 'Frederick', 'Lorenzana', 'F', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Suba', 9154861084, 'sheldon@gmail.com', '1', 0, '13131601010336', '2018-08-16', '$2y$12$EYhujIRajkByoky0ivzoj.bUnAZzOZLERoNjFd5VPliAHDxv3/0kK', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369231', '../../public/etc/images/user/passer/15340694706153406947026.jpg', 0, '2018-08-12 10:21:25'),
+(7, 'Bernard', 'Buhawe', 'P', NULL, 0, '', '', '', '', NULL, 'abugabayot@gmail.com', '2', 0, '16104302012735', '2018-08-21', '$2y$12$XR2/ml7jvtP5zFen5Iqt5.z8.n80/v7FHuSqjpaAJ57.dix3ziHGe', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369228', NULL, 0, '2018-08-12 20:00:24'),
+(8, 'Leonard', 'Lelis', 'P', NULL, 0, '', '', '', '', NULL, 'abugabayotkaayo@gmail.com', '0', 0, '16104302012746', '2018-07-31', '$2y$12$5HzXf2v2JaPtCQvieJISE.wj1ziVOvIsnml2kzbeQoiOTOgH8Pyky', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369227', NULL, 0, '2018-08-12 20:03:15');
 
 -- --------------------------------------------------------
 
@@ -385,7 +399,8 @@ INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID
 (2, 4, '../../public/etc/images/userVerify/passer/153259840010153259840034.jpg', '../../public/etc/images/userVerify/passer/15325984003153259840024.jpg', '../../public/etc/images/userVerify/passer/15325984006153259840044.jpg', '../../public/etc/images/userVerify/passer/15325984005153259840034.jpg', 'Philippine Passport', 123, '2018-07-10', '2018-07-26 09:46:40'),
 (3, 1, '../../public/etc/images/userVerify/passer/15328746213153287462131.jpg', '../../public/etc/images/userVerify/passer/15328746213153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746215153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746218153287462141.jpg', 'Philippine Passport', 2323, '2018-07-20', '2018-07-29 14:30:21'),
 (4, 5, '../../public/etc/images/userVerify/passer/15329364978153293649755.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', '../../public/etc/images/userVerify/passer/15329364973153293649735.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', 'Student ID', 123123, '2018-06-04', '2018-07-30 07:41:37'),
-(5, 6, '../../public/etc/images/userVerify/passer/15340693224153406932246.jpg', '../../public/etc/images/userVerify/passer/15340693229153406932226.jpg', '../../public/etc/images/userVerify/passer/153406932210153406932216.jpg', '../../public/etc/images/userVerify/passer/15340693225153406932256.jpg', 'Student ID', 14281034, '2018-08-30', '2018-08-12 10:22:02');
+(5, 6, '../../public/etc/images/userVerify/passer/15340693224153406932246.jpg', '../../public/etc/images/userVerify/passer/15340693229153406932226.jpg', '../../public/etc/images/userVerify/passer/153406932210153406932216.jpg', '../../public/etc/images/userVerify/passer/15340693225153406932256.jpg', 'Student ID', 14281034, '2018-08-30', '2018-08-12 10:22:02'),
+(6, 7, '../../public/etc/images/userVerify/passer/153410407410153410407437.jpg', '../../public/etc/images/userVerify/passer/15341040747153410407417.jpg', '../../public/etc/images/userVerify/passer/15341040746153410407447.jpg', '../../public/etc/images/userVerify/passer/15341040747153410407467.jpg', 'Driver&rsquo;s License', 34342414, '2018-08-16', '2018-08-12 20:01:14');
 
 -- --------------------------------------------------------
 
@@ -468,7 +483,7 @@ CREATE TABLE `seeker` (
 INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`) VALUES
 (1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '1', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', ''),
 (2, 'Marvee Yofa', 'Franco', NULL, 0, 'Female', '', '', '', NULL, 'francoyochi@gmail.com', '', '1668043639982457', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEd2ejZA2eFlSV09zd3RadWJRRTEzdFRkWm1fVHlnczVCN1pqTnZA5QUJoNEkxeUlHNHd4YUliUldBWm02c09fMnZAYbDZAUUnJ5Mmc4cVpFYWRyUExPdHpMN2FZAeGxYajh4UjUwd25yZAWllZAkNDMmR0/', NULL, '', '1', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1668043639982457&amp;height=200&amp;width=200&amp;ext=1535530327&amp;hash=AeT60qKEE-Hc1jO0', '', ''),
-(3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 9154861084, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15337153612153371536163.jpg', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW'),
+(3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 9154861084, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15341036682153410366863.jpg', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW'),
 (4, 'May', 'Franco', '2018-08-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Suba', 2147483647, 'francoyogie@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15332818502153328185034.jpg', 'franco', '$2y$12$vhJF9oSUtFTE0zqf1PYifOFyGvqfMZA4ao8e7yW0VdOunHZU9Tw12'),
 (5, 'Syrel', 'Prialde', NULL, 0, 'Male', '', '', '', NULL, 'prialde01@gmail.com', '', NULL, NULL, '118416846115335852813', 'https://plus.google.com/118416846115335852813', '0', 'https://lh4.googleusercontent.com/-kYuWnXUzfcI/AAAAAAAAAAI/AAAAAAAAAAA/AAnnY7ry8ZDeqsrb-PjviuoLSg6sO99sIw/mo/photo.jpg', '', '');
 
@@ -523,7 +538,8 @@ CREATE TABLE `subscription` (
 INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, `SubscriptionStart`, `SubscriptionEnd`, `PaymentMethod`, `SubscriptionStatus`) VALUES
 (1, 1, 2, '2018-07-30', '2018-07-31', 'paypal', 'ended'),
 (2, 1, 1, '2018-07-31', '2018-08-01', 'paypal', 'ended'),
-(3, 1, 3, '2018-08-07', '2018-10-05', 'paypal', 'ended');
+(3, 1, 3, '2018-08-07', '2018-10-05', 'paypal', 'ended'),
+(4, 1, 3, '2018-08-12', '2018-08-15', 'paypal', 'ongoing');
 
 -- --------------------------------------------------------
 
@@ -784,7 +800,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `multimedia`
@@ -796,7 +812,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
@@ -814,7 +830,7 @@ ALTER TABLE `offerjobform`
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `passereducation`
@@ -832,7 +848,7 @@ ALTER TABLE `passerskills`
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
-  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
@@ -862,7 +878,7 @@ ALTER TABLE `seekervalidate`
 -- AUTO_INCREMENT for table `subscription`
 --
 ALTER TABLE `subscription`
-  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `subscriptiontype`
