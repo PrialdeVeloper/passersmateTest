@@ -1985,7 +1985,7 @@ $(function(){
 // end of display jobOfferForm
 
 
-// offerjobCreate
+// offerjobEdit
 $(function(){
 	$("#updateOfferJob").submit(function(event){
 		event.preventDefault();
@@ -2046,6 +2046,8 @@ $(function(){
 							idJobOffer = "";
 							toastSuccess("Form Edited!");
 							window.setTimeout(function(){window.location='joboffer'},1000)
+						}else if(obj.error == "uneditable"){
+							toastError("Sorry, this form is currently used and cannot be edited.");
 						}
 					},
 					fail: function(){
@@ -2118,7 +2120,6 @@ $(function(){
 
 // offerjob
 $(function(){
-	$("#agreementDiv").exists(function(){
 		let offerDiv = $("#agreementDiv");
 		let errorDiv = $(".agreementError");
 		let agreementEditButton = $("#agreementEdit");
@@ -2131,27 +2132,42 @@ $(function(){
 		let salary = $(".salary");
 		let salaryModal = $("input[name=salaryModal]");
 		let paymentMethod = $(".paymentMethod");
-		let paymentMethodModal = $("input[name=paymentMethodModal]");
+		let paymentMethodModal = $("select[name=paymentMethodModal]");
 		let accommodationType = $(".accommodationType");
-		let accommodationTypeModal = $("input[name=accommodationTypeModal]");
+		let accommodationTypeModal = $("select[name=accommodationTypeModal]");
+		let notes = $(".notes");
+	$("#agreementDiv").exists(function(){
 		$.ajax({
 			url: "jobOfferData",
 			method: "POST",
 			data: "offerDetails",
 			success: function(a){
+				console.log(a);
 				let obj = JSON.parse(a);
 				if(obj.error == "none" || obj.error == "noJobFormSaved"){
 					switch(obj.error){
 						case "noJobFormSaved":
 							agreementEditButton.empty();
+							let utc = new Date().toJSON().slice(0,10).replace(/-/g,'-');
+							startDate.html('<input type="date" class="startDate" value="'+utc+'">');
+							endDate.html('<input type="date" class="endDate">');
+							workingAddress.html('<input type="text" class="workingAddress">');
+							salary.html('<input type="text" class="salary">');
+							paymentMethod.html('<select class="paymentMethod form-control" name="paymentMethodModal">'+
+                                  '<option value="Onsite">In-Onsite</option>'+
+                                  '<option value="Online">Online</option>'+
+                               		'</select>');
+							accommodationType.html('<select class="form-control" name="accommodationTypeModal">'+
+                                  '<option value="In-House">In-House</option>'+
+                                  '<option value="Offsite">Offsite</option>'+
+                                '</select>');
 						break;
 						case "none":
-						console.log(obj);
 							let offerForm = obj.data; 
 							startDate.html(offerForm.StartDate);
-							startDateModal.val(offerForm.StartDate);
+							startDateModal.val(offerForm.unchangedStartDate);
 							endDate.html(offerForm.EndDate);
-							endDateModal.val(offerForm.EndDate);
+							endDateModal.val(offerForm.unchangedEndDate);
 							paymentMethod.html(offerForm.PaymentMethod);
 							paymentMethodModal.val(offerForm.PaymentMethod);
 							workingAddress.html(offerForm.WorkingAddress);
@@ -2168,5 +2184,130 @@ $(function(){
 			}
 		});
 	});
+
+	$("#offerJobForm").submit(function(event){
+		let validPaymentMethod = ["Online","Onsite"];
+		let validAccomodationType = ["In-House","Offsite"];
+		event.preventDefault();
+		if(checkEmpty(workingAddressModal.val()) || checkEmpty(startDateModal.val()) || checkEmpty(endDateModal.val())
+			 || checkEmpty(salaryModal.val()) || checkEmpty(paymentMethodModal.val()) || checkEmpty(accommodationTypeModal.val())){
+			if(checkEmpty(workingAddressModal.val())){
+				toastError("Please input your Address which needs work");
+			}
+			if(checkEmpty(startDateModal.val())){
+				toastError("Please indicate your work starting date");
+			}
+			if(checkEmpty(endDateModal.val())){
+				toastError("Please indicate your work estimated end date");
+			}
+			if(checkEmpty(salaryModal.val())){
+				toastError("Please indicate your salary offer");
+			}
+			if(checkEmpty(paymentMethodModal.val())){
+				toastError("Please indicate your payment method");
+			}
+			if(checkEmpty(accommodationTypeModal.val())){
+				toastError("Please indicate your work accomodation type");
+			}
+		}else{
+			if(Date.parse(endDateModal.val()) < Date.parse(startDateModal.val()) || isNaN(salaryModal.val()) 
+				|| checkArraySame(validPaymentMethod,paymentMethodModal.val()) == false 
+				|| checkArraySame(validAccomodationType,accommodationTypeModal.val()) == false){
+				if(Date.parse(endDateModal.val()) < Date.parse(startDateModal.val())){
+					toastError("Please make sure your start date is not greater than end date");
+				}
+				if(isNaN(salaryModal.val())){
+					toastError("Please make sure your salary input is valid");
+				}
+				if(checkArraySame(validPaymentMethod,paymentMethodModal.val()) == false){
+					toastError("Please choose only from valid payment types");
+				}
+				if(checkArraySame(validAccomodationType,accommodationTypeModal.val()) == false){
+					toastError("Please choose only from valid accomodation types");
+				}
+			}else{
+				$.ajax({
+					url: "addJobFormDefault",
+					method: "POST",
+					data: {"createJobForm":"","workAddress":workingAddressModal.val(),"workStart":startDateModal.val(),"workEnd":endDateModal.val(),"salary":salaryModal.val(),
+					"paymentMethod":paymentMethodModal.val(),"accomodationType":accommodationTypeModal.val()},
+					success :function(a){
+						console.log(a);
+						let obj = JSON.parse(a);
+						if(obj.error == "none"){
+							toastSuccess("Refreshing your form!");
+							window.setTimeout(function(){window.location='agreement'},1000)
+						}
+					},
+					fail: function(){
+						alert("cannot connect to server");
+					}
+				});
+			}
+		}
+	});
+
+	$("#offerJobForm").submit(function(event){
+		let validPaymentMethod = ["Online","Onsite"];
+		let validAccomodationType = ["In-House","Offsite"];
+		event.preventDefault();
+		if(checkEmpty(workingAddressModal.val()) || checkEmpty(startDateModal.val()) || checkEmpty(endDateModal.val())
+			 || checkEmpty(salaryModal.val()) || checkEmpty(paymentMethodModal.val()) || checkEmpty(accommodationTypeModal.val())){
+			if(checkEmpty(workingAddressModal.val())){
+				toastError("Please input your Address which needs work");
+			}
+			if(checkEmpty(startDateModal.val())){
+				toastError("Please indicate your work starting date");
+			}
+			if(checkEmpty(endDateModal.val())){
+				toastError("Please indicate your work estimated end date");
+			}
+			if(checkEmpty(salaryModal.val())){
+				toastError("Please indicate your salary offer");
+			}
+			if(checkEmpty(paymentMethodModal.val())){
+				toastError("Please indicate your payment method");
+			}
+			if(checkEmpty(accommodationTypeModal.val())){
+				toastError("Please indicate your work accomodation type");
+			}
+		}else{
+			if(Date.parse(endDateModal.val()) < Date.parse(startDateModal.val()) || isNaN(salaryModal.val()) 
+				|| checkArraySame(validPaymentMethod,paymentMethodModal.val()) == false 
+				|| checkArraySame(validAccomodationType,accommodationTypeModal.val()) == false){
+				if(Date.parse(endDateModal.val()) < Date.parse(startDateModal.val())){
+					toastError("Please make sure your start date is not greater than end date");
+				}
+				if(isNaN(salaryModal.val())){
+					toastError("Please make sure your salary input is valid");
+				}
+				if(checkArraySame(validPaymentMethod,paymentMethodModal.val()) == false){
+					toastError("Please choose only from valid payment types");
+				}
+				if(checkArraySame(validAccomodationType,accommodationTypeModal.val()) == false){
+					toastError("Please choose only from valid accomodation types");
+				}
+			}else{
+				$.ajax({
+					url: "addJobFormDefault",
+					method: "POST",
+					data: {"createJobForm":"","workAddress":workingAddressModal.val(),"workStart":startDateModal.val(),"workEnd":endDateModal.val(),"salary":salaryModal.val(),
+					"paymentMethod":paymentMethodModal.val(),"accomodationType":accommodationTypeModal.val()},
+					success :function(a){
+						console.log(a);
+						let obj = JSON.parse(a);
+						if(obj.error == "none"){
+							toastSuccess("Refreshing your form!");
+							window.setTimeout(function(){window.location='agreement'},1000)
+						}
+					},
+					fail: function(){
+						alert("cannot connect to server");
+					}
+				});
+			}
+		}
+	});
+
 });
 // end of offerjob

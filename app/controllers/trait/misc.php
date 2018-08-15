@@ -14,10 +14,13 @@
 		public $subscriptionDB = "subscription";
 		public $subscriptionTable = array("SubscriptionTypeID","SeekerID","SubscriptionStart","SubscriptionEnd","PaymentMethod");
 		public $offerJobTable = array("SeekerID","WorkingAddress","StartDate","EndDate","Salary","PaymentMethod","AccomodationType");
+		public $offerJobTableDefault = array("SeekerID","WorkingAddress","StartDate","EndDate","Salary","PaymentMethod","AccomodationType","offerjobformDefault","uneditable");
 		public $disableDB = 'disabledusers';
 		public $disableTable = array("PasserID","SeekerID","DeactivateReason");
 		public $messageTable = "message";
 		public $messageDB = array("PasserID","SeekerID","MessageContent","MessageSender");
+		public $agreementTable = "agreement";
+		public $agreementDB = array("SeekerID","PasserID","OfferJobFormID","AgreementNotes");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -1025,6 +1028,25 @@
 				}
 			}
 		}
+		
+		public function createAgreementForm(){
+			$seekerID = $passerID = $defaultOfferForm = $insert = $notes = null;
+			if(isset($_SESSION['agreementPasser'])){
+				if(isset($_POST['agreement'])){
+					$notes = $this->sanitize($_POST['notes']);
+					$seekerID = $_SESSION['seekerUser'];
+					$passerID = $_SESSION['agreementPasser'];
+					$defaultOfferForm = $this->model->selectTwoCondition(array("OfferJobFormID"),"offerjobform",$this->seekerUnique,"offerjobformDefault",array($seekerID,1));
+					print_r($defaultOfferForm);
+					if(count($defaultOfferForm) > 0){
+						$insert = $this->model->insertDB($this->agreementTable,$this->agreementDB,array($seekerID,$passerID,$defaultOfferForm[0]['OfferJobFormID'],$notes));
+					}	
+					else{
+						echo json_encode(array("error"=>"noDefault"));
+					}
+				}
+			}
+		}
 
 		public function addJobForm(){
 			if(isset($_POST['createJobForm'])){
@@ -1048,7 +1070,38 @@
 			}
 		}
 
+		public function addJobFormDefault(){
+			if(isset($_POST['createJobForm'])){
+				$seekerID = $_SESSION['seekerUser'];
+				$workingAddress = $this->sanitize($_POST['workAddress']);
+				$workStart = $this->sanitize(date("Y-m-d",strtotime($_POST['workStart'])));
+				$workEnd = $this->sanitize(date("Y-m-d",strtotime($_POST['workEnd'])));
+				$salary = $this->sanitize($_POST['salary']);
+				$paymentMethod = $this->sanitize($_POST['paymentMethod']);
+				$accomodationType = $this->sanitize($_POST['accomodationType']);
+				try {
+					$checkDefault = $this->model->checkAuthenticity("offerjobform",$this->seekerUnique,"offerjobformDefault",array($_SESSION['seekerUser'],1));
+					if($checkDefault >=1){
+						$jobFormID = $this->model->selectSingleUser("offerjobform","OfferJobFormID",array(1),"offerjobformDefault");
+						unset($this->offerJobTableDefault[0]);
+						$return = $this->model->updateDBDynamic("offerjobform",$this->offerJobTableDefault,array($workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType,1,1,1,$seekerID),array("offerjobformDefault",$this->seekerUnique));
+					}else{
+						$reset = $this->model->updateDBDynamic("offerjobform",array("uneditable","offerjobformDefault"),array(0,0,1,$_SESSION['seekerUser']),array("offerjobformDefault",$this->seekerUnique));
+						$return = $this->model->insertDB("offerjobform",$this->offerJobTableDefault,array($seekerID,$workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType,1,1));
+					}
+					if($return){
+						echo json_encode(array("error"=>"none"));
+					}else{
+						echo json_encode(array("error"=>$return));
+					}
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+			}
+		}
+
 		public function editJobForm(){
+			$checkEditable = null;
 			if(isset($_POST['updateJobForm'])){
 				$workingAddress = $this->sanitize($_POST['workAddress']);
 				$jobFormID = $this->sanitize($_POST['jobFormID']);
@@ -1057,16 +1110,21 @@
 				$salary = $this->sanitize($_POST['salary']);
 				$paymentMethod = $this->sanitize($_POST['paymentMethod']);
 				$accomodationType = $this->sanitize($_POST['accomodationType']);
-				try {
-					unset($this->offerJobTable[0]);
-					$return = $this->model->updateDB("offerjobform",$this->offerJobTable,array($workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType),"OfferJobFormID",$jobFormID);
-						if($return){
-							echo json_encode(array("error"=>"none"));
-						}else{
-							echo json_encode(array("error"=>$return));
-						}
-				} catch (Exception $e) {
-					echo $e->getMessage();
+				$checkEditable = $this->model->selectAllFromUser("offerjobform","OfferJobFormID",array($jobFormID));
+				if($checkEditable[0]['uneditable'] <=0){
+					try {
+						unset($this->offerJobTable[0]);
+						$return = $this->model->updateDB("offerjobform",$this->offerJobTable,array($workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType),"OfferJobFormID",$jobFormID);
+							if($return){
+								echo json_encode(array("error"=>"none"));
+							}else{
+								echo json_encode(array("error"=>$return));
+							}
+					} catch (Exception $e) {
+						echo $e->getMessage();
+					}
+				}else{
+					echo json_encode(array("error"=>"uneditable"));
 				}
 			}
 		}
@@ -1398,6 +1456,8 @@
 									$startDateChanged = date("F jS, Y", strtotime($offerJob[0]['StartDate']));
 									$endDateChanged = date("F jS, Y", strtotime($offerJob[0]['EndDate']));
 									$offerJobChanged = array_replace($offerJob[0], array("StartDate"=>$startDateChanged,"EndDate"=>$endDateChanged));
+									$offerJobChanged["unchangedStartDate"] = $offerJob[0]["StartDate"];
+									$offerJobChanged["unchangedEndDate"] = $offerJob[0]["EndDate"];
 									echo json_encode(array("error"=>"none","data"=>$offerJobChanged));
 								}
 								else{
