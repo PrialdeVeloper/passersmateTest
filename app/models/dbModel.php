@@ -211,6 +211,18 @@
 			}
 		}
 
+		public function updateDBDynamic($table,$fields,$data,$wherClause){
+			try {
+				$whereClause = $this->andData($wherClause);
+				$fieldsQ = $this->qDataUpdate($fields);
+				$this->result = $this->stmt = $this->con->prepare("UPDATE $table SET $fieldsQ WHERE ($whereClause)");
+				$res = $this->stmt->execute($data);
+				return true;
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
 		public function desctuct(){
 			$this->stmt = null;
 			$this->con = null;

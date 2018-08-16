@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2018 at 07:33 PM
+-- Generation Time: Aug 16, 2018 at 07:03 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -42,6 +42,41 @@ INSERT INTO `admin` (`AdminID`, `username`, `email`, `password`) VALUES
 (2, 'crimson', 'francoyogie@gmail.com', '$2y$12$as7ENGvmZtzGqUns2n23VeME0QTxt9ORwDzHSP31O3JenOVpvOATm'),
 (3, 'test', 'qweee@gmail.com', '$2y$12$lPC0SBHSHnbUqFeT1Etvu.YACEGPZweAot65MvI5n55BDIPloz0hu'),
 (4, 'crimsonadmin', 'crimson@gmail.com', '$2y$12$drMX/W2kLszEMn.FvraJu.yk3IWOFeZ7zchKr2ditnO8E1qEJFqn6');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agreement`
+--
+
+CREATE TABLE `agreement` (
+  `AgreementID` int(11) NOT NULL,
+  `SeekerID` int(11) NOT NULL,
+  `PasserID` int(11) NOT NULL,
+  `OfferJobFormID` int(11) NOT NULL,
+  `AgreementDateandTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `AgreementNotes` varchar(255) DEFAULT NULL,
+  `AgreementStatus` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `agreement`
+--
+
+INSERT INTO `agreement` (`AgreementID`, `SeekerID`, `PasserID`, `OfferJobFormID`, `AgreementDateandTime`, `AgreementNotes`, `AgreementStatus`) VALUES
+(7, 3, 1, 4, '2018-08-16 14:57:05', '', 1),
+(8, 3, 1, 5, '2018-08-16 14:58:36', '', 1),
+(9, 3, 1, 6, '2018-08-16 15:00:25', '', 1),
+(10, 3, 1, 7, '2018-08-16 15:58:58', 'qwe', 1),
+(11, 3, 1, 8, '2018-08-16 16:00:41', '', 1),
+(12, 3, 1, 9, '2018-08-16 16:17:50', '', 1),
+(13, 3, 1, 9, '2018-08-16 16:20:20', '', 1),
+(14, 3, 1, 9, '2018-08-16 16:43:55', '', 1),
+(15, 3, 1, 9, '2018-08-16 16:45:19', '', 1),
+(16, 3, 1, 9, '2018-08-16 16:56:26', 'hello', 1),
+(17, 3, 1, 10, '2018-08-16 17:00:56', '', 1),
+(18, 3, 1, 9, '2018-08-16 17:02:03', '', 1),
+(19, 3, 1, 9, '2018-08-16 17:02:38', '', 1);
 
 -- --------------------------------------------------------
 
@@ -226,26 +261,9 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (14, NULL, 6, 'updateUserStatus', '1', 0),
 (15, 3, NULL, 'subscription', '1', 0),
 (16, 3, NULL, 'subscription', '2', 0),
-(17, 3, NULL, 'subscription', '2', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `offerjob`
---
-
-CREATE TABLE `offerjob` (
-  `OfferJobID` int(11) NOT NULL,
-  `SeekerID` int(11) NOT NULL,
-  `PasserID` int(11) NOT NULL,
-  `JobOfferDate` date NOT NULL,
-  `JobOfferTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `JobOfferDesc` varchar(255) NOT NULL,
-  `JobOfferNeeded` int(11) NOT NULL,
-  `JobOfferStatus` varchar(255) NOT NULL,
-  `PaymentMethod` varchar(255) NOT NULL,
-  `Payment` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(17, 3, NULL, 'subscription', '2', 0),
+(18, 3, NULL, 'subscription', '2', 0),
+(19, 3, NULL, 'subscription', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -263,6 +281,7 @@ CREATE TABLE `offerjobform` (
   `PaymentMethod` varchar(255) NOT NULL,
   `AccomodationType` varchar(255) NOT NULL,
   `offerjobformDefault` int(11) NOT NULL DEFAULT '0',
+  `uneditable` int(11) NOT NULL DEFAULT '0',
   `OfferJobFormStatus` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -270,10 +289,17 @@ CREATE TABLE `offerjobform` (
 -- Dumping data for table `offerjobform`
 --
 
-INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `offerjobformDefault`, `OfferJobFormStatus`) VALUES
-(1, 1, 'qwe', '2018-07-31', '2018-08-20', 255, 'Onsite', 'Offsite', 0, 1),
-(2, 1, 'try', '2018-08-05', '2018-08-10', 255, 'Online', 'In-House', 0, 1),
-(3, 3, 'General Gines St. Suba Cebu City', '2018-08-06', '2018-08-10', 1000, 'Onsite', 'Offsite', 1, 0);
+INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `offerjobformDefault`, `uneditable`, `OfferJobFormStatus`) VALUES
+(1, 3, '', '1970-01-01', '1970-01-01', 0, '', '', 0, 1, 1),
+(2, 3, '', '1970-01-01', '1970-01-01', 0, '', '', 0, 1, 1),
+(3, 3, '', '2018-08-16', '1970-01-01', 0, '', '', 0, 1, 1),
+(4, 3, '', '2018-08-16', '1970-01-01', 0, 'Onsite', '', 0, 1, 1),
+(5, 3, '', '2018-08-16', '2018-08-11', 0, 'Onsite', '', 0, 1, 1),
+(6, 3, '', '2018-08-16', '2018-08-16', 0, 'Onsite', '', 0, 1, 1),
+(7, 3, 'qwe', '2018-08-16', '2018-08-17', 0, 'Onsite', 'In-House', 0, 1, 1),
+(8, 3, 'qwe', '2018-08-16', '2018-08-03', 500, 'Onsite', 'In-House', 0, 1, 1),
+(9, 3, 'qwer', '2018-08-10', '2018-08-15', 525, 'Online', 'In-House', 1, 1, 1),
+(10, 3, 'QWE', '2018-08-16', '2018-08-24', 500, 'Onsite', 'In-House', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -535,7 +561,8 @@ INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, 
 (1, 1, 2, '2018-07-30', '2018-07-31', 'paypal', 'ended'),
 (2, 1, 1, '2018-07-31', '2018-08-01', 'paypal', 'ended'),
 (3, 1, 3, '2018-08-07', '2018-10-05', 'paypal', 'ended'),
-(4, 1, 3, '2018-08-12', '2018-08-15', 'paypal', 'ongoing');
+(4, 1, 3, '2018-08-12', '2018-08-15', 'paypal', 'ended'),
+(5, 1, 3, '2018-08-16', '2018-08-17', 'paypal', 'ongoing');
 
 -- --------------------------------------------------------
 
@@ -597,6 +624,15 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`AdminID`);
 
 --
+-- Indexes for table `agreement`
+--
+ALTER TABLE `agreement`
+  ADD PRIMARY KEY (`AgreementID`),
+  ADD KEY `PasserID` (`PasserID`),
+  ADD KEY `SeekerID` (`SeekerID`),
+  ADD KEY `OfferJobFormID` (`OfferJobFormID`);
+
+--
 -- Indexes for table `canceljob`
 --
 ALTER TABLE `canceljob`
@@ -653,14 +689,6 @@ ALTER TABLE `multimedia`
 --
 ALTER TABLE `notification`
   ADD PRIMARY KEY (`notificationID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `offerjob`
---
-ALTER TABLE `offerjob`
-  ADD PRIMARY KEY (`OfferJobID`),
   ADD KEY `PasserID` (`PasserID`),
   ADD KEY `SeekerID` (`SeekerID`);
 
@@ -762,6 +790,11 @@ ALTER TABLE `switchaccount`
 ALTER TABLE `admin`
   MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
+-- AUTO_INCREMENT for table `agreement`
+--
+ALTER TABLE `agreement`
+  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
 -- AUTO_INCREMENT for table `canceljob`
 --
 ALTER TABLE `canceljob`
@@ -800,17 +833,12 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
---
--- AUTO_INCREMENT for table `offerjob`
---
-ALTER TABLE `offerjob`
-  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `offerjobform`
 --
 ALTER TABLE `offerjobform`
-  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `passer`
 --
@@ -855,7 +883,7 @@ ALTER TABLE `seekervalidate`
 -- AUTO_INCREMENT for table `subscription`
 --
 ALTER TABLE `subscription`
-  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `subscriptiontype`
 --
@@ -876,16 +904,24 @@ ALTER TABLE `switchaccount`
 --
 
 --
+-- Constraints for table `agreement`
+--
+ALTER TABLE `agreement`
+  ADD CONSTRAINT `agreement_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `agreement_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `agreement_ibfk_3` FOREIGN KEY (`OfferJobFormID`) REFERENCES `offerjobform` (`OfferJobFormID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `canceljob`
 --
 ALTER TABLE `canceljob`
-  ADD CONSTRAINT `canceljob_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `canceljob_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `agreement` (`AgreementID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
-  ADD CONSTRAINT `certificateofemployment_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `certificateofemployment_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `agreement` (`AgreementID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `certificateofemployment_ibfk_2` FOREIGN KEY (`AdminID`) REFERENCES `admin` (`AdminID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
@@ -899,7 +935,7 @@ ALTER TABLE `disabledusers`
 -- Constraints for table `dispute`
 --
 ALTER TABLE `dispute`
-  ADD CONSTRAINT `dispute_ibfk_1` FOREIGN KEY (`offerJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `dispute_ibfk_1` FOREIGN KEY (`offerJobID`) REFERENCES `agreement` (`AgreementID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `message`
@@ -921,13 +957,6 @@ ALTER TABLE `multimedia`
 ALTER TABLE `notification`
   ADD CONSTRAINT `notification_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `notification_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `offerjob`
---
-ALTER TABLE `offerjob`
-  ADD CONSTRAINT `offerjob_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `offerjob_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `offerjobform`
@@ -957,7 +986,7 @@ ALTER TABLE `passervalidate`
 -- Constraints for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
-  ADD CONSTRAINT `passerworkhistory_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `passerworkhistory_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `agreement` (`AgreementID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `passerworkhistory_ibfk_2` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

@@ -1,10 +1,37 @@
 <?php include_once "../public/etc/etcCompile.marvee"; ?>
 <?php  
+$extraLinks = $switch = null;
 $destination = "dashboard";
 $x = pathinfo($_SERVER["QUERY_STRING"]); 
 $url = str_replace("url=", "", $x['dirname']);
 if($url == "home"){
 	$destination = (isset($_SESSION['passerUser'])?"../passer/dashboard":"../seeker/dashboard");
+}
+if($SeekerStatus == 1 || $PasserStatus == 1){
+	$switch = 
+	'
+		<li class="navbar-item pr-5 pretty pt-1 p-switch p-fill">
+			<input type="checkbox"/>
+			<div class="state">
+            	<label>Fill</label>
+        	</div>
+		</li>
+	';
+}
+if(isset($_SESSION['seekerUser'])){
+	$extraLinks = 
+	'
+		<li class="navbar-item pr-5">
+			<a class="navbar-link text-dark" href="../home/search">
+				Passers
+			</a>
+		</li>
+		<li class="navbar-item pr-5">
+			<a class="navbar-link text-dark" href="../home/subscription">
+				Pricing
+			</a>
+		</li>
+	';
 }
 ?>
 	<body class="bg-light">
@@ -18,11 +45,13 @@ if($url == "home"){
 				</button>
 				<div class="collapse navbar-collapse justify-content-end" id="navbar-header">
 					<ul class="nav navbar-nav text-right">
+						<?php echo $switch; ?>
 						<li class="navbar-item pr-5">
 							<a class="navbar-link text-dark" href="../home/index">
 								Home
 							</a>
 						</li>
+						<?php echo $extraLinks; ?>
 						<li class="navbar-item pr-5 n">
 							<a class="navbar-link text-dark" href="#">
 								<i class="fas fa-envelope"></i>

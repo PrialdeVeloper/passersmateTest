@@ -7,7 +7,7 @@ $sendAgreement =
         <a href="" class="text-left" data-toggle="modal" data-target="#edit"><h5><u>Edit your Employment Agreement Form</u></h5></a>
       </div>
       <div class="col-md-12 text-right">
-        <button type="button" name="sendOffer" class="btn btn-success font-weight-bold">Send the Agreement</button>
+        <button type="submit" name="sendOffer" class="btn btn-success font-weight-bold">Send the Agreement</button>
         <a href="search" class="btn btn-secondary">Cancel</a>
       </div>
     </div>
@@ -195,6 +195,22 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               									<u class="font-weight-bold accommodationType">Type of accommodation.</u>
               								</p>
               							</div>
+                            <form id="agreementNotes">
+                              <div class="col-md-12 mt-3">
+                                <p style="font-size: 15px" class="font-weight-bold">
+                                  8. Notes
+                                </p>
+                              </div>
+                              <div class="col-md-12 mt-3">
+                                <p style="font-size: 15px" >
+                                  Your important notes:
+                                  <div class="d-flex justify-content-center">
+                                    <div class="col">
+                                      <textarea name="note" class="notes w-100 h-100"></textarea>
+                                    </div>
+                                  </div>
+                                </p>
+                              </div>
               							<div class="form-group col-md-12 mt-3 form-check">
 									    <input type="checkbox" class="form-check-input" id="agreementCheckbox">
 									    <label class="form-check-label" for="agreementCheckbox"> I reviewed and accept the terms and condition of the Employment Agreement.</label>
@@ -216,6 +232,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               					</div>
               					<!-- END OF CARD BODY -->
               		          <?php echo $sendAgreement; ?>
+                             </form>
               					<!-- END OF CARD_FOOTER -->
               				</div>
               				<!-- END OF CARD -->
@@ -236,6 +253,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>	
+                      <form id="offerJobForm">
                       <div class="modal-body scroll">
                         <div class="card-body text-dark">
   						<div class="row">
@@ -243,7 +261,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
   							 <img src="../etc/images/system/PMlogo.png" width="250px">
   							</div>
   						</div>
-  						<form>
+  						
   						<div class="form-group row mt-4">
   							<div class="col-md-12">
   								<h5>This agreement is between</h5>
@@ -293,7 +311,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                             <div class="col-md-12 mt-3">
                               <p style="font-size: 15px" >
                                 The Passer's place of work will be 
-                                <input type="text" disabled readonly class="datepicker" name="workingAddressModal">
+                                <input type="text" name="workingAddressModal">
                               </p>
                             </div>
                             <div class="col-md-12 mt-3">
@@ -315,7 +333,10 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                             <div class="col-md-12 mt-3">
                               <p style="font-size: 15px" >
                                 Payment method is
-                                <input type="text" name="paymentMethodModal">
+                                 <select class="form-control" name="paymentMethodModal">
+                                  <option value="Onsite">In-Onsite</option>
+                                  <option value="Online">Online</option>
+                                </select>
                               </p>
                             </div>
                             <div class="col-md-12 mt-3">
@@ -326,19 +347,23 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                             <div class="col-md-12 mt-3">
                               <p style="font-size: 15px" >
                                 The preferred type of accommodation is
-                                <u class="font-weight-bold accommodationType">Type of accommodation.</u>
+                                <select class="form-control" name="accommodationTypeModal">
+                                  <option value="In-House">In-House</option>
+                                  <option value="Offsite">Offsite</option>
+                                </select>
                               </p>
                             </div>
   						</div>
-  					</form>
+  					
                    	 </div>
                    	 <!-- END OF CARD BODY -->
                    	</div>
                    	 <!-- END OF MODAL BODY -->
                     <div class="modal-footer">
-                    	 <button type="button" class="btn btn-success font-weight-bold" onclick="toastr.success('You have successfully edit your Employment Agreement Form');" data-dismiss="modal">Save changes</button>
+                    	 <button type="submit" class="btn btn-success font-weight-bold">Save changes</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
+                    </form>
                   </div>
                 </div>
             </div>

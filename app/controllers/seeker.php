@@ -101,14 +101,13 @@
 			}else{
 				$page = $this->sanitize($_GET['page']);
 			}
-			$dom = $builder = $return = $paginationData = null;
+			$dom = $builder = $return = $paginationData = $checkEditable = null;
 		 	$data = [];
 			$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
 			$return = $this->paginationScript("offerjobform","SeekerID",$this->seekerSession,"OfferJobFormStatus",1,$page,1,2);
 			$paginationData = json_decode($return,true);
 			$badge = null;
-			$defaultButton = '<button type="button" class="btn btn-primary ml-1 font-weight-bold setDefault">Set as Default</button>';
-				
+			$defaultButton = '<button type="button" class="btn btn-primary ml-1 font-weight-bold setDefault">Set as Default</button>';				
 			if(empty($paginationData['data'])){
 				$dom = '
 
@@ -118,8 +117,23 @@
 				';
 			}
 			foreach ($paginationData['data'] as $data) {
+				$checkEditable = 
+				'
+					<div class="col">
+				    	<a href="" class="font-weight-bold text-dark" name="updateJobOfferForm" style="font-size: 15px;" data-toggle="modal" data-target="#update">
+				    		<u>Edit</u></a> | 
+				    	<a href="" class="font-weight-bold text-dark" name="deleteJobOfferForm" style="font-size: 15px;" data-toggle="modal" data-target="#delete">
+				    		<u>Delete</u></a>
+				    		<input type="hidden" name="sleepingAway" value="'.$this->sanitize($data['OfferJobFormID']).'">
+				    </div>
+				';
 				if($data['offerjobformDefault'] == 1){
 					$badge = '<span class="badge badge-success font-weight-bold">Default</span>';
+					$defaultButton = null;
+				}
+				if($data['uneditable'] > 0 ){
+					$checkEditable = null;
+					$badge='<span class="badge readonly badge-success font-weight-bold">Currently in use on other form</span>';
 					$defaultButton = null;
 				}
 				$builder = '
@@ -131,13 +145,7 @@
 							    <div class="col-md-6">
 							      <label>Working Address: <b> '.$this->sanitize($data['WorkingAddress']).'</b></label>
 							    </div>
-							    <div class="col">
-							    	<a href="" class="font-weight-bold text-dark" name="updateJobOfferForm" style="font-size: 15px;" data-toggle="modal" data-target="#update">
-							    		<u>Edit</u></a> | 
-							    	<a href="" class="font-weight-bold text-dark" name="deleteJobOfferForm" style="font-size: 15px;" data-toggle="modal" data-target="#delete">
-							    		<u>Delete</u></a>
-							    		<input type="hidden" name="sleepingAway" value="'.$this->sanitize($data['OfferJobFormID']).'">
-							    </div>
+							   '.$checkEditable.'
 				  			</div>
 				  <div class="row">
 				    <div class="col">
