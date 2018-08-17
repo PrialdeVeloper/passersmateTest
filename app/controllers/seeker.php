@@ -104,7 +104,7 @@
 			$dom = $builder = $return = $paginationData = $checkEditable = null;
 		 	$data = [];
 			$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
-			$return = $this->paginationScript("offerjobform","SeekerID",$this->seekerSession,"OfferJobFormStatus",1,$page,1,2);
+			$return = $this->paginationScript("offerjobform","SeekerID",$this->seekerSession,"OfferJobFormStatus",1,$page,1,2,"OfferJobFormID","DESC","");
 			$paginationData = json_decode($return,true);
 			$badge = null;
 			$defaultButton = '<button type="button" class="btn btn-primary ml-1 font-weight-bold setDefault">Set as Default</button>';				

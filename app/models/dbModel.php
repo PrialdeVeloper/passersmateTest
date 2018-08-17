@@ -97,6 +97,14 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function selectAllDynamicSort($table,$field,$where,$data,$order,$sort){
+			$select = $this->addComma($field);
+			$fieldsQ = $this->andData($where);
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE ($fieldsQ) ORDER BY $order $sort");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectAllField($field,$from){
 			$this->stmt = $this->con->query("SELECT $field FROM $from");
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -104,6 +112,12 @@
 
 		public function selectAllLimit($table,$field,$field2,$offset,$count,$data){
 			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ? and $field2 = ? LIMIT $offset,$count");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function selectAllLimitSort($table,$field,$field2,$offset,$count,$data,$order,$sort){
+			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ? and $field2 = ? ORDER BY $order $sort LIMIT $offset,$count");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}

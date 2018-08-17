@@ -234,6 +234,73 @@
 		 	$data[] = array("userDetails"=>$details);
 			$this->controller->view("passer/projects",$data);
 		}
+
+		public function agreements(){
+			$data = [];
+			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $seekerData = $offerJobData = $paginationDOM = null;
+			if(!$this->checkSession('passerUser')){
+				header("location: ../home/login");
+			}
+			if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+			$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
+			$agreementVerify = $this->model->checkAuthenticity($this->agreementTable,$this->passerUnique,"AgreementStatus",array($this->passerSession,1),"AgreementID","DESC");
+			if($agreementVerify >= 1){
+				$agreements = $this->paginationScript($this->agreementTable,$this->passerUnique,$this->passerSession,"AgreementStatus",1,$page,1,2,"AgreementID","DESC","");
+				$paginationData = json_decode($agreements,true);
+				$paginationDOM = $paginationData['pagination'];
+				foreach ($paginationData['data'] as $data) {
+					$seekerData = $this->getDetailsSeeker($data[$this->seekerUnique])[0];
+					$offerJobData = $this->model->selectAllFromUser($this->offerJobDB,"OfferJobFormID",array($data['OfferJobFormID']))[0];
+					$builder = 
+					'
+					<div class="text-center">
+					    <p class="display-4">'.$seekerData['SeekerFN']." ".$seekerData['SeekerLN'].'</p>
+					  </div>
+					  <div class="container mt-5">
+					    <div class="row justify-content-center">
+					      <p style="font-size: 20px;" class=" text-center">'.$offerJobData['WorkingAddress'].'</p>
+					    </div>
+					    <div class="container text-center">
+					      <div class="row">
+					        <div class="col-sm">
+					          Start Date:
+					          <div class="container">
+					            '.$offerJobData['StartDate'].'
+					          </div>
+					        </div>
+					        <div class="col-sm">
+					          Estimated End Date:
+					          <div class="container">
+					            '.$offerJobData['EndDate'].'
+					          </div>
+					        </div>
+					      </div>
+					    </div>
+					    <div class="container" style="font-size: 20px;">
+					      <div class="text-center">Salary</div>
+					    </div>
+					    <div class="container">
+					      <div class="text-center">
+					        '.$offerJobData['Salary'].'
+					      </div>
+					    </div>
+					  </div>
+					  <div class="container mt-3">
+					    <a href="agreementsDetails?id='.$data['AgreementID'].'" class="btn btn-primary btn-block">View More Details</a>
+					  </div>
+					';
+					$dom = $dom." ".$builder;
+				}
+			}else{
+				$dom = "No active agreement Forms";
+			}
+			$data[] = array("userDetails"=>$details,"paginationDOM"=>$paginationDOM,"agreementForms"=>$dom);
+			$this->controller->view("passer/agreement",$data);
+		}
 		
 	}
 

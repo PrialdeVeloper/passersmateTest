@@ -1043,25 +1043,6 @@
 			}
 		}
 		
-		// public function createAgreementForm(){
-		// 	$seekerID = $passerID = $defaultOfferForm = $insert = $notes = null;
-		// 	if(isset($_SESSION['agreementPasser'])){
-		// 		if(isset($_POST['agreement'])){
-		// 			$notes = $this->sanitize($_POST['notes']);
-		// 			$seekerID = $_SESSION['seekerUser'];
-		// 			$passerID = $_SESSION['agreementPasser'];
-		// 			$defaultOfferForm = $this->model->selectTwoCondition(array("OfferJobFormID"),"offerjobform",$this->seekerUnique,"offerjobformDefault",array($seekerID,1));
-		// 			print_r($defaultOfferForm);
-		// 			if(count($defaultOfferForm) > 0){
-		// 				$insert = $this->model->insertDB($this->agreementTable,$this->agreementDB,array($seekerID,$passerID,$defaultOfferForm[0]['OfferJobFormID'],$notes));
-		// 			}	
-		// 			else{
-		// 				echo json_encode(array("error"=>"noDefault"));
-		// 			}
-		// 		}
-		// 	}
-		// }
-
 		public function addJobForm(){
 			if(isset($_POST['createJobForm'])){
 				$seekerID = $_SESSION['seekerUser'];
@@ -1254,25 +1235,25 @@
 			}
 		}
 
-		public function paginationScript($table,$field,$field1Ans,$field2,$field2Ans,$page,$offset,$limit){
-			$result = $totalPage = $totalPages = $offset = null;
+		public function paginationScript($table,$field,$field1Ans,$field2,$field2Ans,$page,$offset,$limit,$order,$sort,$add){
+			$result = $totalPage = $totalPages = $offset = $add = null;
 			$totalPage = $this->model->checkExistSingle($table,$field,array($field1Ans));
 			$totalPages = ceil($totalPage/$limit);
 			$totalPage = null;
 			$offset = ($page-1) * $limit;
 			$first = ($page <= 1)?"disabled":"";
 			$prevLI = ($page <= 1)?"disabled":"";
-			$prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1);
+			$prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1).$add;
 
 			$nextLI = ($page >= $totalPages)?"disabled":"";
-			$nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1);
+			$nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1).$add;
 			$lastLI = ($page >= $totalPages)?"disabled":"";
-			$lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages;
+			$lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages.$add;
 
 			$pagination = '
 				<nav>
 				  <ul class="pagination">
-				    <li class="page-item '.$first.'"><a class="page-link" href="?page=1">First</a></li>
+				    <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
 				    <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
 				    <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
 				    <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
@@ -1280,13 +1261,13 @@
 				</nav>
 				';
 			if(is_numeric($page)){
-				$result = $this->model->selectAllLimit($table,$field,$field2,$offset,$limit,array($field1Ans,$field2Ans));
+				$result = $this->model->selectAllLimitSort($table,$field,$field2,$offset,$limit,array($field1Ans,$field2Ans),$order,$sort);
 			}
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}
 
 		public function paginationScriptSingle($table,$field,$field1Ans,$page,$offset,$limit,$add){
-			$add = (!empty($add)?"&".$add:"");
+			// $add = (!empty($add)?"&".$add:"");
 			$result = $totalPage = $totalPages = $offset = null;
 			$totalPage = $this->model->checkExistSingle($table,$field,array($field1Ans));
 			$totalPages = ceil($totalPage/$limit);
