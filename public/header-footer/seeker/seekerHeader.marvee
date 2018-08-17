@@ -7,7 +7,7 @@ $url = str_replace("url=", "", $x['dirname']);
 if($url == "home"){
 	$destination = (isset($_SESSION['passerUser'])?"../passer/dashboard":"../seeker/dashboard");
 }
-if($SeekerStatus == 1 || $PasserStatus == 1){
+if((isset($SeekerStatus) && $SeekerStatus == 1) || (isset($PasserStatus) && $PasserStatus == 1)){
 	$switch = 
 	'
 		<li class="navbar-item pr-5 pretty pt-1 p-switch p-fill">

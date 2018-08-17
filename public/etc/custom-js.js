@@ -2145,7 +2145,6 @@ $(function(){
 			method: "POST",
 			data: "offerDetails",
 			success: function(a){
-				console.log(a);
 				let obj = JSON.parse(a);
 				if(obj.error == "none" || obj.error == "noJobFormSaved"){
 					switch(obj.error){
@@ -2233,7 +2232,6 @@ $(function(){
 					data: {"createJobForm":"","workAddress":workingAddressModal.val(),"workStart":startDateModal.val(),"workEnd":endDateModal.val(),"salary":salaryModal.val(),
 					"paymentMethod":paymentMethodModal.val(),"accomodationType":accommodationTypeModal.val()},
 					success :function(a){
-						console.log(a);
 						let obj = JSON.parse(a);
 						if(obj.error == "none"){
 							toastSuccess("Refreshing your form!");
@@ -2305,7 +2303,6 @@ $(function(){
 							data: {"agreementAdd":"","workAddress":workingAddress.val(),"workStart":startDate.val(),"workEnd":endDate.val(),"salary":salary.val(),
 							"paymentMethod":paymentMethod.val(),"accomodationType":accommodationType.val(),"notes":notes.val()},
 							success :function(a){
-								console.log(a);
 								let obj = JSON.parse(a);
 								if(obj.error == "none"){
 									toastSuccess("Refreshing your form!");
@@ -2319,31 +2316,24 @@ $(function(){
 					}
 				}
 			}else{
-					let startDate = $("input.startDate");
-					let endDate = $("input.endDate");
-					let workingAddress = $("input.workingAddress");
-					let salary = $("input.salary");
-					let paymentMethod = $("select.paymentMethod");
-					let accommodationType = $("select[name=accommodationType]");
-					$.ajax({
-						url: "addAgreement",
-						method: "POST",
-						data: {"agreementAdd":"","workAddress":workingAddress.val(),"workStart":startDate.val(),"workEnd":endDate.val(),"salary":salary.val(),
-						"paymentMethod":paymentMethod.val(),"accomodationType":accommodationType.val(),"notes":notes.val()},
-						success :function(a){
-							console.log(a);
-							let obj = JSON.parse(a);
-							if(obj.error == "none"){
-								toastSuccess("Refreshing your form!");
-								window.setTimeout(function(){window.location='agreement'},1000)
-							}
-						},
-						fail: function(){
-							alert("cannot connect to server");
+				let notes = $(".notes");
+				$.ajax({
+					url: "addAgreement",
+					method: "POST",
+					data: {"agreementAdd":"","notes":notes.val()},
+					success :function(a){
+						console.log(a);
+						let obj = JSON.parse(a);
+						if(obj.error == "none"){
+							toastSuccess("You have successfully create and send an Employment Agreement Form to your choosen Passer! Please wait for passer's confirmation");
+							window.setTimeout(function(){window.location='agreement'},2000)
 						}
-					});	
-				}
-			
+					},
+					fail: function(){
+						alert("cannot connect to server");
+					}
+				});	
+			}
 		});
 	});
 

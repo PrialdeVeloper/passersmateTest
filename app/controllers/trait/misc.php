@@ -501,6 +501,19 @@
 									break;
 							}
 							break;
+						case 'JobOffer':
+							$link = "agreement";
+							switch ($data['notificationMessage']) {
+								case '1':
+									$message = "You have a job offer, Mate!";
+									$link = "subscription";
+									break;
+								case '2':
+									$message = "A job offer was cancelled";
+									$link = "subscription";
+									break;
+							}
+							break;
 					}
 
 					$builder = '
@@ -1074,29 +1087,33 @@
 		public function addAgreement(){
 			$return = $checkDefault = $change = $reset = $insert = null;
 			if(isset($_POST['agreementAdd'])){
-				$seekerID = $_SESSION['seekerUser'];
-				$passerID = $_SESSION['agreementPasser'];
-				$workingAddress = $this->sanitize($_POST['workAddress']);
-				$workStart = $this->sanitize(date("Y-m-d",strtotime($_POST['workStart'])));
-				$workEnd = $this->sanitize(date("Y-m-d",strtotime($_POST['workEnd'])));
-				$salary = $this->sanitize($_POST['salary']);
-				$paymentMethod = $this->sanitize($_POST['paymentMethod']);
-				$accomodationType = $this->sanitize($_POST['accomodationType']);
-				$notes = $this->sanitize($_POST['notes']);
-
-				$checkDefault = $this->model->checkAuthenticity("offerjobform",$this->seekerUnique,"offerjobformDefault",array($_SESSION['seekerUser'],1));
-				if($checkDefault >=1){
-					$return = $this->model->selectTwoCondition(array("OfferJobFormID"),$this->offerJobDB,$this->seekerUnique,"offerjobformDefault",array($seekerID,1));
-					$return = $return[0]['OfferJobFormID'];
+				if(isset($_SESSION['agreementPasser'])){
+					$seekerID = $_SESSION['seekerUser'];
+					$passerID = $_SESSION['agreementPasser'];
+					$notes = $this->sanitize($_POST['notes']);
+					$checkDefault = $this->model->checkAuthenticity("offerjobform",$this->seekerUnique,"offerjobformDefault",array($_SESSION['seekerUser'],1));
+					if($checkDefault >=1){
+						$return = $this->model->selectTwoCondition(array("OfferJobFormID"),$this->offerJobDB,$this->seekerUnique,"offerjobformDefault",array($seekerID,1));
+						$return = $return[0]['OfferJobFormID'];
+					}else{
+						$workingAddress = $this->sanitize($_POST['workAddress']);
+						$workStart = $this->sanitize(date("Y-m-d",strtotime($_POST['workStart'])));
+						$workEnd = $this->sanitize(date("Y-m-d",strtotime($_POST['workEnd'])));
+						$salary = $this->sanitize($_POST['salary']);
+						$paymentMethod = $this->sanitize($_POST['paymentMethod']);
+						$accomodationType = $this->sanitize($_POST['accomodationType']);
+						$return = $this->model->insertDB("offerjobform",$this->offerJobTableDefault,array($seekerID,$workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType,0,1));
+					}
+					$insert = $this->model->insertDB($this->agreementTable,$this->agreementDB,array($seekerID,$passerID,$return,$notes));
+					if($insert){
+						$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$_SESSION['agreementPasser'],"message"=>1));
+						unset($_SESSION['agreementPasser']);
+						echo json_encode(array("error"=>"none"));
+					}else{
+						echo json_encode(array("error"=>$insert));
+					}
 				}else{
-					$return = $this->model->insertDB("offerjobform",$this->offerJobTableDefault,array($seekerID,$workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType,0,1));
-				}
-				$insert = $this->model->insertDB($this->agreementTable,$this->agreementDB,array($seekerID,$passerID,$return,$notes));
-				if($insert){
-					unset($_SESSION['agreementPasser']);
-					echo json_encode(array("error"=>"none"));
-				}else{
-					echo json_encode(array("error"=>$insert));
+					echo json_encode(array("error"=>"noPasserSelected"));
 				}
 			}
 		}

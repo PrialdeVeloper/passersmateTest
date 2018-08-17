@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2018 at 07:03 PM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Aug 17, 2018 at 08:17 AM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -55,7 +57,7 @@ CREATE TABLE `agreement` (
   `PasserID` int(11) NOT NULL,
   `OfferJobFormID` int(11) NOT NULL,
   `AgreementDateandTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `AgreementNotes` varchar(255) DEFAULT NULL,
+  `AgreementNotes` text,
   `AgreementStatus` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -76,7 +78,19 @@ INSERT INTO `agreement` (`AgreementID`, `SeekerID`, `PasserID`, `OfferJobFormID`
 (16, 3, 1, 9, '2018-08-16 16:56:26', 'hello', 1),
 (17, 3, 1, 10, '2018-08-16 17:00:56', '', 1),
 (18, 3, 1, 9, '2018-08-16 17:02:03', '', 1),
-(19, 3, 1, 9, '2018-08-16 17:02:38', '', 1);
+(19, 3, 1, 9, '2018-08-16 17:02:38', '', 1),
+(20, 3, 1, 9, '2018-08-17 05:03:46', '', 1),
+(21, 3, 1, 11, '2018-08-17 05:12:40', 'qwe', 1),
+(22, 3, 1, 10, '2018-08-17 05:14:20', NULL, 1),
+(23, 3, 1, 10, '2018-08-17 05:15:21', NULL, 1),
+(24, 3, 1, 12, '2018-08-17 05:20:08', 'qwe', 1),
+(25, 3, 1, 11, '2018-08-17 05:20:36', NULL, 1),
+(26, 3, 1, 11, '2018-08-17 05:21:44', NULL, 1),
+(27, 3, 1, 11, '2018-08-17 05:22:34', NULL, 1),
+(28, 3, 1, 11, '2018-08-17 05:23:32', NULL, 1),
+(29, 3, 1, 11, '2018-08-17 05:26:52', 'notes.val()', 1),
+(30, 3, 4, 11, '2018-08-17 05:30:31', 'hehe', 1),
+(31, 3, 1, 11, '2018-08-17 06:08:00', 'hehe', 1);
 
 -- --------------------------------------------------------
 
@@ -186,7 +200,7 @@ INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `M
 (1, 1, 3, '', '', '2018-08-11 11:31:24', 0),
 (2, 1, 3, 'hello', 'Seeker', '2018-08-11 11:33:46', 0),
 (3, 1, 3, 'hi', 'Passer', '2018-08-11 13:41:05', 0),
-(4, 1, 3, 'what''s up?', 'Passer', '2018-08-11 13:41:14', 0),
+(4, 1, 3, 'what\'s up?', 'Passer', '2018-08-11 13:41:14', 0),
 (5, 1, 3, '&lt;script&gt;alert(&quot;qwe&quot;)&lt;/script&gt;', 'Passer', '2018-08-11 13:41:26', 0),
 (6, 1, 3, 'no xss', 'Passer', '2018-08-11 13:42:10', 0),
 (7, 1, 3, '&lt;script&gt;alert(&quot;qwe&quot;)&lt;/script&gt;', 'Passer', '2018-08-11 13:42:56', 0),
@@ -263,7 +277,8 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (16, 3, NULL, 'subscription', '2', 0),
 (17, 3, NULL, 'subscription', '2', 0),
 (18, 3, NULL, 'subscription', '2', 0),
-(19, 3, NULL, 'subscription', '1', 0);
+(19, 3, NULL, 'subscription', '1', 0),
+(20, NULL, 1, 'JobOffer', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -298,8 +313,10 @@ INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `Sta
 (6, 3, '', '2018-08-16', '2018-08-16', 0, 'Onsite', '', 0, 1, 1),
 (7, 3, 'qwe', '2018-08-16', '2018-08-17', 0, 'Onsite', 'In-House', 0, 1, 1),
 (8, 3, 'qwe', '2018-08-16', '2018-08-03', 500, 'Onsite', 'In-House', 0, 1, 1),
-(9, 3, 'qwer', '2018-08-10', '2018-08-15', 525, 'Online', 'In-House', 1, 1, 1),
-(10, 3, 'QWE', '2018-08-16', '2018-08-24', 500, 'Onsite', 'In-House', 0, 1, 1);
+(9, 3, 'qwer', '2018-08-10', '2018-08-15', 525, 'Online', 'In-House', 0, 1, 1),
+(10, 3, 'QWE', '2018-08-16', '2018-08-24', 500, 'Onsite', 'In-House', 0, 1, 1),
+(11, 3, 'qwe', '2018-08-17', '2018-08-31', 500, 'Onsite', 'In-House', 1, 1, 1),
+(12, 3, 'qwe', '2018-08-17', '2018-08-31', 55, 'Onsite', 'In-House', 0, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -789,116 +806,139 @@ ALTER TABLE `switchaccount`
 --
 ALTER TABLE `admin`
   MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `agreement`
 --
 ALTER TABLE `agreement`
-  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+
 --
 -- AUTO_INCREMENT for table `canceljob`
 --
 ALTER TABLE `canceljob`
   MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
   MODIFY `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `disabledusers`
 --
 ALTER TABLE `disabledusers`
   MODIFY `DisableUserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `dispute`
 --
 ALTER TABLE `dispute`
   MODIFY `DisputeID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
   MODIFY `DocFormsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
 --
 -- AUTO_INCREMENT for table `multimedia`
 --
 ALTER TABLE `multimedia`
   MODIFY `MultimediaID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `offerjobform`
 --
 ALTER TABLE `offerjobform`
-  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
   MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `passereducation`
 --
 ALTER TABLE `passereducation`
   MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
 --
 -- AUTO_INCREMENT for table `passerskills`
 --
 ALTER TABLE `passerskills`
   MODIFY `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
   MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
   MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `review`
 --
 ALTER TABLE `review`
   MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `seeker`
 --
 ALTER TABLE `seeker`
   MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `seekervalidate`
 --
 ALTER TABLE `seekervalidate`
   MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `subscription`
 --
 ALTER TABLE `subscription`
   MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `subscriptiontype`
 --
 ALTER TABLE `subscriptiontype`
   MODIFY `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `subskill`
 --
 ALTER TABLE `subskill`
   MODIFY `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `switchaccount`
 --
 ALTER TABLE `switchaccount`
   MODIFY `SwitchAccountID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints for dumped tables
 --
@@ -1007,6 +1047,7 @@ ALTER TABLE `subscription`
 --
 ALTER TABLE `subskill`
   ADD CONSTRAINT `subskill_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
