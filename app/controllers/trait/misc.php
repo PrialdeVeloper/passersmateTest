@@ -71,15 +71,14 @@
 
 		public function seekerCheckSubscriptionStatus(){
 			$subscription = null;
-			if(!$this->checkSession('seekerUser')){
-				header("location:../seeker/dashboard");
-			}
-			$subscription = $this->model->selectTwoCondition(array("*"),$this->subscriptionDB,$this->seekerUnique,"SubscriptionStatus",array($_SESSION['seekerUser'],"ongoing"));
-			if(!empty($subscription)){
-				foreach ($subscription as $data) {
-					if($data['SubscriptionEnd'] < date("Y-m-d")){
-						$this->model->updateDB($this->subscriptionDB,array("SubscriptionStatus"),array("ended"),$this->seekerUnique,$_SESSION['seekerUser']);
-						$this->createNotification("subscription",array("sendTo"=>"SeekerID","id"=>$_SESSION['seekerUser'],"message"=>2));
+			if($this->checkSession('seekerUser')){
+				$subscription = $this->model->selectTwoCondition(array("*"),$this->subscriptionDB,$this->seekerUnique,"SubscriptionStatus",array($_SESSION['seekerUser'],"ongoing"));
+				if(!empty($subscription)){
+					foreach ($subscription as $data) {
+						if($data['SubscriptionEnd'] < date("Y-m-d")){
+							$this->model->updateDB($this->subscriptionDB,array("SubscriptionStatus"),array("ended"),$this->seekerUnique,$_SESSION['seekerUser']);
+							$this->createNotification("subscription",array("sendTo"=>"SeekerID","id"=>$_SESSION['seekerUser'],"message"=>2));
+						}
 					}
 				}
 			}
@@ -502,15 +501,13 @@
 							}
 							break;
 						case 'JobOffer':
-							$link = "agreement";
+							$link = "agreements";
 							switch ($data['notificationMessage']) {
 								case '1':
 									$message = "You have a job offer, Mate!";
-									$link = "subscription";
 									break;
 								case '2':
 									$message = "A job offer was cancelled";
-									$link = "subscription";
 									break;
 							}
 							break;

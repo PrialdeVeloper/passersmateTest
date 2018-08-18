@@ -195,6 +195,65 @@
 			$data[] = array("userDetails"=>$details);
 			$this->controller->view("seeker/choosenPasser",$data);
 		}
+
+		public function billing(){
+			$details = $subscriptions = $data = $joinedData = $subscriptionData = $pagination = $page = $builder = $badge = $dom = null;
+			$data = [];
+			if(!$this->checkSession("seekerUser")){
+				header("location:login");
+			}
+			if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+			$subscriptions = $this->model->checkExistSingle($this->subscriptionDB,$this->seekerUnique,array($this->seekerSession));
+			if($subscriptions >=1 ){
+				$subscriptionData = $this->paginationScriptSingle($this->subscriptionDB,$this->seekerUnique,$this->seekerSession,$page,1,3,"");
+				$data = json_decode($subscriptionData,true);
+				$pagination = $data['pagination'];
+				foreach ($data['data'] as $dataSubscription) {
+					$joinedData = $this->model->joinSubscription(array($dataSubscription['SubscriptionID']))[0];
+					$badge = ($joinedData['SubscriptionStatus'] == "ongoing"?'<span class="badge badge-success font-weight-bold">Ongoing</span>':'<span class="badge badge-danger font-weight-bold">Ended</span>');
+					$builder = 
+					'
+					<div class="row" style="font-size: 15px">
+                      <div class="col-sm-3">
+                        <p>TATAK '.$this->sanitize(ucfirst($joinedData['SubscriptionName'])).' Plan</p>
+                      </div>
+                      <div class="col-sm-2">
+                        <p>Php '.$this->sanitize($joinedData['SubscriptionPrice']).'.00</p>
+                      </div>
+                      <div class="col-sm-2">
+                        <p>'.date("F jS, Y",strtotime($this->sanitize($joinedData['SubscriptionStart']))).'</p>
+                      </div>
+                      <div class="col-sm-3">
+                        <p>'.date("F jS, Y",strtotime($this->sanitize($joinedData['SubscriptionEnd']))).'</p>
+                      </div>
+                      <div class="col-sm-2">
+                        <p>'.$badge.'</p>
+                      </div>
+                    </div>
+                    <hr>
+					';
+					$dom = $dom."".$builder;
+				}
+			}else{
+				$dom = 
+				'
+				    <div class="row" style="font-size: 15px">
+                      <div class="col-md-12">
+                        <div class="alert alert-danger" role="alert">
+                          There\'s no billing records found.
+                        </div>
+                      </div>
+                    </div>
+				';
+			}
+			$details = $this->getDetailsSeeker($this->seekerSession);
+			$data[] = array("userDetails"=>$details,"billingHistory"=>$dom,"pagination"=>$pagination);
+			$this->controller->view("seeker/billing",$data);
+		}
 		
 	}
 ?>

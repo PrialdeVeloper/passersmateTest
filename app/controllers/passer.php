@@ -237,7 +237,8 @@
 
 		public function agreements(){
 			$data = [];
-			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = null;
+			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = null;
+
 			if(!$this->checkSession('passerUser')){
 				header("location: ../home/login");
 			}
@@ -299,6 +300,14 @@
 			}
 			$data[] = array("userDetails"=>$details,"paginationDOM"=>$paginationDOM,"agreementForms"=>$dom);
 			$this->controller->view("passer/agreement",$data);
+		}
+
+		public function agreementsDetails(){
+			if((!isset($_GET['id']) || !is_numeric($_GET['id'])) && !$this->checkSession('seekerUser')){
+				header("location:agreements");
+			}
+
+			$this->controller->view("passer/agreement");
 		}
 		
 	}

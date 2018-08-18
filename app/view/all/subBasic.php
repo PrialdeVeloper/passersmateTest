@@ -135,8 +135,8 @@ require "../public/header-footer/header.marvee";
                 			</div>
                 			<div class="card-body mt-3" style="font-size:20px">
                 			<ul class="fa-ul">
-				              <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>5 passers</li>
-				              <li><span class="fa-li"><i class="fas fa-check  text-success"></i></span>5 Job Offers</li>
+				              <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>Unlimited passers</li>
+				              <li><span class="fa-li"><i class="fas fa-check  text-success"></i></span>Unlimited Job Offers</li>
 				              <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>Instant Job Offer sent</li>
 				               <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>Read Passer Reviews</li>
 				               <li><span class="fa-li"><i class="fas fa-check text-success"></i></span>Hire Passers</li>

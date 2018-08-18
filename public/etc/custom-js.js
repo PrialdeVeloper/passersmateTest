@@ -2306,7 +2306,7 @@ $(function(){
 								let obj = JSON.parse(a);
 								if(obj.error == "none"){
 									toastSuccess("Refreshing your form!");
-									window.setTimeout(function(){window.location='agreement'},1000)
+									window.setTimeout(function(){window.location='agreements'},1000)
 								}
 							},
 							fail: function(){

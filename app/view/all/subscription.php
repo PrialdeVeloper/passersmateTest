@@ -118,8 +118,8 @@ require "../public/header-footer/header.marvee";
 				            <h6 class="card-price text-center">&#8369;80<span class="period">/day</span></h6>
 				            <hr>
 				            <ul class="fa-ul">
-				              <li><span class="fa-li"><i class="fas fa-check"></i></span>5 passers</li>
-				              <li><span class="fa-li"><i class="fas fa-check"></i></span>5 Job Offers</li>
+				              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited passers</li>
+				              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Job Offers</li>
 				              <li><span class="fa-li"><i class="fas fa-check"></i></span>Instant Job Offer sent</li>
 				               <li><span class="fa-li"><i class="fas fa-check"></i></span>Read Passer Reviews</li>
 				               <li><span class="fa-li"><i class="fas fa-check"></i></span>Hire Passers</li>
@@ -138,8 +138,8 @@ require "../public/header-footer/header.marvee";
 				            <h6 class="card-price text-center">&#8369;2500<span class="period">/month</span></h6>
 				            <hr>
 				            <ul class="fa-ul">
-				              <li><span class="fa-li"><i class="fas fa-check"></i></span>25 passers</li>
-				              <li><span class="fa-li"><i class="fas fa-check"></i></span>25 Job Offers</li>
+				              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited passers</li>
+				              <li><span class="fa-li"><i class="fas fa-check"></i></span>Unlimited Job Offers</li>
 				                 <li><span class="fa-li"><i class="fas fa-check"></i></span>Instant Job Offer sent</li>
 				               <li><span class="fa-li"><i class="fas fa-check"></i></span>Read Passer Reviews</li>
 				               <li><span class="fa-li"><i class="fas fa-check"></i></span>Hire Passers</li>

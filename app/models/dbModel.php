@@ -225,6 +225,16 @@
 
 		}
 
+		public function joinSubscription($data){
+			try {
+				$this->stmt = $this->con->prepare("SELECT * FROM `subscription` a, `subscriptiontype` b WHERE a.`SubscriptionTypeID` = b.`SubscriptionTypeID` and a.`SubscriptionID` = ?");
+				$this->stmt->execute($data);
+				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
 		public function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){
 			try {
 				$fieldsQ = $this->qDataUpdate($fields);

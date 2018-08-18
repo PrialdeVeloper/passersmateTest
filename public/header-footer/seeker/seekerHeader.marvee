@@ -186,11 +186,11 @@ if(isset($_SESSION['seekerUser'])){
 								<li class="navbar-item pr-5 dropdown">
 									<a class="navbar-link text-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										<i class="fas fa-user-circle"></i>
-										<label class="pr-1"><?=isset($SeekerFN)?$SeekerFN:$PasserFN;?></label>
+										<label class="pr-1"><?=isset($_SESSION['seekerUser'])?$SeekerFN:$PasserFN;?></label>
 									</a>
 								 <div class="dropdown-menu dropdown-menu-right text-dark">
 								      <a class="dropdown-item text-dark" href="<?php echo $destination; ?>">
-								      	<i class="fas fa-user-circle"></i> <?=isset($SeekerFN)?$SeekerFN:$PasserFN;?> <?=isset($SeekerLN)?$SeekerLN:$PasserLN;?>
+								      	<i class="fas fa-user-circle"></i> <?=isset($_SESSION['seekerUser'])?$SeekerFN:$PasserFN;?> <?=isset($SeekerLN)?$SeekerLN:$PasserLN;?>
 								      	<br>
 								      </a>
 								      <br>

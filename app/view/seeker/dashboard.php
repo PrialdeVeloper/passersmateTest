@@ -126,7 +126,7 @@ $rate = "Very Good!";
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-money-bill-wave-alt text-white"></i></div>
 				<div class="col-md-auto">
-					<label class="text-white cursor" onclick="window.location='../home/subscription'" id="smaller">Billing
+					<label class="text-white cursor" onclick="window.location='billing'" id="smaller">Billing
 					</label>
 				</div>
 			</div>
