@@ -214,6 +214,17 @@
 			return $this->stmt->fetchColumn();
 		}
 
+		public function joinAgreement($data){
+			try {
+				$this->stmt = $this->con->prepare("SELECT * FROM `agreement` a, `offerjobform` b, `seeker` c where a.`OfferJobFormID` = b.`OfferJobFormID` and a.`SeekerID` = c.`SeekerID` and `AgreementID` = ?");
+				$this->stmt->execute($data);
+				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+
+		}
+
 		public function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){
 			try {
 				$fieldsQ = $this->qDataUpdate($fields);

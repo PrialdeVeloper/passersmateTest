@@ -237,7 +237,7 @@
 
 		public function agreements(){
 			$data = [];
-			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $seekerData = $offerJobData = $paginationDOM = null;
+			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = null;
 			if(!$this->checkSession('passerUser')){
 				header("location: ../home/login");
 			}
@@ -253,29 +253,28 @@
 				$paginationData = json_decode($agreements,true);
 				$paginationDOM = $paginationData['pagination'];
 				foreach ($paginationData['data'] as $data) {
-					$seekerData = $this->getDetailsSeeker($data[$this->seekerUnique])[0];
-					$offerJobData = $this->model->selectAllFromUser($this->offerJobDB,"OfferJobFormID",array($data['OfferJobFormID']))[0];
+					$joinData = $this->model->joinAgreement(array($data['AgreementID']))[0];
 					$builder = 
 					'
 					<div class="text-center">
-					    <p class="display-4">'.$seekerData['SeekerFN']." ".$seekerData['SeekerLN'].'</p>
+					    <p class="display-4">'.$joinData['SeekerFN']." ".$joinData['SeekerLN'].'</p>
 					  </div>
 					  <div class="container mt-5">
 					    <div class="row justify-content-center">
-					      <p style="font-size: 20px;" class=" text-center">'.$offerJobData['WorkingAddress'].'</p>
+					      <p style="font-size: 20px;" class=" text-center">'.$joinData['WorkingAddress'].'</p>
 					    </div>
 					    <div class="container text-center">
 					      <div class="row">
 					        <div class="col-sm">
 					          Start Date:
 					          <div class="container">
-					            '.$offerJobData['StartDate'].'
+					            '.$joinData['StartDate'].'
 					          </div>
 					        </div>
 					        <div class="col-sm">
 					          Estimated End Date:
 					          <div class="container">
-					            '.$offerJobData['EndDate'].'
+					            '.$joinData['EndDate'].'
 					          </div>
 					        </div>
 					      </div>
@@ -285,12 +284,12 @@
 					    </div>
 					    <div class="container">
 					      <div class="text-center">
-					        '.$offerJobData['Salary'].'
+					        '.$joinData['Salary'].'
 					      </div>
 					    </div>
 					  </div>
 					  <div class="container mt-3">
-					    <a href="agreementsDetails?id='.$data['AgreementID'].'" class="btn btn-primary btn-block">View More Details</a>
+					    <a href="agreementsDetails?id='.$joinData['AgreementID'].'" class="btn btn-primary btn-block">View More Details</a>
 					  </div>
 					';
 					$dom = $dom." ".$builder;
