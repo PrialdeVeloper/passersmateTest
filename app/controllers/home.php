@@ -335,7 +335,7 @@
 		}
 
 		public function messages(){
-			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = $checkValidChat = $dashboard = $messageForm = $noMessagePrompt = $MessageID = $jobForm = null;
+			$details = $user = $receiver = $otherUser = $otherUserID = $id = $cocNo = $subscription = $checkValidChat = $dashboard = $messageForm = $noMessagePrompt = $MessageID = $jobForm = $defaultJobOffer = null;
 			$messageForm = 
 			'
 				<form id="messageSend">
@@ -359,27 +359,47 @@
 		 		$user = $this->seekerUnique;
 		 		$id = $_SESSION['seekerUser'];
 		 		$otherUserID = $this->passerUnique;
-		 		$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$user,"SubscriptionStatus",array($id,"ongoing"));
-		 		if($subscription <= 0){
+		 		if($this->getDetailsPasser($this->sanitize($_GET['t']))[0]['PasserStatus'] == 1){
+			 		if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
+				 		$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$user,"SubscriptionStatus",array($id,"ongoing"));
+				 		if($subscription <= 0){
+				 			$messageForm = 
+				 			'
+				 			<div class="alert alert-danger" role="alert">
+							  You don\'t have ongoing subscription. Please <a href="subscription">subscribe</a> first to Continue.
+							</div>
+				 			';
+
+
+				 		}
+				 		if(!empty($_GET['t']) && $subscription > 0){
+					 		$jobForm = 
+					 		'
+					 		 <div class="srch_bar">
+					            <div class="stylish-input-group">
+					              <button class="text-white btn btn-info font-weight-bold" data-toggle="modal" data-target="#offer" style="height:30px;font-size:14px">
+					              	Send a Job Offer form <i class="fas fa-file"></i>
+					              </button>
+					            </div>
+					          </div>
+					 		';
+				 		}
+			 		}else{
+			 			$messageForm = 
+				 			'
+				 			<div class="alert alert-danger" role="alert">
+							  You are currently not verified. Please <a href="../seeker/dashboard">verify your account</a> first to Continue.
+							</div>
+				 			';
+			 		}
+		 		}else{
 		 			$messageForm = 
-		 			'
-		 			<div class="alert alert-danger" role="alert">
-					  You don\'t have ongoing subscription. Please <a href="subscription">subscribe</a> first to Continue.
-					</div>
-		 			';
-		 		}
-		 		if(!empty($_GET['t']) && $subscription > 0){
-			 		$jobForm = 
-			 		'
-			 		 <div class="srch_bar">
-			            <div class="stylish-input-group">
-			              <a href="agreement" class="text-white btn btn-info font-weight-bold" style="height:30px;font-size:14px">
-			              	Create an Agreement <i class="fas fa-file"></i>
-			              </a>
-			            </div>
-			          </div>
-			 		';
-		 		}
+			 			'
+			 			<div class="alert alert-danger" role="alert">
+						  This passer is not yet verified or reported and has been disabled for your safety.
+						</div>
+			 			';
+			 	}
 		 	}elseif($this->checkSession('passerUser')){
 		 		$dashboard = "../passer/dashboard";
 		 		$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
@@ -387,15 +407,35 @@
 		 		$id = $_SESSION['passerUser'];
 		 		$otherUserID = $this->seekerUnique;
 		 		if(!empty($_GET['t'])){
-		 			$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$this->seekerUnique,"SubscriptionStatus",array($this->sanitize($_GET['t']),"ongoing"));
-			 		if($subscription <= 0){
-			 			$messageForm = 
-			 			'
-			 			<div class="alert alert-danger" role="alert">
-						  This seeker has no active Subscription. So he cannot send a message to you right now.
-						</div>
-			 			';
+		 			if($this->getDetailsSeeker($this->sanitize($_GET['t']))[0]['SeekerStatus'] == 1){
+		 				if($this->getDetailsPasser($_SESSION['passerUser'])[0]['PasserStatus'] == 1){
+				 			$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$this->seekerUnique,"SubscriptionStatus",array($this->sanitize($_GET['t']),"ongoing"));
+					 		if($subscription <= 0){
+					 			$messageForm = 
+					 			'
+					 			<div class="alert alert-danger" role="alert">
+								  This seeker has no active Subscription. So he cannot send a message to you right now.
+								</div>
+					 			';
+					 		}
+				 		}
+				 		else{
+				 			$messageForm = 
+				 			'
+				 			<div class="alert alert-danger" role="alert">
+							  You are currently not verified. Please <a href="../passer/dashboard">verify your account</a> first to Continue.
+							</div>
+				 			';
+				 		}
 			 		}
+			 		else{
+		 				$messageForm = 
+				 			'
+				 			<div class="alert alert-danger" role="alert">
+							  This seeker is not yet verified or reported and has been disabled for your safety.
+							</div>
+				 			';
+		 			}
 		 		}
 		 	}
 		 	if(empty($_GET['t'])){	
@@ -428,7 +468,7 @@
 		 		$_SESSION['agreementPasser'] = $this->sanitize($_GET['t']);
 		 	}
 		 	extract($details[0]);
-		 	$data[] = array("userDetails"=>$details,"dashboard"=>$dashboard,"messageForm"=>$messageForm,"noMessage"=>$noMessagePrompt,"jobForm"=>$jobForm);
+		 	$data[] = array("userDetails"=>$details,"dashboard"=>$dashboard,"messageForm"=>$messageForm,"noMessage"=>$noMessagePrompt,"jobForm"=>$jobForm,"jobOfferDefault"=>$defaultJobOffer);
 			$this->controller->view("all/chat",$data);
 		}
 

@@ -22,6 +22,8 @@
 		public $messageDB = array("PasserID","SeekerID","MessageContent","MessageSender");
 		public $agreementTable = "agreement";
 		public $agreementDB = array("SeekerID","PasserID","OfferJobFormID","AgreementNotes");
+		public $offerJobAddTable = "offerjob";
+		public $offerJobAddDB = array("OfferJobFormID","SeekerID","PasserID","Notes");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -60,6 +62,10 @@
 			return $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($passer));
 		}
 
+		public function getDefaultOfferJob($seeker){
+			return $this->model->selectAllDynamic($this->offerJobDB,array("*"),array("offerjobformDefault",$this->seekerUnique),array(1,$seeker));
+		}
+
 		public function seekerIsSubscribed(){
 			$subscription = null;
 			if(!$this->checkSession('seekerUser')){
@@ -80,6 +86,106 @@
 							$this->createNotification("subscription",array("sendTo"=>"SeekerID","id"=>$_SESSION['seekerUser'],"message"=>2));
 						}
 					}
+				}
+			}
+		}
+
+		public function JOformDisplayDefault(){
+			$passerID = $default = $checkTransaction = null;
+			if(isset($_POST['getDefaultBitch'])){
+				if(strlen($_POST['id']) != 14){
+					$passerID = $this->sanitize($_POST['id']);
+				}else{
+					$passerID = $this->model->selectSingleUser($this->passerTable,$this->passerUnique,array($this->sanitize($_POST['id'])),"PasserCOCNo");
+				}
+				if(isset($_SESSION['passerJobOffer'])){
+					unset($_SESSION['passerJobOffer']);
+				}
+				$_SESSION['passerJobOffer'] = $passerID;
+				if($this->checkSession('seekerUser')){
+					if($this->seekerIsSubscribed()){
+						if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
+							if($this->getDetailsPasser($passerID)[0]['PasserStatus'] == 1){
+								if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
+									$checkTransaction = $this->model->selectAllDynamic($this->offerJobAddTable,array("OfferJobStatus"),array($this->seekerUnique,$this->passerUnique,"OfferJobStatus"),array($_SESSION['seekerUser'],$_SESSION['passerJobOffer'],1));
+									if(empty($checkTransaction)){
+										$default = $this->getDefaultOfferJob($_SESSION['seekerUser']);
+										$default['formattedStartDate'] = date("F jS, Y", strtotime($default[0]['StartDate']));
+										$default['formattedEndDate'] = date("F jS, Y", strtotime($default[0]['EndDate']));
+										echo json_encode(array("error"=>"none","data"=>$default));
+									}
+									else{
+										echo json_encode(array("error"=>"unfinishedBusiness"));
+									}
+								}
+								else{
+									echo json_encode(array("error"=>"noDefaultJobOffer"));
+								}
+							}
+							else{
+								echo json_encode(array("error"=>"passerNotVerified"));
+							}
+						}
+						else{
+							echo json_encode(array("error"=>"seekerNotVerified"));
+						}
+					}
+					else{
+						echo json_encode(array("error"=>"notSubscribed"));
+					}
+				}
+				else{
+					echo json_encode(array("error"=>"notSeeker"));
+				}
+			}
+		}
+
+		public function offerJobAdd(){
+			$insert = $defaultJobOffer = $checkTransaction = null;
+			if(isset($_POST['offerJobAdd'])){
+				if($this->checkSession('passerJobOffer')){
+					if($this->checkSession('seekerUser')){
+						if($this->seekerIsSubscribed()){
+							if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
+								if($this->getDetailsPasser($_SESSION['passerJobOffer'])[0]['PasserStatus'] == 1){
+									if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
+										$checkTransaction = $this->model->selectAllDynamic($this->offerJobAddTable,array("OfferJobStatus"),array($this->seekerUnique,$this->passerUnique,"OfferJobStatus"),array($_SESSION['seekerUser'],$_SESSION['passerJobOffer'],1));
+										if(empty($checkTransaction)){
+											$notes = (isset($_POST['notes'])?$this->sanitize($_POST['notes']):"");
+											$defaultJobOffer = $this->getDefaultOfferJob($_SESSION['seekerUser'])[0]['OfferJobFormID'];
+											$insert = $this->model->insertDB($this->offerJobAddTable,$this->offerJobAddDB,array($defaultJobOffer,$_SESSION['seekerUser'],$_SESSION['passerJobOffer'],$notes));
+											if($insert){
+												echo json_encode(array("error"=>"none"));
+												$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$_SESSION['passerJobOffer'],"message"=>1));
+												unset($_SESSION['passerJobOffer']);
+											}
+										}
+										else{
+											echo json_encode(array("error"=>"unfinishedBusiness"));
+										}
+									}
+									else{
+										echo json_encode(array("error"=>"noDefaultJobOffer"));
+									}
+								}
+								else{
+									echo json_encode(array("error"=>"passerNotVerified"));
+								}
+							}
+							else{
+								echo json_encode(array("error"=>"seekerNotVerified"));
+							}
+						}
+						else{
+							echo json_encode(array("error"=>"notSubscribed"));
+						}
+					}
+					else{
+						echo json_encode(array("error"=>"notSeeker"));
+					}
+				}
+				else{
+					echo json_encode(array("error"=>"noPasserSelected"));
 				}
 			}
 		}
@@ -507,7 +613,7 @@
 									$message = "You have a job offer, Mate!";
 									break;
 								case '2':
-									$message = "A job offer was cancelled";
+									$message = "A recent job offer you received was updated mate! Check it out!";
 									break;
 							}
 							break;

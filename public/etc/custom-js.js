@@ -2336,6 +2336,133 @@ $(function(){
 			}
 		});
 	});
-
 });
 // end of offerjob
+
+
+// show default joboffer
+
+$(function(){
+	$('#offer').on('show.bs.modal', function (event) {
+		let modalBody = $("#offer .modal-body");
+		let id = (getURLData('t')?getURLData('t'):getURLData('user'));
+		let startDate = $("input.startDate");
+		let endDate = $("input.endDate");
+		let workingAddress = $("input.workingAddress");
+		let salary = $("input.salary");
+		let paymentMethod = $(".paymentMethod");
+		let accommodationType = $(".accommodationType");
+		$.ajax({
+			url: "JOformDisplayDefault",
+			method: "POST",
+			data: {"getDefaultBitch":"","id":id},
+			success: function(a){
+				let obj = JSON.parse(a);
+				switch(obj.error){
+					case "none":
+						let data = obj.data[0];
+						startDate.empty().val(obj.data.formattedStartDate);
+						endDate.empty().val(obj.data.formattedEndDate);
+						workingAddress.empty().val(data.WorkingAddress);
+						salary.empty().val(data.Salary);
+						paymentMethod.empty().val(data.PaymentMethod);
+						accommodationType.empty().val(data.AccomodationType);
+					break;
+					case "noPasserSelected":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Something went wrong. Please try again'
+						+'</div>');
+					break;
+					case "noDefaultJobOffer":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Sorry, Please create or set a default job offer form first <a href="../seeker/joboffer">Here.</a>'
+						+'</div>');
+					break;
+					case "passerNotVerified":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Sorry, Current choosen passer is unverified and therefore, cannot be hired. <a href="../seeker/joboffer">Here.</a>'
+						+'</div>');
+					break;
+					case "seekerNotVerified":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Sorry, you are currently unverified and therefore, cannot hire any passer. Please verify your account <a href="../seeker/dashboard">Here.</a>'
+						+'</div>');
+					break;
+					case "notSubscribed":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Sorry, You have no active subscription. Please subscribe first <a href="subscription">Here.</a>'
+						+'</div>');
+					break;
+					case "notSeeker":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Please login as seeker first <a href="login">Here.</a>'
+						+'</div>');
+					break;
+					case "unfinishedBusiness":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'You cannot rehire this passer because you still have pending Transaction! Please mark it first as done <a href="">Here.</a>'
+						+'</div>');
+					break;
+				}
+			}
+		});
+	});
+
+	$(".offerJobSend").click(function(){
+		let modalBody = $("#offer .modal-body");
+		let notes = $("#notesJobOffer").val();
+		$.ajax({
+			url:"offerJobAdd",
+			method: "POST",
+			data: {"offerJobAdd":"","notes":notes},
+			success: function(a){
+				let obj = JSON.parse(a);
+				switch(obj.error){
+					case "none":
+						toastSuccess('You have successfully offered a Job');
+					break;
+					case "noPasserSelected":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Something went wrong. Please try again'
+						+'</div>');
+					break;
+					case "noDefaultJobOffer":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Sorry, Please create or set a default job offer form first <a href="../seeker/joboffer">Here.</a>'
+						+'</div>');
+					break;
+					case "passerNotVerified":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Sorry, Current choosen passer is unverified and therefore, cannot be hired. <a href="../seeker/joboffer">Here.</a>'
+						+'</div>');
+					break;
+					case "seekerNotVerified":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Sorry, you are currently unverified and therefore, cannot hire any passer. Please verify your account <a href="../seeker/dashboard">Here.</a>'
+						+'</div>');
+					break;
+					case "notSubscribed":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Sorry, You have no active subscription. Please subscribe first <a href="subscription">Here.</a>'
+						+'</div>');
+					break;
+					case "notSeeker":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'Please login as seeker first <a href="login">Here.</a>'
+						+'</div>');
+					break;
+					case "unfinishedBusiness":
+						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+					  	'You cannot rehire this passer because you still have pending Transaction! Please mark it first as done <a href="">Here.</a>'
+						+'</div>');
+					break;
+				}
+			},
+			fail: function(){
+				alert("cannot connect to server");
+			}
+		});
+	});
+
+});
+// end of show default joboffer

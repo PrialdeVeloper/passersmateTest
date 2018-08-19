@@ -6,6 +6,7 @@ if(isset($data) && !empty($data)){
     }
 } 
 require "../public/header-footer/seeker/seekerHeader.marvee";
+require '../app/view/passer/modal/profileModal.html';
 ?>
 <head>
     <meta charset="utf-8">

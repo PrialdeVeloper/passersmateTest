@@ -8,26 +8,22 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <small class="font-weight-bold mb-1 text-primary" style="font-size:13px">Note: This will be sent to your choosen Passer.</small>
+                        <small class="font-weight-bold mb-1 text-primary" style="font-size:13px">Note: The job offer form listed here is the default job offer form. If you want to change your job offer form, click Change your Job Form below</small>
                         <div class="row">
                             <div class="col-md-12 text-white" style="background:#84b3ff;">
-                                <form class="">
-                                    <div class="form-group row col-md-12 mt-2">
-                                      <label for="jobTitle" class="font-weight-bold">Job Title</label>
-                                      <input type="text" class="form-control shadow" id="jobTitle" value="Carpenter"  disabled>
-                                    </div>
+                                <form>
                                     <div class="form-group row col-md-12 mt-2">
                                       <label for="jobTitle" class="font-weight-bold">Working Address</label>
-                                      <input type="text" class="form-control shadow " id="jobTitle" value="Carpenter" disabled>
+                                      <input type="text" class="form-control shadow workingAddress" readonly disabled>
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-md-6 mt-2">
                                           <label for="jobTitle" class="font-weight-bold"> Start Date</label>
-                                          <input type="date" class="form-control shadow " id="jobTitle" value="Carpenter" disabled>
+                                          <input type="text" class="form-control shadow startDate" readonly disabled>
                                          </div>
                                         <div class="form-group col-md-6 mt-2">
-                                          <label for="jobTitle" class="font-weight-bold"> End Date</label>
-                                          <input type="date" class="form-control shadow " id="jobTitle" value="Carpenter" disabled>
+                                          <label for="jobTitle" class="font-weight-bold"> Expected End Date</label>
+                                          <input type="text" class="form-control shadow endDate" readonly disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -39,33 +35,31 @@
                                                     <span>&#8369;</span>
                                                 </span>
                                               </div>
-                                              <input type="text" class="form-control "  aria-describedby="basic-addon1" disabled>
+                                              <input type="text" class="form-control salary" aria-describedby="basic-addon1" readonly disabled>
                                             </div>
                                          </div>
                                         <div class="form-group col-md-6 mt-2">
                                           <label for="jobTitle" class="font-weight-bold"> Payment Method
                                           </label>
-                                          <select class="custom-select mr-sm-2" id="paymentMethod" disabled>
-                                            <option selected value="Online">Online</option>
-                                            <option value="Offline">Offline</option>
-                                          </select>
+                                          <input type="text" class="form-control paymentMethod" aria-describedby="basic-addon1" readonly disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row col-md-12 mt-2">
                                       <label for="jobTitle" class="font-weight-bold">Accomodation Type</label>
-                                      <select class="custom-select" id="inlineFormCustomSelect" disabled>
-                                            <option selected value="In-House">In-House</option>
-                                            <option value="Offsite">Offsite</option>
-                                        </select>
+                                      <input type="text" class="form-control accommodationType" aria-describedby="basic-addon1" readonly disabled>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="notesJobOffer">Notes</label>
+                                        <textarea class="form-control rounded-0 font-weight-bold" id="notesJobOffer" rows="3" style="font-size:13px"></textarea>
                                     </div>
                                 </form>
                             </div>
                       </div>
                       <div class="modal-footer">
                         <div class="col">
-                          <a href="" class="text-left"><h6><u>Change your Job Form</u></h6></a>
+                          <a href="../seeker/joboffer" class="text-left"><h6><u>Change your Job Form</u></h6></a>
                         </div>
-                        <button type="button" class="btn btn-success font-weight-bold" data-dismiss="modal" onclick="toastr.success('You have successfully offered a Job');">Offer a Job</button>
+                        <button type="submit" class="btn btn-success font-weight-bold offerJobSend">Offer a Job</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                       </div>
                     </div>
