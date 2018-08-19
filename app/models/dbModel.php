@@ -235,6 +235,16 @@
 			}
 		}
 
+		public function joinOfferJobForm($data){
+			try {
+				$this->stmt = $this->con->prepare("SELECT * FROM `offerjob` a, `offerjobform` b, `passer` c where a.`OfferJobFormID` = b.`OfferJobFormID` and a.`PasserID` = c.`PasserID` and a.`OfferJobID` = ?");
+				$this->stmt->execute($data);
+				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
 		public function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){
 			try {
 				$fieldsQ = $this->qDataUpdate($fields);

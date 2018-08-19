@@ -1747,7 +1747,7 @@ $(function(){
 						let obj = JSON.parse(a);
 						if(obj.error == "none"){
 							toastSuccess("Form Added!");
-							window.setTimeout(function(){window.location='joboffer'},1000)
+							window.setTimeout(function(){window.location='jobofferform'},1000)
 						}
 					},
 					fail: function(){
@@ -1975,7 +1975,7 @@ $(function(){
 					accomodationTypeUpdate.val(obj.data[0].AccomodationType).change();
 				}else{
 					if(obj.error = "wrongUser"){
-						window.location = 'joboffer';
+						window.location = 'jobofferform';
 					}
 				}
 			},
@@ -2045,7 +2045,7 @@ $(function(){
 						if(obj.error == "none"){
 							idJobOffer = "";
 							toastSuccess("Form Edited!");
-							window.setTimeout(function(){window.location='joboffer'},1000)
+							window.setTimeout(function(){window.location='jobofferform'},1000)
 						}else if(obj.error == "uneditable"){
 							toastError("Sorry, this form is currently used and cannot be edited.");
 						}
@@ -2076,7 +2076,7 @@ $(function(){
 					let obj = JSON.parse(a);
 					if(obj.error == "none"){
 						toastSuccess("Successfully set to default");
-						delayRedirect("joboffer")
+						delayRedirect("jobofferform")
 					}else if(obj.error == "wrongUser"){
 						toastError("You have no authority over the Job offer you choosed. Please try again");
 					}else{
@@ -2104,12 +2104,15 @@ $(function(){
 					let obj = JSON.parse(a);
 					if(obj.error == "none"){
 						toastSuccess("Successfully Deleted");
-						delayRedirect("joboffer");
+						delayRedirect("jobofferform");
 					}else if(obj.error == "wrongUser"){
 						toastError("You have no authority over the Job offer you choosed. Please try again");
-					}else{
-						console.log(a);
+					}else if (obj.error == "undeletable"){
+						toastError("Sorry, the choosen form cannot be deleted because it is currently being used.");
 					}
+				},
+				fail: function(){
+					alert("cannot connect to server");
 				}
 			});
 		});

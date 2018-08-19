@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2018 at 05:00 PM
+-- Generation Time: Aug 19, 2018 at 08:20 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -252,7 +252,8 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (20, NULL, 1, 'JobOffer', '1', 0),
 (21, 3, NULL, 'subscription', '2', 0),
 (22, NULL, 1, 'JobOffer', '1', 1),
-(23, NULL, 4, 'JobOffer', '1', 1);
+(23, NULL, 4, 'JobOffer', '1', 1),
+(24, NULL, 1, 'JobOffer', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -275,8 +276,7 @@ CREATE TABLE `offerjob` (
 --
 
 INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
-(1, 2, 3, 1, '', '2018-08-19 14:32:54', 1),
-(2, 2, 3, 4, 'hehe', '2018-08-19 14:47:55', 1);
+(1, 2, 3, 1, '', '2018-08-19 18:20:41', 4);
 
 -- --------------------------------------------------------
 
@@ -303,7 +303,7 @@ CREATE TABLE `offerjobform` (
 --
 
 INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `offerjobformDefault`, `uneditable`, `OfferJobFormStatus`) VALUES
-(2, 3, 'qwe', '2018-08-03', '2018-08-25', 255, 'Online', 'In-House', 1, 0, 1);
+(2, 3, 'qwert', '2018-08-03', '2018-08-25', 255, 'Online', 'In-House', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -855,13 +855,13 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
 --
 ALTER TABLE `offerjob`
-  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `offerjobform`

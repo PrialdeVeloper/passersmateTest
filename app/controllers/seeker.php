@@ -92,7 +92,7 @@
 			$this->controller->view("seeker/register");
 		}
 
-		public function joboffer(){
+		public function jobofferform(){
 			if(!$this->checkSession('seekerUser')){
 		 		header("location:../home/login");
 		 	}
@@ -131,10 +131,20 @@
 					$badge = '<span class="badge badge-success font-weight-bold">Default</span>';
 					$defaultButton = null;
 				}
-				if($data['uneditable'] > 0 ){
+				if($data['uneditable'] == 1 ){
 					$checkEditable = null;
 					$badge='<span class="badge readonly badge-success font-weight-bold">Currently in use on other form</span>';
 					$defaultButton = null;
+				}elseif($data['uneditable'] == 2){
+					$badge='<span class="badge readonly badge-success font-weight-bold">Currently in peding mode. Cannot be deleted but can be edited</span>';
+					$defaultButton = null;
+					$checkEditable = 
+					'
+						<div class="col">
+					    	<a href="" class="font-weight-bold text-dark" name="updateJobOfferForm" style="font-size: 15px;" data-toggle="modal" data-target="#update">
+					    		<u>Edit</u></a>
+					    </div>
+					';
 				}
 				$builder = '
 					'.$badge.'
@@ -253,6 +263,108 @@
 			$details = $this->getDetailsSeeker($this->seekerSession);
 			$data[] = array("userDetails"=>$details,"billingHistory"=>$dom,"pagination"=>$pagination);
 			$this->controller->view("seeker/billing",$data);
+		}
+
+		public function joboffered(){
+			$details = $jobOffers = $joinedJobOffers = $page = $builder = $dom = $pagination = $paginationData = $checkTransaction = $status = $headerColor = $employmentAgreement = $update = null;
+			$data = [];
+			if(!$this->checkSession("seekerUser")){
+				header("location: ../home/login");
+			}
+			if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+
+			$checkTransaction = $this->model->selectAllFromUser($this->offerJobAddTable,$this->seekerUnique,array($_SESSION['seekerUser']));
+			if(!empty($checkTransaction)){
+				$jobOffers = $this->paginationScriptSingle($this->offerJobAddTable,$this->seekerUnique,$this->seekerSession,$page,1,3,"");
+				$paginationData = json_decode($jobOffers,true);
+				$pagination = $paginationData['pagination'];
+				foreach ($paginationData['data'] as $data) {
+					$joinedJobOffers = $this->model->joinOfferJobForm(array($data['OfferJobID']))[0];
+					switch ($joinedJobOffers['OfferJobStatus']) {
+						case 1:
+							$status = '<a class="badge badge-warning font-weight-bold ">Pending</a>';
+							$headerColor = 'bg-info';
+							$employmentAgreement = null;
+							$update = null;
+							break;
+						case 2:
+							$status = '<a class="badge badge-warning font-weight-bold ">Pending</a>';
+							$headerColor = 'bg-secondary';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-success">Updated:</b> </small>';
+							break;
+						case 3:
+							$status = '<a class="badge badge-primary text-white font-weight-bold ">Agreed with the same job offer</a>';
+							$headerColor = 'bg-primary';
+							$employmentAgreement = 
+							'
+							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#agreement">
+	                          Make an Employment Agreement
+	                        </button>
+							';
+							$update = null;
+							break;
+						case 4:
+							$status = '<a class="badge badge-warning font-weight-bold ">Declined</a>';
+							$headerColor = 'bg-danger';
+							$employmentAgreement = null;
+							$update = null;
+							break;
+						
+						
+					}
+					$builder = 
+					'
+					<div class="card shadow">
+                      <div class="card-header '.$headerColor.'">
+                        <h5 class="text-white">Job Offer to <u class="text-white">'.$joinedJobOffers['PasserFN']." ".$joinedJobOffers['PasserLN'].'</u></h5>
+                        '.$update.'<small class="text-left text-white"> '.date("F jS, Y",strtotime($joinedJobOffers['OfferJobDateTime'])).'</small>
+                        '.$employmentAgreement.'
+                      </div>
+                      <div class="card-body">
+                    	  <p style="font-size:13px">Working Address: 
+                          <u class="font-weight-bold">'.$joinedJobOffers['WorkingAddress'].'</u>
+                        </p>
+                        <p style="font-size:13px">Start Date of service: 
+                          <u class="font-weight-bold">'.date("F jS, Y",strtotime($joinedJobOffers['StartDate'])).'</u>
+                        </p>
+                        <p style="font-size:13px">Estimated End Date of service: 
+                          <u class="font-weight-bold">'.date("F jS, Y",strtotime($joinedJobOffers['EndDate'])).'</u>
+                        </p>
+                        <p style="font-size:13px">Service Fee: 
+                          <u class="font-weight-bold"><span>&#8369;</span> '.$joinedJobOffers['Salary'].'.00</u>
+                        </p>
+                        <p style="font-size:13px">Preferred Type of Accommodation
+                          <u class="font-weight-bold">'.$joinedJobOffers['AccomodationType'].'</u>
+                        </p>
+                        <div class="form-group">
+                          <label for="exampleFormControlTextarea2">Notes</label>
+                          <textarea class="form-control rounded-0 font-weight-bold" id="exampleFormControlTextarea2" rows="3" disabled style="font-size:13px">'.$joinedJobOffers['Notes'].'</textarea>
+                      </div>
+                      </div>
+                      <div class="card-footer">
+                        Status: '.$status.'
+                      </div>
+                    </div>
+					';
+					$dom = $dom."".$builder;
+				}
+			}else{
+				$dom = 
+				'
+				<div class="alert alert-danger" role="alert">
+				  You don\'t have any job offered.
+				</div>
+				';
+			}
+
+			$details = $this->getDetailsSeeker($this->seekerSession);
+			$data[] = array("userDetails"=>$details,"offers"=>$dom,"pagination"=>$pagination);
+			$this->controller->view("seeker/jobOffered",$data);
 		}
 		
 	}

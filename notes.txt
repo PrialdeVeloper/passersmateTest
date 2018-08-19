@@ -25,3 +25,10 @@ echo date("F jS, Y", strtotime($timestamp)); //September 30th, 2013
 strtotime("now")
 
 uneditable set to 0 on finish job offer
+
+
+offerjob(new)
+1 = pending
+2 = edited
+3 = accepted
+4 = declined

@@ -155,9 +155,10 @@
 											$defaultJobOffer = $this->getDefaultOfferJob($_SESSION['seekerUser'])[0]['OfferJobFormID'];
 											$insert = $this->model->insertDB($this->offerJobAddTable,$this->offerJobAddDB,array($defaultJobOffer,$_SESSION['seekerUser'],$_SESSION['passerJobOffer'],$notes));
 											if($insert){
-												echo json_encode(array("error"=>"none"));
+												$this->model->updateDBDynamic($this->offerJobDB,array("uneditable"),array(2,$_SESSION['seekerUser'],$defaultJobOffer),array($this->seekerUnique,"OfferJobFormID"));
 												$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$_SESSION['passerJobOffer'],"message"=>1));
 												unset($_SESSION['passerJobOffer']);
+												echo json_encode(array("error"=>"none"));
 											}
 										}
 										else{
@@ -1282,16 +1283,23 @@
 		}
 
 		public function deleteJobForm(){
+			$details = null;
 			if(isset($_POST['deleteJobForm'])){
 				$id = $this->sanitize($_POST['id']);
 				$checkAuthenticity = $this->checkAuthenticity("offerjobform","SeekerID","OfferJobFormID",array($_SESSION['seekerUser'],$id));
 				if($checkAuthenticity){
-					$checkAuthenticity = null;
-					$delete = $this->model->updateDB("offerjobform",array("OfferJobFormStatus"),array(0),"OfferJobFormID",$id);
-					if($delete){
-						echo json_encode(array("error"=>"none"));
-					}else
-					echo $delete;
+					$details = $this->model->selectAllDynamic($this->offerJobDB,array("uneditable"),array("OfferJobFormID",$this->seekerUnique),array($id,$_SESSION['seekerUser']));
+					if($details[0]['uneditable'] <= 0){
+						$checkAuthenticity = null;
+						$delete = $this->model->updateDB("offerjobform",array("OfferJobFormStatus"),array(0),"OfferJobFormID",$id);
+						if($delete){
+							echo json_encode(array("error"=>"none"));
+						}else
+						echo $delete;
+					}
+					else{
+						echo json_encode(array("error"=>"undeletable"));
+					}	
 				}
 				else{
 					echo json_encode(array("error"=>"wrongUser"));
