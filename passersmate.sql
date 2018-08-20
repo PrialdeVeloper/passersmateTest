@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 19, 2018 at 08:20 PM
+-- Generation Time: Aug 20, 2018 at 08:18 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -253,7 +253,11 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (21, 3, NULL, 'subscription', '2', 0),
 (22, NULL, 1, 'JobOffer', '1', 1),
 (23, NULL, 4, 'JobOffer', '1', 1),
-(24, NULL, 1, 'JobOffer', '1', 1);
+(24, NULL, 1, 'JobOffer', '1', 1),
+(25, NULL, 1, 'JobOffer', '1', 1),
+(26, NULL, 1, 'JobOffer', '1', 1),
+(27, NULL, 4, 'JobOffer', '1', 1),
+(28, NULL, 5, 'JobOffer', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -276,7 +280,9 @@ CREATE TABLE `offerjob` (
 --
 
 INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
-(1, 2, 3, 1, '', '2018-08-19 18:20:41', 4);
+(1, 2, 3, 1, 'hehe', '2018-08-20 04:16:58', 1),
+(2, 3, 3, 4, 'hehe', '2018-08-20 04:33:12', 1),
+(3, 4, 3, 5, '', '2018-08-20 05:35:28', 1);
 
 -- --------------------------------------------------------
 
@@ -303,7 +309,9 @@ CREATE TABLE `offerjobform` (
 --
 
 INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `offerjobformDefault`, `uneditable`, `OfferJobFormStatus`) VALUES
-(2, 3, 'qwert', '2018-08-03', '2018-08-25', 255, 'Online', 'In-House', 1, 2, 1);
+(2, 3, 'qwerttye', '2018-08-03', '2018-08-25', 255, 'Online', 'In-House', 0, 2, 1),
+(3, 3, 'tqw', '2018-08-01', '2018-08-15', 500.25, 'Onsite', 'Offsite', 0, 2, 1),
+(4, 3, 'sda', '2018-08-01', '2018-08-31', 1000, 'Online', 'In-House', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -807,7 +815,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `agreement`
 --
 ALTER TABLE `agreement`
-  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `canceljob`
@@ -855,19 +863,19 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
 --
 ALTER TABLE `offerjob`
-  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `offerjobform`
 --
 ALTER TABLE `offerjobform`
-  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `passer`

@@ -1947,6 +1947,8 @@ $(function(){
 
 
 let idJobOffer;
+let joboffered;
+let passerID;
 
 // display jobofferForm
 $(function(){
@@ -2045,7 +2047,13 @@ $(function(){
 						if(obj.error == "none"){
 							idJobOffer = "";
 							toastSuccess("Form Edited!");
-							window.setTimeout(function(){window.location='jobofferform'},1000)
+							if(joboffered == "offer" && !isNaN(passerID)){
+								joboffered = "";
+								window.setTimeout(function(){window.location='joboffered'},1000);
+							}else{
+								joboffered = "";
+								window.setTimeout(function(){window.location='jobofferform'},1000);
+							}
 						}else if(obj.error == "uneditable"){
 							toastError("Sorry, this form is currently used and cannot be edited.");
 						}
@@ -2373,7 +2381,7 @@ $(function(){
 					break;
 					case "noPasserSelected":
 						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-					  	'Something went wrong. Please try again'
+					  	'Please choose another passer again.'
 						+'</div>');
 					break;
 					case "noDefaultJobOffer":
@@ -2403,7 +2411,7 @@ $(function(){
 					break;
 					case "unfinishedBusiness":
 						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-					  	'You cannot rehire this passer because you still have pending Transaction! Please mark it first as done <a href="">Here.</a>'
+					  	'You cannot rehire this passer because you still have pending Transaction! You can view it <a href="../seeker/joboffered">Here.</a>'
 						+'</div>');
 					break;
 				}
@@ -2422,11 +2430,11 @@ $(function(){
 				let obj = JSON.parse(a);
 				switch(obj.error){
 					case "none":
-						toastSuccess('You have successfully offered a Job');
+						toastSuccess('You have successfully offered a Job!');
 					break;
 					case "noPasserSelected":
 						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-					  	'Something went wrong. Please try again'
+					  	'Please choose another passer again.'
 						+'</div>');
 					break;
 					case "noDefaultJobOffer":
@@ -2456,7 +2464,7 @@ $(function(){
 					break;
 					case "unfinishedBusiness":
 						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-					  	'You cannot rehire this passer because you still have pending Transaction! Please mark it first as done <a href="">Here.</a>'
+					  	'You cannot rehire this passer because you still have pending Transaction! You can view it <a href="../seeker/joboffered">Here.</a>'
 						+'</div>');
 					break;
 				}
@@ -2466,6 +2474,42 @@ $(function(){
 			}
 		});
 	});
-
 });
 // end of show default joboffer
+
+$(function(){
+	$(".updateButton").click(function(){
+		let passerIDJobForm = $(this).parent().next().find("input[name=passer]").val();
+		let offerjobformID = $(this).parent().next().find("input[name=offerjobform]").val();
+		$.ajax({
+			url: "selectAndAuthenticate",
+			method: "POST",
+			data: {"select":"","user":"SeekerID","table":"offerjobform","field":"OfferJobFormID","data":offerjobformID},
+			async: false,
+			success: function(a){
+				let obj = JSON.parse(a);
+				if(obj.error == "none"){
+					idJobOffer = offerjobformID;
+					joboffered = "offer";
+					passerID = passerIDJobForm;
+					let workAddressUpdate = $("#workAddressUpdate");
+					let startDateUpdate = $("#startDateUpdate");
+					let endDateUpdate = $("#endDateUpdate");
+					let salaryUpdate = $("#salaryUpdate");
+					let paymentMethodUpdate = $("select[name=paymentMethodUpdate]");
+					let accomodationTypeUpdate = $("#accomodationTypeUpdate");
+					workAddressUpdate.val(obj.data[0].WorkingAddress);
+					startDateUpdate.val(obj.data[0].StartDate);
+					endDateUpdate.val(obj.data[0].EndDate);
+					salaryUpdate.val(obj.data[0].Salary);
+					paymentMethodUpdate.val(obj.data[0].PaymentMethod).change();
+					accomodationTypeUpdate.val(obj.data[0].AccomodationType).change();
+				}else{
+					if(obj.error = "wrongUser"){
+						window.location = 'joboffered';
+					}
+				}
+			},
+		});
+	});
+});

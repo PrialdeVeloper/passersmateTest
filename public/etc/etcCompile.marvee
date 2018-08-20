@@ -17,6 +17,7 @@
 		<link rel="stylesheet" type="text/css" href="../etc/custom-css.css">
 		<link rel="stylesheet" type="text/css" href="../etc/fontawesome/css/fontawesome-all.css">
 		<link rel="stylesheet" type="text/css" href="../etc/bootstrap/css/prettyCheckboxes/dist/pretty-checkbox.min.css">
+		<link rel="stylesheet" type="text/css" href="../etc/subscription/build/toastr.min.css">
 		<script type="text/javascript" src="../etc/bootstrap/js/jquery-3.3.1.js"></script>
 		<script type="text/javascript" src="../etc/bootstrap/js/gijgo/gijgo.min.js"></script>
 		<script type="text/javascript" src="../etc/bootstrap/js/popper.min.js"></script>
@@ -30,6 +31,7 @@
 		<link rel="stylesheet" type="text/css" href="../../public/etc/custom-css.css">
 		<link rel="stylesheet" type="text/css" href="../../public/etc/fontawesome/css/fontawesome-all.css">
 		<link rel="stylesheet" type="text/css" href="../../public/etc/bootstrap/css/prettyCheckboxes/dist/pretty-checkbox.min.css">
+		<link rel="stylesheet" type="text/css" href="../../public/etc/subscription/build/toastr.min.css">
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/jquery-3.3.1.js"></script>
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/gijgo/gijgo.min.js"></script>
 		<script type="text/javascript" src="../../public/etc/bootstrap/js/popper.min.js"></script>

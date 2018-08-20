@@ -66,6 +66,10 @@
 			return $this->model->selectAllDynamic($this->offerJobDB,array("*"),array("offerjobformDefault",$this->seekerUnique),array(1,$seeker));
 		}
 
+		public function updateAndCreateNotificationJobOffer(){
+			
+		}
+
 		public function seekerIsSubscribed(){
 			$subscription = null;
 			if(!$this->checkSession('seekerUser')){
@@ -149,7 +153,7 @@
 							if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
 								if($this->getDetailsPasser($_SESSION['passerJobOffer'])[0]['PasserStatus'] == 1){
 									if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
-										$checkTransaction = $this->model->selectAllDynamic($this->offerJobAddTable,array("OfferJobStatus"),array($this->seekerUnique,$this->passerUnique,"OfferJobStatus"),array($_SESSION['seekerUser'],$_SESSION['passerJobOffer'],1));
+										$checkTransaction = $this->model->selectAllDynamic($this->offerJobAddTable,array("OfferJobStatus"),array($this->seekerUnique,$this->passerUnique),array($_SESSION['seekerUser'],$_SESSION['passerJobOffer']));
 										if(empty($checkTransaction)){
 											$notes = (isset($_POST['notes'])?$this->sanitize($_POST['notes']):"");
 											$defaultJobOffer = $this->getDefaultOfferJob($_SESSION['seekerUser'])[0]['OfferJobFormID'];
@@ -1242,7 +1246,7 @@
 				$paymentMethod = $this->sanitize($_POST['paymentMethod']);
 				$accomodationType = $this->sanitize($_POST['accomodationType']);
 				$checkEditable = $this->model->selectAllFromUser("offerjobform","OfferJobFormID",array($jobFormID));
-				if($checkEditable[0]['uneditable'] <=0){
+				if($checkEditable[0]['uneditable']  != 1){
 					try {
 						unset($this->offerJobTable[0]);
 						$return = $this->model->updateDB("offerjobform",$this->offerJobTable,array($workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType),"OfferJobFormID",$jobFormID);

@@ -359,47 +359,49 @@
 		 		$user = $this->seekerUnique;
 		 		$id = $_SESSION['seekerUser'];
 		 		$otherUserID = $this->passerUnique;
-		 		if($this->getDetailsPasser($this->sanitize($_GET['t']))[0]['PasserStatus'] == 1){
-			 		if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
-				 		$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$user,"SubscriptionStatus",array($id,"ongoing"));
-				 		if($subscription <= 0){
+		 		if(!empty($_GET['t'])){
+			 		if($this->getDetailsPasser($this->sanitize($_GET['t']))[0]['PasserStatus'] == 1){
+				 		if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
+					 		$subscription = $this->model->checkAuthenticity($this->subscriptionDB,$user,"SubscriptionStatus",array($id,"ongoing"));
+					 		if($subscription <= 0){
+					 			$messageForm = 
+					 			'
+					 			<div class="alert alert-danger" role="alert">
+								  You don\'t have ongoing subscription. Please <a href="subscription">subscribe</a> first to Continue.
+								</div>
+					 			';
+
+
+					 		}
+					 		if(!empty($_GET['t']) && $subscription > 0){
+						 		$jobForm = 
+						 		'
+						 		 <div class="srch_bar">
+						            <div class="stylish-input-group">
+						              <button class="text-white btn btn-info font-weight-bold" data-toggle="modal" data-target="#offer" style="height:30px;font-size:14px">
+						              	Send a Job Offer form <i class="fas fa-file"></i>
+						              </button>
+						            </div>
+						          </div>
+						 		';
+					 		}
+				 		}else{
 				 			$messageForm = 
-				 			'
-				 			<div class="alert alert-danger" role="alert">
-							  You don\'t have ongoing subscription. Please <a href="subscription">subscribe</a> first to Continue.
-							</div>
-				 			';
-
-
-				 		}
-				 		if(!empty($_GET['t']) && $subscription > 0){
-					 		$jobForm = 
-					 		'
-					 		 <div class="srch_bar">
-					            <div class="stylish-input-group">
-					              <button class="text-white btn btn-info font-weight-bold" data-toggle="modal" data-target="#offer" style="height:30px;font-size:14px">
-					              	Send a Job Offer form <i class="fas fa-file"></i>
-					              </button>
-					            </div>
-					          </div>
-					 		';
+					 			'
+					 			<div class="alert alert-danger" role="alert">
+								  You are currently not verified. Please <a href="../seeker/dashboard">verify your account</a> first to Continue.
+								</div>
+					 			';
 				 		}
 			 		}else{
 			 			$messageForm = 
 				 			'
 				 			<div class="alert alert-danger" role="alert">
-							  You are currently not verified. Please <a href="../seeker/dashboard">verify your account</a> first to Continue.
+							  This passer is not yet verified or reported and has been disabled for your safety.
 							</div>
 				 			';
-			 		}
-		 		}else{
-		 			$messageForm = 
-			 			'
-			 			<div class="alert alert-danger" role="alert">
-						  This passer is not yet verified or reported and has been disabled for your safety.
-						</div>
-			 			';
-			 	}
+				 	}
+				}
 		 	}elseif($this->checkSession('passerUser')){
 		 		$dashboard = "../passer/dashboard";
 		 		$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));

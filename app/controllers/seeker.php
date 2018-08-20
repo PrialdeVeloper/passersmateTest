@@ -112,8 +112,8 @@
 				$dom = '
 
 				<div class="alert alert-danger font-weight-bold" role="alert">
-						 There\'s no Job Offer Form created!
-					</div>
+					There\'s no Job Offer Form created!
+				</div>
 				';
 			}
 			foreach ($paginationData['data'] as $data) {
@@ -143,6 +143,7 @@
 						<div class="col">
 					    	<a href="" class="font-weight-bold text-dark" name="updateJobOfferForm" style="font-size: 15px;" data-toggle="modal" data-target="#update">
 					    		<u>Edit</u></a>
+					    		<input type="hidden" name="sleepingAway" value="'.$this->sanitize($data['OfferJobFormID']).'">
 					    </div>
 					';
 				}
@@ -287,14 +288,20 @@
 					switch ($joinedJobOffers['OfferJobStatus']) {
 						case 1:
 							$status = '<a class="badge badge-warning font-weight-bold ">Pending</a>';
+							$employmentAgreement = 
+							'<button type="button" class="btn btn-outline-dark bg-success float-right updateButton" data-toggle="modal" data-target="#update">
+	                          Update your Job Offered
+	                        </button>';
 							$headerColor = 'bg-info';
-							$employmentAgreement = null;
 							$update = null;
 							break;
 						case 2:
 							$status = '<a class="badge badge-warning font-weight-bold ">Pending</a>';
 							$headerColor = 'bg-secondary';
-							$employmentAgreement = null;
+							$employmentAgreement = 
+							'<button type="button" class="btn btn-outline-dark bg-success float-right updateButton" data-toggle="modal" data-target="#update">
+	                          Update your Job Offered
+	                        </button>';
 							$update = '<small class="text-left "><b class="text-success">Updated:</b> </small>';
 							break;
 						case 3:
@@ -314,8 +321,6 @@
 							$employmentAgreement = null;
 							$update = null;
 							break;
-						
-						
 					}
 					$builder = 
 					'
@@ -336,10 +341,12 @@
                           <u class="font-weight-bold">'.date("F jS, Y",strtotime($joinedJobOffers['EndDate'])).'</u>
                         </p>
                         <p style="font-size:13px">Service Fee: 
-                          <u class="font-weight-bold"><span>&#8369;</span> '.$joinedJobOffers['Salary'].'.00</u>
+                          <u class="font-weight-bold serviceFeeValue"><span>&#8369;</span> '.$joinedJobOffers['Salary'].'.00</u>
+                          <input type="hidden" class="d-none" readonly disabled name="passer" value="'.$joinedJobOffers['PasserID'].'">
                         </p>
-                        <p style="font-size:13px">Preferred Type of Accommodation
+                        <p style="font-size:13px" class="accomodationValue">Preferred Type of Accommodation
                           <u class="font-weight-bold">'.$joinedJobOffers['AccomodationType'].'</u>
+                          <input type="hidden" class="d-none" readonly disabled name="offerjobform" value="'.$joinedJobOffers['OfferJobFormID'].'">
                         </p>
                         <div class="form-group">
                           <label for="exampleFormControlTextarea2">Notes</label>

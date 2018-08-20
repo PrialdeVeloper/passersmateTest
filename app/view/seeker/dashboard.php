@@ -174,7 +174,7 @@ $rate = "Very Good!";
       		</div>
       		<hr>
       		<div class="container d-flex justify-content-center blue  font-weight-bold">
-      			<div class="col-md-auto"><label><a href="jobOffer"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add your <abbr title="Add Job Offer form for your compliance">JO Form(s)</abbr></span></a></label></div>
+      			<div class="col-md-auto"><label><a href="jobOfferform"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add your <abbr title="Add Job Offer form for your compliance">JO Form(s)</abbr></span></a></label></div>
       		</div>
 		</div>
 		<!-- end of 1st box 3rd row -->

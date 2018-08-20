@@ -32,3 +32,11 @@ offerjob(new)
 2 = edited
 3 = accepted
 4 = declined
+
+notification offerjob(new)
+1 = new job offer
+2 = updated
+
+offerjobform(new)
+1 = no action can be done
+2 = editable
