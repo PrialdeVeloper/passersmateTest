@@ -1954,7 +1954,9 @@ $(function(){
 
 let idJobOffer;
 let joboffered;
+let jobofferedID;
 let passerID;
+let job
 
 // display jobofferForm
 $(function(){
@@ -2051,11 +2053,22 @@ $(function(){
 					success :function(a){
 						let obj = JSON.parse(a);
 						if(obj.error == "none"){
-							idJobOffer = "";
 							toastSuccess("Form Edited!");
 							if(joboffered == "offer" && !isNaN(passerID)){
-								joboffered = "";
-								window.setTimeout(function(){window.location='joboffered'},1000);
+									$.ajax({
+										url: "editNotifyJobForm",
+										method: "POST",
+										data: {"editNotifyJobForm":"","passer":passerID,"jobFormID":jobofferedID},
+										success: function(a){
+											let rec = JSON.parse(a);
+											if(rec.error == "none"){
+												joboffered = "";
+												idJobOffer = "";
+												jobofferedID = "";
+												window.setTimeout(function(){window.location='joboffered'},1000);
+											}
+										},
+									});
 							}else{
 								joboffered = "";
 								window.setTimeout(function(){window.location='jobofferform'},1000);
@@ -2487,6 +2500,7 @@ $(function(){
 	$(".updateButton").click(function(){
 		let passerIDJobForm = $(this).parent().next().find("input[name=passer]").val();
 		let offerjobformID = $(this).parent().next().find("input[name=offerjobform]").val();
+		let jobofferedIDLocal = $(this).parent().next().find("input[name=offerjob]").val();
 		$.ajax({
 			url: "selectAndAuthenticate",
 			method: "POST",
@@ -2498,6 +2512,7 @@ $(function(){
 					idJobOffer = offerjobformID;
 					joboffered = "offer";
 					passerID = passerIDJobForm;
+					jobofferedID = jobofferedIDLocal;
 					let workAddressUpdate = $("#workAddressUpdate");
 					let startDateUpdate = $("#startDateUpdate");
 					let endDateUpdate = $("#endDateUpdate");

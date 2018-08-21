@@ -1264,6 +1264,22 @@
 			}
 		}
 
+		public function editNotifyJobForm(){
+			$jobFormID = $check = $passer = null;
+			if(isset($_POST['editNotifyJobForm'])){
+				$jobFormID = $this->sanitize($_POST['jobFormID']);
+				$passer = $this->sanitize($_POST['passer']);
+				$update = $this->model->updateDB($this->offerJobAddTable,array("OfferJobStatus"),array(2),"OfferJobID",$jobFormID);
+				if($update){
+					$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$passer,"message"=>2));
+					echo json_encode(array("error"=>"none"));
+				}
+				else{
+					echo json_encode(array("error"=>$update));
+				}
+			}
+		}
+
 		public function setDefaultJobForm(){
 			if(isset($_POST['setDefaultJobForm'])){
 				$id = $this->sanitize($_POST['id']);

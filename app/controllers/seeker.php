@@ -347,6 +347,7 @@
                         <p style="font-size:13px" class="accomodationValue">Preferred Type of Accommodation
                           <u class="font-weight-bold">'.$joinedJobOffers['AccomodationType'].'</u>
                           <input type="hidden" class="d-none" readonly disabled name="offerjobform" value="'.$joinedJobOffers['OfferJobFormID'].'">
+                          <input type="hidden" class="d-none" readonly disabled name="offerjob" value="'.$joinedJobOffers['OfferJobID'].'">
                         </p>
                         <div class="form-group">
                           <label for="exampleFormControlTextarea2">Notes</label>
