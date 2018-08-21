@@ -1372,6 +1372,12 @@ $(function(){
 	});
 });
 
+$(function(){
+	$("input[name=fee]").mousemove(function(){
+		let fee = $(this).val();
+		$(".fee").val(fee);
+	});
+});
 // end of passer Fee
 
 

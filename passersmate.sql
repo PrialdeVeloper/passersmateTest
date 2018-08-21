@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 20, 2018 at 08:18 AM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Host: 127.0.0.1:3307
+-- Generation Time: Aug 21, 2018 at 12:16 PM
+-- Server version: 10.2.8-MariaDB
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,12 +28,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
-  `AdminID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `AdminID` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`AdminID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -51,14 +53,19 @@ INSERT INTO `admin` (`AdminID`, `username`, `email`, `password`) VALUES
 -- Table structure for table `agreement`
 --
 
-CREATE TABLE `agreement` (
-  `AgreementID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `agreement`;
+CREATE TABLE IF NOT EXISTS `agreement` (
+  `AgreementID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
   `OfferJobFormID` int(11) NOT NULL,
-  `AgreementDateandTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `AgreementNotes` text,
-  `AgreementStatus` int(11) NOT NULL DEFAULT '1'
+  `AgreementDateandTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  `AgreementNotes` text DEFAULT NULL,
+  `AgreementStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`AgreementID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`),
+  KEY `OfferJobFormID` (`OfferJobFormID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -67,13 +74,16 @@ CREATE TABLE `agreement` (
 -- Table structure for table `canceljob`
 --
 
-CREATE TABLE `canceljob` (
-  `CancelJobID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `canceljob`;
+CREATE TABLE IF NOT EXISTS `canceljob` (
+  `CancelJobID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) NOT NULL,
   `CancelDate` date NOT NULL,
-  `CancelTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `CancelTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `CancelReason` varchar(255) NOT NULL,
-  `CancelStatus` varchar(255) NOT NULL
+  `CancelStatus` varchar(255) NOT NULL,
+  PRIMARY KEY (`CancelJobID`),
+  KEY `OfferJobID` (`OfferJobID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -82,11 +92,15 @@ CREATE TABLE `canceljob` (
 -- Table structure for table `certificateofemployment`
 --
 
-CREATE TABLE `certificateofemployment` (
-  `CertificateOfEmploymentID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `certificateofemployment`;
+CREATE TABLE IF NOT EXISTS `certificateofemployment` (
+  `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) NOT NULL,
   `AdminID` int(11) NOT NULL,
-  `GeneratedKey` varchar(255) NOT NULL
+  `GeneratedKey` varchar(255) NOT NULL,
+  PRIMARY KEY (`CertificateOfEmploymentID`),
+  KEY `OfferJobID` (`OfferJobID`),
+  KEY `AdminID` (`AdminID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -95,12 +109,16 @@ CREATE TABLE `certificateofemployment` (
 -- Table structure for table `disabledusers`
 --
 
-CREATE TABLE `disabledusers` (
-  `DisableUserID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `disabledusers`;
+CREATE TABLE IF NOT EXISTS `disabledusers` (
+  `DisableUserID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserID` int(11) DEFAULT NULL,
   `SeekerID` int(11) DEFAULT NULL,
-  `DeactivateReason` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `DeactivateReason` text NOT NULL,
+  PRIMARY KEY (`DisableUserID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `disabledusers`
@@ -117,12 +135,15 @@ INSERT INTO `disabledusers` (`DisableUserID`, `PasserID`, `SeekerID`, `Deactivat
 -- Table structure for table `dispute`
 --
 
-CREATE TABLE `dispute` (
-  `DisputeID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `dispute`;
+CREATE TABLE IF NOT EXISTS `dispute` (
+  `DisputeID` int(11) NOT NULL AUTO_INCREMENT,
   `offerJobID` int(11) NOT NULL,
   `DisputeDate` date NOT NULL,
-  `DisputeTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `DisputeDesc` varchar(255) NOT NULL
+  `DisputeTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `DisputeDesc` varchar(255) NOT NULL,
+  PRIMARY KEY (`DisputeID`),
+  KEY `offerJobID` (`offerJobID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -131,12 +152,14 @@ CREATE TABLE `dispute` (
 -- Table structure for table `documents`
 --
 
-CREATE TABLE `documents` (
-  `DocFormsID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `documents`;
+CREATE TABLE IF NOT EXISTS `documents` (
+  `DocFormsID` int(11) NOT NULL AUTO_INCREMENT,
   `DocFormsName` varchar(255) NOT NULL,
   `DocFormsType` varchar(255) NOT NULL,
-  `DocFormsStatus` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `DocFormsStatus` varchar(255) NOT NULL,
+  PRIMARY KEY (`DocFormsID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `documents`
@@ -151,15 +174,19 @@ INSERT INTO `documents` (`DocFormsID`, `DocFormsName`, `DocFormsType`, `DocForms
 -- Table structure for table `message`
 --
 
-CREATE TABLE `message` (
-  `MessageID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE IF NOT EXISTS `message` (
+  `MessageID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
-  `MessageContent` text,
+  `MessageContent` text DEFAULT NULL,
   `MessageSender` varchar(255) DEFAULT NULL,
-  `MessageTimeAndDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `MessageStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `MessageTimeAndDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `MessageStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`MessageID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `message`
@@ -193,7 +220,7 @@ INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `M
 (26, 1, 3, 'ewq', 'Passer', '2018-08-12 20:14:38', 0),
 (27, 1, 3, 'trtrtr', 'Passer', '2018-08-12 20:32:25', 0),
 (28, 1, 3, 'qw', 'Seeker', '2018-08-19 09:25:57', 0),
-(29, 1, 2, NULL, NULL, '2018-08-19 12:10:28', 1);
+(29, 1, 2, NULL, NULL, '2018-08-19 12:10:28', 0);
 
 -- --------------------------------------------------------
 
@@ -201,13 +228,17 @@ INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `M
 -- Table structure for table `multimedia`
 --
 
-CREATE TABLE `multimedia` (
-  `MultimediaID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `multimedia`;
+CREATE TABLE IF NOT EXISTS `multimedia` (
+  `MultimediaID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `Multimedia` blob NOT NULL,
   `MultimediaDateUploaded` varchar(255) NOT NULL,
-  `MultimediaDesc` varchar(255) NOT NULL
+  `MultimediaDesc` varchar(255) NOT NULL,
+  PRIMARY KEY (`MultimediaID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -216,14 +247,18 @@ CREATE TABLE `multimedia` (
 -- Table structure for table `notification`
 --
 
-CREATE TABLE `notification` (
-  `notificationID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE IF NOT EXISTS `notification` (
+  `notificationID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) DEFAULT NULL,
   `PasserID` int(11) DEFAULT NULL,
   `notificationType` varchar(255) NOT NULL,
   `notificationMessage` text NOT NULL,
-  `notificationStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `notificationStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`notificationID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `notification`
@@ -251,13 +286,15 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (19, 3, NULL, 'subscription', '1', 0),
 (20, NULL, 1, 'JobOffer', '1', 0),
 (21, 3, NULL, 'subscription', '2', 0),
-(22, NULL, 1, 'JobOffer', '1', 1),
+(22, NULL, 1, 'JobOffer', '1', 0),
 (23, NULL, 4, 'JobOffer', '1', 1),
-(24, NULL, 1, 'JobOffer', '1', 1),
-(25, NULL, 1, 'JobOffer', '1', 1),
-(26, NULL, 1, 'JobOffer', '1', 1),
+(24, NULL, 1, 'JobOffer', '1', 0),
+(25, NULL, 1, 'JobOffer', '1', 0),
+(26, NULL, 1, 'JobOffer', '1', 0),
 (27, NULL, 4, 'JobOffer', '1', 1),
-(28, NULL, 5, 'JobOffer', '1', 1);
+(28, NULL, 5, 'JobOffer', '1', 1),
+(29, NULL, 1, 'JobOffer', '1', 0),
+(30, 3, NULL, 'subscription', '2', 0);
 
 -- --------------------------------------------------------
 
@@ -265,24 +302,29 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 -- Table structure for table `offerjob`
 --
 
-CREATE TABLE `offerjob` (
-  `OfferJobID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `offerjob`;
+CREATE TABLE IF NOT EXISTS `offerjob` (
+  `OfferJobID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobFormID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
-  `Notes` text,
-  `OfferJobDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `OfferJobStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Notes` text DEFAULT NULL,
+  `OfferJobDateTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `OfferJobStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`OfferJobID`),
+  KEY `SeekerID` (`SeekerID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `OfferJobFormID` (`OfferJobFormID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `offerjob`
 --
 
 INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
-(1, 2, 3, 1, 'hehe', '2018-08-20 04:16:58', 1),
-(2, 3, 3, 4, 'hehe', '2018-08-20 04:33:12', 1),
-(3, 4, 3, 5, '', '2018-08-20 05:35:28', 1);
+(2, 3, 3, 4, 'hehe', '2018-08-19 22:50:08', 3),
+(3, 4, 3, 5, '', '2018-08-20 05:35:28', 1),
+(4, 5, 3, 1, '', '2018-08-19 23:24:57', 1);
 
 -- --------------------------------------------------------
 
@@ -290,8 +332,9 @@ INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, 
 -- Table structure for table `offerjobform`
 --
 
-CREATE TABLE `offerjobform` (
-  `OfferJobFormID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `offerjobform`;
+CREATE TABLE IF NOT EXISTS `offerjobform` (
+  `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) NOT NULL,
   `WorkingAddress` text NOT NULL,
   `StartDate` date NOT NULL,
@@ -299,19 +342,22 @@ CREATE TABLE `offerjobform` (
   `Salary` double NOT NULL,
   `PaymentMethod` varchar(255) NOT NULL,
   `AccomodationType` varchar(255) NOT NULL,
-  `offerjobformDefault` int(11) NOT NULL DEFAULT '0',
-  `uneditable` int(11) NOT NULL DEFAULT '0',
-  `OfferJobFormStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `offerjobformDefault` int(11) NOT NULL DEFAULT 0,
+  `uneditable` int(11) NOT NULL DEFAULT 0,
+  `OfferJobFormStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`OfferJobFormID`),
+  KEY `offerjobform_ibfk_1` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `offerjobform`
 --
 
 INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `offerjobformDefault`, `uneditable`, `OfferJobFormStatus`) VALUES
-(2, 3, 'qwerttye', '2018-08-03', '2018-08-25', 255, 'Online', 'In-House', 0, 2, 1),
+(2, 3, 'marvee tambok', '2018-08-03', '2018-08-25', 250, 'Online', 'In-House', 0, 2, 1),
 (3, 3, 'tqw', '2018-08-01', '2018-08-15', 500.25, 'Onsite', 'Offsite', 0, 2, 1),
-(4, 3, 'sda', '2018-08-01', '2018-08-31', 1000, 'Online', 'In-House', 1, 2, 1);
+(4, 3, 'sda', '2018-08-01', '2018-08-31', 1000, 'Online', 'In-House', 0, 1, 1),
+(5, 3, 'lhehe', '2018-08-09', '2018-08-16', 7206, 'Online', 'In-House', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -319,8 +365,9 @@ INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `Sta
 -- Table structure for table `passer`
 --
 
-CREATE TABLE `passer` (
-  `PasserID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passer`;
+CREATE TABLE IF NOT EXISTS `passer` (
+  `PasserID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserFN` varchar(255) NOT NULL,
   `PasserLN` varchar(255) NOT NULL,
   `PasserMname` varchar(100) NOT NULL,
@@ -342,8 +389,9 @@ CREATE TABLE `passer` (
   `PasserTESDALink` varchar(255) NOT NULL,
   `PasserProfile` varchar(255) DEFAULT NULL,
   `PasserFee` bigint(20) NOT NULL,
-  `passerRegisterTimeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `passerRegisterTimeDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`PasserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passer`
@@ -365,13 +413,16 @@ INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `Passer
 -- Table structure for table `passereducation`
 --
 
-CREATE TABLE `passereducation` (
-  `educationID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passereducation`;
+CREATE TABLE IF NOT EXISTS `passereducation` (
+  `educationID` int(11) NOT NULL AUTO_INCREMENT,
   `passerID` int(11) NOT NULL,
   `educationAttainment` varchar(255) NOT NULL,
   `educationSchool` varchar(255) NOT NULL,
-  `educationAccomplishment` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `educationAccomplishment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`educationID`),
+  KEY `passerID` (`passerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passereducation`
@@ -398,11 +449,14 @@ INSERT INTO `passereducation` (`educationID`, `passerID`, `educationAttainment`,
 -- Table structure for table `passerskills`
 --
 
-CREATE TABLE `passerskills` (
-  `PasserSkillsID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passerskills`;
+CREATE TABLE IF NOT EXISTS `passerskills` (
+  `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserId` int(11) NOT NULL,
   `PasserSkillsName` varchar(255) NOT NULL,
-  `PasserSKillsDesc` varchar(255) NOT NULL
+  `PasserSKillsDesc` varchar(255) NOT NULL,
+  PRIMARY KEY (`PasserSkillsID`),
+  KEY `PasserId` (`PasserId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -411,8 +465,9 @@ CREATE TABLE `passerskills` (
 -- Table structure for table `passervalidate`
 --
 
-CREATE TABLE `passervalidate` (
-  `passerValidateId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passervalidate`;
+CREATE TABLE IF NOT EXISTS `passervalidate` (
+  `passerValidateId` int(11) NOT NULL AUTO_INCREMENT,
   `passerID` int(11) NOT NULL,
   `frontID` varchar(255) NOT NULL,
   `backID` varchar(255) NOT NULL,
@@ -421,8 +476,10 @@ CREATE TABLE `passervalidate` (
   `idType` varchar(255) NOT NULL,
   `idNumber` bigint(20) NOT NULL,
   `expirationDate` date NOT NULL,
-  `passerValidateDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `passerValidateDateTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`passerValidateId`),
+  KEY `passerID` (`passerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passervalidate`
@@ -442,8 +499,9 @@ INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID
 -- Table structure for table `passerworkhistory`
 --
 
-CREATE TABLE `passerworkhistory` (
-  `PasserWorkHistoryID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passerworkhistory`;
+CREATE TABLE IF NOT EXISTS `passerworkhistory` (
+  `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) DEFAULT NULL,
   `PasserID` int(11) NOT NULL,
   `PasserJobTitle` varchar(255) NOT NULL,
@@ -453,8 +511,11 @@ CREATE TABLE `passerworkhistory` (
   `PasserWorkHistoryStartDate` date NOT NULL,
   `PasserWorkHistoryEndDate` date NOT NULL,
   `PasserWorkHistoryWorkDays` int(11) DEFAULT NULL,
-  `passerWorkHistoryDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `passerWorkHistoryDateTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`PasserWorkHistoryID`),
+  KEY `OfferJobID` (`OfferJobID`),
+  KEY `PasserID` (`PasserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passerworkhistory`
@@ -473,12 +534,14 @@ INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`
 -- Table structure for table `review`
 --
 
-CREATE TABLE `review` (
-  `ReviewID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `review`;
+CREATE TABLE IF NOT EXISTS `review` (
+  `ReviewID` int(11) NOT NULL AUTO_INCREMENT,
   `Review` int(11) NOT NULL,
   `Star` int(11) NOT NULL,
   `ReviewBy` int(11) NOT NULL,
-  `ReviewTo` int(11) NOT NULL
+  `ReviewTo` int(11) NOT NULL,
+  PRIMARY KEY (`ReviewID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -487,8 +550,9 @@ CREATE TABLE `review` (
 -- Table structure for table `seeker`
 --
 
-CREATE TABLE `seeker` (
-  `SeekerID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `seeker`;
+CREATE TABLE IF NOT EXISTS `seeker` (
+  `SeekerID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerFN` varchar(255) NOT NULL,
   `SeekerLN` varchar(255) NOT NULL,
   `SeekerBirthdate` date DEFAULT NULL,
@@ -507,8 +571,9 @@ CREATE TABLE `seeker` (
   `SeekerStatus` varchar(255) DEFAULT '0',
   `SeekerProfile` varchar(255) NOT NULL,
   `SeekerUname` varchar(255) NOT NULL,
-  `SeekerPass` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `SeekerPass` varchar(255) NOT NULL,
+  PRIMARY KEY (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `seeker`
@@ -517,7 +582,7 @@ CREATE TABLE `seeker` (
 INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`) VALUES
 (1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '1', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', ''),
 (2, 'Marvee Yofa', 'Franco', NULL, 0, 'Female', '', '', '', NULL, 'francoyochi@gmail.com', '', '1668043639982457', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEd2ejZA2eFlSV09zd3RadWJRRTEzdFRkWm1fVHlnczVCN1pqTnZA5QUJoNEkxeUlHNHd4YUliUldBWm02c09fMnZAYbDZAUUnJ5Mmc4cVpFYWRyUExPdHpMN2FZAeGxYajh4UjUwd25yZAWllZAkNDMmR0/', NULL, '', '1', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1668043639982457&amp;height=200&amp;width=200&amp;ext=1535530327&amp;hash=AeT60qKEE-Hc1jO0', '', ''),
-(3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 9154861084, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15341036682153410366863.jpg', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW'),
+(3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 9154861084, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15347057119153470571123.jpg', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW'),
 (4, 'May', 'Franco', '2018-08-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Suba', 2147483647, 'francoyogie@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15332818502153328185034.jpg', 'franco', '$2y$12$vhJF9oSUtFTE0zqf1PYifOFyGvqfMZA4ao8e7yW0VdOunHZU9Tw12'),
 (5, 'Syrel', 'Prialde', NULL, 0, 'Male', '', '', '', NULL, 'prialde01@gmail.com', '', NULL, NULL, '118416846115335852813', 'https://plus.google.com/118416846115335852813', '0', 'https://lh4.googleusercontent.com/-kYuWnXUzfcI/AAAAAAAAAAI/AAAAAAAAAAA/AAnnY7ry8ZDeqsrb-PjviuoLSg6sO99sIw/mo/photo.jpg', '', '');
 
@@ -527,8 +592,9 @@ INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `Se
 -- Table structure for table `seekervalidate`
 --
 
-CREATE TABLE `seekervalidate` (
-  `SeekerValidateId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `seekervalidate`;
+CREATE TABLE IF NOT EXISTS `seekervalidate` (
+  `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) NOT NULL,
   `frontID` varchar(255) NOT NULL,
   `backID` varchar(255) NOT NULL,
@@ -536,8 +602,10 @@ CREATE TABLE `seekervalidate` (
   `idType` varchar(255) NOT NULL,
   `idNumber` bigint(20) NOT NULL,
   `expirationDate` date NOT NULL,
-  `seekerValidateDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `seekerValidateDateTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`SeekerValidateId`),
+  KEY `passerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `seekervalidate`
@@ -555,15 +623,19 @@ INSERT INTO `seekervalidate` (`SeekerValidateId`, `SeekerID`, `frontID`, `backID
 -- Table structure for table `subscription`
 --
 
-CREATE TABLE `subscription` (
-  `SubscriptionID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `subscription`;
+CREATE TABLE IF NOT EXISTS `subscription` (
+  `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT,
   `SubscriptionTypeID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `SubscriptionStart` date NOT NULL,
   `SubscriptionEnd` date NOT NULL,
   `PaymentMethod` varchar(255) DEFAULT NULL,
-  `SubscriptionStatus` varchar(255) NOT NULL DEFAULT 'ongoing'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `SubscriptionStatus` varchar(255) NOT NULL DEFAULT 'ongoing',
+  PRIMARY KEY (`SubscriptionID`),
+  KEY `SeekerID` (`SeekerID`),
+  KEY `SubscriptionTypeID` (`SubscriptionTypeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subscription`
@@ -574,7 +646,7 @@ INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, 
 (2, 1, 1, '2018-07-31', '2018-08-01', 'paypal', 'ended'),
 (3, 1, 3, '2018-08-07', '2018-10-05', 'paypal', 'ended'),
 (4, 1, 3, '2018-08-12', '2018-08-15', 'paypal', 'ended'),
-(5, 1, 3, '2018-08-16', '2018-08-20', 'paypal', 'ongoing');
+(5, 1, 3, '2018-08-16', '2018-08-25', 'paypal', 'ongoing');
 
 -- --------------------------------------------------------
 
@@ -582,12 +654,14 @@ INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, 
 -- Table structure for table `subscriptiontype`
 --
 
-CREATE TABLE `subscriptiontype` (
-  `SubscriptionTypeID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `subscriptiontype`;
+CREATE TABLE IF NOT EXISTS `subscriptiontype` (
+  `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT,
   `SubscriptionName` varchar(255) NOT NULL,
   `SubscriptionValidity` varchar(255) NOT NULL,
-  `SubscriptionPrice` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `SubscriptionPrice` int(11) NOT NULL,
+  PRIMARY KEY (`SubscriptionTypeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subscriptiontype`
@@ -604,13 +678,16 @@ INSERT INTO `subscriptiontype` (`SubscriptionTypeID`, `SubscriptionName`, `Subsc
 -- Table structure for table `subskill`
 --
 
-CREATE TABLE `subskill` (
-  `SubSkillsID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `subskill`;
+CREATE TABLE IF NOT EXISTS `subskill` (
+  `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserID` int(11) NOT NULL,
   `SubSkillsName` varchar(255) NOT NULL,
   `SubSkillDesc` varchar(255) NOT NULL,
   `SubSkillsFee` int(11) NOT NULL,
-  `SubSkillsStatus` varchar(255) NOT NULL
+  `SubSkillsStatus` varchar(255) NOT NULL,
+  PRIMARY KEY (`SubSkillsID`),
+  KEY `PasserID` (`PasserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -619,335 +696,13 @@ CREATE TABLE `subskill` (
 -- Table structure for table `switchaccount`
 --
 
-CREATE TABLE `switchaccount` (
-  `SwitchAccountID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `switchaccount`;
+CREATE TABLE IF NOT EXISTS `switchaccount` (
+  `SwitchAccountID` int(11) NOT NULL AUTO_INCREMENT,
   `FromID` int(11) NOT NULL,
-  `ToID` int(11) NOT NULL
+  `ToID` int(11) NOT NULL,
+  PRIMARY KEY (`SwitchAccountID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`AdminID`);
-
---
--- Indexes for table `agreement`
---
-ALTER TABLE `agreement`
-  ADD PRIMARY KEY (`AgreementID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`),
-  ADD KEY `OfferJobFormID` (`OfferJobFormID`);
-
---
--- Indexes for table `canceljob`
---
-ALTER TABLE `canceljob`
-  ADD PRIMARY KEY (`CancelJobID`),
-  ADD KEY `OfferJobID` (`OfferJobID`);
-
---
--- Indexes for table `certificateofemployment`
---
-ALTER TABLE `certificateofemployment`
-  ADD PRIMARY KEY (`CertificateOfEmploymentID`),
-  ADD KEY `OfferJobID` (`OfferJobID`),
-  ADD KEY `AdminID` (`AdminID`);
-
---
--- Indexes for table `disabledusers`
---
-ALTER TABLE `disabledusers`
-  ADD PRIMARY KEY (`DisableUserID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `dispute`
---
-ALTER TABLE `dispute`
-  ADD PRIMARY KEY (`DisputeID`),
-  ADD KEY `offerJobID` (`offerJobID`);
-
---
--- Indexes for table `documents`
---
-ALTER TABLE `documents`
-  ADD PRIMARY KEY (`DocFormsID`);
-
---
--- Indexes for table `message`
---
-ALTER TABLE `message`
-  ADD PRIMARY KEY (`MessageID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `multimedia`
---
-ALTER TABLE `multimedia`
-  ADD PRIMARY KEY (`MultimediaID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `notification`
---
-ALTER TABLE `notification`
-  ADD PRIMARY KEY (`notificationID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `offerjob`
---
-ALTER TABLE `offerjob`
-  ADD PRIMARY KEY (`OfferJobID`),
-  ADD KEY `SeekerID` (`SeekerID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `OfferJobFormID` (`OfferJobFormID`);
-
---
--- Indexes for table `offerjobform`
---
-ALTER TABLE `offerjobform`
-  ADD PRIMARY KEY (`OfferJobFormID`),
-  ADD KEY `offerjobform_ibfk_1` (`SeekerID`);
-
---
--- Indexes for table `passer`
---
-ALTER TABLE `passer`
-  ADD PRIMARY KEY (`PasserID`);
-
---
--- Indexes for table `passereducation`
---
-ALTER TABLE `passereducation`
-  ADD PRIMARY KEY (`educationID`),
-  ADD KEY `passerID` (`passerID`);
-
---
--- Indexes for table `passerskills`
---
-ALTER TABLE `passerskills`
-  ADD PRIMARY KEY (`PasserSkillsID`),
-  ADD KEY `PasserId` (`PasserId`);
-
---
--- Indexes for table `passervalidate`
---
-ALTER TABLE `passervalidate`
-  ADD PRIMARY KEY (`passerValidateId`),
-  ADD KEY `passerID` (`passerID`);
-
---
--- Indexes for table `passerworkhistory`
---
-ALTER TABLE `passerworkhistory`
-  ADD PRIMARY KEY (`PasserWorkHistoryID`),
-  ADD KEY `OfferJobID` (`OfferJobID`),
-  ADD KEY `PasserID` (`PasserID`);
-
---
--- Indexes for table `review`
---
-ALTER TABLE `review`
-  ADD PRIMARY KEY (`ReviewID`);
-
---
--- Indexes for table `seeker`
---
-ALTER TABLE `seeker`
-  ADD PRIMARY KEY (`SeekerID`);
-
---
--- Indexes for table `seekervalidate`
---
-ALTER TABLE `seekervalidate`
-  ADD PRIMARY KEY (`SeekerValidateId`),
-  ADD KEY `passerID` (`SeekerID`);
-
---
--- Indexes for table `subscription`
---
-ALTER TABLE `subscription`
-  ADD PRIMARY KEY (`SubscriptionID`),
-  ADD KEY `SeekerID` (`SeekerID`),
-  ADD KEY `SubscriptionTypeID` (`SubscriptionTypeID`);
-
---
--- Indexes for table `subscriptiontype`
---
-ALTER TABLE `subscriptiontype`
-  ADD PRIMARY KEY (`SubscriptionTypeID`);
-
---
--- Indexes for table `subskill`
---
-ALTER TABLE `subskill`
-  ADD PRIMARY KEY (`SubSkillsID`),
-  ADD KEY `PasserID` (`PasserID`);
-
---
--- Indexes for table `switchaccount`
---
-ALTER TABLE `switchaccount`
-  ADD PRIMARY KEY (`SwitchAccountID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `agreement`
---
-ALTER TABLE `agreement`
-  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `canceljob`
---
-ALTER TABLE `canceljob`
-  MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `certificateofemployment`
---
-ALTER TABLE `certificateofemployment`
-  MODIFY `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `disabledusers`
---
-ALTER TABLE `disabledusers`
-  MODIFY `DisableUserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `dispute`
---
-ALTER TABLE `dispute`
-  MODIFY `DisputeID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `documents`
---
-ALTER TABLE `documents`
-  MODIFY `DocFormsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `message`
---
-ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT for table `multimedia`
---
-ALTER TABLE `multimedia`
-  MODIFY `MultimediaID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `notification`
---
-ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
-
---
--- AUTO_INCREMENT for table `offerjob`
---
-ALTER TABLE `offerjob`
-  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `offerjobform`
---
-ALTER TABLE `offerjobform`
-  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `passer`
---
-ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `passereducation`
---
-ALTER TABLE `passereducation`
-  MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT for table `passerskills`
---
-ALTER TABLE `passerskills`
-  MODIFY `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `passervalidate`
---
-ALTER TABLE `passervalidate`
-  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `passerworkhistory`
---
-ALTER TABLE `passerworkhistory`
-  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `review`
---
-ALTER TABLE `review`
-  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `seeker`
---
-ALTER TABLE `seeker`
-  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `seekervalidate`
---
-ALTER TABLE `seekervalidate`
-  MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `subscription`
---
-ALTER TABLE `subscription`
-  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `subscriptiontype`
---
-ALTER TABLE `subscriptiontype`
-  MODIFY `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `subskill`
---
-ALTER TABLE `subskill`
-  MODIFY `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `switchaccount`
---
-ALTER TABLE `switchaccount`
-  MODIFY `SwitchAccountID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables

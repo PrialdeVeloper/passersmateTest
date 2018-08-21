@@ -28,7 +28,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
              </div>
 
                      <!-- Update Modal -->
-        <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="update" aria-hidden="true">
+      <!--   <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="update" aria-hidden="true">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -93,8 +93,65 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               </form>
             </div>
           </div>
-        </div>
+        </div> -->
+        
                 <!-- End update Modal -->
+
+            <!-- Update Modal -->
+              <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="update" aria-hidden="true">
+		          <div class="modal-dialog" role="document">
+		            <div class="modal-content">
+		              <div class="modal-header">
+		                <h5 class="modal-title">Your JO Form</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                  <span aria-hidden="true">&times;</span>
+		                </button>
+		              </div>
+		              <form id="updateOfferJob">
+                    	<div class="modal-body scroll1">
+                      <small class="text-info mb-3">Note: The passer will be notified after you update your Job offered.</small>
+					  <div class="form-group">
+					    <label for="workAddressUpdate">Working Address</label>
+					    <input type="text" class="form-control shadow" id="workAddressUpdate">
+					  </div>
+					  <div class="form-group">
+					    <label for="startDateUpdate">Starting date of service</label>
+					    <input type="date" class="form-control shadow" id="startDateUpdate">
+					  </div>
+					  <div class="form-group">
+					    <label for="endDateUpdate">Estimated End date of service</label>
+					    <input type="date" class="form-control shadow" id="endDateUpdate">
+					  </div>
+					  <div class="form-group">
+						  <label for="range">Estimated Service Fee between</label>
+						  <input type="range" name="fee" min="1" max="10000" value="5000" class="custom-range" id="range">
+						  <br>
+						  <input type="text" class="form-control shadow fee" id="salaryUpdate">
+					  </div>
+					  <div class="form-group">
+					    <label for="paymentMethodUpdate">Payment Method</label>
+					    <select class="form-control" id="paymentMethodUpdate" name="paymentMethodUpdate">
+					      <option selected value="Online">Online</option>
+                    	  <option value="Onsite">Onsite</option>
+					    </select>
+					  </div>
+					    <div class="form-group">
+					    <label for="accomodationTypeUpdate">Preferred Type of Accommodation</label>
+					    <select class="form-control" id="accomodationTypeUpdate">
+					      <option selected value="In-House">In-House</option>
+                    	  <option value="Offsite">Offsite</option>
+					    </select>
+					  </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="submit" name="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+                  </form>
+                </div>
+	            </div>
+	          </div>
+                <!-- End Update Modal -->
 
              <!-- Agreement Modal -->
               <div class="modal fade bd-example-modal-lg" id="agreement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
