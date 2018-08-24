@@ -309,7 +309,7 @@
 							$headerColor = 'bg-primary';
 							$employmentAgreement = 
 							'
-							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#agreement">
+							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#agreement" name="updateJobOfferForm">
 	                          Make an Employment Agreement
 	                        </button>
 							';

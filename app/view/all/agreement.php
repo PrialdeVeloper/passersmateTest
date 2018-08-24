@@ -231,7 +231,17 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               						</div>
               					</div>
               					<!-- END OF CARD BODY -->
-              		          <?php echo $sendAgreement; ?>
+              		          <div class="card-footer">
+                        <div class="row">
+                          <div class="col-md-12" id="agreementEdit">
+                            <a href="" class="text-left" data-toggle="modal" data-target="#edit"><h5><u>Edit your Employment Agreement Form</u></h5></a>
+                          </div>
+                          <div class="col-md-12 text-right">
+                            <button type="submit" name="sendOffer" class="btn btn-success font-weight-bold">Send the Agreement</button>
+                            <a href="search" class="btn btn-secondary">Cancel</a>
+                          </div>
+                        </div>
+                      </div>
                              </form>
               					<!-- END OF CARD_FOOTER -->
               				</div>

@@ -163,7 +163,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                         <span aria-hidden="true">&times;</span>
                       </button>            
                     </div>
-                    <div class="modal-body scroll">
+                    <div class="modal-body scroll1">
                       <small class="text-danger">Note: This will serve as your agreement between your choosen Passer.
 					<br>
 					You must create and send this to your choosen Passer to continue your hiring process.
@@ -171,7 +171,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 					  </small>
                     <div class="row">
 						<div class="col-md-5 mx-auto">
-							<img src="logo-black2.png" width="250px">
+							<img src="../etc/images/system/PMlogo.png" width="250px">
 						</div>
 					</div>
 					<div class="row mt-4">
@@ -180,12 +180,12 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 						</div>
 						<div class="col-md-12">
 							<p style="font-size: 15px">(1) 
-								<u class="font-weight-bold">Service Seeker Name</u> who reside in <u class="font-weight-bold">Service Seeker Address</u>, ("The service seeker") and
+								<u class="font-weight-bold"><?php echo $SeekerFN." ".$SeekerLN; ?></u> who reside in <u class="font-weight-bold"><?php echo $SeekerAddress." ".$SeekerStreet.", ".$SeekerCity ?></u>, ("The service seeker") and
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px">(2) 
-								<u class="font-weight-bold">Passer's Name</u> of <u class="font-weight-bold">Passer's Address</u>, ("The Passer")
+								<u class="font-weight-bold"><?php echo ucwords($PasserFN." ".$PasserLN); ?></u> of <u class="font-weight-bold"><?php echo $PasserAddress." ".$PasserStreet.", ".$PasserCity; ?></u>, ("The Passer")
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
@@ -200,7 +200,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" >
-								The Passer's position is that of <u class="font-weight-bold">Job Title.</u>
+								The Passer's position is that of <u class="font-weight-bold"><?php echo $PasserCertificate; ?>.</u>
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
@@ -211,52 +211,65 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" >
 								The Passer's service with the Service Seeker will start on 
-								<u class="font-weight-bold">Start Date.</u>
+								<u class="font-weight-bold" id="makeAgreementStartDate">Start Date.</u>
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" class="font-weight-bold">
-								3. Place of work
+								3. The estimated end of service
+							</p>
+						</div>
+						<div class="col-md-12 mt-3">
+							<p style="font-size: 15px" >
+								The Passer's service with the Service Seeker will estimatedly end on 
+								<u class="font-weight-bold" id="makeAgreementEndDate">End Date.</u>
+							</p>
+						</div>
+						<div class="col-md-12 mt-3">
+							<p style="font-size: 15px" class="font-weight-bold">
+								4. Place of work
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" >
 								The Passer's normal place of work will be 
-								<u class="font-weight-bold">Working Address.</u>
+								<u class="font-weight-bold" id="makeAgreementWorkingAdress">Working Address.</u>
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" class="font-weight-bold">
-								4. Payment
+								5. Payment
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" >
 								Payment is at the rate of
-								<u class="font-weight-bold">Salary.</u>
+								<u class="font-weight-bold" id="makeAgreementSalary">Salary.</u>
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" class="font-weight-bold">
-								5. Work Materials
+								6. Payment Method
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
-							<p style="font-size: 15px" >
-								The work material is provided by
-								<u class="font-weight-bold">Who provides.</u>
-							</p>
+                            Payment method is
+                             <select class="form-control" name="makeAgreementPaymentMethod"  disabled readonly>
+                              <option value="Onsite">In-Onsite</option>
+                              <option value="Online">Online</option>
+                            </select>
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" class="font-weight-bold">
-								6. Preferred Type of Accommodation
+								7. Preferred Type of Accommodation
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
-							<p style="font-size: 15px" >
-								The preferred type of accommodation is
-								<u class="font-weight-bold">Type of accommodation.</u>
-							</p>
+                            The preferred type of accommodation is
+                            <select class="form-control" name="makeAgreementAccomodation" disabled readonly>
+                              <option value="In-House">In-House</option>
+                              <option value="Offsite">Offsite</option>
+                            </select>
 						</div>
 						<div class="form-group col-md-12 mt-3 form-check">
 				    <input type="checkbox" class="form-check-input" id="agreement">

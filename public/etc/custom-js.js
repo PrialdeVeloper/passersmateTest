@@ -1601,7 +1601,7 @@ $(function(){
 $(function(){
 	$("#seekerDetailsForm").submit(function(event){
 		event.preventDefault();
-	let responseUser = confirm("Are you sure you want to save changes?");
+		let responseUser = confirm("Are you sure you want to save changes?");
 		if(responseUser == true){
 			let address = $("input[name=seekerAddress]");
 			let streetField = $("input[name=seekerStreet]");
@@ -1960,27 +1960,31 @@ let job
 
 // display jobofferForm
 $(function(){
-	$("a[name='updateJobOfferForm']").click(function(){
+	$("button[name='updateJobOfferForm']").click(function(){
+		let passerIDJobForm = $(this).parent().next().find("input[name=passer]").val();
+		let offerjobformID = $(this).parent().next().find("input[name=offerjobform]").val();
+		let jobofferedIDLocal = $(this).parent().next().find("input[name=offerjob]").val();
 		let id = $(this).parent().find("input[name=sleepingAway]").val();
+		console.log(passerIDJobForm);
 		$.ajax({
 			url: "selectAndAuthenticate",
 			method: "POST",
-			data: {"select":"","user":"SeekerID","table":"offerjobform","field":"OfferJobFormID","data":id},
+			data: {"select":"","user":"SeekerID","table":"offerjobform","field":"OfferJobFormID","data":offerjobformID},
 			async: false,
 			success: function(a){
 				let obj = JSON.parse(a);
 				if(obj.error == "none"){
-					idJobOffer = id;
-					let workAddressUpdate = $("#workAddressUpdate");
-					let startDateUpdate = $("#startDateUpdate");
-					let endDateUpdate = $("#endDateUpdate");
-					let salaryUpdate = $("#salaryUpdate");
-					let paymentMethodUpdate = $("select[name=paymentMethodUpdate]");
-					let accomodationTypeUpdate = $("#accomodationTypeUpdate");
-					workAddressUpdate.val(obj.data[0].WorkingAddress);
-					startDateUpdate.val(obj.data[0].StartDate);
-					endDateUpdate.val(obj.data[0].EndDate);
-					salaryUpdate.val(obj.data[0].Salary);
+					idJobOffer = passerIDJobForm;
+					let workAddressUpdate = $("#makeAgreementWorkingAdress");
+					let startDateUpdate = $("#makeAgreementStartDate");
+					let endDateUpdate = $("#makeAgreementEndDate");
+					let salaryUpdate = $("#makeAgreementSalary");
+					let paymentMethodUpdate = $("select[name=makeAgreementPaymentMethod]");
+					let accomodationTypeUpdate = $("select[name=makeAgreementAccomodation]");
+					workAddressUpdate.empty().html(obj.data[0].WorkingAddress);
+					startDateUpdate.empty().html(obj.data[0].StartDate);
+					endDateUpdate.empty().html(obj.data[0].EndDate);
+					salaryUpdate.empty().html(obj.data[0].Salary);
 					paymentMethodUpdate.val(obj.data[0].PaymentMethod).change();
 					accomodationTypeUpdate.val(obj.data[0].AccomodationType).change();
 				}else{

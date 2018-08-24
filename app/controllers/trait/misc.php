@@ -58,8 +58,21 @@
 			return $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($seeker));
 		}
 
+		public function getDetailsAjax(){
+			 $user = $table = null;
+			if(isset($_POST['user'])){
+				$user = ($_POST['user'] == "seeker"?$this->seekerUnique:$this->passerUnique);
+				$table = ($_POST['user'] == "seeker"?$this->seekerTable:$this->passerTable);
+				echo json_encode($this->model->selectAllFromUser($table,$user,array($_POST['id']))[0]);	
+			}
+		}
+
 		public function getDetailsPasser($passer){
 			return $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($passer));
+		}
+
+		public function getDefaultOfferJob($seeker){
+			return $this->model->selectAllDynamic($this->offerJobDB,array("*"),array("offerjobformDefault",$this->seekerUnique),array(1,$seeker));
 		}
 
 		public function getDefaultOfferJob($seeker){
