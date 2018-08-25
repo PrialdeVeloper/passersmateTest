@@ -1956,6 +1956,7 @@ let idJobOffer;
 let joboffered;
 let jobofferedID;
 let passerID;
+let passerIDAgreement;
 
 // display jobofferForm
 $(function(){
@@ -1971,6 +1972,7 @@ $(function(){
 			success: function(a){
 				let obj = JSON.parse(a);
 				if(obj.error == "none"){
+					passerIDAgreement = passerIDJobForm;
 					idJobOffer = offerjobformID;
 					let workAddressUpdate = $("#makeAgreementWorkingAdress");
 					let startDateUpdate = $("#makeAgreementStartDate");
@@ -1981,6 +1983,7 @@ $(function(){
 					let passername = $("#passerFullname");
 					let passerAddress = $("#passerFullAddress");
 					let jobtitle = $("#jobtitle");
+					let currentDateSend = $("#currentDate");
 					workAddressUpdate.empty().html(obj.data[0].WorkingAddress);
 					startDateUpdate.empty().html(new Date(obj.data[0].StartDate).toDateString());
 					endDateUpdate.empty().html(new Date(obj.data[0].EndDate).toDateString());
@@ -1993,10 +1996,10 @@ $(function(){
 							data: {"user":"passer","id":passerIDJobForm},
 							success: function(a){
 								let passerData = JSON.parse(a);
-								console.log(passerData);
 								passername.empty().html(passerData.PasserFN + " " + passerData.PasserLN);
 								passerAddress.empty().html(passerData.PasserAddress + " " + passerData.PasserStreet + ", " + passerData.PasserCity);
 								jobtitle.empty().html(passerData.PasserCertificate);
+								currentDateSend.empty().html(new Date().toDateString());
 							}
 						});
 				}else{
@@ -2008,6 +2011,20 @@ $(function(){
 			},
 		});
 	});
+
+	// hire passer
+	$("#hirePasser").click(function(){
+		let checkbox = $("#agreementCheck").prop("checked");
+		if(checkbox){
+			// passerIDAgreement
+			// idJobOffer
+			console.log(idJobOffer);
+		}else{
+			toastError("You must first agree to Terms and Condition");
+		}
+	});
+	// end of hire passer
+	
 });
 // end of display jobOfferForm
 
@@ -2513,6 +2530,7 @@ $(function(){
 });
 // end of show default joboffer
 
+// updateJobOfferForm
 $(function(){
 	$(".updateButton").click(function(){
 		let passerIDJobForm = $(this).parent().next().find("input[name=passer]").val();
@@ -2551,3 +2569,4 @@ $(function(){
 		});
 	});
 });
+// end of update jobofferform

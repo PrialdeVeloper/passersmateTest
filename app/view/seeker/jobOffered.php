@@ -272,27 +272,27 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                             </select>
 						</div>
 						<div class="form-group col-md-12 mt-3 form-check">
-				    <input type="checkbox" class="form-check-input" id="agreement">
+				    <input type="checkbox" class="form-check-input" id="agreementCheck">
 				    <label class="form-check-label" for="agreement"> I reviewed and accept the terms and condition of the Employment Agreement.</label>
 				  </div>
 					</div>
 					<div class="row">
 						<div class="col-md-4">
-							<img src="logo-blue.png" width="150" class="ml-3">
+							<img src="../etc/images/system/PMlogo.png" width="150" class="ml-3">
 							<p class="border-bottom border-dark"></p>
 							<p class="text-center">WITNESS</p>
 						</div>
 						<div class="col-md-4"></div>
 						<div class="col-md-4">
 							<p></p>
-							<p class="text-center border-bottom border-dark font-weight-bold">CURRENT DATE</p>
+							<p class="text-center border-bottom border-dark font-weight-bold"  id="currentDate">CURRENT DATE</p>
 							<p class="text-center">DATE</p>
 						</div>
 					</div>
                     </div>
                     <div class="modal-footer">
                      
-                      <button type="button" class="btn btn-primary" onclick="toastr.success('You successfully hired the Passer, this will be notified to the passer');" data-dismiss="modal">Hire the Passer</button>
+                      <button type="button" class="btn btn-primary" id="hirePasser">Hire the Passer</button>
                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                   </div>

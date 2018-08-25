@@ -220,7 +220,7 @@
 			}
 			$subscriptions = $this->model->checkExistSingle($this->subscriptionDB,$this->seekerUnique,array($this->seekerSession));
 			if($subscriptions >=1 ){
-				$subscriptionData = $this->paginationScriptSingle($this->subscriptionDB,$this->seekerUnique,$this->seekerSession,$page,1,3,"");
+				$subscriptionData = $this->paginationScriptSingle($this->subscriptionDB,$this->seekerUnique,$this->seekerSession,$page,1,3,"SubscriptionID","DESC","");
 				$data = json_decode($subscriptionData,true);
 				$pagination = $data['pagination'];
 				foreach ($data['data'] as $dataSubscription) {
@@ -280,7 +280,7 @@
 
 			$checkTransaction = $this->model->selectAllFromUser($this->offerJobAddTable,$this->seekerUnique,array($_SESSION['seekerUser']));
 			if(!empty($checkTransaction)){
-				$jobOffers = $this->paginationScriptSingle($this->offerJobAddTable,$this->seekerUnique,$this->seekerSession,$page,1,3,"");
+				$jobOffers = $this->paginationScriptSingle($this->offerJobAddTable,$this->seekerUnique,$this->seekerSession,$page,1,3,"OfferJobDateTime","DESC","");
 				$paginationData = json_decode($jobOffers,true);
 				$pagination = $paginationData['pagination'];
 				foreach ($paginationData['data'] as $data) {
@@ -297,16 +297,16 @@
 							break;
 						case 2:
 							$status = '<a class="badge badge-warning font-weight-bold ">Pending</a>';
-							$headerColor = 'bg-secondary';
+							$headerColor = 'bg-dark';
 							$employmentAgreement = 
-							'<button type="button" class="btn btn-outline-dark bg-success float-right updateButton" data-toggle="modal" data-target="#update">
+							'<button type="button" class="btn btn-outline-light float-right updateButton" data-toggle="modal" data-target="#update">
 	                          Update your Job Offered
 	                        </button>';
-							$update = '<small class="text-left "><b class="text-success">Updated:</b> </small>';
+							$update = '<small class="text-left "><b class="text-primary">Updated:</b> </small>';
 							break;
 						case 3:
-							$status = '<a class="badge badge-primary text-white font-weight-bold ">You officially hired the passer</a>';
-							$headerColor = 'bg-primary';
+							$status = '<a class="badge badge-success text-white font-weight-bold ">Accepted</a>';
+							$headerColor = 'bg-success';
 							$employmentAgreement = 
 							'
 							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#agreement" name="updateJobOfferForm">
@@ -316,7 +316,7 @@
 							$update = null;
 							break;
 						case 4:
-							$status = '<a class="badge badge-warning font-weight-bold ">Declined</a>';
+							$status = '<a class="badge badge-danger text-white font-weight-bold ">Declined</a>';
 							$headerColor = 'bg-danger';
 							$employmentAgreement = null;
 							$update = null;
@@ -324,7 +324,7 @@
 					}
 					$builder = 
 					'
-					<div class="card shadow">
+					<div class="card shadow mb-3">
                       <div class="card-header '.$headerColor.'">
                         <h5 class="text-white">Job Offer to <u class="text-white">'.$joinedJobOffers['PasserFN']." ".$joinedJobOffers['PasserLN'].'</u></h5>
                         '.$update.'<small class="text-left text-white"> '.date("F jS, Y",strtotime($joinedJobOffers['OfferJobDateTime'])).'</small>

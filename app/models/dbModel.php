@@ -22,12 +22,12 @@
 			$username = "root";
 			$password = "";
 			try {
-				$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
+				$this->con = new PDO("mysql: host=$host; port=$port;dbname=$dbname",$username,$password);
 				$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 				return $this->con;
 			} catch (PDOException $e) {
 				try {
-					$this->con = new PDO("mysql: host=$host; port=$port; dbname=$dbname",$username,$password);
+					$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
 					$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 					return $this->con;
 				} catch (Exception $e) {
@@ -122,8 +122,8 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
-		public function selectAllLimitSingle($table,$field,$offset,$count,$data){
-			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ? LIMIT $offset,$count");
+		public function selectAllLimitSingle($table,$field,$offset,$count,$order,$sort,$data){
+			$this->stmt = $this->con->prepare("SELECT * FROM $table WHERE $field = ? ORDER BY $order $sort LIMIT $offset,$count");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}

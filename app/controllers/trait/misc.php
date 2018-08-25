@@ -1183,37 +1183,7 @@
 		}
 
 		public function addAgreement(){
-			$return = $checkDefault = $change = $reset = $insert = null;
-			if(isset($_POST['agreementAdd'])){
-				if(isset($_SESSION['agreementPasser'])){
-					$seekerID = $_SESSION['seekerUser'];
-					$passerID = $_SESSION['agreementPasser'];
-					$notes = $this->sanitize($_POST['notes']);
-					$checkDefault = $this->model->checkAuthenticity("offerjobform",$this->seekerUnique,"offerjobformDefault",array($_SESSION['seekerUser'],1));
-					if($checkDefault >=1){
-						$return = $this->model->selectTwoCondition(array("OfferJobFormID"),$this->offerJobDB,$this->seekerUnique,"offerjobformDefault",array($seekerID,1));
-						$return = $return[0]['OfferJobFormID'];
-					}else{
-						$workingAddress = $this->sanitize($_POST['workAddress']);
-						$workStart = $this->sanitize(date("Y-m-d",strtotime($_POST['workStart'])));
-						$workEnd = $this->sanitize(date("Y-m-d",strtotime($_POST['workEnd'])));
-						$salary = $this->sanitize($_POST['salary']);
-						$paymentMethod = $this->sanitize($_POST['paymentMethod']);
-						$accomodationType = $this->sanitize($_POST['accomodationType']);
-						$return = $this->model->insertDB("offerjobform",$this->offerJobTableDefault,array($seekerID,$workingAddress,$workStart,$workEnd,$salary,$paymentMethod,$accomodationType,0,1));
-					}
-					$insert = $this->model->insertDB($this->agreementTable,$this->agreementDB,array($seekerID,$passerID,$return,$notes));
-					if($insert){
-						$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$_SESSION['agreementPasser'],"message"=>1));
-						unset($_SESSION['agreementPasser']);
-						echo json_encode(array("error"=>"none"));
-					}else{
-						echo json_encode(array("error"=>$insert));
-					}
-				}else{
-					echo json_encode(array("error"=>"noPasserSelected"));
-				}
-			}
+			
 		}
 
 		public function editJobFormDefault(){
@@ -1406,7 +1376,7 @@
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}
 
-		public function paginationScriptSingle($table,$field,$field1Ans,$page,$offset,$limit,$add){
+		public function paginationScriptSingle($table,$field,$field1Ans,$page,$offset,$limit,$order,$sort,$add){
 			// $add = (!empty($add)?"&".$add:"");
 			$result = $totalPage = $totalPages = $offset = null;
 			$totalPage = $this->model->checkExistSingle($table,$field,array($field1Ans));
@@ -1433,7 +1403,7 @@
 				</nav>
 				';
 			if(is_numeric($page)){
-				$result = $this->model->selectAllLimitSingle($table,$field,$offset,$limit,array($field1Ans));
+				$result = $this->model->selectAllLimitSingle($table,$field,$offset,$limit,$order,$sort,array($field1Ans));
 			}
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}

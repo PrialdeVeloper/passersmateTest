@@ -143,7 +143,7 @@
 			 		';
 		 		}
 
-			 	$workHistory = $this->paginationScriptSingle("passerworkhistory","PasserID",$PasserID,$page,1,1,"user=".$coc);
+			 	$workHistory = $this->paginationScriptSingle("passerworkhistory","PasserID",$PasserID,$page,1,1,"PasserWorkHistoryID","DESC","user=".$coc);
 			 	$workHistory = json_decode($workHistory,true);
 			 	if(!empty($workHistory)){
 			 		foreach ($workHistory['data'] as $data) {
