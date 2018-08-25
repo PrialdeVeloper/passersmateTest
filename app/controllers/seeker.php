@@ -305,7 +305,7 @@
 							$update = '<small class="text-left "><b class="text-success">Updated:</b> </small>';
 							break;
 						case 3:
-							$status = '<a class="badge badge-primary text-white font-weight-bold ">Agreed with the same job offer</a>';
+							$status = '<a class="badge badge-primary text-white font-weight-bold ">You officially hired the passer</a>';
 							$headerColor = 'bg-primary';
 							$employmentAgreement = 
 							'

@@ -75,10 +75,6 @@
 			return $this->model->selectAllDynamic($this->offerJobDB,array("*"),array("offerjobformDefault",$this->seekerUnique),array(1,$seeker));
 		}
 
-		public function getDefaultOfferJob($seeker){
-			return $this->model->selectAllDynamic($this->offerJobDB,array("*"),array("offerjobformDefault",$this->seekerUnique),array(1,$seeker));
-		}
-
 		public function updateAndCreateNotificationJobOffer(){
 			
 		}

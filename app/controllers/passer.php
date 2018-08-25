@@ -299,20 +299,8 @@
 				$dom = "No active agreement Forms";
 			}
 			$data[] = array("userDetails"=>$details,"paginationDOM"=>$paginationDOM,"agreementForms"=>$dom);
-			$this->controller->view("passer/agreement",$data);
-		}
-
-		public function agreementsDetails(){
-			if((!isset($_GET['id']) || !is_numeric($_GET['id'])) && !$this->checkSession('seekerUser')){
-				header("location:agreements");
-			}
-
-			$this->controller->view("passer/agreement");
-		}
-		
+			$this->controller->view("passer/jobofferlist",$data);
+		}	
 	}
-
-
-
 ?>
 

@@ -1956,7 +1956,6 @@ let idJobOffer;
 let joboffered;
 let jobofferedID;
 let passerID;
-let job
 
 // display jobofferForm
 $(function(){
@@ -1964,8 +1963,6 @@ $(function(){
 		let passerIDJobForm = $(this).parent().next().find("input[name=passer]").val();
 		let offerjobformID = $(this).parent().next().find("input[name=offerjobform]").val();
 		let jobofferedIDLocal = $(this).parent().next().find("input[name=offerjob]").val();
-		let id = $(this).parent().find("input[name=sleepingAway]").val();
-		console.log(passerIDJobForm);
 		$.ajax({
 			url: "selectAndAuthenticate",
 			method: "POST",
@@ -1974,22 +1971,38 @@ $(function(){
 			success: function(a){
 				let obj = JSON.parse(a);
 				if(obj.error == "none"){
-					idJobOffer = passerIDJobForm;
+					idJobOffer = offerjobformID;
 					let workAddressUpdate = $("#makeAgreementWorkingAdress");
 					let startDateUpdate = $("#makeAgreementStartDate");
 					let endDateUpdate = $("#makeAgreementEndDate");
 					let salaryUpdate = $("#makeAgreementSalary");
 					let paymentMethodUpdate = $("select[name=makeAgreementPaymentMethod]");
 					let accomodationTypeUpdate = $("select[name=makeAgreementAccomodation]");
+					let passername = $("#passerFullname");
+					let passerAddress = $("#passerFullAddress");
+					let jobtitle = $("#jobtitle");
 					workAddressUpdate.empty().html(obj.data[0].WorkingAddress);
-					startDateUpdate.empty().html(obj.data[0].StartDate);
-					endDateUpdate.empty().html(obj.data[0].EndDate);
+					startDateUpdate.empty().html(new Date(obj.data[0].StartDate).toDateString());
+					endDateUpdate.empty().html(new Date(obj.data[0].EndDate).toDateString());
 					salaryUpdate.empty().html(obj.data[0].Salary);
 					paymentMethodUpdate.val(obj.data[0].PaymentMethod).change();
 					accomodationTypeUpdate.val(obj.data[0].AccomodationType).change();
+						$.ajax({
+							url: "getDetailsAjax",
+							method: "POST",
+							data: {"user":"passer","id":passerIDJobForm},
+							success: function(a){
+								let passerData = JSON.parse(a);
+								console.log(passerData);
+								passername.empty().html(passerData.PasserFN + " " + passerData.PasserLN);
+								passerAddress.empty().html(passerData.PasserAddress + " " + passerData.PasserStreet + ", " + passerData.PasserCity);
+								jobtitle.empty().html(passerData.PasserCertificate);
+							}
+						});
 				}else{
 					if(obj.error = "wrongUser"){
 						window.location = 'jobofferform';
+						idJobOffer = "";
 					}
 				}
 			},

@@ -185,7 +185,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px">(2) 
-								<u class="font-weight-bold"><?php echo ucwords($PasserFN." ".$PasserLN); ?></u> of <u class="font-weight-bold"><?php echo $PasserAddress." ".$PasserStreet.", ".$PasserCity; ?></u>, ("The Passer")
+								<u class="font-weight-bold" id="passerFullname"></u> of <u class="font-weight-bold" id="passerFullAddress"></u>, ("The Passer")
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
@@ -200,7 +200,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 						</div>
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" >
-								The Passer's position is that of <u class="font-weight-bold"><?php echo $PasserCertificate; ?>.</u>
+								The Passer's position is that of <u class="font-weight-bold" id="jobtitle"></u>
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
@@ -244,7 +244,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 						<div class="col-md-12 mt-3">
 							<p style="font-size: 15px" >
 								Payment is at the rate of
-								<u class="font-weight-bold" id="makeAgreementSalary">Salary.</u>
+								<span class="font-weight-bold">&#8369;</span><u class="font-weight-bold" id="makeAgreementSalary">Salary.</u>
 							</p>
 						</div>
 						<div class="col-md-12 mt-3">
