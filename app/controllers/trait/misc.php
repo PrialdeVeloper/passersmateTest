@@ -15,13 +15,14 @@
 		public $subscriptionTable = array("SubscriptionTypeID","SeekerID","SubscriptionStart","SubscriptionEnd","PaymentMethod");
 		public $offerJobDB = "offerjobform";
 		public $offerJobTable = array("SeekerID","WorkingAddress","StartDate","EndDate","Salary","PaymentMethod","AccomodationType");
+		public $offerJobTableUsed = array("OfferJobID","notes","WorkingAddress","StartDate","EndDate","Salary","PaymentMethod","AccomodationType");
 		public $offerJobTableDefault = array("SeekerID","WorkingAddress","StartDate","EndDate","Salary","PaymentMethod","AccomodationType","offerjobformDefault","uneditable");
 		public $disableDB = 'disabledusers';
 		public $disableTable = array("PasserID","SeekerID","DeactivateReason");
 		public $messageTable = "message";
 		public $messageDB = array("PasserID","SeekerID","MessageContent","MessageSender");
 		public $agreementTable = "agreement";
-		public $agreementDB = array("SeekerID","PasserID","OfferJobFormID","AgreementNotes");
+		public $agreementDB = array("SeekerID","PasserID","OfferJobFormUsedID");
 		public $offerJobAddTable = "offerjob";
 		public $offerJobAddDB = array("OfferJobFormID","SeekerID","PasserID","Notes");
 
@@ -1183,7 +1184,42 @@
 		}
 
 		public function addAgreement(){
-			
+			$checkExistingWork = $passerID = $jobofferFormID = $jobofferID = $passerDetails = $seekerDetails = $jobofferformData = $insert = $insertAgreement = $dataSend = $jobofferformDataAll = $joboffered = null;
+			if(isset($_GET['passerID']) && isset($_GET['jobofferFormID']) && isset($_GET['jobofferID'])){
+				$passerID = $this->sanitize($_GET['passerID']);
+				$jobofferFormID = $this->sanitize($_GET['jobofferFormID']);
+				$jobofferID = $this->sanitize($_GET['jobofferID']);
+				$checkExistingWork = $this->model->checkAuthenticity("offerjob",$this->passerUnique,"OfferJobStatus",array($passerID,5));
+				if(empty($checkExistSingle)){
+					$passerDetails = $this->getDetailsPasser($passerID);
+					if($passerDetails[0]['PasserStatus'] == 1 ){
+						$seekerDetails = $this->getDetailsSeeker($this->seekerSession);
+						if($seekerDetails[0]['SeekerStatus'] == 1){
+							$jobOfferData = $this->model->selectAllFromUser("offerjobform","OfferJobFormID",array($jobofferFormID));
+							$joboffered = $this->model->selectAllFromUser("offerjob","OfferJobID",array($jobofferID));
+							extract($joboffered[0]);
+							extract($jobOfferData[0]);
+							$jobofferformDataAll = array($OfferJobID,$Notes,$WorkingAddress,$StartDate,$EndDate,$Salary,$PaymentMethod,$AccomodationType);
+							$insert = $this->model->insertDB("offerjobformused",$this->offerJobTableUsed,$jobofferformDataAll);
+							if($insert){
+								$insertAgreement = $this->model->insertDB($this->agreementTable,$this->agreementDB,array($this->seekerSession,$passerID,$insert));
+								if($insertAgreement){
+									echo json_encode(array("error"=>"none"));
+								}
+							}
+						}
+						else{
+							echo json_encode(array(array("error"=>"notVerifiedSeeker")));
+						}
+					}
+					else{
+						echo json_encode(array(array("error"=>"notVerifiedPasser")));
+					}
+				}
+				else{
+					echo json_encode(array("error"=>"hasExistingWork"));
+				}
+			}
 		}
 
 		public function editJobFormDefault(){

@@ -1957,6 +1957,7 @@ let joboffered;
 let jobofferedID;
 let passerID;
 let passerIDAgreement;
+let jobofferedIDAgreement;
 
 // display jobofferForm
 $(function(){
@@ -1974,6 +1975,7 @@ $(function(){
 				if(obj.error == "none"){
 					passerIDAgreement = passerIDJobForm;
 					idJobOffer = offerjobformID;
+					jobofferedIDAgreement = jobofferedIDLocal;
 					let workAddressUpdate = $("#makeAgreementWorkingAdress");
 					let startDateUpdate = $("#makeAgreementStartDate");
 					let endDateUpdate = $("#makeAgreementEndDate");

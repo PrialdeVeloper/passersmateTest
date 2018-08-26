@@ -32,6 +32,7 @@ offerjob(new)
 2 = edited
 3 = accepted
 4 = declined
+5 = hired
 
 notification offerjob(new)
 1 = new job offer
