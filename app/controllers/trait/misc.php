@@ -76,8 +76,8 @@
 			return $this->model->selectAllDynamic($this->offerJobDB,array("*"),array("offerjobformDefault",$this->seekerUnique),array(1,$seeker));
 		}
 
-		public function updateAndCreateNotificationJobOffer(){
-			
+		public function checkExistingWorkPasser($passer){
+			return ($this->model->checkAuthenticity("agreement",$this->passerUnique,"AgreementStatus",array($passer,1)) <=0?false:true);
 		}
 
 		public function seekerIsSubscribed(){

@@ -189,7 +189,7 @@
 		 	$details = null;
 		 	$table = null;
 		 	$userUnique = null;
-		 	$sessionActive = null;
+		 	$sessionActive = $checkActiveWork = null;
 		 	if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
 		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
 		 		$userUnique = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
@@ -199,47 +199,49 @@
 		 	$passerList = $this->model->selectAllFromUser($this->passerTable,"PasserStatus",array(1));
 		 	if(!empty($passerList)){
 		 		foreach ($passerList as $data) {
-		 			$builder = '
+		 			if($this->checkExistingWorkPasser($data[$this->passerUnique]) == false){
+			 			$builder = '
 
- 					<div class="col-sm-6 pt-5">
-						<div class="container shadowDiv">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="container my-3 pl-3 d-flex justify-content-center">
-										<img src="'.$this->sanitize($data["PasserProfile"]).'" class="profile">
-									</div>
-								</div>		
-								<div class="col-md-7 mt-4">
-									<div class="container text-center text-primary">
-										<label class="georgiaFonts">'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'</label>
-									</div>
-									<div class="container text-center text-secondary">
-										<label class="trebuchet">'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'</label>
-									</div>
-									<div class="container text-center">
-										<span class="fa fa-star text-warning"></span>
-										<span class="fa fa-star text-warning"></span>
-										<span class="fa fa-star text-warning"></span>
-										<span class="fa fa-star text-warning"></span>
-										<span class="fa fa-star text-warning"></span>
-									</div>
-								</div>	
-							</div>
-							<div class="col-md my-3">
-								<div class="container text-center text-primary">Education, Trainings & Organizations</div>
-								<div class="container text-center text-secondary">'.$this->sanitize($data["PasserCertificateType"]).'</div>
-							</div>
-							<div class="col-md">
-								<hr>
-							</div>
-							<div class="col-md d-flex justify-content-center">
-								<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn btn-lg btn-primary mb-3">View Profile</a>
+	 					<div class="col-sm-6 pt-5">
+							<div class="container shadowDiv">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="container my-3 pl-3 d-flex justify-content-center">
+											<img src="'.$this->sanitize($data["PasserProfile"]).'" class="profile">
+										</div>
+									</div>		
+									<div class="col-md-7 mt-4">
+										<div class="container text-center text-primary">
+											<label class="georgiaFonts">'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'</label>
+										</div>
+										<div class="container text-center text-secondary">
+											<label class="trebuchet">'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'</label>
+										</div>
+										<div class="container text-center">
+											<span class="fa fa-star text-warning"></span>
+											<span class="fa fa-star text-warning"></span>
+											<span class="fa fa-star text-warning"></span>
+											<span class="fa fa-star text-warning"></span>
+											<span class="fa fa-star text-warning"></span>
+										</div>
+									</div>	
+								</div>
+								<div class="col-md my-3">
+									<div class="container text-center text-primary">Education, Trainings & Organizations</div>
+									<div class="container text-center text-secondary">'.$this->sanitize($data["PasserCertificateType"]).'</div>
+								</div>
+								<div class="col-md">
+									<hr>
+								</div>
+								<div class="col-md d-flex justify-content-center">
+									<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn btn-lg btn-primary mb-3">View Profile</a>
+								</div>
 							</div>
 						</div>
-					</div>
 
-		 			';
-		 			$dom = $dom."".$builder;
+			 			';
+			 			$dom = $dom."".$builder;
+			 		}
 		 		}
 		 	}
 			$data[] = array("userDetails"=>$details,"passerListAll"=>$dom);
@@ -374,16 +376,20 @@
 
 					 		}
 					 		if(!empty($_GET['t']) && $subscription > 0){
-						 		$jobForm = 
-						 		'
-						 		 <div class="srch_bar">
-						            <div class="stylish-input-group">
-						              <button class="text-white btn btn-info font-weight-bold" data-toggle="modal" data-target="#offer" style="height:30px;font-size:14px">
-						              	Send a Job Offer form <i class="fas fa-file"></i>
-						              </button>
-						            </div>
-						          </div>
-						 		';
+					 			if($this->checkExistingWorkPasser($_GET['t']) == false){
+							 		$jobForm = 
+							 		'
+							 		 <div class="srch_bar">
+							            <div class="stylish-input-group">
+							              <button class="text-white btn btn-info font-weight-bold" data-toggle="modal" data-target="#offer" style="height:30px;font-size:14px">
+							              	Send a Job Offer form <i class="fas fa-file"></i>
+							              </button>
+							            </div>
+							          </div>
+							 		';
+						 		}else{
+						 			$jobForm = 'Currently, this passer has been hired';
+						 		}
 					 		}
 				 		}else{
 				 			$messageForm = 
