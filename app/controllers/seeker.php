@@ -321,6 +321,12 @@
 							$employmentAgreement = null;
 							$update = null;
 							break;
+						case 5:
+							$status = '<a class="badge badge-primary text-white font-weight-bold ">Officially Hired</a>';
+							$headerColor = 'bg-primary';
+							$employmentAgreement = null;
+							$update = null;
+							break;
 					}
 					$builder = 
 					'

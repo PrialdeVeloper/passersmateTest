@@ -34,6 +34,11 @@ offerjob(new)
 4 = declined
 5 = hired
 
+offerjobPasser
+1 = new job offer
+2 = edited
+3 = hired
+
 notification offerjob(new)
 1 = new job offer
 2 = updated
@@ -41,3 +46,11 @@ notification offerjob(new)
 offerjobform(new)
 1 = no action can be done
 2 = editable
+
+agreement
+1 = hired
+0 = done
+
+(bugs)
+budget range
+mo auto 5k

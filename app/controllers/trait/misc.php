@@ -630,6 +630,9 @@
 								case '2':
 									$message = "A recent job offer you received was updated mate! Check it out!";
 									break;
+								case '3':
+									$message = "You have been hired!";
+									break;
 							}
 							break;
 					}
@@ -1184,13 +1187,13 @@
 		}
 
 		public function addAgreement(){
-			$checkExistingWork = $passerID = $jobofferFormID = $jobofferID = $passerDetails = $seekerDetails = $jobofferformData = $insert = $insertAgreement = $dataSend = $jobofferformDataAll = $joboffered = null;
-			if(isset($_GET['passerID']) && isset($_GET['jobofferFormID']) && isset($_GET['jobofferID'])){
-				$passerID = $this->sanitize($_GET['passerID']);
-				$jobofferFormID = $this->sanitize($_GET['jobofferFormID']);
-				$jobofferID = $this->sanitize($_GET['jobofferID']);
-				$checkExistingWork = $this->model->checkAuthenticity("offerjob",$this->passerUnique,"OfferJobStatus",array($passerID,5));
-				if(empty($checkExistSingle)){
+			$checkExistingWork = $passerID = $jobofferFormID = $jobofferID = $passerDetails = $seekerDetails = $jobofferformData = $insert = $insertAgreement = $dataSend = $jobofferformDataAll = $joboffered = $changeJobOfferStatus = null;
+			if(isset($_POST['passerID']) && isset($_POST['jobofferFormID']) && isset($_POST['jobofferID'])){
+				$passerID = $this->sanitize($_POST['passerID']);
+				$jobofferFormID = $this->sanitize($_POST['jobofferFormID']);
+				$jobofferID = $this->sanitize($_POST['jobofferID']);
+				$checkExistingWork = $this->model->checkAuthenticity("agreement",$this->passerUnique,"AgreementStatus",array($passerID,1));
+				if($checkExistingWork <= 0){
 					$passerDetails = $this->getDetailsPasser($passerID);
 					if($passerDetails[0]['PasserStatus'] == 1 ){
 						$seekerDetails = $this->getDetailsSeeker($this->seekerSession);
@@ -1204,6 +1207,8 @@
 							if($insert){
 								$insertAgreement = $this->model->insertDB($this->agreementTable,$this->agreementDB,array($this->seekerSession,$passerID,$insert));
 								if($insertAgreement){
+									$changeJobOfferStatus = $this->model->updateDBDynamic($this->offerJobAddTable,array("OfferJobStatus"),array(5,$jobofferID),array("OfferJobID"));
+									$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$passerID,"message"=>3));
 									echo json_encode(array("error"=>"none"));
 								}
 							}

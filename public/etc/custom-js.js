@@ -2018,9 +2018,29 @@ $(function(){
 	$("#hirePasser").click(function(){
 		let checkbox = $("#agreementCheck").prop("checked");
 		if(checkbox){
-			// passerIDAgreement
-			// idJobOffer
-			console.log(idJobOffer);
+			$.ajax({
+				url: "addAgreement",
+				method: "POST",
+				data: {"passerID":passerIDAgreement,"jobofferFormID":idJobOffer,"jobofferID":jobofferedIDAgreement},
+				success: function(a){
+					let obj = JSON.parse(a);
+					switch(obj.error){
+						case "none":
+							toastSuccess("You have successfully hired a passer.");
+							delayRedirect("joboffered");
+						break;
+						case "notVerifiedSeeker":
+							toastError("Sorry, but this passer has not been activated or has been reported and has been disabled for your safety");
+						break;
+						case "notVerifiedPasser":
+							toastError('Sorry, You have not yet been verified. Please try to verify your account <a href="dashboard">Here.</a>');
+						break;
+						case "hasExistingWork":
+							toastError('Sorry, this passer has already been hired. Please choose other passer instead.');
+						break;
+					}
+				}
+			});
 		}else{
 			toastError("You must first agree to Terms and Condition");
 		}
