@@ -103,6 +103,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
+          <form id="cancelJobOffer">
           <div class="modal-body">
              <small class="font-weight-bold text-info">Note: Cancellation is approved only if the seeker agreed to do so, otherwise cancellation cannot be process.</small><br>
             Are you sure you want to cancel your job?<br><br>
@@ -110,9 +111,10 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
              <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="toastr.success('You cancel your job, this will immediately notified to the seeker');">Yes</button>
+            <button type="submit" id="yesCancel" class="btn btn-primary">Yes</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
           </div>
+        </form>
         </div>
       </div>
     </div>

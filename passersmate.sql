@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2018 at 06:22 PM
+-- Generation Time: Aug 28, 2018 at 10:42 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -82,6 +82,30 @@ CREATE TABLE `canceljob` (
   `CancelReason` varchar(255) NOT NULL,
   `CancelStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `canceljoboffer`
+--
+
+CREATE TABLE `canceljoboffer` (
+  `CancelJobOfferID` int(11) NOT NULL,
+  `OfferJobID` int(11) NOT NULL,
+  `SeekerID` int(11) NOT NULL,
+  `PasserID` int(11) NOT NULL,
+  `CancellationInitiator` varchar(255) NOT NULL,
+  `CancellationStatus` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `canceljoboffer`
+--
+
+INSERT INTO `canceljoboffer` (`CancelJobOfferID`, `OfferJobID`, `SeekerID`, `PasserID`, `CancellationInitiator`, `CancellationStatus`) VALUES
+(1, 4, 3, 1, '0', 1),
+(2, 4, 3, 1, '0', 1),
+(3, 4, 3, 1, 'Passer', 1);
 
 -- --------------------------------------------------------
 
@@ -277,10 +301,13 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (38, NULL, 5, 'JobOffer', '3', 1),
 (39, NULL, 4, 'JobOffer', '3', 0),
 (40, NULL, 5, 'JobOffer', '3', 1),
-(41, 3, NULL, 'jobOfferSeeker', '1', 1),
-(42, 3, NULL, 'jobOfferSeeker', '3', 1),
-(43, 3, NULL, 'jobOfferSeeker', '1', 1),
-(44, 3, NULL, 'jobOfferSeeker', '3', 1);
+(41, 3, NULL, 'jobOfferSeeker', '1', 0),
+(42, 3, NULL, 'jobOfferSeeker', '3', 0),
+(43, 3, NULL, 'jobOfferSeeker', '1', 0),
+(44, 3, NULL, 'jobOfferSeeker', '3', 0),
+(45, 3, NULL, 'cancellationSeeker', '1', 1),
+(46, 3, NULL, 'cancellationSeeker', '1', 1),
+(47, 3, NULL, 'cancellationSeeker', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -702,6 +729,15 @@ ALTER TABLE `canceljob`
   ADD KEY `OfferJobID` (`OfferJobID`);
 
 --
+-- Indexes for table `canceljoboffer`
+--
+ALTER TABLE `canceljoboffer`
+  ADD PRIMARY KEY (`CancelJobOfferID`),
+  ADD KEY `OfferJobID` (`OfferJobID`),
+  ADD KEY `PasserID` (`PasserID`),
+  ADD KEY `SeekerID` (`SeekerID`);
+
+--
 -- Indexes for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
@@ -881,6 +917,12 @@ ALTER TABLE `canceljob`
   MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `canceljoboffer`
+--
+ALTER TABLE `canceljoboffer`
+  MODIFY `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
@@ -920,7 +962,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
@@ -1029,6 +1071,14 @@ ALTER TABLE `agreement`
 --
 ALTER TABLE `canceljob`
   ADD CONSTRAINT `canceljob_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `agreement` (`AgreementID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `canceljoboffer`
+--
+ALTER TABLE `canceljoboffer`
+  ADD CONSTRAINT `canceljoboffer_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `canceljoboffer_ibfk_2` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `canceljoboffer_ibfk_3` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `certificateofemployment`

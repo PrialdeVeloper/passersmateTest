@@ -2597,6 +2597,8 @@ $(function(){
 // accept joboffer
 let jobofferIDPasser;
 let jobofferIDSender;
+let cancelOtherUser;
+let cancelJobOffer;
 $(function(){
 	$("button[name=acceptJobOffer]").click(function(){
 		let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
@@ -2671,6 +2673,43 @@ $(function(){
 				alert("cannot connect to server.");
 			}
 		});
+	});
+
+	$("#cancelJobOfferModal").click(function(){
+		let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
+		let SeekerID = $(this).parent().prev().find("input[name=seekerID]").val();
+		cancelJobOffer = jobofferID;
+		cancelOtherUser = SeekerID;
+	});
+
+	$("form#cancelJobOffer").submit(function(event){
+		event.preventDefault();
+		let reason = $("#exampleFormControlTextarea1").val();
+		if(checkEmpty(reason)){
+			toastError("Reason for canceling job cannot be empty!");
+		}else{
+			$.ajax({
+				url:"cancelJobOffer",
+				method:"POST",
+				data:{"cancel":"","offerJobID":cancelJobOffer,"reason":reason,"otherUser":cancelOtherUser},
+				success: function(a){
+					let obj = JSON.parse(a);
+					switch(obj.error){
+						case "noActiveOfferJob":
+							toastError("You have currently no ongoing job offer form! Please try again later");
+						break;
+						case "noCancellableJobOffer":
+							toastError("You don't have any cancellable job offer form. Please try again later");
+						break;
+						case "none":
+							toastSuccess("Your request for job offer cancellation is now ongoing");
+							delayRedirect("joboffers");
+						break;
+					}
+				}
+			});
+		}
+
 	});
 });	
 // end of accept joboffer

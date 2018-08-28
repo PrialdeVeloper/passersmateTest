@@ -278,7 +278,7 @@
 							$headerColor = 'bg-success';
 							$employmentAgreement = 
 							'
-                       		<button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
+                       		<button type="button" class="btn btn-outline-danger" id="cancelJobOfferModal" data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
 							';
 							$update = '<small class="text-left "><b class="text-white">Accepted on:</b> </small>';
 							break;
@@ -292,7 +292,7 @@
 							$status = '<a class="badge badge-primary text-white font-weight-bold ">Officially Hired</a>';
 							$headerColor = 'bg-primary';
 							$employmentAgreement = '
-                       		<button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
+                       		<button type="button" class="btn btn-outline-danger" id="cancelJobOfferModal" data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
 							';
 							$update = '<small class="text-left "><b class="text-success">Officially Hired on:</b> </small>';
 							break;

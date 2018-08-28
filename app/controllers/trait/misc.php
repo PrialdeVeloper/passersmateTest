@@ -25,6 +25,8 @@
 		public $agreementDB = array("SeekerID","PasserID","OfferJobFormUsedID");
 		public $offerJobAddTable = "offerjob";
 		public $offerJobAddDB = array("OfferJobFormID","SeekerID","PasserID","Notes");
+		public $cancelTable = "canceljoboffer";
+		public $cancelDB = array("OfferJobID","SeekerID","PasserID","CancellationInitiator");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -690,6 +692,20 @@
 									break;
 								case '3':
 									$message = "A passer has requested to cancel a job.";
+									break;
+							}
+							break;
+						case 'cancellationSeeker':
+							$link = "joboffered";
+							switch ($data['notificationMessage']) {
+								case '1':
+									$message = "You have new job cancellation Request.";
+									break;
+								case '2':
+									$message = "Your job cancellation has been Approved.";
+									break;
+								case '3':
+									$message = "Your job cancellation has been declined.";
 									break;
 							}
 							break;
@@ -1751,6 +1767,36 @@
 					}
 					else{
 						echo json_encode(array("error"=>"noneExistingJobOffer"));
+					}
+				}
+			}
+
+			public function cancelJobOffer(){
+				$currentUserID = $otherUserID = $currentUserTable = $otherUserTable = $reason = $initiator = $cancellableWork = $insert = $offerJobID = $otherUserUnique = null;
+				if(isset($_POST['cancel'])){
+					$offerJobID = $this->sanitize($_POST['offerJobID']);
+					$reason = $this->sanitize($_POST['reason']);
+					$initiator = (isset($this->seekerSession)?"Seeker":"Passer");
+					$currentUserID = (isset($this->seekerSession)?$this->seekerSession:$this->passerSession);
+					$otherUserID = $this->sanitize($_POST['otherUser']);
+					$currentUserUnique = (isset($this->seekerSession)?$this->seekerUnique:$this->passerUnique);
+					$otherUserUnique = (isset($this->seekerSession)?$this->passerUnique:$this->seekerUnique);
+					$otherUserTable = (isset($this->seekerSession)?$this->passerTable:$this->seekerTable);
+					$cancellableWork = $this->model->selectAllFromUser($this->offerJobAddTable,$currentUserUnique,array($currentUserID));
+					if(!empty($cancellableWork)){
+						if($cancellableWork[0]['OfferJobStatus'] == 3 || $cancellableWork[0]['OfferJobStatus'] == 5){
+							$insert = (isset($this->seekerSession)?$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$currentUserID,$otherUserID,$initiator)):$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$otherUserID,$currentUserID,$initiator)));
+								if($insert){
+									$this->createNotification("cancellationSeeker",array("sendTo"=>$otherUserUnique,"id"=>$otherUserID,"message"=>1));
+									echo json_encode(array("error"=>"none"));
+								}
+						}
+						else{
+							echo json_encode(array("error"=>"noCancellableJobOffer"));
+						}
+					}
+					else{
+						echo json_encode(array("error"=>"noActiveOfferJob")); 
 					}
 				}
 			}

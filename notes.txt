@@ -7,7 +7,7 @@
 
 
 format sa pagcreate notification
-$this->createNotification("subscription",array("sendTo"=>"SeekerID","id"=>$_SESSION['seekerUser'],"message"=>1));
+	
 
 forwardTo - for subscription from search
 
@@ -55,6 +55,11 @@ offerjobform(new)
 agreement
 1 = hired
 0 = done
+
+canceljoboffer
+1 = pending
+2 = accepted
+3 = declined
 
 (bugs)
 budget range
