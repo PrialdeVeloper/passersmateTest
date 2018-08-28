@@ -214,9 +214,9 @@
 			return $this->stmt->fetchColumn();
 		}
 
-		public function joinAgreement($data){
+		public function joinOfferJob($data){
 			try {
-				$this->stmt = $this->con->prepare("SELECT * FROM `agreement` a, `offerjobform` b, `seeker` c where a.`OfferJobFormID` = b.`OfferJobFormID` and a.`SeekerID` = c.`SeekerID` and `AgreementID` = ?");
+				$this->stmt = $this->con->prepare("SELECT * FROM `offerjob` a, `offerjobform` b, `seeker` c where a.`OfferJobID` = b.`OfferJobFormID` and a.`SeekerID` = c.`SeekerID` and a.`OfferJobID` = ?");
 				$this->stmt->execute($data);
 				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 			} catch (Exception $e) {

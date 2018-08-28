@@ -235,9 +235,9 @@
 			$this->controller->view("passer/projects",$data);
 		}
 
-		public function agreements(){
+		public function joboffers(){
 			$data = [];
-			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = null;
+			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = $status = $employmentAgreement = $headerColor = null;
 
 			if(!$this->checkSession('passerUser')){
 				header("location: ../home/login");
@@ -248,57 +248,99 @@
 				$page = $this->sanitize($_GET['page']);
 			}
 			$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
-			$agreementVerify = $this->model->checkAuthenticity($this->agreementTable,$this->passerUnique,"AgreementStatus",array($this->passerSession,1),"AgreementID","DESC");
+			$agreementVerify = $this->model->checkExistSingle($this->offerJobAddTable,$this->passerUnique,array($this->passerSession),"AgreementID","DESC");
 			if($agreementVerify >= 1){
-				$agreements = $this->paginationScript($this->agreementTable,$this->passerUnique,$this->passerSession,"AgreementStatus",1,$page,1,2,"AgreementID","DESC","");
+				$agreements = $this->paginationScriptSingle($this->offerJobAddTable,$this->passerUnique,$this->passerSession,$page,1,2,"OfferJobDateTime","DESC","");
 				$paginationData = json_decode($agreements,true);
 				$paginationDOM = $paginationData['pagination'];
 				foreach ($paginationData['data'] as $data) {
-					$joinData = $this->model->joinAgreement(array($data['AgreementID']))[0];
+					$joinData = $this->model->joinOfferJob(array($data['OfferJobID']))[0];
+					print_r($joinData);
+					switch ($joinData['OfferJobStatus']) {
+						case 1:
+							$status = '<a class="badge badge-success text-white float-right ml-5">Pending</a>';
+							$employmentAgreement = 
+							'<button type="button" class="btn btn-outline-primary" data-toggle="modal" name="acceptJobOffer"  data-target="#accept" title="Accept the Job offer">Accept</button>
+                       		<button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#decline" title="Decline the Job offer">Decline</button>';
+							$headerColor = 'bg-info';
+							$update = '<small class="text-left "><b class="text-white">Offered on:</b> </small>';
+							break;
+						case 2:
+							$status = '<a class="badge badge-success text-white float-right ml-5">Updated</a>';
+							$headerColor = 'bg-secondary';
+							$employmentAgreement = 
+							'<button type="button" class="btn btn-outline-primary" data-toggle="modal" name="acceptJobOffer" data-target="#accept" title="Accept the Job offer">Accept</button>
+                       		<button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#decline" title="Decline the Job offer">Decline</button>';
+	                        $update = '<small class="text-left "><b class="text-success">Updated:</b> </small>';
+							break;
+						case 3:
+							$status = '<a class="badge badge-success text-white float-right ml-5">Accepted</a>';
+							$headerColor = 'bg-success';
+							$employmentAgreement = 
+							'
+                       		<button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
+							';
+							$update = '<small class="text-left "><b class="text-white">Accepted on:</b> </small>';
+							break;
+						case 4:
+							$status = '<a class="badge badge-success text-white float-right ml-5">Declined</a>';
+							$headerColor = 'bg-danger';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-success">Declined on:</b> </small>';
+							break;
+						case 5:
+							$status = '<a class="badge badge-primary text-white font-weight-bold ">Officially Hired</a>';
+							$headerColor = 'bg-primary';
+							$employmentAgreement = '
+                       		<button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
+							';
+							$update = '<small class="text-left "><b class="text-success">Officially Hired on:</b> </small>';
+							break;
+					}
 					$builder = 
 					'
-					<div class="text-center">
-					    <p class="display-4">'.$joinData['SeekerFN']." ".$joinData['SeekerLN'].'</p>
-					  </div>
-					  <div class="container mt-5">
-					    <div class="row justify-content-center">
-					      <p style="font-size: 20px;" class=" text-center">'.$joinData['WorkingAddress'].'</p>
-					    </div>
-					    <div class="container text-center">
-					      <div class="row">
-					        <div class="col-sm">
-					          Start Date:
-					          <div class="container">
-					            '.$joinData['StartDate'].'
-					          </div>
-					        </div>
-					        <div class="col-sm">
-					          Estimated End Date:
-					          <div class="container">
-					            '.$joinData['EndDate'].'
-					          </div>
-					        </div>
-					      </div>
-					    </div>
-					    <div class="container" style="font-size: 20px;">
-					      <div class="text-center">Salary</div>
-					    </div>
-					    <div class="container">
-					      <div class="text-center">
-					        '.$joinData['Salary'].'
-					      </div>
-					    </div>
-					  </div>
-					  <div class="container mt-3">
-					    <a href="agreementsDetails?id='.$joinData['AgreementID'].'" class="btn btn-primary btn-block">View More Details</a>
-					  </div>
+					<div class="card-header '.$headerColor.'">
+                        <h5>Job Offer from <u class="text-white">'.$joinData['SeekerFN']." ".$joinData['SeekerLN'].'</u></h5>
+                        '.$update."".date("F jS, Y g:i:s A", strtotime($joinData['OfferJobDateTime'])).'
+                      </div>
+                      <div class="card-body">
+                         <p style="font-size:13px">Working Address: 
+                          <u class="font-weight-bold">'.$joinData['WorkingAddress'].'</u>
+                        </p>
+                         <p style="font-size:13px">Estimated Start Date of service: 
+                          <u class="font-weight-bold">'.date("F jS, Y", strtotime($joinData['StartDate'])).'</u>
+                        </p>
+                         <p style="font-size:13px">Estimated End Date of service: 
+                          <u class="font-weight-bold">'.date("F jS, Y", strtotime($joinData['EndDate'])).'</u>
+                        </p>
+                        <p style="font-size:13px">Service Fee: 
+                          <u class="font-weight-bold"><span>&#8369;</span> '.$joinData['Salary'].'.00</u>
+                        </p>
+                        <p style="font-size:13px">Preferred Type of Accommodation
+                          <u class="font-weight-bold">'.$joinData['AccomodationType'].'</u>
+                        </p>
+                        <p style="font-size:13px">Payment Method
+                          <u class="font-weight-bold">'.$joinData['PaymentMethod'].'</u>
+                        </p>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea2">Notes</label>
+                            <textarea class="form-control rounded-0 font-weight-bold" id="exampleFormControlTextarea2" rows="3" disabled style="font-size:13px">'.$joinData['Notes'].'</textarea>
+                            <input type="hidden" name="offerJobID" value="'.$joinData['OfferJobID'].'">
+                            <input type="hidden" name="seekerID" value="'.$joinData['SeekerID'].'">
+                        </div>
+                      </div>
+                      <div class="card-footer">
+                        '.$employmentAgreement.'
+                        <button type="button" class="btn btn-outline-success" title="Message the Seeker for updating the job">Chat</button>
+                        '.$status.'
+                      </div>
 					';
 					$dom = $dom." ".$builder;
 				}
 			}else{
 				$dom = "No active agreement Forms";
 			}
-			$data[] = array("userDetails"=>$details,"paginationDOM"=>$paginationDOM,"agreementForms"=>$dom);
+			$data[] = array("userDetails"=>$details,"pagination"=>$paginationDOM,"offers"=>$dom);
 			$this->controller->view("passer/jobofferlist",$data);
 		}	
 	}

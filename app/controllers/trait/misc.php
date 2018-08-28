@@ -89,6 +89,12 @@
 			return (empty($subscription) ?false:true);
 		}
 
+		public function seekerIsSubscribedDynamic($seeker){
+			$subscription = null;
+			$subscription = $this->model->selectTwoCondition(array("*"),$this->subscriptionDB,"SubscriptionStatus",$this->seekerUnique,array("ongoing",$seeker));
+			return (empty($subscription) ?false:true);
+		}
+
 		public function seekerCheckSubscriptionStatus(){
 			$subscription = null;
 			if($this->checkSession('seekerUser')){
@@ -291,6 +297,41 @@
 				}
 			}
 		}
+
+		public function addSeekerToMessage(){
+			$seekerID = $addMessage = $checkExist = null;
+			if(isset($_POST['addtomessage'])){
+				$seekerID = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->sanitize($_POST['seekerID'])));
+				if(!empty($seekerID)){
+					extract($seekerID[0]);
+					if($SeekerStatus == 1){
+						extract($this->getDetailsPasser($_SESSION['passerUser'])[0]);
+						if($PasserStatus ==1){
+							if($this->seekerIsSubscribedDynamic($_POST['seekerID'])){
+								$checkExist = $this->model->selectAllDynamic($this->messageTable,array("*"),array($this->seekerUnique,$this->seekerUnique),array($SeekerID,$_SESSION['seekerUser']));
+								if(empty($checkExist)){
+									$addMessage = $this->model->insertDB($this->messageTable,$this->messageDB,array($SeekerID,$_SESSION['seekerUser'],"",""));
+									if($addMessage){
+										echo json_encode(array("error"=>"none"));
+									}
+								}else{
+									echo json_encode(array("error"=>"none"));
+								}
+							}else{
+								echo json_encode(array("error"=>"noSubscription"));
+							}
+						}else{
+							echo json_encode(array("error"=>"notActivatedPasser"));
+						}
+					}else{
+						echo json_encode(array("error"=>"notActivatedSeeker"));
+					}
+				}else{
+					echo json_encode(array("error"=>"notFound"));
+				}
+			}
+		}
+
 		public function sendMessage(){
 			$message = $sender = $reciever = $send = $messageSenderUser = $checkSubscription = null;
 			$flag = 1;
@@ -633,8 +674,26 @@
 								case '3':
 									$message = "You have been hired!";
 									break;
+								case '4':
+									$message = "A seeker has requested to cancel a job.";
+									break;
 							}
 							break;
+						case 'jobOfferSeeker':
+							$link = "joboffered";
+							switch ($data['notificationMessage']) {
+								case '3':
+									$message = "Your job offer has been accepted! Check it out mate!";
+									break;
+								case '4':
+									$message = "Unfortunately, your job offer has been rejected.";
+									break;
+								case '3':
+									$message = "A passer has requested to cancel a job.";
+									break;
+							}
+							break;
+							
 					}
 
 					$builder = '
@@ -1655,5 +1714,46 @@
 					}
 				}
 			}
+
+			public function updateJobOfferStatus(){
+				$newStatus = $jobofferID = $checkExist = $seekerUser = $update = null;
+				if(isset($_POST['update'])){
+					$newStatus = $this->sanitize($_POST['newStatus']);
+					$jobofferID = $this->sanitize($_POST['jobofferID']);
+					$seekerUser = $this->sanitize($_POST['jobofferIDSeeker']);
+					$checkExist = $this->model->checkAuthenticity("offerjob",$this->passerUnique,"OfferJobID",array($this->passerSession,$jobofferID));
+					if($checkExist >= 1){
+						if($this->getDetailsSeeker($seekerUser)[0]['SeekerStatus'] == 1){
+							if($this->getDetailsPasser($this->passerSession)[0]['PasserStatus'] == 1){
+								if($this->seekerIsSubscribedDynamic($seekerUser)){
+									if($this->checkExistingWorkPasser($this->passerUnique) == false){
+										$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
+										if($update){
+											$this->createNotification("jobOfferSeeker",array("sendTo"=>"SeekerID","id"=>$seekerUser,"message"=>$newStatus));
+											echo json_encode(array("error"=>"none"));
+										}
+									}
+									else{
+										echo json_encode(array("error"=>"hasExistingWork"));
+									}
+								}
+								else{
+									echo json_encode(array("error"=>"noSubscription"));
+								}
+							}
+							else{
+								echo json_encode(array("error"=>"passerNotVerified"));
+							}
+						}
+						else{
+							echo json_encode(array("error"=>"seekerNotVerified"));
+						}
+					}
+					else{
+						echo json_encode(array("error"=>"noneExistingJobOffer"));
+					}
+				}
+			}
+
 		}
 ?>

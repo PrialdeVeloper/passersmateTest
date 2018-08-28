@@ -60,7 +60,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                     </div>
                     <div class="modal-footer">
                      
-                      <button type="button" class="btn btn-primary" onclick="toastr.success('You successfully accept the job offered, this will be notified to the seeker');" data-dismiss="modal">Okay</button>
+                      <button type="button" class="btn btn-primary" id="acceptJobOffer">Okay</button>
                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                     </div>
                   </div>
@@ -91,6 +91,32 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                 </div>
               </div>
                 <!-- End Decline Modal -->
+
+
+                 <!-- CANCEL Modal -->
+    <div class="modal fade" id="cancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Cancel the Job</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+             <small class="font-weight-bold text-info">Note: Cancellation is approved only if the seeker agreed to do so, otherwise cancellation cannot be process.</small><br>
+            Are you sure you want to cancel your job?<br><br>
+            If cancel, please tell us the reason.
+             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="toastr.success('You cancel your job, this will immediately notified to the seeker');">Yes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END OF CANCEL MODAL -->
 </body>
 
 </html>

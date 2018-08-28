@@ -2592,3 +2592,85 @@ $(function(){
 	});
 });
 // end of update jobofferform
+
+
+// accept joboffer
+let jobofferIDPasser;
+let jobofferIDSender;
+$(function(){
+	$("button[name=acceptJobOffer]").click(function(){
+		let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
+		let SeekerID = $(this).parent().prev().find("input[name=seekerID]").val();
+		jobofferIDPasser = jobofferID;
+		jobofferIDSender = SeekerID;
+	});
+
+	$("#acceptJobOffer").click(function(){
+		$.ajax({
+			url: "updateJobOfferStatus",
+			method: "POST",
+			data: {"update":"","newStatus":3,"jobofferID":jobofferIDPasser,"jobofferIDSeeker":jobofferIDSender},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				switch(obj.error){
+					case "none":
+						toastSuccess("You have successfully Accepted the job offered.");
+						delayRedirect("joboffers");
+						jobofferIDPasser = "";
+						jobofferIDSender = "";
+					break;
+					case "notVerifiedSeeker":
+						toastError('Sorry, You have not yet been verified. Please try to verify your account <a href="dashboard">Here.</a>');
+					break;
+					case "notVerifiedPasser":
+						toastError("Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety");
+					break;
+					case "hasExistingWork":
+						toastError('Sorry, You already have an existing work. Please finish the work first and mark let your hirer mark it as done.');
+					break;
+					case "noneExistingJobOffer":
+						window.location = 'joboffers';
+					break;
+					case "noSubscription":
+						toastError('Sorry, this seeker has no active subscription and therefore cannot hire you anymore.');
+					break;
+				}
+			}
+		});
+	})
+
+	$("#messageSeeker").click(function(){
+		let SeekerID = $(this).parent().prev().find("input[name=seekerID]").val();
+		$.ajax({
+			url: "addSeekerToMessage",
+			method: "POST",
+			data: {"addtomessage":"","seekerID":SeekerID},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				if(obj.error == "notFound"){
+					showDivError(divErrorProfile,"Passer not found. Please try to search again.");
+				}
+				if(obj.error == "notActivatedPasser"){
+					showDivError(divErrorProfile,"Passer is currently unavailable for chat or hire.");
+				}
+				if(obj.error == "notActivatedSeeker"){
+					showDivError(divErrorProfile,"Please make sure you are already verify by Passersmate <a href=../seeker/dashboard> Here</a>");
+				}
+				if(obj.error == "noSubscription"){
+					showDivError(divErrorProfile,"Please make sure you have an active subscription by applying <a href=../home/subscription> Here</a>");
+				}
+				if(obj.error == "none"){
+					divErrorProfile.empty().hide();
+					window.location ="../home/messages";
+				}
+				console.log(a);
+			},
+			fail: function(){
+				alert("cannot connect to server.");
+			}
+		});
+	});
+});	
+// end of accept joboffer
