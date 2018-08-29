@@ -1773,6 +1773,7 @@
 
 			public function cancelJobOffer(){
 				$currentUserID = $otherUserID = $currentUserTable = $otherUserTable = $reason = $initiator = $cancellableWork = $insert = $offerJobID = $otherUserUnique = $checkCancel = null;
+				 $flag = 0;
 				if(isset($_POST['cancel'])){
 					$offerJobID = $this->sanitize($_POST['offerJobID']);
 					$reason = $this->sanitize($_POST['reason']);
@@ -1784,8 +1785,13 @@
 					$otherUserTable = (isset($this->seekerSession)?$this->passerTable:$this->seekerTable);
 					$cancellableWork = $this->model->selectAllFromUser($this->offerJobAddTable,$currentUserUnique,array($currentUserID));
 					if(!empty($cancellableWork)){
-						if($cancellableWork[0]['OfferJobStatus'] == 3 || $cancellableWork[0]['OfferJobStatus'] == 5){
-							$checkCancel = $this->model->selectAllDynamic($this->cancelTable,array("*"),array("CancellationStatus",$this->passerSession,"OfferJobID"),array(1,$this->passerSession,$offerJobID));
+						foreach ($cancellableWork as $data) {
+							if(($data['OfferJobStatus']) == 3 || ($data['OfferJobStatus']) == 5){
+								$flag = 1;
+							}
+						}
+						if($flag == 1){
+							$checkCancel = $this->model->selectAllDynamic($this->cancelTable,array("*"),array("CancellationStatus",$currentUserID,"OfferJobID"),array(1,$currentUserID,$offerJobID));
 							if(empty($checkCancel)){
 								$insert = (isset($this->seekerSession)?$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$currentUserID,$otherUserID,$initiator)):$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$otherUserID,$currentUserID,$initiator)));
 								if($insert){

@@ -192,6 +192,12 @@
 			return $this->stmt->fetchColumn();
 		}
 
+		public function checkAuthenticityOr($table,$field,$field2,$field3,$data){
+			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM $table WHERE $field = ? and ($field2 = ? OR $field3 = ?)");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchColumn();
+		}
+
 		public function selectTwoCondition($select,$table,$field,$field2,$data){
 			$select = $this->addComma($select);
 			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE $field = ? and $field2 = ?");

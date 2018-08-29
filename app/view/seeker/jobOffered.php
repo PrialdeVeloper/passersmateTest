@@ -299,6 +299,33 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                 </div>
               </div>
                 <!-- End Decline Modal -->
+
+		    <!-- CANCEL Modal -->
+		    <div class="modal fade" id="cancel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		      <div class="modal-dialog modal-dialog-centered" role="document">
+		        <div class="modal-content">
+		          <div class="modal-header">
+		            <h5 class="modal-title" id="exampleModalCenterTitle">Cancel the Job</h5>
+		            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		              <span aria-hidden="true">&times;</span>
+		            </button>
+		          </div>
+		          <form id="cancelJobOffer">
+		          <div class="modal-body">
+		             <small class="font-weight-bold text-info">Note: Cancellation is approved only if the seeker agreed to do so, otherwise cancellation cannot be process.</small><br>
+		            Are you sure you want to cancel your job?<br><br>
+		            If cancel, please tell us the reason.
+		             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+		          </div>
+		          <div class="modal-footer">
+		            <button type="submit" id="yesCancel" class="btn btn-primary">Yes</button>
+		            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+		          </div>
+		        </form>
+		        </div>
+		      </div>
+		    </div>
+		    <!-- END OF CANCEL MODAL -->
            
     <!-- ============================================================== -->
     <!-- End Wrapper -->

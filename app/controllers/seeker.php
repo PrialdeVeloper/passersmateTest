@@ -312,6 +312,9 @@
 							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#agreement" name="updateJobOfferForm">
 	                          Make an Employment Agreement
 	                        </button>
+	                        <button type="button" id="cancelJobOfferModal" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancel" name="cancelJobOffer">
+	                          Cancel Job offer
+	                        </button>
 							';
 							$update = null;
 							break;
@@ -324,7 +327,23 @@
 						case 5:
 							$status = '<a class="badge badge-primary text-white font-weight-bold ">Officially Hired</a>';
 							$headerColor = 'bg-primary';
-							$employmentAgreement = null;
+							$employmentAgreement = 
+							'
+							<button type="button" id="cancelJobOfferModal" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancel" name="cancelJobOffer">
+	                          Make an Employment Agreement
+	                        </button>
+							';
+							$update = null;
+							break;
+						case 6:
+							$status = '<a class="badge badge-primary text-white font-weight-bold ">Officially Hired</a>';
+							$headerColor = 'bg-primary';
+							$employmentAgreement = 
+							'
+							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancel" name="cancelJobOffer">
+	                          Make an Employment Agreement
+	                        </button>
+							';
 							$update = null;
 							break;
 					}

@@ -2599,6 +2599,7 @@ let jobofferIDPasser;
 let jobofferIDSender;
 let cancelOtherUser;
 let cancelJobOffer;
+let currentHome;
 $(function(){
 	$("button[name=acceptJobOffer]").click(function(){
 		let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
@@ -2640,7 +2641,7 @@ $(function(){
 				}
 			}
 		});
-	})
+	});
 
 	$("#messageSeeker").click(function(){
 		let SeekerID = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2676,10 +2677,20 @@ $(function(){
 	});
 
 	$("#cancelJobOfferModal").click(function(){
-		let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
-		let SeekerID = $(this).parent().prev().find("input[name=seekerID]").val();
-		cancelJobOffer = jobofferID;
-		cancelOtherUser = SeekerID;
+		console.log($(this).parent().prev().find("input[name=offerJobID]").length > 0);
+		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
+			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
+			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
+			cancelJobOffer = jobofferID;
+			cancelOtherUser = otherUser;
+			currentHome = 'joboffers';
+		}else{
+			let otherUser = $(this).parent().next().find("input[name=passer]").val();
+			let jobofferID = $(this).parent().next().find("input[name=offerjob]").val();
+			cancelJobOffer = jobofferID;
+			cancelOtherUser = otherUser;
+			currentHome = 'joboffered';
+		}
 	});
 
 	$("form#cancelJobOffer").submit(function(event){
@@ -2706,7 +2717,7 @@ $(function(){
 						break;
 						case "none":
 							toastSuccess("Your request for job offer cancellation is now ongoing");
-							delayRedirect("joboffers");
+							delayRedirect(currentHome);
 						break;
 					}
 				}
