@@ -33,6 +33,8 @@ offerjob(new)
 3 = accepted
 4 = declined
 5 = hired
+6 = pending for cancellation
+7 = canceled
 
 offerjobPasser
 1 = new job offer

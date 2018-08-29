@@ -296,6 +296,12 @@
 							';
 							$update = '<small class="text-left "><b class="text-success">Officially Hired on:</b> </small>';
 							break;
+						case 6:
+							$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
+							$headerColor = 'bg-warning';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
+							break;
 					}
 					$builder = 
 					'

@@ -1772,7 +1772,7 @@
 			}
 
 			public function cancelJobOffer(){
-				$currentUserID = $otherUserID = $currentUserTable = $otherUserTable = $reason = $initiator = $cancellableWork = $insert = $offerJobID = $otherUserUnique = null;
+				$currentUserID = $otherUserID = $currentUserTable = $otherUserTable = $reason = $initiator = $cancellableWork = $insert = $offerJobID = $otherUserUnique = $checkCancel = null;
 				if(isset($_POST['cancel'])){
 					$offerJobID = $this->sanitize($_POST['offerJobID']);
 					$reason = $this->sanitize($_POST['reason']);
@@ -1785,11 +1785,18 @@
 					$cancellableWork = $this->model->selectAllFromUser($this->offerJobAddTable,$currentUserUnique,array($currentUserID));
 					if(!empty($cancellableWork)){
 						if($cancellableWork[0]['OfferJobStatus'] == 3 || $cancellableWork[0]['OfferJobStatus'] == 5){
-							$insert = (isset($this->seekerSession)?$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$currentUserID,$otherUserID,$initiator)):$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$otherUserID,$currentUserID,$initiator)));
+							$checkCancel = $this->model->selectAllDynamic($this->cancelTable,array("*"),array("CancellationStatus",$this->passerSession,"OfferJobID"),array(1,$this->passerSession,$offerJobID));
+							if(empty($checkCancel)){
+								$insert = (isset($this->seekerSession)?$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$currentUserID,$otherUserID,$initiator)):$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$otherUserID,$currentUserID,$initiator)));
 								if($insert){
+									$this->model->updateDBDynamic($this->offerJobAddTable,array("OfferJobStatus"),array(6,$offerJobID),array("OfferJobID"));
 									$this->createNotification("cancellationSeeker",array("sendTo"=>$otherUserUnique,"id"=>$otherUserID,"message"=>1));
 									echo json_encode(array("error"=>"none"));
 								}
+							}
+							else{
+								echo json_encode(array("error"=>"cancelInProcess"));
+							}
 						}
 						else{
 							echo json_encode(array("error"=>"noCancellableJobOffer"));

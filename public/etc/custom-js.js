@@ -2701,6 +2701,9 @@ $(function(){
 						case "noCancellableJobOffer":
 							toastError("You don't have any cancellable job offer form. Please try again later");
 						break;
+						case "cancelInProcess":
+							toastError("Error, this job offer is already on cancellation process");
+						break;
 						case "none":
 							toastSuccess("Your request for job offer cancellation is now ongoing");
 							delayRedirect("joboffers");
