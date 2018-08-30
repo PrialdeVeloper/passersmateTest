@@ -336,15 +336,15 @@
 							$update = null;
 							break;
 						case 6:
-							$status = '<a class="badge badge-primary text-white font-weight-bold ">Officially Hired</a>';
-							$headerColor = 'bg-primary';
+							$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
+							$headerColor = 'bg-warning';
 							$employmentAgreement = 
 							'
-							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancel" name="cancelJobOffer">
-	                          Make an Employment Agreement
+							<button type="button" id="cancelJobOfferModalMine" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancelMine" name="cancelJobOfferMine">
+	                          Show Details
 	                        </button>
 							';
-							$update = null;
+							$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
 							break;
 					}
 					$builder = 

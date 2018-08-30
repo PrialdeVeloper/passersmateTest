@@ -251,6 +251,16 @@
 			}
 		}
 
+		public function joinCancel($data){
+			try {
+				$this->stmt = $this->con->prepare("SELECT * FROM `canceljoboffer` a, `offerjob` b, `seeker` c, `passer` d WHERE a.`OfferJobID` = b.`OfferJobID` and a.`SeekerID` = c.`SeekerID` and a.`PasserID` = d.`PasserID` and a.`OfferJobID` = ?");
+				$this->stmt->execute($data);
+				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
 		public function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){
 			try {
 				$fieldsQ = $this->qDataUpdate($fields);

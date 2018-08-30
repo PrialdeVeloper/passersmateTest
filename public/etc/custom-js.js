@@ -2600,6 +2600,8 @@ let jobofferIDSender;
 let cancelOtherUser;
 let cancelJobOffer;
 let currentHome;
+let othersideCancelJobOffer;
+let othersideCancelOtherUser;
 $(function(){
 	$("button[name=acceptJobOffer]").click(function(){
 		let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
@@ -2677,7 +2679,6 @@ $(function(){
 	});
 
 	$("#cancelJobOfferModal").click(function(){
-		console.log($(this).parent().prev().find("input[name=offerJobID]").length > 0);
 		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
 			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
 			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2723,7 +2724,83 @@ $(function(){
 				}
 			});
 		}
-
 	});
+
+	$("#cancelJobOfferModalMine").click(function(){
+		let name = $("#cancelName");
+		let title = $("#jobtitleName");
+		let reason = $("#reasonName");
+		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
+			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
+			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
+			currentHome = 'joboffers';
+			othersideCancelJobOffer = jobofferID;
+			othersideCancelOtherUser = otherUser;
+			$.ajax({
+				url:"joinCancelJobOffer",
+				method:"POST",
+				data:{"getCancelData":"","id":jobofferID},
+				success: function(a){
+					let obj = JSON.parse(a).data;
+					name.html(obj.SeekerFN +" "+ obj.SeekerLN);
+					reason.html(obj.CancelReason);
+				}
+			});
+		}else{
+			let otherUser = $(this).parent().next().find("input[name=passer]").val();
+			let jobofferID = $(this).parent().next().find("input[name=offerjob]").val();
+			currentHome = 'joboffered';
+			othersideCancelJobOffer = jobofferID;
+			othersideCancelOtherUser = otherUser;
+			$.ajax({
+				url:"joinCancelJobOffer",
+				method:"POST",
+				data:{"getCancelData":"","id":jobofferID},
+				success: function(a){
+					let obj = JSON.parse(a).data;
+					name.html(obj.PasserFN +" "+ obj.PasserLN);
+					title.html(obj.PasserCertificate);
+					reason.html(obj.CancelReason);
+				}
+			});
+		}
+	});
+
+	$("#approveCancel").click(function(){
+		$.ajax({
+			url: "updateJobOfferStatusSeeker",
+			method: "POST",
+			data: {"update":"","newStatus":7,"jobofferID":othersideCancelJobOffer,"jobofferIDSeeker":othersideCancelOtherUser},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				switch(obj.error){
+					case "none":
+						toastSuccess("You have successfully Accepted the job offered.");
+						delayRedirect("joboffers");
+						othersideCancelJobOffer = "";
+						othersideCancelOtherUser = "";
+					break;
+					case "notVerifiedSeeker":
+						toastError('Sorry, You have not yet been verified. Please try to verify your account <a href="dashboard">Here.</a>');
+					break;
+					case "notVerifiedPasser":
+						toastError("Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety");
+					break;
+					case "hasExistingWork":
+						toastError('Sorry, You already have an existing work. Please finish the work first and mark let your hirer mark it as done.');
+					break;
+					case "noneExistingJobOffer":
+						window.location = 'joboffers';
+					break;
+					case "noSubscription":
+						toastError('Sorry, this seeker has no active subscription and therefore cannot hire you anymore.');
+					break;
+				}
+			}
+		});
+	});
+
+
 });	
 // end of accept joboffer

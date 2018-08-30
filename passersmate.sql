@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2018 at 10:42 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Aug 30, 2018 at 06:44 AM
+-- Server version: 10.1.34-MariaDB
+-- PHP Version: 7.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -95,6 +95,7 @@ CREATE TABLE `canceljoboffer` (
   `SeekerID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
   `CancellationInitiator` varchar(255) NOT NULL,
+  `CancelReason` text NOT NULL,
   `CancellationStatus` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -102,10 +103,8 @@ CREATE TABLE `canceljoboffer` (
 -- Dumping data for table `canceljoboffer`
 --
 
-INSERT INTO `canceljoboffer` (`CancelJobOfferID`, `OfferJobID`, `SeekerID`, `PasserID`, `CancellationInitiator`, `CancellationStatus`) VALUES
-(1, 4, 3, 1, '0', 1),
-(2, 4, 3, 1, '0', 1),
-(3, 4, 3, 1, 'Passer', 1);
+INSERT INTO `canceljoboffer` (`CancelJobOfferID`, `OfferJobID`, `SeekerID`, `PasserID`, `CancellationInitiator`, `CancelReason`, `CancellationStatus`) VALUES
+(1, 3, 3, 5, 'Seeker', 'qwe', 1);
 
 -- --------------------------------------------------------
 
@@ -305,9 +304,12 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (42, 3, NULL, 'jobOfferSeeker', '3', 0),
 (43, 3, NULL, 'jobOfferSeeker', '1', 0),
 (44, 3, NULL, 'jobOfferSeeker', '3', 0),
-(45, 3, NULL, 'cancellationSeeker', '1', 1),
-(46, 3, NULL, 'cancellationSeeker', '1', 1),
-(47, 3, NULL, 'cancellationSeeker', '1', 1);
+(45, 3, NULL, 'cancellationSeeker', '1', 0),
+(46, 3, NULL, 'cancellationSeeker', '1', 0),
+(47, 3, NULL, 'cancellationSeeker', '1', 0),
+(48, 3, NULL, 'cancellationSeeker', '1', 0),
+(49, NULL, 3, 'cancellationSeeker', '1', 1),
+(50, NULL, 5, 'cancellationSeeker', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -330,9 +332,9 @@ CREATE TABLE `offerjob` (
 --
 
 INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
-(2, 3, 3, 3, 'hehe', '2018-08-28 12:46:52', 3),
-(3, 4, 3, 5, '', '2018-08-27 16:05:46', 5),
-(4, 5, 3, 1, '', '2018-08-28 11:32:12', 3);
+(2, 3, 3, 3, 'hehe', '2018-08-29 18:14:29', 6),
+(3, 4, 3, 5, '', '2018-08-30 02:48:44', 6),
+(4, 5, 3, 1, '', '2018-08-29 16:22:12', 6);
 
 -- --------------------------------------------------------
 
@@ -920,7 +922,7 @@ ALTER TABLE `canceljob`
 -- AUTO_INCREMENT for table `canceljoboffer`
 --
 ALTER TABLE `canceljoboffer`
-  MODIFY `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `certificateofemployment`
@@ -962,7 +964,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `offerjob`

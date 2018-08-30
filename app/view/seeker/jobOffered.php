@@ -326,6 +326,35 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 		      </div>
 		    </div>
 		    <!-- END OF CANCEL MODAL -->
+
+		    <!-- Cancel Modal -->
+              <div class="modal fade" id="cancelMine" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-danger" id="exampleModalLabel">
+                         <i class="fas fa-exclamation-circle"></i> Cancellation of the Job
+                      </h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <u class="font-weight-bold" id="cancelName"></u> who has a job of <u class="font-weight-bold" id="jobtitleName"></u> is requesting to cancel the job for the reason of 
+                       <textarea class="form-control mb-2" id="reasonName" rows="3" disabled></textarea>
+                      Do you agree to the cancellation of the said job, Mate?
+                      <br>
+                      <small class="text-info font-weight-bold">Note: Once you agree to the cancellation, it will immediately notified to the passer.</small> <br>
+                      If you don't agree, you can file a <a href=""><u class="font-weight-bold text-danger">dispute</u></a> to the said Passer.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" id="approveCancel" class="btn btn-primary" data-dismiss="modal">Yes</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END OF MODAL -->
            
     <!-- ============================================================== -->
     <!-- End Wrapper -->

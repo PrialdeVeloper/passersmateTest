@@ -26,7 +26,7 @@
 		public $offerJobAddTable = "offerjob";
 		public $offerJobAddDB = array("OfferJobFormID","SeekerID","PasserID","Notes");
 		public $cancelTable = "canceljoboffer";
-		public $cancelDB = array("OfferJobID","SeekerID","PasserID","CancellationInitiator");
+		public $cancelDB = array("OfferJobID","SeekerID","PasserID","CancellationInitiator","CancelReason");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -59,6 +59,16 @@
 
 		public function getDetailsSeeker($seeker){
 			return $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($seeker));
+		}
+
+		public function joinCancelJobOffer(){
+			$data = null;
+			if(isset($_POST['getCancelData'])){
+				$data = $this->model->joinCancel(array($_POST['id']))[0];
+				if($data['CancellationStatus'] == 1){
+					echo json_encode(array("data"=>$data));
+				}
+			}
 		}
 
 		public function getDetailsAjax(){
@@ -1737,36 +1747,40 @@
 					$newStatus = $this->sanitize($_POST['newStatus']);
 					$jobofferID = $this->sanitize($_POST['jobofferID']);
 					$seekerUser = $this->sanitize($_POST['jobofferIDSeeker']);
-					$checkExist = $this->model->checkAuthenticity("offerjob",$this->passerUnique,"OfferJobID",array($this->passerSession,$jobofferID));
-					if($checkExist >= 1){
-						if($this->getDetailsSeeker($seekerUser)[0]['SeekerStatus'] == 1){
-							if($this->getDetailsPasser($this->passerSession)[0]['PasserStatus'] == 1){
-								if($this->seekerIsSubscribedDynamic($seekerUser)){
-									if($this->checkExistingWorkPasser($this->passerUnique) == false){
-										$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
-										if($update){
-											$this->createNotification("jobOfferSeeker",array("sendTo"=>"SeekerID","id"=>$seekerUser,"message"=>$newStatus));
-											echo json_encode(array("error"=>"none"));
+					if($this->checkSession($this->passerSession)){
+						$checkExist = $this->model->checkAuthenticity("offerjob",$this->passerUnique,"OfferJobID",array($this->passerSession,$jobofferID));
+						if($checkExist >= 1){
+							if($this->getDetailsSeeker($seekerUser)[0]['SeekerStatus'] == 1){
+								if($this->getDetailsPasser($this->passerSession)[0]['PasserStatus'] == 1){
+									if($this->seekerIsSubscribedDynamic($seekerUser)){
+										if($this->checkExistingWorkPasser($this->passerSession) == false){
+											$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
+											if($update){
+												$this->createNotification("jobOfferSeeker",array("sendTo"=>"SeekerID","id"=>$seekerUser,"message"=>$newStatus));
+												echo json_encode(array("error"=>"none"));
+											}
+										}
+										else{
+											echo json_encode(array("error"=>"hasExistingWork"));
 										}
 									}
 									else{
-										echo json_encode(array("error"=>"hasExistingWork"));
+										echo json_encode(array("error"=>"noSubscription"));
 									}
 								}
 								else{
-									echo json_encode(array("error"=>"noSubscription"));
+									echo json_encode(array("error"=>"passerNotVerified"));
 								}
 							}
 							else{
-								echo json_encode(array("error"=>"passerNotVerified"));
+								echo json_encode(array("error"=>"seekerNotVerified"));
 							}
 						}
 						else{
-							echo json_encode(array("error"=>"seekerNotVerified"));
+							echo json_encode(array("error"=>"noneExistingJobOffer"));
 						}
-					}
-					else{
-						echo json_encode(array("error"=>"noneExistingJobOffer"));
+					}else{
+						
 					}
 				}
 			}
@@ -1793,7 +1807,7 @@
 						if($flag == 1){
 							$checkCancel = $this->model->selectAllDynamic($this->cancelTable,array("*"),array("CancellationStatus",$currentUserID,"OfferJobID"),array(1,$currentUserID,$offerJobID));
 							if(empty($checkCancel)){
-								$insert = (isset($this->seekerSession)?$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$currentUserID,$otherUserID,$initiator)):$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$otherUserID,$currentUserID,$initiator)));
+								$insert = (isset($this->seekerSession)?$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$currentUserID,$otherUserID,$initiator,$reason)):$this->model->insertDB($this->cancelTable,$this->cancelDB,array($offerJobID,$otherUserID,$currentUserID,$initiator,$reason)));
 								if($insert){
 									$this->model->updateDBDynamic($this->offerJobAddTable,array("OfferJobStatus"),array(6,$offerJobID),array("OfferJobID"));
 									$this->createNotification("cancellationSeeker",array("sendTo"=>$otherUserUnique,"id"=>$otherUserID,"message"=>1));
@@ -1813,6 +1827,8 @@
 					}
 				}
 			}
+
+					
 
 		}
 ?>
