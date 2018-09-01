@@ -237,7 +237,7 @@
 
 		public function joboffers(){
 			$data = [];
-			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = $status = $employmentAgreement = $headerColor = null;
+			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = $status = $employmentAgreement = $headerColor = $cancelInitiator =null;
 
 			if(!$this->checkSession('passerUser')){
 				header("location: ../home/login");
@@ -255,13 +255,12 @@
 				$paginationDOM = $paginationData['pagination'];
 				foreach ($paginationData['data'] as $data) {
 					$joinData = $this->model->joinOfferJob(array($data['OfferJobID']))[0];
-					print_r($joinData);
 					switch ($joinData['OfferJobStatus']) {
 						case 1:
 							$status = '<a class="badge badge-success text-white float-right ml-5">Pending</a>';
 							$employmentAgreement = 
 							'<button type="button" class="btn btn-outline-primary" data-toggle="modal" name="acceptJobOffer"  data-target="#accept" title="Accept the Job offer">Accept</button>
-                       		<button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#decline" title="Decline the Job offer">Decline</button>';
+                       		<button type="button" class="btn btn-outline-danger" name="declineJobOffer" data-toggle="modal" data-target="#decline" title="Decline the Job offer">Decline</button>';
 							$headerColor = 'bg-info';
 							$update = '<small class="text-left "><b class="text-white">Offered on:</b> </small>';
 							break;
@@ -270,7 +269,7 @@
 							$headerColor = 'bg-secondary';
 							$employmentAgreement = 
 							'<button type="button" class="btn btn-outline-primary" data-toggle="modal" name="acceptJobOffer" data-target="#accept" title="Accept the Job offer">Accept</button>
-                       		<button type="button" class="btn btn-outline-danger"  data-toggle="modal" data-target="#decline" title="Decline the Job offer">Decline</button>';
+                       		<button type="button" class="btn btn-outline-danger" name="declineJobOffer" data-toggle="modal" data-target="#decline" title="Decline the Job offer">Decline</button>';
 	                        $update = '<small class="text-left "><b class="text-success">Updated:</b> </small>';
 							break;
 						case 3:
@@ -297,10 +296,33 @@
 							$update = '<small class="text-left "><b class="text-success">Officially Hired on:</b> </small>';
 							break;
 						case 6:
-							$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
-							$headerColor = 'bg-warning';
+							$cancelInitiator = $this->model->selectAllDynamic("canceljoboffer",array("*"),array("OfferJobID",$this->passerUnique),array($joinData['OfferJobID'],$this->passerSession))[0];
+							switch ($cancelInitiator['CancellationInitiator']) {
+								case 'Passer':
+									$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
+									$headerColor = 'bg-warning';
+									$employmentAgreement = null;
+									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
+									break;
+								
+								case 'Seeker':
+									$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
+									$headerColor = 'bg-warning';
+									$employmentAgreement = 
+									'
+									<button type="button" id="cancelJobOfferModalMine" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelMine" name="cancelJobOfferMine">
+			                          Show Details
+			                        </button>
+									';
+									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
+									break;
+							}
+							break;
+						case 7:
+							$status = '<a class="badge badge-danger text-white font-weight-bold float-right">Cancelled</a>';
+							$headerColor = 'bg-danger';
 							$employmentAgreement = null;
-							$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
+							$update = '<small class="text-left "><b class="text-black">Cancelled on:</b> </small>';
 							break;
 					}
 					$builder = 
@@ -337,14 +359,18 @@
                       </div>
                       <div class="card-footer">
                         '.$employmentAgreement.'
-                        <button type="button" class="btn btn-outline-success" title="Message the Seeker for updating the job">Chat</button>
+                        <button type="button" name="messageSeeker" class="btn btn-outline-success" title="Message the Seeker for updating the job">Chat</button>
                         '.$status.'
                       </div>
 					';
 					$dom = $dom." ".$builder;
 				}
 			}else{
-				$dom = "No active agreement Forms";
+				$dom = '
+					<div class="alert alert-danger" role="alert">
+					  No active agreement Forms.
+					</div>
+					';
 			}
 			$data[] = array("userDetails"=>$details,"pagination"=>$paginationDOM,"offers"=>$dom);
 			$this->controller->view("passer/jobofferlist",$data);

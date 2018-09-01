@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 30, 2018 at 06:44 AM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.8
+-- Generation Time: Sep 01, 2018 at 11:30 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -66,7 +66,7 @@ CREATE TABLE `agreement` (
 --
 
 INSERT INTO `agreement` (`AgreementID`, `SeekerID`, `PasserID`, `OfferJobFormUsedID`, `AgreementDateandTime`, `AgreementStatus`) VALUES
-(1, 3, 1, 6, '2018-08-27 16:05:46', 1);
+(1, 3, 1, 1, '2018-09-01 21:14:00', 1);
 
 -- --------------------------------------------------------
 
@@ -98,13 +98,6 @@ CREATE TABLE `canceljoboffer` (
   `CancelReason` text NOT NULL,
   `CancellationStatus` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `canceljoboffer`
---
-
-INSERT INTO `canceljoboffer` (`CancelJobOfferID`, `OfferJobID`, `SeekerID`, `PasserID`, `CancellationInitiator`, `CancelReason`, `CancellationStatus`) VALUES
-(1, 3, 3, 5, 'Seeker', 'qwe', 1);
 
 -- --------------------------------------------------------
 
@@ -196,34 +189,7 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `MessageSender`, `MessageTimeAndDate`, `MessageStatus`) VALUES
-(1, 1, 2, NULL, NULL, '2018-08-11 11:31:24', 0),
-(2, 1, 3, 'hello', 'Seeker', '2018-08-11 11:33:46', 0),
-(3, 1, 3, 'hi', 'Passer', '2018-08-11 13:41:05', 0),
-(4, 1, 3, 'what\'s up?', 'Passer', '2018-08-11 13:41:14', 0),
-(5, 1, 3, '&lt;script&gt;alert(&quot;qwe&quot;)&lt;/script&gt;', 'Passer', '2018-08-11 13:41:26', 0),
-(6, 1, 3, 'no xss', 'Passer', '2018-08-11 13:42:10', 0),
-(7, 1, 3, '&lt;script&gt;alert(&quot;qwe&quot;)&lt;/script&gt;', 'Passer', '2018-08-11 13:42:56', 0),
-(8, 1, 3, 'qwe', 'Seeker', '2018-08-11 14:12:13', 0),
-(9, 1, 3, 'qwe', 'Seeker', '2018-08-11 14:18:01', 0),
-(10, 1, 3, 'zxcxz', 'Seeker', '2018-08-11 14:18:04', 0),
-(11, 1, 3, 'qweqweqwe', 'Seeker', '2018-08-11 14:21:49', 0),
-(12, 1, 3, 'wew', 'Seeker', '2018-08-11 14:24:37', 0),
-(13, 1, 3, 'qwe', 'Seeker', '2018-08-11 14:24:43', 0),
-(14, 1, 3, 'asd', 'Passer', '2018-08-11 16:12:39', 0),
-(15, 4, 3, '', '', '2018-08-12 04:48:39', 0),
-(16, 4, 3, 'hello', 'Seeker', '2018-08-12 04:48:53', 0),
-(18, 4, 3, 'hi', 'Seeker', '2018-08-12 11:22:15', 0),
-(19, 5, 3, '', '', '2018-08-12 19:48:59', 0),
-(20, 5, 3, 'Hello', 'Seeker', '2018-08-12 19:49:16', 0),
-(21, 5, 3, 'BABA', 'Seeker', '2018-08-12 19:49:21', 0),
-(22, 1, 3, 'qwe', 'Seeker', '2018-08-12 20:04:28', 0),
-(23, 1, 3, 'tqet', 'Seeker', '2018-08-12 20:06:31', 0),
-(24, 1, 3, 'qwe', 'Seeker', '2018-08-12 20:14:04', 0),
-(25, 1, 3, 'qwe', 'Seeker', '2018-08-12 20:14:35', 0),
-(26, 1, 3, 'ewq', 'Passer', '2018-08-12 20:14:38', 0),
-(27, 1, 3, 'trtrtr', 'Passer', '2018-08-12 20:32:25', 0),
-(28, 1, 3, 'qw', 'Seeker', '2018-08-19 09:25:57', 0),
-(29, 1, 2, NULL, NULL, '2018-08-19 12:10:28', 0);
+(2, 1, 3, '', '', '2018-09-01 21:29:36', 0);
 
 -- --------------------------------------------------------
 
@@ -309,7 +275,34 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (47, 3, NULL, 'cancellationSeeker', '1', 0),
 (48, 3, NULL, 'cancellationSeeker', '1', 0),
 (49, NULL, 3, 'cancellationSeeker', '1', 1),
-(50, NULL, 5, 'cancellationSeeker', '1', 1);
+(50, NULL, 5, 'cancellationSeeker', '1', 1),
+(51, 3, NULL, 'jobOfferSeeker', '3', 0),
+(52, 3, NULL, 'jobOfferSeeker', '3', 0),
+(53, 3, NULL, 'jobOfferSeeker', '3', 0),
+(54, 3, NULL, 'jobOfferSeeker', '3', 0),
+(55, 3, NULL, 'cancellationSeeker', '1', 0),
+(56, NULL, 1, 'cancellationSeeker', '2', 0),
+(57, NULL, 1, 'cancellationSeeker', '2', 0),
+(58, 3, NULL, 'jobOfferSeeker', '3', 0),
+(59, 3, NULL, 'cancellationSeeker', '1', 0),
+(60, NULL, 1, 'cancellationSeeker', '2', 0),
+(61, NULL, 1, 'JobOffer', '1', 0),
+(62, 3, NULL, 'jobOfferSeeker', '3', 0),
+(63, 3, NULL, 'cancellationSeeker', '1', 0),
+(64, NULL, 1, 'cancellationSeeker', '2', 0),
+(65, 3, NULL, 'joboffered', '4', 0),
+(66, 3, NULL, 'joboffered', '4', 0),
+(67, 3, NULL, 'jobOfferSeeker', '4', 0),
+(68, 3, NULL, 'jobOfferSeeker', '3', 0),
+(69, NULL, 1, 'cancellationSeeker', '1', 0),
+(70, NULL, 3, 'cancellationSeeker', '2', 1),
+(71, NULL, 3, 'cancellationSeeker', '2', 1),
+(72, NULL, 3, 'cancellationSeeker', '2', 1),
+(73, NULL, 3, 'cancellationSeeker', '2', 1),
+(74, NULL, 6, 'JobOffer', '1', 1),
+(75, NULL, 1, 'JobOffer', '1', 0),
+(76, 3, NULL, 'jobOfferSeeker', '3', 0),
+(77, NULL, 1, 'JobOffer', '3', 0);
 
 -- --------------------------------------------------------
 
@@ -332,9 +325,8 @@ CREATE TABLE `offerjob` (
 --
 
 INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
-(2, 3, 3, 3, 'hehe', '2018-08-29 18:14:29', 6),
-(3, 4, 3, 5, '', '2018-08-30 02:48:44', 6),
-(4, 5, 3, 1, '', '2018-08-29 16:22:12', 6);
+(1, 5, 3, 6, '', '2018-09-01 21:11:41', 1),
+(2, 5, 3, 1, '', '2018-09-01 21:14:00', 5);
 
 -- --------------------------------------------------------
 
@@ -390,7 +382,7 @@ CREATE TABLE `offerjobformused` (
 --
 
 INSERT INTO `offerjobformused` (`JobOfferFormUsedID`, `OfferJobID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `Notes`, `OfferJobFormStatus`) VALUES
-(6, 3, 'sda', '2018-08-01', '2018-08-31', 1000, 'Online', 'In-House', '', 1);
+(1, 2, 'lhehe', '2018-08-09', '2018-08-16', 5000, 'Online', 'In-House', '', 1);
 
 -- --------------------------------------------------------
 
@@ -922,7 +914,7 @@ ALTER TABLE `canceljob`
 -- AUTO_INCREMENT for table `canceljoboffer`
 --
 ALTER TABLE `canceljoboffer`
-  MODIFY `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `certificateofemployment`
@@ -952,7 +944,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `multimedia`
@@ -964,13 +956,13 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
 --
 ALTER TABLE `offerjob`
-  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `offerjobform`
@@ -982,7 +974,7 @@ ALTER TABLE `offerjobform`
 -- AUTO_INCREMENT for table `offerjobformused`
 --
 ALTER TABLE `offerjobformused`
-  MODIFY `JobOfferFormUsedID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `JobOfferFormUsedID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `passer`

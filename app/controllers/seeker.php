@@ -267,7 +267,7 @@
 		}
 
 		public function joboffered(){
-			$details = $jobOffers = $joinedJobOffers = $page = $builder = $dom = $pagination = $paginationData = $checkTransaction = $status = $headerColor = $employmentAgreement = $update = null;
+			$details = $jobOffers = $joinedJobOffers = $page = $builder = $dom = $pagination = $paginationData = $checkTransaction = $status = $headerColor = $employmentAgreement = $update = $cancelInitiator = null;
 			$data = [];
 			if(!$this->checkSession("seekerUser")){
 				header("location: ../home/login");
@@ -327,24 +327,36 @@
 						case 5:
 							$status = '<a class="badge badge-primary text-white font-weight-bold ">Officially Hired</a>';
 							$headerColor = 'bg-primary';
-							$employmentAgreement = 
-							'
-							<button type="button" id="cancelJobOfferModal" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancel" name="cancelJobOffer">
-	                          Make an Employment Agreement
-	                        </button>
-							';
+							$employmentAgreement = null;
 							$update = null;
 							break;
 						case 6:
-							$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
-							$headerColor = 'bg-warning';
-							$employmentAgreement = 
-							'
-							<button type="button" id="cancelJobOfferModalMine" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancelMine" name="cancelJobOfferMine">
-	                          Show Details
-	                        </button>
-							';
-							$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
+							$cancelInitiator = $this->model->selectAllDynamic("canceljoboffer",array("*"),array("OfferJobID",$this->seekerUnique),array($joinedJobOffers['OfferJobID'],$this->seekerSession))[0];
+							switch ($cancelInitiator['CancellationInitiator']) {
+								case 'Passer':
+									$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
+									$headerColor = 'bg-warning';
+									$employmentAgreement = 
+									'
+									<button type="button" id="cancelJobOfferModalMine" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancelMine" name="cancelJobOfferMine">
+			                          Show Details
+			                        </button>
+									';
+									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
+									break;
+								case 'Seeker':
+									$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
+									$headerColor = 'bg-warning';
+									$employmentAgreement = null;
+									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
+									break;
+							}
+							break;
+						case 7:
+							$status = '<a class="badge badge-danger font-weight-bold ">Cancelled</a>';
+							$headerColor = 'bg-danger';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-black">Cancelled on:</b> </small>';
 							break;
 					}
 					$builder = 

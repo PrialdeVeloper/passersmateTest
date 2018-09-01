@@ -327,7 +327,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 		    </div>
 		    <!-- END OF CANCEL MODAL -->
 
-		    <!-- Cancel Modal -->
+		    <!-- CancelRequest Modal -->
               <div class="modal fade" id="cancelMine" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">

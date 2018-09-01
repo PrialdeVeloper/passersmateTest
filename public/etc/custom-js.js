@@ -2614,7 +2614,7 @@ $(function(){
 		$.ajax({
 			url: "updateJobOfferStatus",
 			method: "POST",
-			data: {"update":"","newStatus":3,"jobofferID":jobofferIDPasser,"jobofferIDSeeker":jobofferIDSender},
+			data: {"update":"","newStatus":3,"jobofferID":jobofferIDPasser,"otherUser":jobofferIDSender},
 			success: function(a){
 				console.log(a);
 				let obj = JSON.parse(a);
@@ -2625,11 +2625,11 @@ $(function(){
 						jobofferIDPasser = "";
 						jobofferIDSender = "";
 					break;
-					case "notVerifiedSeeker":
-						toastError('Sorry, You have not yet been verified. Please try to verify your account <a href="dashboard">Here.</a>');
+					case "seekerNotVerified":
+						toastError('Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety');
 					break;
-					case "notVerifiedPasser":
-						toastError("Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety");
+					case "passerNotVerified":
+						toastError('Sorry, You have not yet been verified or has been disabled. Please try to verify your account <a href="dashboard">Here.</a>');
 					break;
 					case "hasExistingWork":
 						toastError('Sorry, You already have an existing work. Please finish the work first and mark let your hirer mark it as done.');
@@ -2637,48 +2637,15 @@ $(function(){
 					case "noneExistingJobOffer":
 						window.location = 'joboffers';
 					break;
-					case "noSubscription":
-						toastError('Sorry, this seeker has no active subscription and therefore cannot hire you anymore.');
+					case "notAcceptable":
+						window.location = 'joboffers';
 					break;
 				}
 			}
 		});
 	});
 
-	$("#messageSeeker").click(function(){
-		let SeekerID = $(this).parent().prev().find("input[name=seekerID]").val();
-		$.ajax({
-			url: "addSeekerToMessage",
-			method: "POST",
-			data: {"addtomessage":"","seekerID":SeekerID},
-			success: function(a){
-				console.log(a);
-				let obj = JSON.parse(a);
-				if(obj.error == "notFound"){
-					showDivError(divErrorProfile,"Passer not found. Please try to search again.");
-				}
-				if(obj.error == "notActivatedPasser"){
-					showDivError(divErrorProfile,"Passer is currently unavailable for chat or hire.");
-				}
-				if(obj.error == "notActivatedSeeker"){
-					showDivError(divErrorProfile,"Please make sure you are already verify by Passersmate <a href=../seeker/dashboard> Here</a>");
-				}
-				if(obj.error == "noSubscription"){
-					showDivError(divErrorProfile,"Please make sure you have an active subscription by applying <a href=../home/subscription> Here</a>");
-				}
-				if(obj.error == "none"){
-					divErrorProfile.empty().hide();
-					window.location ="../home/messages";
-				}
-				console.log(a);
-			},
-			fail: function(){
-				alert("cannot connect to server.");
-			}
-		});
-	});
-
-	$("#cancelJobOfferModal").click(function(){
+	$("#cancelJobOfferModal, button[name=declineJobOffer]").click(function(){
 		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
 			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
 			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2757,6 +2724,7 @@ $(function(){
 				method:"POST",
 				data:{"getCancelData":"","id":jobofferID},
 				success: function(a){
+					console.log(a);
 					let obj = JSON.parse(a).data;
 					name.html(obj.PasserFN +" "+ obj.PasserLN);
 					title.html(obj.PasserCertificate);
@@ -2767,40 +2735,104 @@ $(function(){
 	});
 
 	$("#approveCancel").click(function(){
+		console.log(othersideCancelJobOffer);
 		$.ajax({
-			url: "updateJobOfferStatusSeeker",
+			url: "updateJobOfferStatus",
 			method: "POST",
-			data: {"update":"","newStatus":7,"jobofferID":othersideCancelJobOffer,"jobofferIDSeeker":othersideCancelOtherUser},
+			data: {"update":"","newStatus":7,"jobofferID":othersideCancelJobOffer,"otherUser":othersideCancelOtherUser},
 			success: function(a){
 				console.log(a);
 				let obj = JSON.parse(a);
 				switch(obj.error){
 					case "none":
 						toastSuccess("You have successfully Accepted the job offered.");
-						delayRedirect("joboffers");
-						othersideCancelJobOffer = "";
-						othersideCancelOtherUser = "";
+						delayRedirect(currentHome);
+						jobofferIDPasser = "";
+						jobofferIDSender = "";
 					break;
 					case "notVerifiedSeeker":
-						toastError('Sorry, You have not yet been verified. Please try to verify your account <a href="dashboard">Here.</a>');
+						toastError('Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety');
 					break;
 					case "notVerifiedPasser":
-						toastError("Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety");
-					break;
-					case "hasExistingWork":
-						toastError('Sorry, You already have an existing work. Please finish the work first and mark let your hirer mark it as done.');
+						toastError('Sorry, You have not yet been verified or has been disabled. Please try to verify your account <a href="dashboard">Here.</a>');
 					break;
 					case "noneExistingJobOffer":
-						window.location = 'joboffers';
+						window.location = currentHome;
 					break;
-					case "noSubscription":
-						toastError('Sorry, this seeker has no active subscription and therefore cannot hire you anymore.');
+					case "notAcceptable":
+						window.location = currentHome;
 					break;
 				}
+
 			}
 		});
 	});
 
+	$(".yesCancel").click(function(){
+		$.ajax({
+			url: "updateJobOfferStatus",
+			method: "POST",
+			data: {"update":"","newStatus":4,"jobofferID":cancelJobOffer,"otherUser":cancelOtherUser},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				switch(obj.error){
+					case "none":
+						toastSuccess("You have successfully Declined the job offered.");
+						delayRedirect(currentHome);
+						jobofferIDPasser = "";
+						jobofferIDSender = "";
+					break;
+					case "notVerifiedSeeker":
+						toastError('Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety');
+					break;
+					case "notVerifiedPasser":
+						toastError('Sorry, You have not yet been verified or has been disabled. Please try to verify your account <a href="dashboard">Here.</a>');
+					break;
+					case "noneExistingJobOffer":
+						window.location = currentHome;
+					break;
+					case "notAcceptable":
+						window.location = currentHome;
+					break;
+				}
+
+			}
+		});
+	});
+
+	$("button[name=messageSeeker]").click(function(){
+		let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
+		let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
+		$.ajax({
+			url: "addSeekerToMessage",
+			method: "POST",
+			data: {"addtomessage":"","seekerID":otherUser},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				if(obj.error == "notFound"){
+					showDivError(divErrorProfile,"Passer not found. Please try to search again.");
+				}
+				if(obj.error == "notActivatedPasser"){
+					showDivError(divErrorProfile,"Passer is currently unavailable for chat or hire.");
+				}
+				if(obj.error == "notActivatedSeeker"){
+					showDivError(divErrorProfile,"Please make sure you are already verify by Passersmate <a href=../seeker/dashboard> Here</a>");
+				}
+				if(obj.error == "noSubscription"){
+					showDivError(divErrorProfile,"Please make sure you have an active subscription by applying <a href=../home/subscription> Here</a>");
+				}
+				if(obj.error == "none"){
+					window.location ="../home/messages";
+				}
+				console.log(a);
+			},
+			fail: function(){
+				alert("cannot connect to server.");
+			}
+		});
+	});
 
 });	
 // end of accept joboffer

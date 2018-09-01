@@ -63,11 +63,6 @@
 			return implode($data," = ? and ");
 		}
 
-		public function ownQuery($query){
-			$this->stmt = $this->con->query($query);
-			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-		}
-
 		public function selectAll($from){
 			$this->stmt = $this->con->query("SELECT * FROM $from");
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -222,7 +217,7 @@
 
 		public function joinOfferJob($data){
 			try {
-				$this->stmt = $this->con->prepare("SELECT * FROM `offerjob` a, `offerjobform` b, `seeker` c where a.`OfferJobID` = b.`OfferJobFormID` and a.`SeekerID` = c.`SeekerID` and a.`OfferJobID` = ?");
+				$this->stmt = $this->con->prepare("SELECT * FROM `offerjob` a, `offerjobform` b, `seeker` c WHERE a.`OfferJobFormID` = b.`OfferJobFormID`and a.`SeekerID` = c.`SeekerID` and a.`OfferJobID` = ?");
 				$this->stmt->execute($data);
 				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 			} catch (Exception $e) {
