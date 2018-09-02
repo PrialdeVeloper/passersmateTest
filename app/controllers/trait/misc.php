@@ -123,7 +123,7 @@
 		}
 
 		public function JOformDisplayDefault(){
-			$passerID = $default = $checkTransaction = null;
+			$passerID = $default = $offerJobCheck = $flag = null;
 			if(isset($_POST['getDefaultBitch'])){
 				if(strlen($_POST['id']) != 14){
 					$passerID = $this->sanitize($_POST['id']);
@@ -139,8 +139,15 @@
 						if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
 							if($this->getDetailsPasser($passerID)[0]['PasserStatus'] == 1){
 								if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
-									$checkTransaction = $this->model->selectAllDynamic($this->offerJobAddTable,array("OfferJobStatus"),array($this->seekerUnique,$this->passerUnique,"OfferJobStatus"),array($_SESSION['seekerUser'],$_SESSION['passerJobOffer'],1));
-									if(empty($checkTransaction)){
+									$offerJobCheck = $this->model->selectAllFromUser("offerjob",$this->passerUnique,array($passerID));
+									if(!empty($offerJobCheck)){
+										foreach ($offerJobCheck as $data) {
+											if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
+												$flag = 1;
+											}
+										}
+									}
+									if($flag == null){
 										$default = $this->getDefaultOfferJob($_SESSION['seekerUser']);
 										$default['formattedStartDate'] = date("F jS, Y", strtotime($default[0]['StartDate']));
 										$default['formattedEndDate'] = date("F jS, Y", strtotime($default[0]['EndDate']));
@@ -173,7 +180,7 @@
 		}
 
 		public function offerJobAdd(){
-			$insert = $defaultJobOffer = $checkTransaction = null;
+			$insert = $defaultJobOffer = $offerJobCheck = $flag = null;
 			if(isset($_POST['offerJobAdd'])){
 				if($this->checkSession('passerJobOffer')){
 					if($this->checkSession('seekerUser')){
@@ -181,8 +188,15 @@
 							if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
 								if($this->getDetailsPasser($_SESSION['passerJobOffer'])[0]['PasserStatus'] == 1){
 									if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
-										$checkTransaction = $this->model->selectAllDynamic($this->offerJobAddTable,array("OfferJobStatus"),array($this->seekerUnique,$this->passerUnique),array($_SESSION['seekerUser'],$_SESSION['passerJobOffer']));
-										if(empty($checkTransaction)){
+										$offerJobCheck = $this->model->selectAllFromUser("offerjob",$this->passerUnique,array($_SESSION['passerJobOffer']));
+										if(!empty($offerJobCheck)){
+											foreach ($offerJobCheck as $data) {
+												if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
+													$flag = 1;
+												}
+											}
+										}
+										if($flag == null){
 											$notes = (isset($_POST['notes'])?$this->sanitize($_POST['notes']):"");
 											$defaultJobOffer = $this->getDefaultOfferJob($_SESSION['seekerUser'])[0]['OfferJobFormID'];
 											$insert = $this->model->insertDB($this->offerJobAddTable,$this->offerJobAddDB,array($defaultJobOffer,$_SESSION['seekerUser'],$_SESSION['passerJobOffer'],$notes));
@@ -1742,7 +1756,7 @@
 			}
 
 			public function updateJobOfferStatus(){
-				$newStatus = $jobofferID = $otherUserID = $update = $currentUserID = $otherUserUnique = $otherUserTable = $currentUserUnique = $flag = $checkExist = $jobOfferData = null;
+				$newStatus = $jobofferID = $otherUserID = $update = $currentUserID = $otherUserUnique = $otherUserTable = $currentUserUnique = $flag = $checkExist = $jobOfferData = $agreementCheck = null;
 				if(isset($_POST['update'])){
 					$newStatus = $this->sanitize($_POST['newStatus']);
 					$jobofferID = $this->sanitize($_POST['jobofferID']);
@@ -1794,6 +1808,10 @@
 											if($OfferJobStatus == 6){
 												$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
 												if($update){
+													$agreementCheck = $this->model->joinAgreementCancel($this->passerUnique,array($this->passerSession));
+													if(!empty($agreementCheck) && $agreementCheck[0]['OfferJobID'] == $jobofferID){
+														$update = $this->model->updateDBDynamic("agreement",array("AgreementStatus"),array(3,$agreementCheck[0]['AgreementID']),array("AgreementID"));
+													}
 													$this->createNotification("cancellationSeeker",array("sendTo"=>"PasserID","id"=>$otherUserID,"message"=>"2"));
 													$this->model->updateDB($this->cancelTable,array("CancellationStatus"),array(2),"OfferJobID",$jobofferID);
 													echo json_encode(array("error"=>"none"));

@@ -2443,6 +2443,7 @@ $(function(){
 			method: "POST",
 			data: {"getDefaultBitch":"","id":id},
 			success: function(a){
+				console.log(a);
 				let obj = JSON.parse(a);
 				switch(obj.error){
 					case "none":
@@ -2502,6 +2503,7 @@ $(function(){
 			method: "POST",
 			data: {"offerJobAdd":"","notes":notes},
 			success: function(a){
+				console.log(a);
 				let obj = JSON.parse(a);
 				switch(obj.error){
 					case "none":

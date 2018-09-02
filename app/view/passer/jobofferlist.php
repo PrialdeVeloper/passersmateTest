@@ -133,7 +133,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                       </button>
                     </div>
                     <div class="modal-body">
-                      <u class="font-weight-bold" id="cancelName"></u> who has a job of <u class="font-weight-bold" id="jobtitleName"></u> is requesting to cancel the job for the reason of 
+                      <u class="font-weight-bold" id="cancelName"></u> who offered you a job<u class="font-weight-bold" id="jobtitleName"></u> is requesting to cancel the job for the reason of 
                        <textarea class="form-control mb-2" id="reasonName" rows="3" disabled></textarea>
                       Do you agree to the cancellation of the said job, Mate?
                       <br>

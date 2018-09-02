@@ -34,7 +34,8 @@ offerjob(new)
 4 = declined
 5 = hired
 6 = pending for cancellation
-7 = canceled
+7 = cancelled
+8 = done
 
 offerjobPasser
 1 = new job offer
@@ -56,7 +57,9 @@ offerjobform(new)
 
 agreement
 1 = hired
-0 = done
+2 = done
+3 = cancelled
+4 = dispute
 
 canceljoboffer
 1 = pending
@@ -66,3 +69,9 @@ canceljoboffer
 (bugs)
 budget range
 mo auto 5k
+
+subcription
+header(login)
+
+
+cancelled = cancelform, agreement

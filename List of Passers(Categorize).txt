@@ -1,0 +1,400 @@
+email:lastname@gmail.com
+password: passer101
+
+HOUSEHOLD SERVICES NC II
+
+1.LINCUNA, JULIETA L.	15130702030231	
+lincuna@g.com
+Address: Pasil C.C
+---------------------
+2.ESPIRITU, JUDITH L.	12130302008762
+espiritu@g.com
+Address: Suba C.C
+---------------------
+3.CAPULOT, ROSALIE C.	11130502021151
+capulot@g.com
+Address: Pasil C.C
+---------------------
+4.VIOLA, VENUS F.	16130602003606
+violau@g.com
+Address: Duljo C.C
+---------------------
+5.PENASO, MARICON A.	15130602042125
+penaso@g.com
+Address: Pasil C.C
+---------------------
+6.MOYA, JUDY ANN D.	11130502021197
+moya@g.com
+Address: Padre Burgos Street C.C
+---------------------
+7.BABA, MAYPRIL C.	15100302003306
+baba@g.com
+Address: Lahug C.C
+---------------------
+JAPSAY, ROSE ANN B.	15120502006644
+japsay@g.com
+Address: Guadalupe C.C
+---------------------
+8.GALAMAY, GINE ROSE G.	14120502004949
+galamay@g.com
+Address: Guadalupe C.C
+---------------------
+9.MOSENDE, HADASA V.	14130502064225
+mosende@g.com
+Address: Guadalupe C.C
+---------------------
+10.ANDUYAN, MARJORIE C.	15100402008672
+anduyan@g.com
+Address: Padre Burgos Street C.C
+---------------------
+11.BAGUIO, ANGELIE C.	15100402008673
+baguio@g.com
+Address: Jakosalem Street C.C
+---------------------
+12.BALANGAO, AILYN T.	15100402008674
+Address: Guadalupe C.C
+---------------------
+13.DE LA TORRE, ANTONETTE C.	15100402008675
+Address: Guadalupe C.C
+---------------------
+14.ENCABO, SHIELA N.	15100402008676
+Address: Jakosalem Street C.C
+---------------------
+15.MAYBITUIN, JOY D.	15100402008677
+Address: P. Gullas Street C.C
+---------------------
+16.PAUYA, REGINA D.	15100402008678
+Address:	F. Dalupan Street Manila City
+---------------------
+17.RIN, JIMALYN P.	15100402008679
+Address:   Sabino Padilla Street Manila City
+---------------------
+18.RIN, JUNNA MARIE H.	15100402008680
+Address:		Arquiza Street Manila City
+---------------------
+19.BAGSICAN, LEAH MAE O.	15100302003307
+Address:	F. Dalupan Street Manila City
+---------------------
+20.RAMILO, MICHELLE P.	15130602031625
+Address:   Sabino Padilla Street Manila City
+---------------------
+21.ALVARADO, LADY MISCHELLE C.	15130602027447
+Address:   Sabino Padilla Street Manila City
+---------------------
+22.GARCIA, DEVINE GRACE F.	15130602027954
+Quezon City, Metro Manila
+---------------------
+23.JATULAN, LUCY M.	16130602004965
+Quezon City, Metro Manila
+---------------------
+24.DAANG, ELENA C.	15130602034413
+Quezon City, Metro Manila
+---------------------
+25.ATTOLBA, SHIRLY ANN A.	13130602115768
+Matina Crossing Davao City
+---------------------
+26.LIBUNGAN, JANE C.	13130602116691
+Matina Pangi Davao City
+---------------------
+27.JAVONILLA, JENILYN A.	14131402025927
+Matina Pangi Davao City
+---------------------
+28.BALLATAN, MA. WILLEA MICHELLE A.	15130602026572
+Matina Pangi Davao City
+---------------------
+29.CHAN, JESSICA C.	15130602030128
+Agdao Proper Davao City
+---------------------
+30.PANALAGAO, ROSINDA B.	14131402025026
+Agdao Proper Davao City
+---------------------
+
+VISUAL GRAPHICS
+
+1.DE LOS SANTOS, KENNETH C.	16012803006703
+Guadalupe C.C
+---------------------
+2.CATAGUE, JOHN CARLO N.	15031403083897
+Guadalupe C.C
+---------------------
+3.GOJO CRUZ, HERBERT M.	15030303007267
+Guadalupe C.C
+---------------------
+4.LAVARIAS, ROLANDO B.	15031403083886
+P. Gullas Street
+---------------------
+5.TURLA, NELMIE E.	14130203023481
+P. Gullas Street
+---------------------
+6.MARQUINA, ARHON PAUL A.	17001903000013
+Ermita C.C
+---------------------
+7.ALCANTARA, VELVA JANE S.	15031403008228
+Lahug C.C
+---------------------
+8.ROSAL, AIRIE ROSE L.	16160303001563
+Jones Avenue C.C
+---------------------
+9.MOLINA, RICEL	16160303001564
+Jones Avenue C.C
+---------------------
+10.FABILLAR, EDDIE R.	16160303001562
+Jones Avenue C.C
+---------------------
+11.BUHOY, FAITH R.	16160303001565
+Jones Avenue C.C
+---------------------
+12.MANTILLA, NOVIE C.	16160303001560
+P.Del Rosario C.C
+---------------------
+13.JULIBAYAN, JESSICA S.	16160303001557
+P.Del Rosario C.C
+---------------------
+14.ITAAS, ALFREDO JR. B.	16160303001561
+P.Del Rosario C.C
+---------------------
+15.CUANO, MARY GRACE M.	16160303001558	
+P.Del Rosario C.C
+---------------------
+16.CAONTOD, SHIELA N.	16160303001559	
+Santo Tomas Proper Baguio City
+--------------------- 
+17.TAFALLA, GARRY H.	16160303001552	
+Santo Tomas Proper Baguio City
+--------------------- 
+18.SERNA, ERNILYN N.	16160303001551	
+Santo Tomas Proper Baguio City
+---------------------
+19.SEBUA, MAE JOY E.	16160303001555	
+Santo Tomas Proper Baguio City
+---------------------
+20.MORALDE, CHISTEN T.	16160303001550	
+Sta. Barbara Zamboanga City
+--------------------- 
+21.ESCABAL, JAY RALFH N 16160303001553	
+Sta. Barbara Zamboanga City
+---------------------
+22.DIONSAY, ANGELIE F.	16160303001556	
+Sta. Barbara Zamboanga City
+---------------------
+23.CASTAÑAREZ, JASON G.	16160303001549	
+Sta. Barbara Zamboanga City
+---------------------
+24.ALFONSO, JAN LARY	16160303001554	
+La Paz Zamboanga City
+--------------------- 
+25.VARGAS, RUSELLE YETTE E. 16160303001363 
+Tondo Manila
+---------------------
+26.TABIOS, KENT AMADEO C. 16160303001362	
+Alicia	Quezon City
+--------------------- 
+27.SIMUGAN, JHON IVAN S. 16160303001361	
+Baesa	Quezon City
+---------------------
+28.PANES, JEFFRY B.	 16160303001360	
+Camarin	Caloocan
+--------------------- 
+29.NACION, NIÑO G.	 16160303001359	
+Commonwealth	Quezon City
+---------------------
+30.MONGAYA, CHERYL B.	 16160303001356	
+Dasmariñas	Makati
+--------------------- 
+
+DRIVING
+
+1.NEMIÑO, RICKY C.	14330402002790	
+Colon Street C.C
+---------------------
+2.YSITA, BIENVENIDO F.	14120302000152	
+Colon Street 
+---------------------
+3.BUSA, DECMYROLD Y.	16082602003224	
+Colon Street 
+4.PACARDO, DAZEL JOHN S.	16063002315374
+Junquera Street C.C	
+---------------------
+5.SORIANO, EDUARDO J.	12130603138623	
+Junquera Street C.C
+---------------------
+6.DOMONDON, JEFFREY C.	12130603138762	
+F. Rallos Street C.C
+---------------------
+7.PAJOTAL, KERBE Z.	13170403002178	
+F. Rallos Street C.C
+---------------------
+8.CAGAMPANG, REYJOHN B.	16166802003764	
+Carlock Street C.C
+---------------------
+9.DELOS REYES, ARNEL O.	12130703038957	
+Carlock Street C.C
+---------------------
+10.BRIONES, MARVIN B.	12130603123909	
+Carlock Street C.C
+---------------------
+11.NIERVA, GLOBERT B.	12130603126192
+V. Rama Avenue C.C	
+---------------------
+12.RENDON, WELYN C.	1213140325649	
+Pasil C.C
+---------------------
+13.APRONG, JOEL P.	15126502003690	
+V. Rama Avenue C.C
+---------------------
+14.SANTOS, ADRIAN P.	14130603212147	
+V. Urgello Street C.C
+---------------------
+15.MACANAS, PATRICK R.	15126502003889	
+V. Urgello Street C.C
+---------------------
+16.PISON, SIDNEY S.	15130302048859	
+Baesa	Quezon City
+---------------------
+17.ROCERO, ERLINDA B.	16160302000078	
+Baesa	Quezon City
+---------------------
+18.BARTE, BEVELYN A.	16160302000079	
+Baesa	Quezon City
+---------------------
+19.ALCONES, JAY-AR Q.	16160302000081	
+Sta. Barbara Zamboanga City
+---------------------
+20.AGUILLON, JOVEN P.	16160302000080
+Sta. Barbara Zamboanga City
+---------------------
+21.VERANO, JERIEL O.	16160302000070	
+Sta. Barbara Zamboanga City
+---------------------
+22.VALLESTERO, ARLONE REE B.	16160302000074	
+Commonwealth	Quezon City
+---------------------
+23.SUMILE, JOPHET P.	16160302000068	
+Commonwealth	Quezon City
+---------------------
+24.PLAZA, KARL KEVIN V.	16160302000072	
+Commonwealth	Quezon City
+---------------------
+25.PAMONAG, JHELDAN	16160302000077	
+Tondo Manila
+---------------------
+26.IGNACIO, NANIEL C.	16160302000073	
+Tondo Manila
+---------------------
+27.DEMEGILLO, MELCH MARION C.	16160302000076	
+Tondo Manila
+---------------------
+28.BESEOS, BENEDICT D.	16160302000075	
+Commonwealth	Quezon City
+---------------------
+29.BATISTING, JUNREY D.	16160302000069	
+Commonwealth	Quezon City
+---------------------
+30.ASIS, RENERIC A.	16160302000071	
+Commonwealth	Quezon City
+---------------------
+CARPENTRY
+1.RICHARD, CABILAN B.	17000002000222	
+J. M. Basa Street C.C
+---------------------
+2.CUSTODIO, ANGEL R.	14040202029442
+J. M. Basa Street C.C
+---------------------	
+3.VILLANUEVA, MICAHEL L.	14040202028726	
+J. M. Basa Street C.C
+---------------------
+4.STA. ANA, DIONESIO S.	14330202004862
+Carlock Street C.C	
+---------------------
+5.LADRES, JOSEPH T.	14330202004859
+Carlock Street C.C	
+---------------------	
+6.GLORIA, ALLAN L.	15166702002752
+Carlock Street C.C		
+---------------------
+7.SALAS, MELCHOR A.	15330202002313
+V. Rama Avenue C.C	
+---------------------
+8.JAWEL, JORDANO M.	15160302002710
+V. Rama Avenue C.C
+---------------------	
+9.PARIÑAS, JOEL L.	16166803004808
+P. Del Rosario Street C.C
+---------------------
+10.ULBIDA, DAMASO JR. L.	16166702000745
+P. Del Rosario Street C.C
+---------------------	
+11.PLAZA, JADE CYRUS R.	16166702000744
+Commonwealth	Quezon City
+---------------------	
+12.LUGA, JERRY P.	16166702000743	
+Commonwealth	Quezon City
+---------------------
+13.LUAREZ, LEONIL A.	16166702000742
+Tondo Manila
+---------------------	
+14.ESTRADA, ONESIMO SR. J.	16166702000741
+Tondo Manila
+---------------------	
+15.ESPINO, RANNIE MAR R.	16166702000740
+Tondo Manila
+---------------------	
+16.VERANO, JOHN LLOYD	16166702000739	
+Sta. Barbara Zamboanga City
+---------------------
+17.ROSITE, MICHAEL ANDREW C.	16166702000738
+Sta. Barbara Zamboanga City
+---------------------	
+18.RAZONABLE, JASON	16166702000737
+Sta. Barbara Zamboanga City
+---------------------	
+19.EUSEBIO, JEFFRY R.	16166702000736
+Baesa	Quezon City
+---------------------	
+20.ESTRADA, CHARLIE MARK K.	16166702000735
+Baesa	Quezon City
+---------------------	
+
+
+For Preparation:
+Working Address and Seeker Address:
+Carlock Street C.C	
+Junquera Street C.C
+Sta. Barbara Zamboanga City
+Commonwealth	Quezon City
+------------------------------------
+Login Passer
+1.BABA, MAYPRIL C.	15100302003306
+baba@g.com
+Address: Lahug C.C
+2.7.SALAS, MELCHOR A.	15330202002313
+V. Rama Avenue C.C	
+------------------------------------
+Login Seeker
+1. Remegia Abuga
+Job Title:HOUSEHOLD SERVICES
+Carlock Street C.C	
+remegia@gmail.com
+password:seeker101
+Salary:PHP 7,234
+Start Date:Sept.25-Nov.6
+NOTES:
+Clean rooms on a daily basis.
+Clean accidental spills and carries out cleaning tasks other than daily routine.
+Fill cart with supplies and transport cart to assigned area.
+Disinfect and wash beds and trash cans as scheduled.
+Perform deep cleaning of rooms as assigned.
+
+2. Gemma Prialde
+Commonwealth	Quezon City
+Job Title: CARPENTRY
+gemma@gmail.com
+password:seeker101
+Salary:Hourly Rate	PHP 66.00 Hourly Rate PHP 3,006
+Start Date: September 25- October 12
+NOTES:
+Build closets, counters, shelves, cabinets, doors, bulletin boards, windows, wall panels and other related finish carpentry items.
+Dismantle or demolish and remove designated items prior to the commencement of repairs.
+Select lumber, materials and supplies.
+Work from blueprints, sketches and drawings in addition to verbal and written descriptions to accomplish the job.
+-------------------------------------

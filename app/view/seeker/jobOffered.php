@@ -312,7 +312,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 		          </div>
 		          <form id="cancelJobOffer">
 		          <div class="modal-body">
-		             <small class="font-weight-bold text-info">Note: Cancellation is approved only if the seeker agreed to do so, otherwise cancellation cannot be process.</small><br>
+		             <small class="font-weight-bold text-info">Note: Cancellation is approved only if the passer agreed to do so, otherwise cancellation cannot be process.</small><br>
 		            Are you sure you want to cancel your job?<br><br>
 		            If cancel, please tell us the reason.
 		             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
