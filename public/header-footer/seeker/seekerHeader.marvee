@@ -38,7 +38,7 @@ if(isset($_SESSION['seekerUser'])){
 		<header>
 			<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigation">
 				<a class="navbar-brand" href="#">
-					<img src="../../public/etc/images/dashboard/header/header-logo.png" class="img-fluid header-image">
+					<img src="../../public/etc/images/dashboard/header/header-logo.png" class="img-fluid header-image" style="height:50px;width:180px">
 				</a>
 				<button type="button" class="navbar-toggler" data-target="#navbar-header" data-toggle="collapse">
 					<span class="navbar-toggler-icon"></span>

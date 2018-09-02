@@ -1849,3 +1849,9 @@ header {
 .subscribe {
     color: #fff;
 }
+
+.secondImageIndex{
+    margin-top: 7px!important;
+    height: 37px!important;
+    width: 175px!important;
+}
