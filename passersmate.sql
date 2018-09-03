@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2018 at 04:32 PM
+-- Generation Time: Sep 03, 2018 at 09:02 AM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -591,10 +591,12 @@ INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`
 
 CREATE TABLE `review` (
   `ReviewID` int(11) NOT NULL,
-  `Review` int(11) NOT NULL,
-  `Star` int(11) NOT NULL,
-  `ReviewBy` int(11) NOT NULL,
-  `ReviewTo` int(11) NOT NULL
+  `PasserID` int(11) NOT NULL,
+  `SeekerID` int(11) NOT NULL,
+  `AgreementID` int(11) NOT NULL,
+  `ReviewBy` varchar(255) NOT NULL,
+  `Rating` bigint(20) NOT NULL,
+  `Comment` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
