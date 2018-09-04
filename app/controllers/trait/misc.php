@@ -1891,7 +1891,7 @@
 										case '8':
 											if($OfferJobStatus != 1 || $OfferJobStatus !=2){
 												$reason = $this->sanitize($_POST['reason']);
-												$insert = $this->model->insertDB($this->disputeTable,$this->disputeDB,array($this->passerSession,$otherUserID,$jobofferID,$otherUserLiteral,$reason));
+												$insert = $this->model->insertDB($this->disputeTable,$this->disputeDB,array($this->seekerSession,$otherUserID,$jobofferID,$otherUserLiteral,$reason));
 												$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
 												if($update){
 													$agreementCheck = $this->model->joinAgreementCancel($this->seekerUnique,array($this->seekerSession));

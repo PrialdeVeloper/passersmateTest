@@ -358,7 +358,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 
               <!-- start of dispute form -->
 	<div class="modal fade" id="dispute">
-		<form>
+		<form id="disputeSubmit">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content bg-white">
 					<div class="modal-header bg-danger">

@@ -2567,6 +2567,7 @@ $(function(){
 			async: false,
 			success: function(a){
 				let obj = JSON.parse(a);
+				console.log(obj);
 				if(obj.error == "none"){
 					idJobOffer = offerjobformID;
 					joboffered = "offer";

@@ -315,13 +315,21 @@
 	                        <button type="button" id="cancelJobOfferModal" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancel" name="cancelJobOffer">
 	                          Cancel Job offer
 	                        </button>
+	                        <button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
+	                          Dispute
+	                        </button>
 							';
 							$update = null;
 							break;
 						case 4:
 							$status = '<a class="badge badge-danger text-white font-weight-bold ">Declined</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = null;
+							$employmentAgreement = 
+							'
+							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
+	                          Dispute
+	                        </button>
+							';
 							$update = null;
 							break;
 						case 5:
@@ -331,6 +339,9 @@
 							'
 							<button type="button" id="cancelJobOfferModal" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancel" name="cancelJobOffer">
 	                          Cancel Job offer
+	                        </button>
+	                        <button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
+	                          Dispute
 	                        </button>
 							';
 							$update = null;
@@ -346,13 +357,21 @@
 									<button type="button" id="cancelJobOfferModalMine" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#cancelMine" name="cancelJobOfferMine">
 			                          Show Details
 			                        </button>
+			                        <button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
+			                          Dispute
+			                        </button>
 									';
 									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
 									break;
 								case 'Seeker':
 									$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
 									$headerColor = 'bg-warning';
-									$employmentAgreement = null;
+									$employmentAgreement = 
+									'
+									<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
+			                          Dispute
+			                        </button>
+									';
 									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
 									break;
 							}
@@ -366,7 +385,12 @@
 						case 9:
 							$status = '<a class="badge badge-danger font-weight-bold ">Completed</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = null;
+							$employmentAgreement = 
+							'
+							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
+	                          Dispute
+	                        </button>
+							';
 							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
 							break;
 					}
