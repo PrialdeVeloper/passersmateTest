@@ -269,7 +269,8 @@
 							$headerColor = 'bg-secondary';
 							$employmentAgreement = 
 							'<button type="button" class="btn btn-outline-primary" data-toggle="modal" name="acceptJobOffer" data-target="#accept" title="Accept the Job offer">Accept</button>
-                       		<button type="button" class="btn btn-outline-danger" name="declineJobOffer" data-toggle="modal" data-target="#decline" title="Decline the Job offer">Decline</button>';
+                       		<button type="button" class="btn btn-outline-danger" name="declineJobOffer" data-toggle="modal" data-target="#decline" title="Decline the Job offer">Decline</button>
+                       		';
 	                        $update = '<small class="text-left "><b class="text-success">Updated:</b> </small>';
 							break;
 						case 3:
@@ -278,13 +279,18 @@
 							$employmentAgreement = 
 							'
                        		<button type="button" class="btn btn-outline-danger" id="cancelJobOfferModal" data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
+                       		<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
 							';
 							$update = '<small class="text-left "><b class="text-white">Accepted on:</b> </small>';
 							break;
 						case 4:
 							$status = '<a class="badge badge-success text-white float-right ml-5">Declined</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = null;
+							$employmentAgreement = 
+							'
+							<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+							'
+							;
 							$update = '<small class="text-left "><b class="text-success">Declined on:</b> </small>';
 							break;
 						case 5:
@@ -292,6 +298,7 @@
 							$headerColor = 'bg-primary';
 							$employmentAgreement = '
                        		<button type="button" class="btn btn-outline-danger" id="cancelJobOfferModal" data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
+							<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
 							';
 							$update = '<small class="text-left "><b class="text-success">Officially Hired on:</b> </small>';
 							break;
@@ -301,7 +308,9 @@
 								case 'Passer':
 									$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
 									$headerColor = 'bg-warning';
-									$employmentAgreement = null;
+									$employmentAgreement = 
+									'<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+									';
 									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
 									break;
 								
@@ -313,6 +322,7 @@
 									<button type="button" id="cancelJobOfferModalMine" class="btn btn-outline-danger" data-toggle="modal" data-target="#cancelMine" name="cancelJobOfferMine">
 			                          Show Details
 			                        </button>
+									<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
 									';
 									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
 									break;
@@ -321,8 +331,26 @@
 						case 7:
 							$status = '<a class="badge badge-danger text-white font-weight-bold float-right">Cancelled</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = null;
+							$employmentAgreement = 
+							'
+							<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+							';
 							$update = '<small class="text-left "><b class="text-black">Cancelled on:</b> </small>';
+							break;
+						case 8:
+							$status = '<a class="badge badge-danger text-white font-weight-bold float-right">Dispute</a>';
+							$headerColor = 'bg-danger';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-black">Disputed on:</b> </small>';
+							break;
+						case 9:
+							$status = '<a class="badge badge-danger text-white font-weight-bold float-right">Completed</a>';
+							$headerColor = 'bg-danger';
+							$employmentAgreement = 
+							'
+							<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+							';
+							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
 							break;
 					}
 					$builder = 

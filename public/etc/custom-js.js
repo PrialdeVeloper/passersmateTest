@@ -2647,7 +2647,7 @@ $(function(){
 		});
 	});
 
-	$("#cancelJobOfferModal, button[name=declineJobOffer]").click(function(){
+	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer]").click(function(){
 		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
 			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
 			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2834,6 +2834,45 @@ $(function(){
 				alert("cannot connect to server.");
 			}
 		});
+	});
+
+	$("#disputeSubmit").submit(function(event){
+		event.preventDefault();
+		let reason = $("#disputeArea").val();
+		if(checkEmpty(reason)){
+			toastError("Please enter your reason for dispute");
+		}else{
+			$.ajax({
+				url: "updateJobOfferStatus",
+				method: "POST",
+				data: {"update":"","newStatus":8,"jobofferID":cancelJobOffer,"otherUser":cancelOtherUser,"reason":reason},
+				success: function(a){
+					console.log(a);
+					let obj = JSON.parse(a);
+					switch(obj.error){
+						case "none":
+							toastSuccess("You have successfully Send a dispute.");
+							delayRedirect(currentHome);
+							cancelJobOffer = "";
+							cancelOtherUser = "";
+						break;
+						case "notVerifiedSeeker":
+							toastError('Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety');
+						break;
+						case "notVerifiedPasser":
+							toastError('Sorry, You have not yet been verified or has been disabled. Please try to verify your account <a href="dashboard">Here.</a>');
+						break;
+						case "noneExistingJobOffer":
+							window.location = currentHome;
+						break;
+						case "notAcceptable":
+							window.location = currentHome;
+						break;
+					}
+
+				}
+			});
+		}
 	});
 
 });	

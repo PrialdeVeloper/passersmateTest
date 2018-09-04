@@ -148,6 +148,49 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                 </div>
               </div>
               <!-- END OF MODAL -->
+
+              <!-- start of dispute form -->
+  <div class="modal fade" id="dispute">
+    <form id="disputeSubmit">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-white">
+          <div class="modal-header bg-danger">
+            <label class="modal-title centerModalTitle">
+              <span class="lead">
+                <b class="pl-4 text-white">What gone wrong&quest;</b>
+              </span>
+            </label>
+            <button class="close" data-dismiss="modal">
+              <span>&times;</span>
+            </button>
+          </div>  
+          <div class="modal-body">
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                  <div class="form-group">
+                    <label class="lead" for="disputeArea">
+                      <span>What Happened? Give us some insight</span>
+                    </label>
+                    <textarea class="form-control" id="disputeArea"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="row justify-content-center">
+                <button class="btn btn-success">Submit</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer bg-light">
+            <button class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <!-- end of dispute form -->
+
+
 </body>
 
 </html>

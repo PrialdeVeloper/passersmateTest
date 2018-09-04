@@ -357,11 +357,17 @@
 									break;
 							}
 							break;
-						case 7:
-							$status = '<a class="badge badge-danger font-weight-bold ">Cancelled</a>';
+						case 8:
+							$status = '<a class="badge badge-danger font-weight-bold ">dispute</a>';
 							$headerColor = 'bg-danger';
 							$employmentAgreement = null;
-							$update = '<small class="text-left "><b class="text-black">Cancelled on:</b> </small>';
+							$update = '<small class="text-left "><b class="text-black">disputed on:</b> </small>';
+							break;
+						case 9:
+							$status = '<a class="badge badge-danger font-weight-bold ">Completed</a>';
+							$headerColor = 'bg-danger';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
 							break;
 					}
 					$builder = 

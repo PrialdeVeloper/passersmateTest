@@ -223,7 +223,6 @@
 			} catch (Exception $e) {
 				return $e->getMessage();
 			}
-
 		}
 
 		public function joinSubscription($data){

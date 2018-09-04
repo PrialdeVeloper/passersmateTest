@@ -35,7 +35,8 @@ offerjob(new)
 5 = hired
 6 = pending for cancellation
 7 = cancelled
-8 = done
+8 = dispute
+9 = done
 
 offerjobPasser
 1 = new job offer
@@ -65,6 +66,10 @@ canceljoboffer
 1 = pending
 2 = accepted
 3 = declined
+
+dispute(notif)
+1 = new dispute
+2 = respond
 
 (bugs)
 budget range

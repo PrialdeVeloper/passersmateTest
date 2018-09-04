@@ -27,6 +27,8 @@
 		public $offerJobAddDB = array("OfferJobFormID","SeekerID","PasserID","Notes");
 		public $cancelTable = "canceljoboffer";
 		public $cancelDB = array("OfferJobID","SeekerID","PasserID","CancellationInitiator","CancelReason");
+		public $disputeTable = "dispute";
+		public $disputeDB = array("PasserID","SeekerID","JobOfferID","DisputeIssuer","DisputeReason");
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -733,7 +735,24 @@
 									break;
 							}
 							break;
-							
+
+						case 'dispute':
+							$link = "joboffered";
+							switch ($data['notificationMessage']) {
+								case '1':
+									$message = "You have new Disputed job.";
+									break;
+							}
+							break;
+
+						case 'disputeSeeker':
+							$link = "joboffers";
+							switch ($data['notificationMessage']) {
+								case '1':
+									$message = "You have new Disputed job.";
+									break;
+							}
+							break;
 					}
 
 					$builder = '
@@ -1756,7 +1775,7 @@
 			}
 
 			public function updateJobOfferStatus(){
-				$newStatus = $jobofferID = $otherUserID = $update = $currentUserID = $otherUserUnique = $otherUserTable = $currentUserUnique = $flag = $checkExist = $jobOfferData = $agreementCheck = null;
+				$newStatus = $jobofferID = $otherUserID = $update = $currentUserID = $otherUserUnique = $otherUserTable = $currentUserUnique = $flag = $checkExist = $jobOfferData = $agreementCheck = $otherUserLiteral = $reaso = $insert = null;
 				if(isset($_POST['update'])){
 					$newStatus = $this->sanitize($_POST['newStatus']);
 					$jobofferID = $this->sanitize($_POST['jobofferID']);
@@ -1765,6 +1784,7 @@
 					$currentUserUnique = (isset($this->seekerSession)?$this->seekerUnique:$this->passerUnique);
 					$otherUserUnique = (isset($this->seekerSession)?$this->passerUnique:$this->seekerUnique);
 					$otherUserTable = (isset($this->seekerSession)?$this->passerTable:$this->seekerTable);
+					$otherUserLiteral = (isset($this->seekerSession)?"Seeker":"Passer");
 					$checkExist = $this->model->checkAuthenticity("offerjob",$currentUserUnique,"OfferJobID",array($currentUserID,$jobofferID));
 					if($checkExist >= 1){
 						$jobOfferData = $this->model->selectAllFromUser("offerjob","OfferJobID",array($jobofferID))[0];
@@ -1821,6 +1841,25 @@
 												echo json_encode(array("error"=>"notCancellable"));
 											}
 										break;
+
+										case '8':
+											if($OfferJobStatus != 1 || $OfferJobStatus !=2){
+												$reason = $this->sanitize($_POST['reason']);
+												$insert = $this->model->insertDB($this->disputeTable,$this->disputeDB,array($this->passerSession,$otherUserID,$jobofferID,$otherUserLiteral,$reason));
+												$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
+												if($update){
+													$agreementCheck = $this->model->joinAgreementCancel($this->passerUnique,array($this->passerSession));
+													if(!empty($agreementCheck) && $agreementCheck[0]['OfferJobID'] == $jobofferID){
+														$update = $this->model->updateDBDynamic("agreement",array("AgreementStatus"),array(4,$agreementCheck[0]['AgreementID']),array("AgreementID"));
+													}
+													$this->createNotification("dispute",array("sendTo"=>"SeekerID","id"=>$otherUserID,"message"=>"1"));
+													echo json_encode(array("error"=>"none"));
+												}
+											}
+											else{
+												echo json_encode(array("error"=>"notCancellable"));
+											}
+										break;
 									}
 								}
 								else{
@@ -1836,17 +1875,36 @@
 								if($this->getDetailsSeeker($this->seekerSession)[0]['SeekerStatus'] == 1){
 									switch ($newStatus) {
 										case '7':
-										if($OfferJobStatus == 6){
-											$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
-											if($update){
-												$this->createNotification("cancellationSeeker",array("sendTo"=>"SeekerID","id"=>$otherUserID,"message"=>"2"));
-												$this->model->updateDB($this->cancelTable,array("CancellationStatus"),array(2),"OfferJobID",$jobofferID);
-												echo json_encode(array("error"=>"none"));
+											if($OfferJobStatus == 6){
+												$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
+												if($update){
+													$this->createNotification("cancellationSeeker",array("sendTo"=>"SeekerID","id"=>$otherUserID,"message"=>"2"));
+													$this->model->updateDB($this->cancelTable,array("CancellationStatus"),array(2),"OfferJobID",$jobofferID);
+													echo json_encode(array("error"=>"none"));
+												}
 											}
-										}
-										else{
-											echo json_encode(array("error"=>"notCancellable"));
-										}
+											else{
+												echo json_encode(array("error"=>"notCancellable"));
+											}
+										break;
+
+										case '8':
+											if($OfferJobStatus != 1 || $OfferJobStatus !=2){
+												$reason = $this->sanitize($_POST['reason']);
+												$insert = $this->model->insertDB($this->disputeTable,$this->disputeDB,array($this->passerSession,$otherUserID,$jobofferID,$otherUserLiteral,$reason));
+												$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
+												if($update){
+													$agreementCheck = $this->model->joinAgreementCancel($this->seekerUnique,array($this->seekerSession));
+													if(!empty($agreementCheck) && $agreementCheck[0]['OfferJobID'] == $jobofferID){
+														$update = $this->model->updateDBDynamic("agreement",array("AgreementStatus"),array(4,$agreementCheck[0]['AgreementID']),array("AgreementID"));
+													}
+													$this->createNotification("disputeSeeker",array("sendTo"=>"PasserID","id"=>$otherUserID,"message"=>"1"));
+													echo json_encode(array("error"=>"none"));
+												}
+											}
+											else{
+												echo json_encode(array("error"=>"notCancellable"));
+											}
 										break;
 									}
 								}
@@ -1908,7 +1966,8 @@
 				}
 			}
 
-					
+
+
 
 		}
 ?>
