@@ -29,6 +29,9 @@
 		public $cancelDB = array("OfferJobID","SeekerID","PasserID","CancellationInitiator","CancelReason");
 		public $disputeTable = "dispute";
 		public $disputeDB = array("PasserID","SeekerID","JobOfferID","DisputeIssuer","DisputeReason");
+		public $ratingTable = "ratings";
+		public $ratingDB = array("OfferJobID","PasserID","SeekerID","Rate","Feedback","ReviewBy");
+
 
 		public function sanitize($variable){
 			return htmlentities(trim($variable));
@@ -704,6 +707,9 @@
 									break;
 								case '4':
 									$message = "A seeker has requested to cancel a job.";
+									break;
+								case '5':
+									$message = "A job youv'e been hired has been marked done.";
 									break;
 							}
 							break;
@@ -1775,7 +1781,7 @@
 			}
 
 			public function updateJobOfferStatus(){
-				$newStatus = $jobofferID = $otherUserID = $update = $currentUserID = $otherUserUnique = $otherUserTable = $currentUserUnique = $flag = $checkExist = $jobOfferData = $agreementCheck = $otherUserLiteral = $reaso = $insert = null;
+				$newStatus = $jobofferID = $otherUserID = $update = $currentUserID = $otherUserUnique = $otherUserTable = $currentUserUnique = $flag = $checkExist = $jobOfferData = $agreementCheck = $otherUserLiteral = $reaso = $insert = $rating = $feedback = $select = null;
 				if(isset($_POST['update'])){
 					$newStatus = $this->sanitize($_POST['newStatus']);
 					$jobofferID = $this->sanitize($_POST['jobofferID']);
@@ -1860,6 +1866,21 @@
 												echo json_encode(array("error"=>"notCancellable"));
 											}
 										break;
+
+										case '9':
+											if($OfferJobStatus == 9){
+												switch ($_POST['ratingInsert']) {
+													case 'insert':
+														$rating = $this->sanitize($_POST['rate']);
+														$feedback = $this->sanitize($_POST['feedback']);
+														$this->model->insertDB($this->ratingTable,$this->ratingDB,array($jobofferID,$otherUserID,$this->passerSession,$rating,$feedback,$otherUserLiteral));
+													break;
+												}
+												echo json_encode(array("error"=>"none"));
+											}
+											else{
+												echo json_encode(array("error"=>"endable"));
+											}
 									}
 								}
 								else{
@@ -1906,6 +1927,33 @@
 												echo json_encode(array("error"=>"notCancellable"));
 											}
 										break;
+										case '9':
+											if($OfferJobStatus == 5){
+												$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
+												if($update){
+													$agreementCheck = $this->model->selectAllDynamic("agreement",array("*"),array($currentUserUnique,$otherUserUnique,"AgreementStatus"),array($this->seekerSession,$otherUserID,1));
+													if(!empty($agreementCheck)){
+														$select = $this->model->selectSingleUser("offerjobformused","OfferJobID",array($agreementCheck[0]['OfferJobFormUsedID']),"JobOfferFormUsedID");
+														if($select == $jobofferID){
+															$update = $this->model->updateDBDynamic("agreement",array("AgreementStatus"),array(2,$agreementCheck[0]['AgreementID']),array("AgreementID"));
+														}
+													}
+													switch ($_POST['ratingInsert']) {
+														case 'insert':
+															$rating = $this->sanitize($_POST['rate']);
+															$feedback = $this->sanitize($_POST['feedback']);
+															$this->model->insertDB($this->ratingTable,$this->ratingDB,array($jobofferID,$otherUserID,$this->seekerSession,$rating,$feedback,$otherUserLiteral));
+															break;
+													}
+													$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$otherUserID,"message"=>"5"));
+													echo json_encode(array("error"=>"none"));
+												}
+											}
+											else{
+												echo json_encode(array("error"=>"endable"));
+											}
+										break;
+
 									}
 								}
 								else{
@@ -1966,6 +2014,23 @@
 				}
 			}
 
+			public function ratingDisplay(){
+				$offerJobID = $otherUserID = $otherUserTable = $checkValidUser = $otherUserDetails = $otherUserUnique = null;
+				if(isset($_POST['ratings'])){
+					$offerJobID = $this->sanitize($_POST['offerJobID']);
+					$otherUserID = $this->sanitize($_POST['otherUser']);
+					$otherUserTable = (isset($this->seekerSession)?$this->passerTable:$this->seekerTable);
+					$otherUserUnique = (isset($this->seekerSession)?$this->passerUnique:$this->seekerUnique);
+					$checkValidUser = $this->model->checkAuthenticity("offerjob",$otherUserUnique,"OfferJobID",array($otherUserID,$offerJobID));
+					if($checkValidUser > 0){
+						$otherUserDetails = $this->model->selectAllFromUser($otherUserTable,$otherUserUnique,array($otherUserID))[0];
+						echo json_encode(array("error"=>"none","data"=>$otherUserDetails));
+					}
+					else{
+						echo json_encode(array("error"=>"notValidUser"));
+					}
+				}
+			}
 
 
 

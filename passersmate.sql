@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
--- http://www.phpmyadmin.net
+-- version 4.7.9
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 04, 2018 at 08:11 AM
--- Server version: 10.1.19-MariaDB
--- PHP Version: 5.6.28
+-- Generation Time: Sep 05, 2018 at 02:15 PM
+-- Server version: 10.1.31-MariaDB
+-- PHP Version: 7.2.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -66,7 +68,8 @@ CREATE TABLE `agreement` (
 
 INSERT INTO `agreement` (`AgreementID`, `SeekerID`, `PasserID`, `OfferJobFormUsedID`, `AgreementDateandTime`, `AgreementStatus`) VALUES
 (1, 3, 1, 1, '2018-09-01 21:14:00', 4),
-(2, 6, 9, 2, '2018-09-02 04:27:43', 3);
+(2, 6, 9, 2, '2018-09-02 04:27:43', 3),
+(3, 3, 1, 3, '2018-09-05 05:21:24', 2);
 
 -- --------------------------------------------------------
 
@@ -350,7 +353,27 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (95, NULL, 3, 'cancellationSeeker', '2', 1),
 (96, NULL, 3, 'cancellationSeeker', '2', 1),
 (97, NULL, 3, 'dispute', '1', 1),
-(98, 3, NULL, 'dispute', '1', 0);
+(98, 3, NULL, 'dispute', '1', 0),
+(99, NULL, 1, 'JobOffer', '3', 0),
+(100, NULL, 1, 'JobOffer', '5', 0),
+(101, NULL, 1, 'JobOffer', '5', 0),
+(102, NULL, 1, 'JobOffer', '5', 0),
+(103, NULL, 1, 'JobOffer', '5', 0),
+(104, NULL, 1, 'JobOffer', '5', 0),
+(105, NULL, 1, 'JobOffer', '5', 0),
+(106, NULL, 1, 'JobOffer', '5', 0),
+(107, NULL, 1, 'JobOffer', '5', 0),
+(108, NULL, 1, 'JobOffer', '5', 0),
+(109, NULL, 1, 'JobOffer', '5', 0),
+(110, NULL, 1, 'JobOffer', '5', 0),
+(111, NULL, 1, 'JobOffer', '5', 0),
+(112, NULL, 1, 'JobOffer', '5', 0),
+(113, NULL, 1, 'JobOffer', '5', 0),
+(114, NULL, 1, 'JobOffer', '5', 0),
+(115, NULL, 1, 'JobOffer', '5', 0),
+(116, NULL, 1, 'JobOffer', '5', 0),
+(117, NULL, 1, 'JobOffer', '5', 0),
+(118, NULL, 1, 'JobOffer', '5', 0);
 
 -- --------------------------------------------------------
 
@@ -374,7 +397,7 @@ CREATE TABLE `offerjob` (
 
 INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
 (1, 5, 3, 6, '', '2018-09-01 21:11:41', 1),
-(2, 5, 3, 1, '', '2018-09-04 06:06:24', 8),
+(2, 5, 3, 1, '', '2018-09-05 11:07:06', 9),
 (3, 6, 6, 9, 'Walay free snacks', '2018-09-04 06:03:44', 6),
 (4, 6, 6, 9, 'qwe', '2018-09-02 06:11:27', 1),
 (5, 6, 6, 9, '', '2018-09-02 13:41:32', 1),
@@ -436,7 +459,8 @@ CREATE TABLE `offerjobformused` (
 
 INSERT INTO `offerjobformused` (`JobOfferFormUsedID`, `OfferJobID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `Notes`, `OfferJobFormStatus`) VALUES
 (1, 2, 'lhehe', '2018-08-09', '2018-08-16', 5000, 'Online', 'In-House', '', 1),
-(2, 3, 'General Gines St. Suba Cebu City', '2018-09-19', '2018-09-25', 1000, 'Onsite', 'Offsite', 'Walay free snacks', 1);
+(2, 3, 'General Gines St. Suba Cebu City', '2018-09-19', '2018-09-25', 1000, 'Onsite', 'Offsite', 'Walay free snacks', 1),
+(3, 2, 'lhehe', '2018-08-09', '2018-08-16', 5000, 'Online', 'In-House', '', 1);
 
 -- --------------------------------------------------------
 
@@ -600,18 +624,39 @@ INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `review`
+-- Table structure for table `ratings`
 --
 
-CREATE TABLE `review` (
-  `ReviewID` int(11) NOT NULL,
+CREATE TABLE `ratings` (
+  `RatingsID` int(11) NOT NULL,
+  `OfferJobID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
-  `AgreementID` int(11) NOT NULL,
+  `Rate` int(11) DEFAULT NULL,
+  `Feedback` text,
   `ReviewBy` varchar(255) NOT NULL,
-  `Rating` bigint(20) NOT NULL,
-  `Comment` text NOT NULL
+  `ReviewdOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`RatingsID`, `OfferJobID`, `PasserID`, `SeekerID`, `Rate`, `Feedback`, `ReviewBy`, `ReviewdOn`) VALUES
+(1, 2, 1, 3, 5, 'asdadsqqew', 'Seeker', '2018-09-05 09:02:30'),
+(2, 2, 1, 3, 3, 'qwe', 'Seeker', '2018-09-05 09:09:55'),
+(3, 2, 1, 3, 2, 'he', 'Seeker', '2018-09-05 09:11:27'),
+(4, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 09:12:11'),
+(5, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 09:12:40'),
+(6, 2, 1, 3, 2, 'qwe', 'Seeker', '2018-09-05 09:13:50'),
+(7, 2, 1, 3, 2, 'qwe', 'Seeker', '2018-09-05 09:16:14'),
+(8, 2, 1, 3, 4, 'qwe', 'Seeker', '2018-09-05 09:17:32'),
+(9, 2, 1, 3, 5, '', 'Seeker', '2018-09-05 09:48:54'),
+(10, 2, 1, 3, 0, 'hehehe', 'Seeker', '2018-09-05 09:51:07'),
+(11, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 10:00:39'),
+(12, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 10:55:11'),
+(13, 2, 1, 3, 5, 'qwe', 'Seeker', '2018-09-05 10:55:44'),
+(14, 2, 3, 1, 0, '', 'Passer', '2018-09-05 12:08:51');
 
 -- --------------------------------------------------------
 
@@ -815,7 +860,10 @@ ALTER TABLE `disabledusers`
 -- Indexes for table `dispute`
 --
 ALTER TABLE `dispute`
-  ADD PRIMARY KEY (`DisputeID`);
+  ADD PRIMARY KEY (`DisputeID`),
+  ADD KEY `JobOfferID` (`JobOfferID`),
+  ADD KEY `PasserID` (`PasserID`),
+  ADD KEY `SeekerID` (`SeekerID`);
 
 --
 -- Indexes for table `documents`
@@ -906,10 +954,13 @@ ALTER TABLE `passerworkhistory`
   ADD KEY `PasserID` (`PasserID`);
 
 --
--- Indexes for table `review`
+-- Indexes for table `ratings`
 --
-ALTER TABLE `review`
-  ADD PRIMARY KEY (`ReviewID`);
+ALTER TABLE `ratings`
+  ADD PRIMARY KEY (`RatingsID`),
+  ADD KEY `OfferJobID` (`OfferJobID`),
+  ADD KEY `PasserID` (`PasserID`),
+  ADD KEY `SeekerID` (`SeekerID`);
 
 --
 -- Indexes for table `seeker`
@@ -960,131 +1011,157 @@ ALTER TABLE `switchaccount`
 --
 ALTER TABLE `admin`
   MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `agreement`
 --
 ALTER TABLE `agreement`
-  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `canceljob`
 --
 ALTER TABLE `canceljob`
   MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `canceljoboffer`
 --
 ALTER TABLE `canceljoboffer`
   MODIFY `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
   MODIFY `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `disabledusers`
 --
 ALTER TABLE `disabledusers`
   MODIFY `DisableUserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `dispute`
 --
 ALTER TABLE `dispute`
   MODIFY `DisputeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
   MODIFY `DocFormsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 --
 -- AUTO_INCREMENT for table `multimedia`
 --
 ALTER TABLE `multimedia`
   MODIFY `MultimediaID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+
 --
 -- AUTO_INCREMENT for table `offerjob`
 --
 ALTER TABLE `offerjob`
   MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `offerjobform`
 --
 ALTER TABLE `offerjobform`
   MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `offerjobformused`
 --
 ALTER TABLE `offerjobformused`
-  MODIFY `JobOfferFormUsedID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `JobOfferFormUsedID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
   MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `passereducation`
 --
 ALTER TABLE `passereducation`
   MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `passerskills`
 --
 ALTER TABLE `passerskills`
   MODIFY `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
   MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
   MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
--- AUTO_INCREMENT for table `review`
+-- AUTO_INCREMENT for table `ratings`
 --
-ALTER TABLE `review`
-  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `ratings`
+  MODIFY `RatingsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
 --
 -- AUTO_INCREMENT for table `seeker`
 --
 ALTER TABLE `seeker`
   MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `seekervalidate`
 --
 ALTER TABLE `seekervalidate`
   MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 --
 -- AUTO_INCREMENT for table `subscription`
 --
 ALTER TABLE `subscription`
   MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT for table `subscriptiontype`
 --
 ALTER TABLE `subscriptiontype`
   MODIFY `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `subskill`
 --
 ALTER TABLE `subskill`
   MODIFY `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `switchaccount`
 --
 ALTER TABLE `switchaccount`
   MODIFY `SwitchAccountID` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints for dumped tables
 --
@@ -1124,6 +1201,14 @@ ALTER TABLE `certificateofemployment`
 ALTER TABLE `disabledusers`
   ADD CONSTRAINT `disabledusers_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `disabledusers_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `dispute`
+--
+ALTER TABLE `dispute`
+  ADD CONSTRAINT `dispute_ibfk_1` FOREIGN KEY (`JobOfferID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dispute_ibfk_2` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `dispute_ibfk_3` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `message`
@@ -1192,6 +1277,14 @@ ALTER TABLE `passerworkhistory`
   ADD CONSTRAINT `passerworkhistory_ibfk_2` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `ratings`
+--
+ALTER TABLE `ratings`
+  ADD CONSTRAINT `ratings_ibfk_1` FOREIGN KEY (`OfferJobID`) REFERENCES `offerjob` (`OfferJobID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ratings_ibfk_2` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ratings_ibfk_3` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `seekervalidate`
 --
 ALTER TABLE `seekervalidate`
@@ -1209,6 +1302,7 @@ ALTER TABLE `subscription`
 --
 ALTER TABLE `subskill`
   ADD CONSTRAINT `subskill_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

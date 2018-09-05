@@ -2648,7 +2648,7 @@ $(function(){
 		});
 	});
 
-	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer]").click(function(){
+	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer]").click(function(){
 		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
 			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
 			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2874,6 +2874,123 @@ $(function(){
 				}
 			});
 		}
+	});
+
+	$("button[name=doneJobOffer]").click(function(){
+		let name = $("#ratingName");
+		let image = $("#rateImage");
+		$.ajax({
+			url: "ratingDisplay",
+			method: "POST",
+			data: {"ratings":"","offerJobID":cancelJobOffer,"otherUser":cancelOtherUser},
+			success: function(a){
+				let obj = JSON.parse(a);
+				switch(obj.error){
+					case "notValidUser":
+						window.location = currentHome;
+					break;
+					case "none":
+						name.empty().html((typeof obj.data['PasserFN'] !== 'undefined' ? obj.data['PasserFN']+" "+obj.data['PasserLN']:obj.data['SeekerFN']+" "+obj.data['SeekerLN']));
+						image.attr('src',(typeof obj.data['PasserProfile'] !== 'undefined' ?obj.data['PasserProfile']:obj.data['SeekerProfile']));
+					break;
+				}
+			}
+		});
+	});
+
+
+	// star
+	$(function(){
+		$("input.star").change(function(){
+			let category = $("#rateCategory");
+			let checkedValue = $(this).val();
+			switch(checkedValue){
+				case "1":
+					category.empty().html('<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>');
+				break;
+				case "2":
+					category.empty().html('<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>');
+				break;
+				case "3":
+					category.empty().html('<span class="badge badge-primary font-weight-bold"><small>Good</small></span>');
+				break;
+				case "4":
+					category.empty().html('<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>');
+				break;
+				case "5":
+					category.empty().html('<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>');
+				break;
+			}
+		})
+	})
+	// end of star
+
+	$(".rateSubmit").click(function(){
+		let rate = ($("input.star:checked").length > 0?$("input.star:checked").val():"");
+		let feedback = $("#rateFeedback").val();
+		$.ajax({
+			url: "updateJobOfferStatus",
+			method: "POST",
+			data: {"update":"","newStatus":9,"jobofferID":cancelJobOffer,"otherUser":cancelOtherUser,"rate":rate,"feedback":feedback,"ratingInsert":"insert"},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				switch(obj.error){
+					case "none":
+						toastSuccess("You have successfully Mark this job as done.");
+						delayRedirect(currentHome);
+						jobofferIDPasser = "";
+						jobofferIDSender = "";
+					break;
+					case "notVerifiedSeeker":
+						toastError('Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety');
+					break;
+					case "notVerifiedPasser":
+						toastError('Sorry, You have not yet been verified or has been disabled. Please try to verify your account <a href="dashboard">Here.</a>');
+					break;
+					case "noneExistingJobOffer":
+						window.location = currentHome;
+					break;
+					case "notAcceptable":
+						window.location = currentHome;
+					break;
+				}
+
+			}
+		});
+	});
+
+	$(".rateClose").click(function(){
+		$.ajax({
+			url: "updateJobOfferStatus",
+			method: "POST",
+			data: {"update":"","newStatus":9,"jobofferID":cancelJobOffer,"otherUser":cancelOtherUser,"ratingInsert":""},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				switch(obj.error){
+					case "none":
+						toastSuccess("You have successfully Mark this job as done.");
+						delayRedirect(currentHome);
+						jobofferIDPasser = "";
+						jobofferIDSender = "";
+					break;
+					case "notVerifiedSeeker":
+						toastError('Sorry, but this seeker has not been activated or has been reported and has been disabled for your safety');
+					break;
+					case "notVerifiedPasser":
+						toastError('Sorry, You have not yet been verified or has been disabled. Please try to verify your account <a href="dashboard">Here.</a>');
+					break;
+					case "noneExistingJobOffer":
+						window.location = currentHome;
+					break;
+					case "notAcceptable":
+						window.location = currentHome;
+					break;
+				}
+
+			}
+		});
 	});
 
 });	

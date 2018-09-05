@@ -237,7 +237,7 @@
 
 		public function joboffers(){
 			$data = [];
-			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = $status = $employmentAgreement = $headerColor = $cancelInitiator =null;
+			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = $status = $employmentAgreement = $headerColor = $cancelInitiator = $checkCommented = null;
 
 			if(!$this->checkSession('passerUser')){
 				header("location: ../home/login");
@@ -344,12 +344,22 @@
 							$update = '<small class="text-left "><b class="text-black">Disputed on:</b> </small>';
 							break;
 						case 9:
-							$status = '<a class="badge badge-danger text-white font-weight-bold float-right">Completed</a>';
-							$headerColor = 'bg-danger';
-							$employmentAgreement = 
-							'
-							<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
-							';
+							$status = '<a class="badge badge-success text-white font-weight-bold float-right">Completed</a>';
+							$headerColor = 'bg-success';
+							$checkCommented = $this->model->selectAllDynamic("ratings",array("COUNT(*)"),array("OfferJobID",$this->passerUnique,"ReviewBy"),array($data['OfferJobID'],$this->passerSession,"Passer"));
+							if(empty($checkCommented)){
+								$employmentAgreement = 
+								'
+								<button type="button" class="btn btn-outline-success" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+								<button type="button" class="btn btn-outline-success" name="doneJobOffer" data-toggle="modal" data-target="#doneModal" title="Rate Seeker">Rate Seeker</button>
+								';
+							}else{
+								$employmentAgreement = 
+								'
+								<button type="button" class="btn btn-outline-success" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+								';
+							}
+							
 							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
 							break;
 					}
