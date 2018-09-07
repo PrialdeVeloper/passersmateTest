@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2018 at 02:15 PM
+-- Generation Time: Sep 07, 2018 at 06:15 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -219,7 +219,8 @@ INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `M
 (7, 9, 6, 'ay bali', 'Passer', '2018-09-02 04:38:40', 0),
 (8, 9, 6, 'Ambot inmo', 'Passer', '2018-09-02 08:20:23', 0),
 (9, 9, 6, 'Oplok', 'Seeker', '2018-09-02 08:20:52', 0),
-(10, 4, 6, '', '', '2018-09-02 13:50:26', 0);
+(10, 4, 6, '', '', '2018-09-02 13:50:26', 0),
+(11, 1, 3, 'hoy', 'Seeker', '2018-09-07 14:17:07', 1);
 
 -- --------------------------------------------------------
 
@@ -697,7 +698,12 @@ INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `Se
 (3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 9154861084, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15347057119153470571123.jpg', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW'),
 (4, 'May', 'Franco', '2018-08-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Suba', 2147483647, 'francoyogie@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15332818502153328185034.jpg', 'franco', '$2y$12$vhJF9oSUtFTE0zqf1PYifOFyGvqfMZA4ao8e7yW0VdOunHZU9Tw12'),
 (5, 'Syrel', 'Prialde', NULL, 0, 'Male', '', '', '', NULL, 'prialde01@gmail.com', '', NULL, NULL, '118416846115335852813', 'https://plus.google.com/118416846115335852813', '0', 'https://lh4.googleusercontent.com/-kYuWnXUzfcI/AAAAAAAAAAI/AAAAAAAAAAA/AAnnY7ry8ZDeqsrb-PjviuoLSg6sO99sIw/mo/photo.jpg', '', ''),
-(6, 'Marvee', 'Franco', '2018-09-12', 0, 'Female', 'General Gines St.', 'Cebu City', 'Cebu', 9154861084, 'marvee@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15358618518153586185156.jpg', 'marvee06', '$2y$12$75.SRlp1MxEUV4zk7FpqZ.y72CQB.cdR5Ho18FhDi6Cro0tuKoDgm');
+(6, 'Marvee', 'Franco', '2018-09-12', 0, 'Female', 'General Gines St.', 'Cebu City', 'Cebu', 9154861084, 'marvee@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15358618518153586185156.jpg', 'marvee06', '$2y$12$75.SRlp1MxEUV4zk7FpqZ.y72CQB.cdR5Ho18FhDi6Cro0tuKoDgm'),
+(10, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '0', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy'),
+(13, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '0', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy'),
+(14, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '0', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy'),
+(15, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '0', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy'),
+(16, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '0', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy');
 
 -- --------------------------------------------------------
 
@@ -792,6 +798,26 @@ CREATE TABLE `subskill` (
   `SubSkillsFee` int(11) NOT NULL,
   `SubSkillsStatus` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `switch`
+--
+
+CREATE TABLE `switch` (
+  `SwitchID` int(11) NOT NULL,
+  `SeekerID` int(11) NOT NULL,
+  `PasserID` int(11) NOT NULL,
+  `Original` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `switch`
+--
+
+INSERT INTO `switch` (`SwitchID`, `SeekerID`, `PasserID`, `Original`) VALUES
+(1, 16, 1, 'Passer');
 
 -- --------------------------------------------------------
 
@@ -997,6 +1023,14 @@ ALTER TABLE `subskill`
   ADD KEY `PasserID` (`PasserID`);
 
 --
+-- Indexes for table `switch`
+--
+ALTER TABLE `switch`
+  ADD PRIMARY KEY (`SwitchID`),
+  ADD KEY `PasserID` (`PasserID`),
+  ADD KEY `SeekerID` (`SeekerID`);
+
+--
 -- Indexes for table `switchaccount`
 --
 ALTER TABLE `switchaccount`
@@ -1058,7 +1092,7 @@ ALTER TABLE `documents`
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `multimedia`
@@ -1130,7 +1164,7 @@ ALTER TABLE `ratings`
 -- AUTO_INCREMENT for table `seeker`
 --
 ALTER TABLE `seeker`
-  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `seekervalidate`
@@ -1155,6 +1189,12 @@ ALTER TABLE `subscriptiontype`
 --
 ALTER TABLE `subskill`
   MODIFY `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `switch`
+--
+ALTER TABLE `switch`
+  MODIFY `SwitchID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `switchaccount`
@@ -1302,6 +1342,13 @@ ALTER TABLE `subscription`
 --
 ALTER TABLE `subskill`
   ADD CONSTRAINT `subskill_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `switch`
+--
+ALTER TABLE `switch`
+  ADD CONSTRAINT `switch_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `switch_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
