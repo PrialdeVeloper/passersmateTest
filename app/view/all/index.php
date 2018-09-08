@@ -39,7 +39,7 @@ if(isset($data) && !empty($data)){
 					<!-- Logo -->
 					<div class="navbar-brand">
 						<a href="index.html">
-							<img class="logo secondImageIndex" src="../../public/etc/images/system/logo-2.png" alt="logo">
+							<img class="logo secondImageIndex" src="../../public/etc/images/system/logo-3.png" alt="logo" >
 							<img class="logo-alt" src="../../public/etc/images/system/logo-alt.png" alt="logo">
 						</a>
 					</div>

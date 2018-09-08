@@ -11,7 +11,7 @@ require "../public/header-footer/header.marvee";
     <meta name="author" content="">
     <title>Passersmate</title>
     <!-- Custom CSS -->
-    <link href="../etc/subscription/css/style.min.css" rel="stylesheet">
+    <
     <link href="../etc/subscription/build/toastr.min.css" rel="stylesheet">
 	<style type="text/css">
 		.scroll{
@@ -114,7 +114,7 @@ require "../public/header-footer/header.marvee";
 				      <div class="col-lg-4">
 				        <div class="card mb-5 mb-lg-0">
 				          <div class="card-body">
-				            <h5 class="card-title text-muted text-uppercase text-center">TATAK Basic Plan</h5>
+				            <h5 class="card-title text-muted text-uppercase text-center">TATAK <b class="text-primary">Basic</b> Plan</h5>
 				            <h6 class="card-price text-center">&#8369;80<span class="period">/day</span></h6>
 				            <hr>
 				            <ul class="fa-ul">
@@ -134,7 +134,7 @@ require "../public/header-footer/header.marvee";
 				      <div class="col-lg-4">
 				        <div class="card mb-5 mb-lg-0">
 				          <div class="card-body">
-				            <h5 class="card-title text-muted text-uppercase text-center">TATAK Silver Plan</h5>
+				            <h5 class="card-title text-muted text-uppercase text-center">TATAK <b class="text-dark">Silver</b> Plan</h5>
 				            <h6 class="card-price text-center">&#8369;2500<span class="period">/month</span></h6>
 				            <hr>
 				            <ul class="fa-ul">
@@ -154,7 +154,7 @@ require "../public/header-footer/header.marvee";
 				      <div class="col-lg-4">
 				        <div class="card">
 				          <div class="card-body">
-				           <h5 class="card-title text-muted text-uppercase text-center">TATAK Gold Plan</h5>
+				           <h5 class="card-title text-muted text-uppercase text-center">TATAK <b class="text-warning">Gold</b> Plan</h5>
 				            <h6 class="card-price text-center">&#8369;5000<span class="period">/year</span></h6>
 				            <hr>
 				            <ul class="fa-ul">

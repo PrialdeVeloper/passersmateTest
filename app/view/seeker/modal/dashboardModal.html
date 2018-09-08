@@ -138,7 +138,7 @@
 								<div class="row">
 									<div class="col-sm-3">
 										<div class="d-flex justify-content-center">
-											<img src="<?=!empty($SeekerProfile)?$SeekerProfile: '../../public/etc/images/system/logo-2.png'?>" class="modalAddDetails rounded-circle" id="previewImage" alt="Your image goes here">
+											<img src="<?=!empty($SeekerProfile)?$SeekerProfile: '../../public/etc/images/system/PMlogo.png'?>" class="modalAddDetails rounded-circle" id="previewImage" alt="Your image goes here">
 										</div>
 									</div>
 									<div class="offset-1 col-sm-4 pt-3" id="uploadPhotoDiv">
@@ -387,7 +387,7 @@
  		<div class="modal-dialog modal-dialog-centered rounded modal-lg" role="document" >
  			<div class="modal-content">
  				<div class="modal-header ">		          	
-		          	<label class="modal-title centerModalTitle">Personal Details</label>
+		          	<label class="modal-title centerModalTitle"><h5>Personal Details</h5></label>
 		          	<button type="button" class="close" data-dismiss="modal">&times;</button>
 		        </div>	
 		        <form id="verifySeeker" enctype="multipart/form-data">
@@ -400,9 +400,9 @@
 			        				<div class=" row">
 			        					<div class="col">
 			        						<div class="form-group ">
-			        							<img src="../../public/etc/images/system/tesda.png" class="mb-4 rounded mx-auto d-block modalAddDetails">
+			        							<img src="../../public/etc/images/system/PMlogo.png" class="mb-4 rounded mx-auto d-block modalAddDetails">
 			        							<label class="my-2 text-center col">Government Issued ID</label>
-			        							<label class="my-4 text-center col">Your Information is secured</label>
+			        							<label class="my-4 text-center col text-danger">Your Information is secured</label>
 			        						</div>			        						
 			        					</div>
 			        				</div>
@@ -426,7 +426,7 @@
 			        						</div>
 			        						<div class="row justify-content-center">
 			        							<input class="form-control d-none inputImage1" name="frontID" type="file" id="addDetailsSeeker1" accept="image/jpeg,image/png">
-			        							<img src="../../public/etc/images/system/frontID.png" class="modalAddDetails rounded-circle" id="previewImage1">
+			        							<img src="../../public/etc/images/system/idFront.png" class="modalAddDetails " id="previewImage1">
 			        						</div>
 			        						<div class="row justify-content-center pt-2">
 			        							<button type="button" class="btn btn-primary" id="substituteButton1">Upload Photo</button>
@@ -438,7 +438,7 @@
 			        						</div>
 			        						<div class="row justify-content-center">
 			        							<input class="form-control d-none inputImage2" name="backID" type="file" id="addDetailsSeeker2" accept="image/jpeg,image/png">
-			        							<img src="../../public/etc/images/system/calendar.png" class="modalAddDetails rounded-circle" id="previewImage2">
+			        							<img src="../../public/etc/images/system/idBack.png" class="modalAddDetails " id="previewImage2">
 			        						</div>
 			        						<div class="row justify-content-center pt-2">
 			        							<button type="button" class="btn btn-primary" id="substituteButton2">Upload Photo</button>
@@ -453,7 +453,7 @@
 			        						</div>
 			        						<div class="row justify-content-center">
 			        							<input class="form-control d-none inputImage3" name="selfieID" type="file" id="addDetailsSeeker3" accept="image/jpeg,image/png">
-			        							<img src="../../public/etc/images/system/selfie.png" class="modalAddDetails rounded-circle" id="previewImage3">
+			        							<img src="../../public/etc/images/system/idSelfie.png" class="modalAddDetails" id="previewImage3">
 			        						</div>
 			        						<div class="row justify-content-center pt-2">
 			        							<button type="button" class="btn btn-primary" id="substituteButton3">Upload Photo</button>

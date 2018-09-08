@@ -1,7 +1,7 @@
 		</section>
 		<footer class="footer footer-color">
 				<div class="container d-flex justify-content-center mt-5">
-					<img class="img-fluid mx-auto footer-image" src="../../public/etc/images/dashboard/footer/footer-image.png">
+					<img class="img-fluid mx-auto footer-image" src="../../public/etc/images/dashboard/footer/footer-image.png" style="width:100px">
 				</div>
 				<div class="container pt-5 text-center">
 					<p class="text-white">Copyright &copy; 2018. ALL RIGHTS RESERVED. DESIGNED BY <a href="#">PASSERSMATE</a></p>

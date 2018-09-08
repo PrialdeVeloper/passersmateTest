@@ -224,8 +224,8 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 					
 					  </small>
                     <div class="row">
-						<div class="col-md-5 mx-auto">
-							<img src="../etc/images/system/PMlogo.png" width="250px">
+						<div class="col-md-5 mx-auto text-center">
+							<img src="../etc/images/system/PMlogo.png" width="75px">
 						</div>
 					</div>
 					<div class="row mt-4">

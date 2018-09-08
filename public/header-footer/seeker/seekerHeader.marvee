@@ -1,6 +1,6 @@
 <?php include_once "../public/etc/etcCompile.marvee"; ?>
 <?php  
-$extraLinks = $switch = null;
+$extraLinks = $switch = $switchToggle = null;
 $destination = "dashboard";
 $x = pathinfo($_SERVER["QUERY_STRING"]); 
 $url = str_replace("url=", "", $x['dirname']);
@@ -8,10 +8,11 @@ if($url == "home"){
 	$destination = (isset($_SESSION['passerUser'])?"../passer/dashboard":"../seeker/dashboard");
 }
 if((isset($SeekerStatus) && $SeekerStatus == 1) || (isset($PasserStatus) && $PasserStatus == 1)){
+	$switchToggle = (isset($_SESSION['switched'])?"checked":"");
 	$switch = 
 	'
 		<li class="navbar-item pr-5 pretty pt-1 p-switch p-fill">
-			<input type="checkbox"/>
+			<input type="checkbox" '.$switchToggle.' name="toggleSwitch"/>
 			<div class="state">
             	<label>Fill</label>
         	</div>
@@ -38,7 +39,7 @@ if(isset($_SESSION['seekerUser'])){
 		<header>
 			<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigation">
 				<a class="navbar-brand" href="#">
-					<img src="../../public/etc/images/dashboard/header/header-logo.png" class="img-fluid header-image" style="height:50px;width:180px">
+					<img src="../../public/etc/images/dashboard/header/logo-3.png" class="img-fluid header-image" >
 				</a>
 				<button type="button" class="navbar-toggler" data-target="#navbar-header" data-toggle="collapse">
 					<span class="navbar-toggler-icon"></span>

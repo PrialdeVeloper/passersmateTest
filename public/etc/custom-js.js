@@ -2992,6 +2992,23 @@ $(function(){
 			}
 		});
 	});
-
 });	
 // end of accept joboffer
+
+// switch
+$(function(){
+	$("input[name=toggleSwitch]").change(function(){
+		$.ajax({
+			url:"switchAccount",
+			method:"POST",
+			data:"switch",
+			success: function(a){
+				let obj = JSON.parse(a);
+				if(obj.error == "none"){
+					window.location=obj.redirect;
+				}
+			}
+		});
+	});
+});
+// end of switch

@@ -33,7 +33,8 @@
 		public $ratingDB = array("OfferJobID","PasserID","SeekerID","Rate","Feedback","ReviewBy");
 		public $switchTable = "switch";
 		public $switchDB = array("SeekerID","PasserID","Original");
-		public $seekerSwitchDB = array("SeekerFN","SeekerLN","SeekerBirthdate","SeekerAge","SeekerGender","SeekerStreet","SeekerCity","SeekerAddress","SeekerCPNo","SeekerEmail","SeekerPass","SeekerProfile");
+		public $seekerSwitchDB = array("SeekerFN","SeekerLN","SeekerBirthdate","SeekerAge","SeekerGender","SeekerStreet","SeekerCity","SeekerAddress","SeekerCPNo","SeekerEmail","SeekerPass","SeekerProfile","SeekerStatus");
+		public $passerSwitchDB = array("PasserFN","PasserLN","PasserPass","PasserEmail");
 
 
 		public function sanitize($variable){
@@ -2038,42 +2039,46 @@
 
 			public function switchAccount(){
 				$original = $currentUserID = $currentUserUnique = $otherUserUnique = $otherUserTable = $currentUserTable = $checkExist = $getSeekerDetails = $getPasserDetails = $insert = $redirect = $otherSession = $currentSession =  null;
-				if(isset($_GET['switch'])){
-					$original = (isset($this->seekerSession)?"Seeker":"Passer");
-					$currentSession = (isset($this->seekerSession)?"seekerUser":"passerUser");
-					$currentUserID = (isset($this->seekerSession)?$this->seekerSession:$_SESSION['passerUser']);
-					$currentUserUnique = (isset($this->seekerSession)?$this->seekerUnique:$this->passerUnique);
-					$currentUserTable = (isset($this->seekerSession)?$this->seekerTable:$this->passerTable);
-					$otherUserUnique = (isset($this->seekerSession)?$this->passerUnique:$this->seekerUnique);
-					$otherUserTable = (isset($this->seekerSession)?$this->passerTable:$this->seekerTable);
-					$checkExist = $this->model->selectAllDynamic($this->switchTable,array("*"),array($currentUserUnique,"Original"),array($currentUserID,$original));
-					$otherRedirect = (isset($this->seekerSession)?"../passer/dashboard":"../seeker/dashboard");
-					$otherSession = (isset($this->seekerSession)?"passerUser":"seekerUser");
+				if(isset($_POST['switch'])){
+					$original = (isset($_SESSION['seekerUser'])?"Seeker":"Passer");
+					$currentSession = (isset($_SESSION['seekerUser'])?'seekerUser':'passerUser');
+					$currentUserID = (isset($_SESSION['seekerUser'])?$_SESSION['seekerUser']:$_SESSION['passerUser']);
+					$currentUserUnique = (isset($_SESSION['seekerUser'])?$this->seekerUnique:$this->passerUnique);
+					$currentUserTable = (isset($_SESSION['seekerUser'])?$this->seekerTable:$this->passerTable);
+					$otherUserUnique = (isset($_SESSION['seekerUser'])?$this->passerUnique:$this->seekerUnique);
+					$otherUserTable = (isset($_SESSION['seekerUser'])?$this->passerTable:$this->seekerTable);
+					$otherRedirect = (isset($_SESSION['seekerUser'])?"../passer/dashboard":"../seeker/dashboard");
+					$otherSession = (isset($_SESSION['seekerUser'])?"passerUser":"seekerUser");
+					$checkExist = $this->model->selectAllDynamic($this->switchTable,array("*"),array($currentUserUnique),array($currentUserID));
 					if(empty($checkExist)){
 						if(isset($_SESSION['seekerUser'])){
-							$getSeekerDetails = $this->getDetailsSeeker($this->seekerSession)[0];
-							$insert = $this->model->insertDB('passer',$this->passerReg,array($cocNumber,$passerFirstname,$passerLastname,$passerMiddlename,$passerPassword,$email,$cocTitle,$typeofCertificatePasser,$passerTesdaLink,$expdateField));
+							$getSeekerDetails = $this->getDetailsSeeker($_SESSION['seekerUser'])[0];
+							extract($getSeekerDetails);
+							$insert = $this->model->insertDB('passer',$this->passerSwitchDB,array($SeekerFN,$SeekerLN,$SeekerPass,$SeekerEmail));
 						}
 						else{
 							$getPasserDetails = $this->getDetailsPasser($_SESSION['passerUser'])[0];
 							extract($getPasserDetails);
-							$insert = $this->model->insertDB($this->seekerTable,$this->seekerSwitchDB,array($PasserFN,$PasserLN,$PasserBirthdate,$PasserAge,$PasserGender,$PasserStreet,$PasserCity,$PasserAddress,$PasserCPNo,$PasserEmail,$PasserPass,$PasserProfile));
+							$insert = $this->model->insertDB($this->seekerTable,$this->seekerSwitchDB,array($PasserFN,$PasserLN,$PasserBirthdate,$PasserAge,$PasserGender,$PasserStreet,$PasserCity,$PasserAddress,$PasserCPNo,$PasserEmail,$PasserPass,$PasserProfile,1));
 						}
 						if($insert){
 							(isset($_SESSION['seekerUser'])?$this->model->insertDB($this->switchTable,$this->switchDB,array($_SESSION['seekerUser'],$insert,$original)):$this->model->insertDB($this->switchTable,$this->switchDB,array($insert,$_SESSION['passerUser'],$original)));
 							$_SESSION['switched'] = $currentUserID;
 							$_SESSION[$otherSession] = $insert;
 							unset($_SESSION[$currentSession]);
-							json_encode(array("error"=>"none","redirect"=>$otherRedirect));
 						}
 					}
 					else{
-						if(isset($_SESSION['switched'])){
-							$_SESSION[$otherSession] = $_SESSION['switched'];
-							unset($_SESSION[$currentSession]);
+						unset($_SESSION[$currentSession]);
+						$_SESSION[$otherSession] = $checkExist[0][$otherUserUnique];
+						if($checkExist[0]['Original'] == $original){
+							$_SESSION['switched'] = $checkExist[0][$otherUserUnique];
+						}
+						else{
 							unset($_SESSION['switched']);
 						}
 					}
+					echo json_encode(array("error"=>"none","redirect"=>$otherRedirect));
 				}
 			}
 
