@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2018 at 07:43 PM
+-- Generation Time: Sep 10, 2018 at 03:36 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -45,7 +45,8 @@ INSERT INTO `admin` (`AdminID`, `username`, `email`, `password`) VALUES
 (3, 'test', 'qweee@gmail.com', '$2y$12$lPC0SBHSHnbUqFeT1Etvu.YACEGPZweAot65MvI5n55BDIPloz0hu'),
 (4, 'crimsonadmin', 'crimson@gmail.com', '$2y$12$drMX/W2kLszEMn.FvraJu.yk3IWOFeZ7zchKr2ditnO8E1qEJFqn6'),
 (5, 'crimson1', 'crimson1@gmail.com', '$2y$12$tLkZliaKPOK.Tz32VkviAOVTOVAme1.lvw82E8zhQk9HQ5kKY/vne'),
-(6, 'admin06', 'admin06@gmail.com', '$2y$12$FmxKA0e8sIa5D0KO2y9MvOHowEi8caK4F.3oQtlgsC9724oQsd24y');
+(6, 'admin06', 'admin06@gmail.com', '$2y$12$FmxKA0e8sIa5D0KO2y9MvOHowEi8caK4F.3oQtlgsC9724oQsd24y'),
+(7, 'franco101', 'franco101@gmail.com', '$2y$12$xbiLPqQdJwff/S6QQe0O.OTkuNxdJ5TdgdGftvMPwia3irLZd.fAO');
 
 -- --------------------------------------------------------
 
@@ -374,7 +375,11 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (115, NULL, 1, 'JobOffer', '5', 0),
 (116, NULL, 1, 'JobOffer', '5', 0),
 (117, NULL, 1, 'JobOffer', '5', 0),
-(118, NULL, 1, 'JobOffer', '5', 0);
+(118, NULL, 1, 'JobOffer', '5', 0),
+(119, NULL, 14, 'updateUserStatus', '3', 0),
+(120, NULL, 14, 'updateUserStatus', '3', 0),
+(123, NULL, 14, 'updateUserStatus', '3', 0),
+(124, NULL, 14, 'updateUserStatus', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -512,7 +517,9 @@ INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `Passer
 (9, 'Herminio J', 'Miranda', 'R', '2018-09-26', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'miranda@gmail.com', '1', 0, '15131403031982', '2018-09-26', '$2y$12$ol7yF94W.jMwiOp8wbOKVedJDEnnW3Fbey58.lOZfXnQlICj6LgK.', 'Plumbing NC III', 'NC III', 'http://www.tesda.gov.ph/Rwac/Details/7369234', '../../public/etc/images/user/passer/15358613606153586136039.jpg', 0, '2018-09-02 04:08:30'),
 (10, 'Ronnie', 'Taparan', 'A', NULL, 0, '', '', '', '', NULL, 'test12@gmail.com', '0', 0, '09060601003516', '2020-11-25', '$2y$12$sBPUi1iCwSlUv4009sDkp.nLx2/C2qekYF/0GzbEhcWRgXpWIdWsS', 'Shielded Metal Arc Welding (SMAW) NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369248', NULL, 0, '2018-09-08 03:01:22'),
 (11, 'Syrel', 'Prialde', '', NULL, 0, '', '', '', '', NULL, 'syrelgm@gmail.com', '0', 0, '', '0000-00-00', '', '', '', '', NULL, 0, '2018-09-08 05:29:46'),
-(12, 'Julieta', 'Lincuna', 'L', '2018-10-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'lincuna@gmail.com', '0', 0, '15130702030231', '2018-09-20', '$2y$12$.u8Kz4O4WXsofVIuJWZkheGJY44epHFerTYN8a0vyvoJHcGL1v7PW', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369233', '../../public/etc/images/user/passer/153639114871536391148512.jpg', 0, '2018-09-08 06:56:21');
+(12, 'Julieta', 'Lincuna', 'L', '2018-10-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'lincuna@gmail.com', '0', 0, '15130702030231', '2018-09-20', '$2y$12$.u8Kz4O4WXsofVIuJWZkheGJY44epHFerTYN8a0vyvoJHcGL1v7PW', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369233', '../../public/etc/images/user/passer/153639114871536391148512.jpg', 0, '2018-09-08 06:56:21'),
+(13, 'syrel', 'prialde', '', NULL, 0, '', '', '', '', NULL, 'test@gmail.com', '0', 0, '', '0000-00-00', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', '', '', '', NULL, 0, '2018-09-09 03:12:00'),
+(14, 'Judith', 'Espiritu', 'L', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9434809647, 'espiritu@gmail.com', '1', 0, '12130302008762', '2018-09-28', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369232', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', 0, '2018-09-09 03:41:38');
 
 -- --------------------------------------------------------
 
@@ -592,7 +599,11 @@ INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID
 (5, 6, '../../public/etc/images/userVerify/passer/15340693224153406932246.jpg', '../../public/etc/images/userVerify/passer/15340693229153406932226.jpg', '../../public/etc/images/userVerify/passer/153406932210153406932216.jpg', '../../public/etc/images/userVerify/passer/15340693225153406932256.jpg', 'Student ID', 14281034, '2018-08-30', '2018-08-12 10:22:02'),
 (6, 7, '../../public/etc/images/userVerify/passer/153410407410153410407437.jpg', '../../public/etc/images/userVerify/passer/15341040747153410407417.jpg', '../../public/etc/images/userVerify/passer/15341040746153410407447.jpg', '../../public/etc/images/userVerify/passer/15341040747153410407467.jpg', 'Driver&rsquo;s License', 34342414, '2018-08-16', '2018-08-12 20:01:14'),
 (7, 9, '../../public/etc/images/userVerify/passer/15358614514153586145149.jpg', '../../public/etc/images/userVerify/passer/15358614517153586145129.jpg', '../../public/etc/images/userVerify/passer/15358614516153586145149.jpg', '../../public/etc/images/userVerify/passer/15358614518153586145159.jpg', 'TIN Card', 12345, '2018-09-26', '2018-09-02 04:10:51'),
-(8, 9, '../../public/etc/images/userVerify/passer/15358616572153586165759.jpg', '../../public/etc/images/userVerify/passer/15358616576153586165739.jpg', '../../public/etc/images/userVerify/passer/15358616571153586165769.jpg', '../../public/etc/images/userVerify/passer/15358616579153586165739.jpg', 'Philippine Passport', 123123, '2018-09-30', '2018-09-02 04:14:17');
+(8, 9, '../../public/etc/images/userVerify/passer/15358616572153586165759.jpg', '../../public/etc/images/userVerify/passer/15358616576153586165739.jpg', '../../public/etc/images/userVerify/passer/15358616571153586165769.jpg', '../../public/etc/images/userVerify/passer/15358616579153586165739.jpg', 'Philippine Passport', 123123, '2018-09-30', '2018-09-02 04:14:17'),
+(9, 14, '../../public/etc/images/userVerify/passer/153646859691536468596514.png', '../../public/etc/images/userVerify/passer/153646859641536468596114.png', '../../public/etc/images/userVerify/passer/153646859661536468596414.png', '../../public/etc/images/userVerify/passer/153646859641536468596514.png', 'Philippine Passport', 1231231, '2020-11-11', '2018-09-09 04:49:56'),
+(10, 14, '../../public/etc/images/userVerify/passer/1536468995101536468995214.png', '../../public/etc/images/userVerify/passer/153646899571536468995214.png', '../../public/etc/images/userVerify/passer/153646899531536468995114.png', '../../public/etc/images/userVerify/passer/153646899591536468995414.png', 'Philippine Passport', 1231231, '2020-11-11', '2018-09-09 04:56:35'),
+(11, 14, '../../public/etc/images/userVerify/passer/153646912611536469126214.png', '../../public/etc/images/userVerify/passer/153646912621536469126114.png', '../../public/etc/images/userVerify/passer/153646912691536469126514.png', '../../public/etc/images/userVerify/passer/153646912661536469126214.png', 'Student ID', 1231231, '2020-11-11', '2018-09-09 04:58:46'),
+(12, 14, '../../public/etc/images/userVerify/passer/153646929871536469298214.png', '../../public/etc/images/userVerify/passer/153646929871536469298614.png', '../../public/etc/images/userVerify/passer/153646929811536469298114.png', '../../public/etc/images/userVerify/passer/153646929861536469298614.png', 'Student ID', 1231231, '2020-11-11', '2018-09-09 05:01:38');
 
 -- --------------------------------------------------------
 
@@ -703,7 +714,9 @@ INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `Se
 (4, 'May', 'Franco', '2018-08-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Suba', 2147483647, 'francoyogie@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15332818502153328185034.jpg', 'franco', '$2y$12$vhJF9oSUtFTE0zqf1PYifOFyGvqfMZA4ao8e7yW0VdOunHZU9Tw12'),
 (5, 'Syrel', 'Prialde', NULL, 0, 'Male', '', '', '', NULL, 'prialde01@gmail.com', '', NULL, NULL, '118416846115335852813', 'https://plus.google.com/118416846115335852813', '0', 'https://lh4.googleusercontent.com/-kYuWnXUzfcI/AAAAAAAAAAI/AAAAAAAAAAA/AAnnY7ry8ZDeqsrb-PjviuoLSg6sO99sIw/mo/photo.jpg', '', ''),
 (6, 'Marvee', 'Franco', '2018-09-12', 0, 'Female', 'General Gines St.', 'Cebu City', 'Cebu', 9154861084, 'marvee@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15358618518153586185156.jpg', 'marvee06', '$2y$12$75.SRlp1MxEUV4zk7FpqZ.y72CQB.cdR5Ho18FhDi6Cro0tuKoDgm'),
-(20, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy');
+(20, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy'),
+(21, 'Marimar', 'Franco', '1997-09-03', 21, 'Female', 'Mango Avenue', 'Cebu City', 'Region Vii', 9434809647, 'franco@gmail.com', '', NULL, NULL, NULL, '', '0', '', 'marimar', '$2y$12$Ku2hBTRAOTqFtlF9S4xhP.SXlxtHTzKC9CJhIB5f4ZZolksBUWO7y'),
+(22, 'Judith', 'Espiritu', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9434809647, 'espiritu@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', '', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46');
 
 -- --------------------------------------------------------
 
@@ -817,7 +830,9 @@ CREATE TABLE `switch` (
 --
 
 INSERT INTO `switch` (`SwitchID`, `SeekerID`, `PasserID`, `Original`) VALUES
-(1, 20, 1, 'Passer');
+(1, 20, 1, 'Passer'),
+(2, 3, 13, 'Seeker'),
+(3, 22, 14, 'Passer');
 
 -- --------------------------------------------------------
 
@@ -1044,7 +1059,7 @@ ALTER TABLE `switchaccount`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `agreement`
@@ -1104,7 +1119,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
@@ -1128,7 +1143,7 @@ ALTER TABLE `offerjobformused`
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `passereducation`
@@ -1146,7 +1161,7 @@ ALTER TABLE `passerskills`
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
-  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
@@ -1164,7 +1179,7 @@ ALTER TABLE `ratings`
 -- AUTO_INCREMENT for table `seeker`
 --
 ALTER TABLE `seeker`
-  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `seekervalidate`
@@ -1194,7 +1209,7 @@ ALTER TABLE `subskill`
 -- AUTO_INCREMENT for table `switch`
 --
 ALTER TABLE `switch`
-  MODIFY `SwitchID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `SwitchID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `switchaccount`

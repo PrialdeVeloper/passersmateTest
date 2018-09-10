@@ -2,4 +2,4 @@
 2. Sa categories naman dapat makapislit na cya dayun maadto sa iyang gi choose nga categories like carpenter then maka retrieve list of carpenters
 3.By the way, please ko add "Passers" sa header sa mga user if naka login na sila.
 4. sa chat please ko usab sa no message nga font dayun ang text color kay textinfo and then delete the create the agreement sa Passer account.
-5.
+5.Syrel palihug kog kuan atong verification, katong back id issue, thank you. Ug ang type sa id kay permi lang philippine passport.

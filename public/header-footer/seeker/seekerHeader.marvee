@@ -1,6 +1,6 @@
 <?php include_once "../public/etc/etcCompile.marvee"; ?>
 <?php  
-$extraLinks = $switch = $switchToggle = null;
+$extraLinks = $switch = $switchToggle = $sign = null;
 $destination = "dashboard";
 $x = pathinfo($_SERVER["QUERY_STRING"]); 
 $url = str_replace("url=", "", $x['dirname']);
@@ -9,12 +9,13 @@ if($url == "home"){
 }
 if((isset($SeekerStatus) && $SeekerStatus == 1) || (isset($PasserStatus) && $PasserStatus == 1)){
 	$switchToggle = (isset($_SESSION['switched'])?"checked":"");
+	$sign = (isset($_SESSION['seekerUser'])?"Seeker":"Passer");
 	$switch = 
 	'
 		<li class="navbar-item pr-5 pretty pt-1 p-switch p-fill">
 			<input type="checkbox" '.$switchToggle.' name="toggleSwitch"/>
 			<div class="state">
-            	<label>Fill</label>
+            	<label>Signed in as: <u class="text-primary font-weight-bold">'.$sign.'</u></label>
         	</div>
 		</li>
 	';
