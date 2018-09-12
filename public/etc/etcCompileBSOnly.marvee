@@ -1,0 +1,27 @@
+<?php 
+	if(isset($data) && !empty($data)){
+		extract($data);
+	}
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title><?php echo isset($title)?$title:"Passersmate"; ?></title>
+	<meta charset="utf-8">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<?php 
+	if(file_exists("../public/etc/bootstrap/css/bootstrap.min.css")){
+		echo '<link rel="stylesheet" type="text/css" href="../etc/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="../etc/bootstrap/css/prettyCheckboxes/dist/pretty-checkbox.min.css">
+		<link rel="stylesheet" type="text/css" href="../etc/subscription/build/toastr.min.css">
+		<link rel="stylesheet" type="text/css" href="../etc/Animate.css">
+		<script type="text/javascript" src="../etc/bootstrap/js/jquery-3.3.1.js"></script>
+		<script type="text/javascript" src="../etc/bootstrap/js/gijgo/gijgo.min.js"></script>
+		<script type="text/javascript" src="../etc/bootstrap/js/popper.min.js"></script>
+		<script type="text/javascript" src="../etc/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../etc/subscription/build/toastr.min.js"></script>
+		<script type="text/javascript" src="../etc/custom-js.js"></script>';
+		}
+	?>
+</head>

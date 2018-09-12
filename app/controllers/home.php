@@ -137,47 +137,66 @@
 					$unstructured = $_POST['data'];
 					foreach ($unstructured as $data) {
 						$builder = '
-	 					<div class="col-sm-6">
-							<div class="container shadowDiv">
-								<div class="row">
-									<div class="col-md-4">
-										<div class="container my-3 pl-3 d-flex justify-content-center">
-											<img src="'.$this->sanitize($data["PasserProfile"]).'" class="profile">
-										</div>
-									</div>		
-									<div class="col-md-7 mt-4">
-										<div class="container text-center text-primary">
-											<label class="georgiaFonts">'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'</label>
-										</div>
-										<div class="container text-center text-secondary">
-											<label class="trebuchet">'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'</label>
-										</div>
-										<div class="container text-center">
-											<span class="fa fa-star text-warning"></span>
-											<span class="fa fa-star text-warning"></span>
-											<span class="fa fa-star text-warning"></span>
-											<span class="fa fa-star text-warning"></span>
-											<span class="fa fa-star text-warning"></span>
-										</div>
-									</div>	
-								</div>
-								<div class="col-md my-3">
-									<div class="container text-center text-primary">Education, Trainings & Organizations</div>
-									<div class="container text-center text-secondary">'.$this->sanitize($data["PasserCertificateType"]).'</div>
-								</div>
-								<div class="col-md">
-									<hr>
-								</div>
-								<div class="col-md d-flex justify-content-center">
-									<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn btn-lg btn-primary mb-3">View Profile</a>
-								</div>
-							</div>
-						</div>
+						<div class="col-md-6">
+      						<div class="card shadow animated1 flipInX" style="height:95%">
+      							<div class="card-header">
+      								  <div class="pretty p-svg p-curve">
+								        <input type="checkbox" class="hehe" value="'.$this->sanitize($data["PasserID"]).'" />
+								        <div class="state p-success">
+								            <!-- svg path -->
+								            <svg class="svg svg-icon" viewBox="0 0 20 20">
+								                <path d="M7.629,14.566c0.125,0.125,0.291,0.188,0.456,0.188c0.164,0,0.329-0.062,0.456-0.188l8.219-8.221c0.252-0.252,0.252-0.659,0-0.911c-0.252-0.252-0.659-0.252-0.911,0l-7.764,7.763L4.152,9.267c-0.252-0.251-0.66-0.251-0.911,0c-0.252,0.252-0.252,0.66,0,0.911L7.629,14.566z" style="stroke: white;fill:white;"></path>
+								            </svg>
+								            <label class="font-weight-bold">Select this Passer</label>
+								        </div>
+								    </div>
+      							</div>
+      							<div class="card-body">
+      								<div class="row">
+      									<div class="col-md-5 text-center hoverable">
+      										<a title="Jodel Adan">
+      											<img src="'.$this->sanitize($data["PasserProfile"]).'" class="rounded-circle border border-primary wow fadeInUp" width="150" height="150">
+      											<br>
+      											<a class="badge badge-success mt-3 font-weight-bold text-white">
+      												<i class="fas fa-check"></i> Verified Passer 
+      											</a>
+      									</div>
+      									<div class="col-md-7 text-center" style="font-family: Georgia, Times, Times New Roman, serif;">
+      										<a href="">
+      											<p class="text-info" style="font-size:30px">
+      											'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'
+      											</p>
+      										</a>
+  											<label class="trebuchet" style="font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height: 26.4px;font-size: 18px">
+  												'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'
+  											</label>
+  											<div class="container">
+      											<span class="fa fa-star checked text-warning"></span>
+												<span class="fa fa-star checked text-warning"></span>
+												<span class="fa fa-star checked text-warning"></span>
+												<span class="fa fa-star text-warning"></span>
+												<span class="fa fa-star text-warning"></span>
+											</div>
+      									</div>
+      								</div>
+      								<div class="row">
+      									<div class="col-md-12 text-center mt-3 text-primary">
+      										<p style="font-size: 15px; color: blue">Education, Trainings & Organizations</p>
+      										<p class="text-dark" style="font-size: 15px;">'.$this->sanitize($data["PasserCertificateType"]).'</p>
+      									</div>
+      								</div>
+      							</div>
+      							<div class=" card-footer  text-center" style="height:85px">
+      								<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn-change1 btn btn-lg text-white" style="background:#0062cc">View profile</a>
+      							</div>
+      						</div>
+          				</div>
 			 			';
-			 			echo $dom = $dom."".$builder;
+			 			$dom = $dom."".$builder;
 					}
+					echo $dom;
 				}else{
-					echo $dom = "no data found";
+					echo $dom = '<div class="container bg-danger d-flex justify-content-center">no data found</div>';
 				}
 			}
 		}
@@ -201,45 +220,48 @@
 		 		foreach ($passerList as $data) {
 		 			if($this->checkExistingWorkPasser($data[$this->passerUnique]) == false){
 			 			$builder = '
-
-	 					<div class="col-sm-6 pt-5">
-							<div class="container shadowDiv">
-								<div class="row">
-									<div class="col-md-4">
-										<div class="container my-3 pl-3 d-flex justify-content-center">
-											<img src="'.$this->sanitize($data["PasserProfile"]).'" class="profile">
-										</div>
-									</div>		
-									<div class="col-md-7 mt-4">
-										<div class="container text-center text-primary">
-											<label class="georgiaFonts">'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'</label>
-										</div>
-										<div class="container text-center text-secondary">
-											<label class="trebuchet">'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'</label>
-										</div>
-										<div class="container text-center">
-											<span class="fa fa-star text-warning"></span>
-											<span class="fa fa-star text-warning"></span>
-											<span class="fa fa-star text-warning"></span>
-											<span class="fa fa-star text-warning"></span>
-											<span class="fa fa-star text-warning"></span>
-										</div>
-									</div>	
-								</div>
-								<div class="col-md my-3">
-									<div class="container text-center text-primary">Education, Trainings & Organizations</div>
-									<div class="container text-center text-secondary">'.$this->sanitize($data["PasserCertificateType"]).'</div>
-								</div>
-								<div class="col-md">
-									<hr>
-								</div>
-								<div class="col-md d-flex justify-content-center">
-									<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn btn-lg btn-primary mb-3">View Profile</a>
-								</div>
-							</div>
-						</div>
-
-			 			';
+							<div class="col-md-6">
+          						<div class="card shadow animated1 flipInX" style="height:95%">
+          							<div class="card-body">
+          								<div class="row">
+          									<div class="col-md-5 text-center hoverable">
+          										<a title="Jodel Adan">
+          											<img src="'.$this->sanitize($data["PasserProfile"]).'" class="rounded-circle border border-primary wow fadeInUp" width="150" height="150">
+          											<br>
+          											<a class="badge badge-success mt-3 font-weight-bold text-white">
+          												<i class="fas fa-check"></i> Verified Passer 
+          											</a>
+          									</div>
+          									<div class="col-md-7 text-center" style="font-family: Georgia, Times, Times New Roman, serif;">
+          										<a href="">
+          											<p class="text-info" style="font-size:30px">
+          											'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'
+          											</p>
+          										</a>
+      											<label class="trebuchet" style="font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height: 26.4px;font-size: 18px">
+      												'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'
+      											</label>
+      											<div class="container">
+	      											<span class="fa fa-star checked text-warning"></span>
+													<span class="fa fa-star checked text-warning"></span>
+													<span class="fa fa-star checked text-warning"></span>
+													<span class="fa fa-star text-warning"></span>
+													<span class="fa fa-star text-warning"></span>
+												</div>
+          									</div>
+          								</div>
+          								<div class="row">
+          									<div class="col-md-12 text-center mt-3 text-primary">
+          										<p style="font-size: 15px; color: blue">Education, Trainings & Organizations</p>
+          										<p class="text-dark" style="font-size: 15px;">'.$this->sanitize($data["PasserCertificateType"]).'</p>
+          									</div>
+          								</div>
+          							</div>
+          							<div class=" card-footer  text-center" style="height:90px">
+          								<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn-change1 btn btn-lg text-white" style="background:#0062cc">View profile</a>
+          							</div>
+          						</div>
+          					</div>';
 			 			$dom = $dom."".$builder;
 			 		}
 		 		}

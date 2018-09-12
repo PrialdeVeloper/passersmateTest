@@ -246,6 +246,58 @@
 			}
 		}
 
+		public function dynamicOfferJobAdd(){
+			$insert = $defaultJobOffer = $offerJobCheck = $flag = $passer = null;
+			if(isset($_POST['dynamicOfferJobAdd'])){
+				$passer = $this->sanitize($_POST['passerID']);
+				if($this->checkSession('seekerUser')){
+					if($this->seekerIsSubscribed()){
+						if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
+							if($this->getDetailsPasser($passer)[0]['PasserStatus'] == 1){
+								if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
+									$offerJobCheck = $this->model->selectAllFromUser("offerjob",$this->passerUnique,array($passer));
+									if(!empty($offerJobCheck)){
+										foreach ($offerJobCheck as $data) {
+											if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
+												$flag = 1;
+											}
+										}
+									}
+									if($flag == null){
+										$notes = (isset($_POST['notes'])?$this->sanitize($_POST['notes']):"");
+										$defaultJobOffer = $this->getDefaultOfferJob($_SESSION['seekerUser'])[0]['OfferJobFormID'];
+										$insert = $this->model->insertDB($this->offerJobAddTable,$this->offerJobAddDB,array($defaultJobOffer,$_SESSION['seekerUser'],$passer,$notes));
+										if($insert){
+											$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$passer,"message"=>1));
+											echo json_encode(array("error"=>"none"));
+										}
+									}
+									else{
+										echo json_encode(array("error"=>"unfinishedBusiness"));
+									}
+								}
+								else{
+									echo json_encode(array("error"=>"noDefaultJobOffer"));
+								}
+							}
+							else{
+								echo json_encode(array("error"=>"passerNotVerified"));
+							}
+						}
+						else{
+							echo json_encode(array("error"=>"seekerNotVerified"));
+						}
+					}
+					else{
+						echo json_encode(array("error"=>"notSubscribed"));
+					}
+				}
+				else{
+					echo json_encode(array("error"=>"notSeeker"));
+				}
+			}
+		}
+
 		public function checkAuthenticity($table,$field,$field2,$data){
 			$return = null;
 			$return = $this->model->checkAuthenticity($table,$field,$field2,$data);

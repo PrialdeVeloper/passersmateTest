@@ -412,6 +412,10 @@
 			}
 			$data[] = array("userDetails"=>$details,"pagination"=>$paginationDOM,"offers"=>$dom);
 			$this->controller->view("passer/jobofferlist",$data);
+		}
+
+		public function searchTry(){
+			$this->controller->view("passer/search");
 		}	
 	}
 ?>
