@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 10, 2018 at 03:36 PM
+-- Generation Time: Sep 15, 2018 at 03:31 PM
 -- Server version: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -379,7 +379,19 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (119, NULL, 14, 'updateUserStatus', '3', 0),
 (120, NULL, 14, 'updateUserStatus', '3', 0),
 (123, NULL, 14, 'updateUserStatus', '3', 0),
-(124, NULL, 14, 'updateUserStatus', '1', 0);
+(124, NULL, 14, 'updateUserStatus', '1', 0),
+(125, NULL, 1, 'updateUserStatus', '1', 0),
+(126, NULL, 1, 'JobOffer', '5', 0),
+(127, NULL, 1, 'JobOffer', '5', 0),
+(128, NULL, 1, 'JobOffer', '5', 0),
+(129, NULL, 1, 'JobOffer', '5', 0),
+(130, NULL, 1, 'JobOffer', '5', 0),
+(131, NULL, 1, 'JobOffer', '5', 0),
+(132, NULL, 1, 'JobOffer', '5', 1),
+(133, NULL, 1, 'JobOffer', '5', 1),
+(134, NULL, 1, 'JobOffer', '5', 1),
+(135, NULL, 1, 'JobOffer', '5', 1),
+(136, NULL, 1, 'JobOffer', '5', 1);
 
 -- --------------------------------------------------------
 
@@ -403,7 +415,7 @@ CREATE TABLE `offerjob` (
 
 INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
 (1, 5, 3, 6, '', '2018-09-01 21:11:41', 1),
-(2, 5, 3, 1, '', '2018-09-08 04:15:26', 9),
+(2, 5, 3, 1, '', '2018-09-15 12:52:47', 9),
 (3, 6, 6, 9, 'Walay free snacks', '2018-09-04 06:03:44', 6),
 (4, 6, 6, 9, 'qwe', '2018-09-02 06:11:27', 1),
 (5, 6, 6, 9, '', '2018-09-02 13:41:32', 1),
@@ -648,7 +660,9 @@ CREATE TABLE `ratings` (
   `OfferJobID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
-  `Rate` int(11) DEFAULT NULL,
+  `PersonalityRate` int(11) DEFAULT NULL,
+  `WorkQualityRate` int(11) DEFAULT NULL,
+  `PunctualityRate` int(11) DEFAULT NULL,
   `Feedback` text,
   `ReviewBy` varchar(255) NOT NULL,
   `ReviewdOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -658,21 +672,9 @@ CREATE TABLE `ratings` (
 -- Dumping data for table `ratings`
 --
 
-INSERT INTO `ratings` (`RatingsID`, `OfferJobID`, `PasserID`, `SeekerID`, `Rate`, `Feedback`, `ReviewBy`, `ReviewdOn`) VALUES
-(1, 2, 1, 3, 5, 'asdadsqqew', 'Seeker', '2018-09-05 09:02:30'),
-(2, 2, 1, 3, 3, 'qwe', 'Seeker', '2018-09-05 09:09:55'),
-(3, 2, 1, 3, 2, 'he', 'Seeker', '2018-09-05 09:11:27'),
-(4, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 09:12:11'),
-(5, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 09:12:40'),
-(6, 2, 1, 3, 2, 'qwe', 'Seeker', '2018-09-05 09:13:50'),
-(7, 2, 1, 3, 2, 'qwe', 'Seeker', '2018-09-05 09:16:14'),
-(8, 2, 1, 3, 4, 'qwe', 'Seeker', '2018-09-05 09:17:32'),
-(9, 2, 1, 3, 5, '', 'Seeker', '2018-09-05 09:48:54'),
-(10, 2, 1, 3, 0, 'hehehe', 'Seeker', '2018-09-05 09:51:07'),
-(11, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 10:00:39'),
-(12, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 10:55:11'),
-(13, 2, 1, 3, 5, 'qwe', 'Seeker', '2018-09-05 10:55:44'),
-(14, 2, 3, 1, 0, '', 'Passer', '2018-09-05 12:08:51');
+INSERT INTO `ratings` (`RatingsID`, `OfferJobID`, `PasserID`, `SeekerID`, `PersonalityRate`, `WorkQualityRate`, `PunctualityRate`, `Feedback`, `ReviewBy`, `ReviewdOn`) VALUES
+(1, 2, 1, 3, 2, 2, 3, '', 'Seeker', '2018-09-15 12:52:47'),
+(2, 2, 1, 3, 3, 3, 5, '', 'Passer', '2018-09-15 12:53:08');
 
 -- --------------------------------------------------------
 
@@ -1119,7 +1121,7 @@ ALTER TABLE `multimedia`
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT for table `offerjob`
@@ -1173,7 +1175,7 @@ ALTER TABLE `passerworkhistory`
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `RatingsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `RatingsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `seeker`

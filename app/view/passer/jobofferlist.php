@@ -206,26 +206,75 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               <div class="col-md-3">
                 <img id="rateImage" src="" class="rounded-circle border border-success shadow" style="height:110px;width:110px">
               </div>
-              <div class="col-md-9">
+<div class="col-md-9">
                 <h4 class="font-weight-bold" id="ratingName"></h4>
                  <div class="star-rating">
-                   <div class="stars">
-                  <input class="star star-5" id="star-5" type="radio" name="star" value="5">
-                  <label class="star star-5" for="star-5"></label>
-                  <input class="star star-4" id="star-4" type="radio" name="star" value="4">
-                  <label class="star star-4" for="star-4"></label>
-                  <input class="star star-3" id="star-3" type="radio" name="star" value="3">
-                  <label class="star star-3" for="star-3"></label>
-                  <input class="star star-2" id="star-2" type="radio" name="star" value="2">
-                  <label class="star star-2" for="star-2"></label>
-                  <input class="star star-1" id="star-1" type="radio" name="star" value="1">
-                  <label class="star star-1" for="star-1"></label>
+                  <div class="row">
+                    <div class="col">
+                      <div class="d-flex justify-content-center">
+                        <span class="text-center lead">Personality</span>
+                      </div>
+                       <div class="stars">
+                      <input class="star star-5" id="star-5" type="radio" name="star" value="5">
+                      <label class="star star-5" for="star-5"></label>
+                      <input class="star star-4" id="star-4" type="radio" name="star" value="4">
+                      <label class="star star-4" for="star-4"></label>
+                      <input class="star star-3" id="star-3" type="radio" name="star" value="3">
+                      <label class="star star-3" for="star-3"></label>
+                      <input class="star star-2" id="star-2" type="radio" name="star" value="2">
+                      <label class="star star-2" for="star-2"></label>
+                      <input class="star star-1" id="star-1" type="radio" name="star" value="1">
+                      <label class="star star-1" for="star-1"></label>
+                   </div>
+                    <div class="container text-center" id="rateCategory">
+                    </div>
                 </div>
-                <div class="container text-center" id="rateCategory">
+              </div>
+              <div class="row">
+                    <div class="col">
+                      <div class="d-flex justify-content-center">
+                        <span class="text-center lead">Punctuality</span>
+                      </div>
+                       <div class="stars">
+                      <input class="starsecond starsecond-5" id="starsecond-5" type="radio" name="starsecond" value="5">
+                      <label class="starsecond starsecond-5" for="starsecond-5"></label>
+                      <input class="starsecond starsecond-4" id="starsecond-4" type="radio" name="starsecond" value="4">
+                      <label class="starsecond starsecond-4" for="starsecond-4"></label>
+                      <input class="starsecond starsecond-3" id="starsecond-3" type="radio" name="starsecond" value="3">
+                      <label class="starsecond starsecond-3" for="starsecond-3"></label>
+                      <input class="starsecond starsecond-2" id="starsecond-2" type="radio" name="starsecond" value="2">
+                      <label class="starsecond starsecond-2" for="starsecond-2"></label>
+                      <input class="starsecond starsecond-1" id="starsecond-1" type="radio" name="starsecond" value="1">
+                      <label class="starsecond starsecond-1" for="starsecond-1"></label>
+                   </div>
+                    <div class="container text-center" id="rateCategorysecond">
+                    </div>
                 </div>
+              </div>
+              <div class="row">
+                    <div class="col">
+                      <div class="d-flex justify-content-center">
+                        <span class="text-center lead">Quality of Work</span>
+                      </div>
+                       <div class="starss">
+                      <input class="starthird starthird-5" id="starthird-5" type="radio" name="starthird1" value="5">
+                      <label class="starthird starthird-5" for="starthird-5"></label>
+                      <input class="starthird starthird-4" id="starthird-4" type="radio" name="starthird1" value="4">
+                      <label class="starthird starthird-4" for="starthird-4"></label>
+                      <input class="starthird starthird-3" id="starthird-3" type="radio" name="starthird1" value="3">
+                      <label class="starthird starthird-3" for="starthird-3"></label>
+                      <input class="starthird starthird-2" id="starthird-2" type="radio" name="starthird1" value="2">
+                      <label class="starthird starthird-2" for="starthird-2"></label>
+                      <input class="starthird starthird-1" id="starthird-1" type="radio" name="starthird1" value="1">
+                      <label class="starthird starthird-1" for="starthird-1"></label>
+                   </div>
+                    <div class="container text-center" id="rateCategorythird">
+                    </div>
+                </div>
+              </div>
                </div>
                  <div class="form-group mt-1">
-                <label for="rateFeedback" class="font-weight-bold">Your feedback</label>
+                <label for="rateFeedback" class="font-weight-bold">Your overall feedback</label>
                 <textarea class="form-control" id="rateFeedback" rows="3"></textarea>
               </div>
               </div>

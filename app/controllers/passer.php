@@ -347,7 +347,7 @@
 							$status = '<a class="badge badge-success text-white font-weight-bold float-right">Completed</a>';
 							$headerColor = 'bg-success';
 							$checkCommented = $this->model->selectAllDynamic("ratings",array("COUNT(*)"),array("OfferJobID",$this->passerUnique,"ReviewBy"),array($data['OfferJobID'],$this->passerSession,"Passer"));
-							if(empty($checkCommented)){
+							if($checkCommented[0]["COUNT(*)"] <= 0){
 								$employmentAgreement = 
 								'
 								<button type="button" class="btn btn-outline-success" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>

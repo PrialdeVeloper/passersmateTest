@@ -2922,16 +2922,60 @@ $(function(){
 				break;
 			}
 		})
+		$("input.starsecond").change(function(){
+			let category = $("#rateCategorysecond");
+			let checkedValue = $(this).val();
+			switch(checkedValue){
+				case "1":
+					category.empty().html('<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>');
+				break;
+				case "2":
+					category.empty().html('<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>');
+				break;
+				case "3":
+					category.empty().html('<span class="badge badge-primary font-weight-bold"><small>Good</small></span>');
+				break;
+				case "4":
+					category.empty().html('<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>');
+				break;
+				case "5":
+					category.empty().html('<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>');
+				break;
+			}
+		})
+		$("input.starthird").change(function(){
+			let category = $("#rateCategorythird");
+			let checkedValue = $(this).val();
+			switch(checkedValue){
+				case "1":
+					category.empty().html('<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>');
+				break;
+				case "2":
+					category.empty().html('<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>');
+				break;
+				case "3":
+					category.empty().html('<span class="badge badge-primary font-weight-bold"><small>Good</small></span>');
+				break;
+				case "4":
+					category.empty().html('<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>');
+				break;
+				case "5":
+					category.empty().html('<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>');
+				break;
+			}
+		})
 	})
 	// end of star
 
 	$(".rateSubmit").click(function(){
-		let rate = ($("input.star:checked").length > 0?$("input.star:checked").val():"");
+		let prate = ($("input.star:checked").length > 0?$("input.star:checked").val():"");
+		let wqrate = ($("input.starsecond:checked").length > 0?$("input.starsecond:checked").val():"");
+		let puncrate = ($("input.starthird:checked").length > 0?$("input.starthird:checked").val():"");
 		let feedback = $("#rateFeedback").val();
 		$.ajax({
 			url: "updateJobOfferStatus",
 			method: "POST",
-			data: {"update":"","newStatus":9,"jobofferID":cancelJobOffer,"otherUser":cancelOtherUser,"rate":rate,"feedback":feedback,"ratingInsert":"insert"},
+			data: {"update":"","newStatus":9,"jobofferID":cancelJobOffer,"otherUser":cancelOtherUser,"prate":prate,"wqrate":wqrate,"puncrate":puncrate,"feedback":feedback,"ratingInsert":"insert"},
 			success: function(a){
 				console.log(a);
 				let obj = JSON.parse(a);

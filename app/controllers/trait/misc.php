@@ -30,7 +30,7 @@
 		public $disputeTable = "dispute";
 		public $disputeDB = array("PasserID","SeekerID","JobOfferID","DisputeIssuer","DisputeReason");
 		public $ratingTable = "ratings";
-		public $ratingDB = array("OfferJobID","PasserID","SeekerID","Rate","Feedback","ReviewBy");
+		public $ratingDB = array("OfferJobID","PasserID","SeekerID","PersonalityRate","WorkQualityRate","PunctualityRate","Feedback","ReviewBy");
 		public $switchTable = "switch";
 		public $switchDB = array("SeekerID","PasserID","Original");
 		public $seekerSwitchDB = array("SeekerFN","SeekerLN","SeekerBirthdate","SeekerAge","SeekerGender","SeekerStreet","SeekerCity","SeekerAddress","SeekerCPNo","SeekerEmail","SeekerPass","SeekerProfile","SeekerStatus");
@@ -1875,9 +1875,11 @@
 											if($OfferJobStatus == 9){
 												switch ($_POST['ratingInsert']) {
 													case 'insert':
-														$rating = $this->sanitize($_POST['rate']);
+														$prating = $this->sanitize($_POST['prate']);
+														$wqrate = $this->sanitize($_POST['wqrate']);
+														$puncrate = $this->sanitize($_POST['puncrate']);
 														$feedback = $this->sanitize($_POST['feedback']);
-														$this->model->insertDB($this->ratingTable,$this->ratingDB,array($jobofferID,$otherUserID,$this->passerSession,$rating,$feedback,$otherUserLiteral));
+														$this->model->insertDB($this->ratingTable,$this->ratingDB,array($jobofferID,$this->passerSession,$otherUserID,$prating,$wqrate,$puncrate,$feedback,$otherUserLiteral));
 													break;
 												}
 												echo json_encode(array("error"=>"none"));
@@ -1944,9 +1946,11 @@
 													}
 													switch ($_POST['ratingInsert']) {
 														case 'insert':
-															$rating = $this->sanitize($_POST['rate']);
+															$prating = $this->sanitize($_POST['prate']);
+															$wqrate = $this->sanitize($_POST['wqrate']);
+															$puncrate = $this->sanitize($_POST['puncrate']);
 															$feedback = $this->sanitize($_POST['feedback']);
-															$this->model->insertDB($this->ratingTable,$this->ratingDB,array($jobofferID,$otherUserID,$this->seekerSession,$rating,$feedback,$otherUserLiteral));
+															$this->model->insertDB($this->ratingTable,$this->ratingDB,array($jobofferID,$otherUserID,$this->seekerSession,$prating,$wqrate,$puncrate,$feedback,$otherUserLiteral));
 															break;
 													}
 													$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$otherUserID,"message"=>"5"));
