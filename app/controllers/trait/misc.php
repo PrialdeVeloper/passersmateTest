@@ -246,6 +246,58 @@
 			}
 		}
 
+		public function dynamicOfferJobAdd(){
+			$insert = $defaultJobOffer = $offerJobCheck = $flag = $passer = null;
+			if(isset($_POST['dynamicOfferJobAdd'])){
+				$passer = $this->sanitize($_POST['passerID']);
+				if($this->checkSession('seekerUser')){
+					if($this->seekerIsSubscribed()){
+						if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
+							if($this->getDetailsPasser($passer)[0]['PasserStatus'] == 1){
+								if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
+									$offerJobCheck = $this->model->selectAllFromUser("offerjob",$this->passerUnique,array($passer));
+									if(!empty($offerJobCheck)){
+										foreach ($offerJobCheck as $data) {
+											if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
+												$flag = 1;
+											}
+										}
+									}
+									if($flag == null){
+										$notes = (isset($_POST['notes'])?$this->sanitize($_POST['notes']):"");
+										$defaultJobOffer = $this->getDefaultOfferJob($_SESSION['seekerUser'])[0]['OfferJobFormID'];
+										$insert = $this->model->insertDB($this->offerJobAddTable,$this->offerJobAddDB,array($defaultJobOffer,$_SESSION['seekerUser'],$passer,$notes));
+										if($insert){
+											$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$passer,"message"=>1));
+											echo json_encode(array("error"=>"none"));
+										}
+									}
+									else{
+										echo json_encode(array("error"=>"unfinishedBusiness"));
+									}
+								}
+								else{
+									echo json_encode(array("error"=>"noDefaultJobOffer"));
+								}
+							}
+							else{
+								echo json_encode(array("error"=>"passerNotVerified"));
+							}
+						}
+						else{
+							echo json_encode(array("error"=>"seekerNotVerified"));
+						}
+					}
+					else{
+						echo json_encode(array("error"=>"notSubscribed"));
+					}
+				}
+				else{
+					echo json_encode(array("error"=>"notSeeker"));
+				}
+			}
+		}
+
 		public function checkAuthenticity($table,$field,$field2,$data){
 			$return = null;
 			$return = $this->model->checkAuthenticity($table,$field,$field2,$data);
@@ -1573,6 +1625,38 @@
 				';
 			if(is_numeric($page)){
 				$result = $this->model->selectAllLimitSingle($table,$field,$offset,$limit,$order,$sort,array($field1Ans));
+			}
+			return json_encode(array("pagination"=>$pagination,"data"=>$result));
+		}
+
+		public function paginationAll($table,$field,$page,$offset,$limit,$order,$sort,$add){
+			// $add = (!empty($add)?"&".$add:"");
+			$result = $totalPage = $totalPages = $offset = null;
+			$totalPage = $this->model->countAll($table,$field);
+			$totalPages = ceil($totalPage/$limit);
+			$totalPage = null;
+			$offset = ($page-1) * $limit;
+			$first = ($page <= 1)?"disabled":"";
+			$prevLI = ($page <= 1)?"disabled":"";
+			$prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1)."".$add;
+
+			$nextLI = ($page >= $totalPages)?"disabled":"";
+			$nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1)."".$add;
+			$lastLI = ($page >= $totalPages)?"disabled":"";
+			$lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages."".$add;
+
+			$pagination = '
+				<nav>
+				  <ul class="pagination">
+				    <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
+				    <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+				    <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+				    <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+				  </ul>
+				</nav>
+				';
+			if(is_numeric($page)){
+				$result = $this->model->selectAllLimitSingleAll($table,$offset,$limit,$order,$sort);
 			}
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}

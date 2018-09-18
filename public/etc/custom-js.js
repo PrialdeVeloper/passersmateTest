@@ -451,31 +451,66 @@ $(function(){
 // search Passer
 
 $(function(){
-	$("input[name=jobTitle], input[name=budget], select[name=Gender]").bind("keyup change",function(){
+	$("input[name=jobTitle], #minimum, select[name=Gender], input[name=citySearch], input[name=age]").bind("keyup change",function(){
 		let jobTitle = $("input[name=jobTitle]").val();
-		let budget = $("input[name=budget]").val();
+		let budget = $("#minimum").val();
 		let gender = $("select[name=Gender]").val();
+		let genderRaw = $("select[name=Gender]");
+		let age = $("input[name=age]").val();
+		let city = $("input[name=citySearch]").val();
+		let passerNumber = $("input[name=numberPasser]").val();
 		let maxpage = $("#resultCountPasser");
 		let currentPage = $("#currentPagePasser");
 		let paginationDOM = $("#paginationSearchPasser");
 		let fields = [];
 		let data = [];
-		let page;
-		if(gender == "Any"){
-			gender = "%"+""+"%";
+		let page,gendertry,agetry,budgettry,citytry;
+
+		if(checkEmpty(passerNumber)){
+			passerNumber = 10;
 		}
+
+		if (gender == "Any") {
+			gender = "%%";
+			gendertry = "any";
+		}else{
+			gendertry = gender;
+		}
+
+		if(checkEmpty(age)){
+			age = "%%";
+			agetry = "any";
+		}else{
+			agetry = age;
+		}
+
+		if(budget == "any"){
+			budget = "%%";
+			budgettry = "any";
+		}else{
+			budgettry = budget;
+		}
+
+		if(checkEmpty(city)){
+			city = "%%";
+			citytry = "";
+		}else{
+			citytry = city;
+		}
+
+		
 		if(!getURLData("page")){
 			page = 1
 		}else{
 			page = getURLData("page");
 		}
-		fields = ['PasserCertificate','PasserRate','PasserGender','PasserStatus'];
-		data = ["%"+jobTitle+"%","%"+budget+"%",gender,1];
-		history.pushState("","","?search=&jobtitle="+jobTitle+"&budget="+budget+"&gender="+gender+"&page="+page);
+		fields = ['PasserCertificate','PasserFee','PasserGender','PasserAge','PasserCity','PasserStatus'];
+		data = ["%"+jobTitle+"%",budget,gender,age,city,1];
+		history.pushState("","","?search=search&jobtitle="+jobTitle+"&budget="+budgettry+"&gender="+gendertry+"&age="+agetry+"&city="+citytry+"&page="+page);
 		$.ajax({
 			url: "paginationScriptOwnQuery",
 			method: "POST",
-			data: {"getData":"","field":fields,"data":data,"table":"passer","limit":1,"page":page},
+			data: {"getData":"","field":fields,"data":data,"table":"passer","limit":passerNumber,"page":page},
 			success: function(a){
 				let obj = JSON.parse(a);
 				maxpage.empty().html(obj.resultCount);
@@ -487,6 +522,77 @@ $(function(){
 		});
 	});
 });
+// search addd job offer
+$(function(){
+	$("button[name=sendButton]").click(function(){
+		let passersIDSearch = [];
+		if($(".hehe:checked").length >= 1){
+			$(".hehe:checked").each(function() {	
+				offerjobDynamic($(this).val());
+			});
+		}else{
+			toastWarning("Please select a passer to continue");
+		}
+	});
+});
+
+function offerjobDynamic(id){
+	$.ajax({
+		url:"dynamicOfferJobAdd",
+		method: "POST",
+		data: {"dynamicOfferJobAdd":"","passerID":id},
+		success: function(a){
+			console.log(a);
+			let obj = JSON.parse(a);
+			switch(obj.error){
+				case "none":
+					toastSuccess('You have successfully offered a Job!');
+				break;
+				case "noPasserSelected":
+					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+				  	'Please choose another passer again.'
+					+'</div>');
+				break;
+				case "noDefaultJobOffer":
+					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+				  	'Sorry, Please create or set a default job offer form first <a href="../seeker/jobofferform">Here.</a>'
+					+'</div>');
+				break;
+				case "passerNotVerified":
+					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+				  	'Sorry, Current choosen passer is unverified and therefore, cannot be hired. <a href="../seeker/joboffer">Here.</a>'
+					+'</div>');
+				break;
+				case "seekerNotVerified":
+					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+				  	'Sorry, you are currently unverified and therefore, cannot hire any passer. Please verify your account <a href="../seeker/dashboard">Here.</a>'
+					+'</div>');
+				break;
+				case "notSubscribed":
+					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+				  	'Sorry, You have no active subscription. Please subscribe first <a href="subscription">Here.</a>'
+					+'</div>');
+				break;
+				case "notSeeker":
+					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+				  	'Please login as seeker first <a href="login">Here.</a>'
+					+'</div>');
+				break;
+				case "unfinishedBusiness":
+					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
+				  	'You cannot rehire this passer because you still have pending Transaction! You can view it <a href="../seeker/joboffered">Here.</a>'
+					+'</div>');
+				break;
+			}
+		},
+		fail: function(){
+			alert("cannot connect to server");
+		}
+	});
+	return true;
+}
+// end of addd job offer
+
 // message
 
 // add user message
@@ -2462,7 +2568,7 @@ $(function(){
 					break;
 					case "noDefaultJobOffer":
 						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-					  	'Sorry, Please create or set a default job offer form first <a href="../seeker/joboffer">Here.</a>'
+					  	'Sorry, Please create or set a default job offer form first <a href="../seeker/jobofferform">Here.</a>'
 						+'</div>');
 					break;
 					case "passerNotVerified":
@@ -2516,7 +2622,7 @@ $(function(){
 					break;
 					case "noDefaultJobOffer":
 						modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-					  	'Sorry, Please create or set a default job offer form first <a href="../seeker/joboffer">Here.</a>'
+					  	'Sorry, Please create or set a default job offer form first <a href="../seeker/jobofferform">Here.</a>'
 						+'</div>');
 					break;
 					case "passerNotVerified":

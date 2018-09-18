@@ -1,3 +1,9 @@
+<?php 
+    $domPasserUnverified = null;
+    if(isset($data) && !empty($data)){
+        extract($data[0]);
+    }
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -286,38 +292,13 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                     <div class="row el-element-overlay">
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="el-card-item">
-                                    <div class="el-card-avatar el-overlay-1"> <img src="../etc/admin/assets/images/big/img1.jpg" alt="user" />
-                                        <div class="el-overlay">
-                                            <ul class="list-style-none el-info">
-                                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="../etc/admin/assets/images/big/img1.jpg"><i class="mdi mdi-magnify-plus"></i></a></li>
-                                                <li class="el-item"><a class="btn default btn-outline el-link" href="javascript:void(0);" data-toggle="modal" data-target="#Modal1"><i class="fas fa-address-card"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="el-card-content">
-                                        <h4 class="m-b-0">Marvee Yofa Franco</h4> <span class="text-muted">Chef</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6">
-                            <div class="card">
-                                <div class="el-card-item">
-                                    <div class="el-card-avatar el-overlay-1"> <img src="../etc/admin/assets/images/big/img2.jpg" alt="user" />
-                                        <div class="el-overlay">
-                                            <ul class="list-style-none el-info">
-                                                <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="../etc/admin/assets/images/big/img2.jpg"><i class="mdi mdi-magnify-plus"></i></a></li>
-                                                <li class="el-item"><a class="btn default btn-outline el-link" href="javascript:void(0);" data-toggle="modal" data-target="#Modal1"><i class="fas fa-address-card"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="el-card-content">
-                                        <h4 class="m-b-0">Crimson Franco</h4> <span class="text-muted">Carpenter</span>
-                                    </div>
-                                </div>
+                         <?=$dom;?>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5"></div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+                                <?=$pagination;?>
                             </div>
                         </div>
                     </div>

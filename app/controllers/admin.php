@@ -69,7 +69,6 @@
 				header("location:index");
 			}
 			$data = [];
-			$dom = 
 			$data[] = array("passerUnverified"=>$this->createPasserUnverified());
 			$this->controller->view("admin/confirmPasser",$data);
 		}
@@ -79,9 +78,181 @@
 				header("location:index");
 			}
 			$data = [];
-			$dom = 
 			$data[] = array("seekerUnverified"=>$this->createSeekerUnverified());
 			$this->controller->view("admin/confirmSeeker",$data);
+		}
+
+		public function alluser(){
+			$allUsers = $builder = $dom = $userStatus = null;
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			$data = [];
+			$allUsers = $this->model->joinPasserSeeker();
+			foreach ($allUsers as $users) {
+				switch ($users['PasserStatus']) {
+					case 0:
+						$userStatus = "Unverified";
+					break;
+
+					case 1:
+						$userStatus = "Verified";
+					break;
+
+					case 2:
+						$userStatus = "Pending";
+					break;
+
+					case 3:
+						$userStatus = "Denied";
+					break;
+
+					case 4:
+						$userStatus = "Deactivated(User Triggered)";
+					break;
+
+					case 5:
+						$userStatus = "Deactivated(Admin Triggered)";
+					break;
+				}
+				$builder = 
+				'
+					 <tr>
+	                    <td><img src="'.$users['PasserProfile'].'" style="width:40px;"></td>
+	                    <td>'.$users['fullname'].'</td>
+	                    <td>'.$users['UserType'].'</td>
+	                    <td>'.date("F jS, Y",strtotime($users['passerRegisterTimeDate'])).'</td>
+	                    <td class="text-success">'.$userStatus.'</td>
+	                </tr>
+				';
+				$dom = $dom."".$builder;
+			}
+			$data[] = array("users"=>$dom);
+			$this->controller->view("admin/allUser",$data);
+
+		}
+
+		public function admin(){
+			$allUsers = $builder = $dom = $userStatus = $pagination = null;
+			$data = [];
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+			$allUsers = $this->paginationAll("admin","AdminID",$page,1,5,"AdminID","DESC","");
+			$allUsers = json_decode($allUsers,true);
+			foreach ($allUsers['data'] as $data) {
+				$builder = 
+				'
+				<tr>
+                    <td>'.$data['AdminID'].'</td>
+                    <td>'.$data['username'].'</td>
+                    <td>'.$data['email'].'</td>
+                </tr>
+				';
+				$dom = $dom."".$builder;
+			}
+			$pagination = $allUsers['pagination'];
+			$data[] = array("dom"=>$dom,"pagination"=>$pagination);
+			$this->controller->view("admin/admin",$data);
+
+		}
+
+		public function passers(){
+			$allUsers = $builder = $dom = $userStatus = $pagination = null;
+			$data = [];
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+			$allUsers = $this->paginationAll("passer","PasserID",$page,1,8,"PasserID","DESC","");
+			$allUsers = json_decode($allUsers,true);
+			foreach ($allUsers['data'] as $data) {
+				$builder = 
+				'
+				<div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="el-card-item">
+                            <div class="el-card-avatar el-overlay-1"> 
+                            	<img src="'.$data['PasserProfile'].'" style="height:230px;" alt="user" />
+                                <div class="el-overlay">
+                                    <ul class="list-style-none el-info">
+                                        <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="'.$data['PasserProfile'].'"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                        <li class="el-item">
+                                        	<a class="btn default btn-outline el-link" href="javascript:void(0);" data-toggle="modal" data-passer="'.$data['PasserID'].'" data-target="#Modal1">
+                                        		<i class="fas fa-address-card"></i>
+                                        	</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="el-card-content">
+                                <h4 class="m-b-0">'.$data['PasserFN']." ".$data['PasserLN'].'</h4> 
+                                <span class="text-muted">'.$data['PasserCertificate'].'</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				';
+				$dom = $dom."".$builder;
+			}
+			$pagination = $allUsers['pagination'];
+			$data[] = array("dom"=>$dom,"pagination"=>$pagination);
+			$this->controller->view("admin/passers",$data);
+		}
+
+		public function seekers(){
+			$allUsers = $builder = $dom = $userStatus = $pagination = null;
+			$data = [];
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+			$allUsers = $this->paginationAll("seeker","SeekerID",$page,1,8,"SeekerID","DESC","");
+			$allUsers = json_decode($allUsers,true);
+			foreach ($allUsers['data'] as $data) {
+				$builder = 
+				'
+				<div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="el-card-item">
+                            <div class="el-card-avatar el-overlay-1"> 
+                            	<img src="'.$data['SeekerProfile'].'" style="height:230px;" alt="user" />
+                                <div class="el-overlay">
+                                    <ul class="list-style-none el-info">
+                                        <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="'.$data['SeekerProfile'].'"><i class="mdi mdi-magnify-plus"></i></a></li>
+                                        <li class="el-item">
+                                        	<a class="btn default btn-outline el-link" href="javascript:void(0);" data-toggle="modal" data-seeker="'.$data['SeekerID'].'" data-target="#Modal1">
+                                        		<i class="fas fa-address-card"></i>
+                                        	</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="el-card-content">
+                                <h4 class="m-b-0">'.$data['SeekerFN']." ".$data['SeekerLN'].'</h4> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+				';
+				$dom = $dom."".$builder;
+			}
+			$pagination = $allUsers['pagination'];
+			$data[] = array("dom"=>$dom,"pagination"=>$pagination);
+			$this->controller->view("admin/seekers",$data);
 		}
 
 		public function logout(){

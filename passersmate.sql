@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2018 at 03:31 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Generation Time: Sep 18, 2018 at 08:06 AM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.6.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -258,8 +256,6 @@ CREATE TABLE `notification` (
 --
 
 INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificationType`, `notificationMessage`, `notificationStatus`) VALUES
-(1, NULL, 1, 'updateUserStatus', '1', 0),
-(2, NULL, 5, 'updateUserStatus', '1', 0),
 (3, 2, NULL, 'updateUserStatus', '1', 0),
 (4, 2, NULL, 'subscription', '1', 0),
 (5, 1, NULL, 'subscription', '1', 0),
@@ -380,18 +376,8 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (120, NULL, 14, 'updateUserStatus', '3', 0),
 (123, NULL, 14, 'updateUserStatus', '3', 0),
 (124, NULL, 14, 'updateUserStatus', '1', 0),
-(125, NULL, 1, 'updateUserStatus', '1', 0),
-(126, NULL, 1, 'JobOffer', '5', 0),
-(127, NULL, 1, 'JobOffer', '5', 0),
-(128, NULL, 1, 'JobOffer', '5', 0),
-(129, NULL, 1, 'JobOffer', '5', 0),
-(130, NULL, 1, 'JobOffer', '5', 0),
-(131, NULL, 1, 'JobOffer', '5', 0),
-(132, NULL, 1, 'JobOffer', '5', 1),
-(133, NULL, 1, 'JobOffer', '5', 1),
-(134, NULL, 1, 'JobOffer', '5', 1),
-(135, NULL, 1, 'JobOffer', '5', 1),
-(136, NULL, 1, 'JobOffer', '5', 1);
+(125, NULL, 7, 'JobOffer', '1', 1),
+(126, NULL, 2, 'JobOffer', '1', 1);
 
 -- --------------------------------------------------------
 
@@ -414,12 +400,14 @@ CREATE TABLE `offerjob` (
 --
 
 INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
-(1, 5, 3, 6, '', '2018-09-01 21:11:41', 1),
-(2, 5, 3, 1, '', '2018-09-15 12:52:47', 9),
-(3, 6, 6, 9, 'Walay free snacks', '2018-09-04 06:03:44', 6),
-(4, 6, 6, 9, 'qwe', '2018-09-02 06:11:27', 1),
-(5, 6, 6, 9, '', '2018-09-02 13:41:32', 1),
-(6, 6, 6, 9, '', '2018-09-02 13:41:43', 1);
+(1, 5, 3, 6, '', '2018-09-12 07:41:57', 9),
+(2, 5, 3, 1, '', '2018-09-08 04:15:26', 9),
+(3, 6, 6, 9, 'Walay free snacks', '2018-09-12 07:41:57', 9),
+(4, 6, 6, 9, 'qwe', '2018-09-12 07:41:57', 9),
+(5, 6, 6, 9, '', '2018-09-12 07:41:57', 9),
+(6, 6, 6, 9, '', '2018-09-12 07:41:57', 9),
+(7, 7, 3, 7, '', '2018-09-12 07:41:57', 9),
+(8, 7, 3, 2, '', '2018-09-12 07:43:01', 1);
 
 -- --------------------------------------------------------
 
@@ -450,8 +438,8 @@ INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `Sta
 (3, 3, 'tqw', '2018-08-01', '2018-08-15', 4319, 'Onsite', 'Offsite', 0, 2, 1),
 (4, 3, 'sda', '2018-08-01', '2018-08-31', 1000, 'Online', 'In-House', 0, 1, 1),
 (5, 3, 'lhehe', '2018-08-09', '2018-08-16', 5000, 'Online', 'In-House', 0, 2, 1),
-(6, 6, 'General Gines St. Suba Cebu City', '2018-09-19', '2018-09-25', 1000, 'Onsite', 'Offsite', 1, 2, 1),
-(7, 3, 'qweqwe', '2020-01-11', '2022-01-11', 255, 'Online', 'In-House', 0, 0, 1);
+(6, 6, 'General Gines St. Suba Cebu City', '2018-09-19', '2018-09-25', 1000, 'Onsite', 'Offsite', 0, 2, 1),
+(7, 3, 'qweqwe', '2020-01-11', '2022-01-11', 255, 'Online', 'In-House', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -510,28 +498,29 @@ CREATE TABLE `passer` (
   `PasserTESDALink` varchar(255) NOT NULL,
   `PasserProfile` varchar(255) DEFAULT NULL,
   `PasserFee` bigint(20) NOT NULL,
-  `passerRegisterTimeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `passerRegisterTimeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserType` varchar(255) DEFAULT 'Passer'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passer`
 --
 
-INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserCOCExpiryDate`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`) VALUES
-(1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '1', 0, '13040102003962', '0000-00-00', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 0, '2018-07-22 15:12:46'),
-(2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 0, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '0', 0, '14130602029952', '0000-00-00', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 0, '2018-07-22 15:20:53'),
-(3, '', '', '', NULL, 0, '', '', '', '', NULL, '', '0', 0, '', '0000-00-00', '$2y$12$VaHA4bJ8u6qFfHGLiC8M4egPaLsd7koKBBvZKBQdcF6hsdEs974Um', '', '', '', NULL, 0, '2018-07-26 06:12:30'),
-(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 0, 'Female', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 0, '2018-07-26 09:39:02'),
-(5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', 0, '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16'),
-(6, 'Frederick', 'Lorenzana', 'F', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Suba', 9154861084, 'sheldon@gmail.com', '1', 0, '13131601010336', '2018-08-16', '$2y$12$EYhujIRajkByoky0ivzoj.bUnAZzOZLERoNjFd5VPliAHDxv3/0kK', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369231', '../../public/etc/images/user/passer/15340694706153406947026.jpg', 0, '2018-08-12 10:21:25'),
-(7, 'Bernard', 'Buhawe', 'P', NULL, 0, '', '', '', '', NULL, 'abugabayot@gmail.com', '2', 0, '16104302012735', '2018-08-21', '$2y$12$XR2/ml7jvtP5zFen5Iqt5.z8.n80/v7FHuSqjpaAJ57.dix3ziHGe', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369228', NULL, 0, '2018-08-12 20:00:24'),
-(8, 'Leonard', 'Lelis', 'P', NULL, 0, '', '', '', '', NULL, 'abugabayotkaayo@gmail.com', '0', 0, '16104302012746', '2018-07-31', '$2y$12$5HzXf2v2JaPtCQvieJISE.wj1ziVOvIsnml2kzbeQoiOTOgH8Pyky', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369227', NULL, 0, '2018-08-12 20:03:15'),
-(9, 'Herminio J', 'Miranda', 'R', '2018-09-26', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'miranda@gmail.com', '1', 0, '15131403031982', '2018-09-26', '$2y$12$ol7yF94W.jMwiOp8wbOKVedJDEnnW3Fbey58.lOZfXnQlICj6LgK.', 'Plumbing NC III', 'NC III', 'http://www.tesda.gov.ph/Rwac/Details/7369234', '../../public/etc/images/user/passer/15358613606153586136039.jpg', 0, '2018-09-02 04:08:30'),
-(10, 'Ronnie', 'Taparan', 'A', NULL, 0, '', '', '', '', NULL, 'test12@gmail.com', '0', 0, '09060601003516', '2020-11-25', '$2y$12$sBPUi1iCwSlUv4009sDkp.nLx2/C2qekYF/0GzbEhcWRgXpWIdWsS', 'Shielded Metal Arc Welding (SMAW) NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369248', NULL, 0, '2018-09-08 03:01:22'),
-(11, 'Syrel', 'Prialde', '', NULL, 0, '', '', '', '', NULL, 'syrelgm@gmail.com', '0', 0, '', '0000-00-00', '', '', '', '', NULL, 0, '2018-09-08 05:29:46'),
-(12, 'Julieta', 'Lincuna', 'L', '2018-10-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'lincuna@gmail.com', '0', 0, '15130702030231', '2018-09-20', '$2y$12$.u8Kz4O4WXsofVIuJWZkheGJY44epHFerTYN8a0vyvoJHcGL1v7PW', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369233', '../../public/etc/images/user/passer/153639114871536391148512.jpg', 0, '2018-09-08 06:56:21'),
-(13, 'syrel', 'prialde', '', NULL, 0, '', '', '', '', NULL, 'test@gmail.com', '0', 0, '', '0000-00-00', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', '', '', '', NULL, 0, '2018-09-09 03:12:00'),
-(14, 'Judith', 'Espiritu', 'L', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9434809647, 'espiritu@gmail.com', '1', 0, '12130302008762', '2018-09-28', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369232', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', 0, '2018-09-09 03:41:38');
+INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserCOCExpiryDate`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`, `UserType`) VALUES
+(1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '1', 1, '13040102003962', '0000-00-00', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 728, '2018-07-22 15:12:46', 'Passer'),
+(2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 25, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '1', 0, '14130602029952', '0000-00-00', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 728, '2018-07-22 15:20:53', 'Passer'),
+(3, '', '', '', NULL, 0, '', '', '', '', NULL, '', '0', 0, '', '0000-00-00', '$2y$12$VaHA4bJ8u6qFfHGLiC8M4egPaLsd7koKBBvZKBQdcF6hsdEs974Um', '', '', '', NULL, 0, '2018-07-26 06:12:30', 'Passer'),
+(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 25, 'Female', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 728, '2018-07-26 09:39:02', 'Passer'),
+(5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', 0, '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16', 'Passer'),
+(6, 'Frederick', 'Lorenzana', 'F', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Suba', 9154861084, 'sheldon@gmail.com', '1', 0, '13131601010336', '2018-08-16', '$2y$12$EYhujIRajkByoky0ivzoj.bUnAZzOZLERoNjFd5VPliAHDxv3/0kK', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369231', '../../public/etc/images/user/passer/15340694706153406947026.jpg', 0, '2018-08-12 10:21:25', 'Passer'),
+(7, 'Bernard', 'Buhawe', 'P', NULL, 0, '', '', '', '', NULL, 'abugabayot@gmail.com', '1', 0, '16104302012735', '2018-08-21', '$2y$12$XR2/ml7jvtP5zFen5Iqt5.z8.n80/v7FHuSqjpaAJ57.dix3ziHGe', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369228', NULL, 0, '2018-08-12 20:00:24', 'Passer'),
+(8, 'Leonard', 'Lelis', 'P', NULL, 0, '', '', '', '', NULL, 'abugabayotkaayo@gmail.com', '0', 0, '16104302012746', '2018-07-31', '$2y$12$5HzXf2v2JaPtCQvieJISE.wj1ziVOvIsnml2kzbeQoiOTOgH8Pyky', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369227', NULL, 0, '2018-08-12 20:03:15', 'Passer'),
+(9, 'Herminio J', 'Miranda', 'R', '2018-09-26', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'miranda@gmail.com', '1', 0, '15131403031982', '2018-09-26', '$2y$12$ol7yF94W.jMwiOp8wbOKVedJDEnnW3Fbey58.lOZfXnQlICj6LgK.', 'Plumbing NC III', 'NC III', 'http://www.tesda.gov.ph/Rwac/Details/7369234', '../../public/etc/images/user/passer/15358613606153586136039.jpg', 0, '2018-09-02 04:08:30', 'Passer'),
+(10, 'Ronnie', 'Taparan', 'A', NULL, 0, '', '', '', '', NULL, 'test12@gmail.com', '0', 0, '09060601003516', '2020-11-25', '$2y$12$sBPUi1iCwSlUv4009sDkp.nLx2/C2qekYF/0GzbEhcWRgXpWIdWsS', 'Shielded Metal Arc Welding (SMAW) NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369248', NULL, 0, '2018-09-08 03:01:22', 'Passer'),
+(11, 'Syrel', 'Prialde', '', NULL, 0, '', '', '', '', NULL, 'syrelgm@gmail.com', '0', 0, '', '0000-00-00', '', '', '', '', NULL, 0, '2018-09-08 05:29:46', 'Passer'),
+(12, 'Julieta', 'Lincuna', 'L', '2018-10-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'lincuna@gmail.com', '0', 0, '15130702030231', '2018-09-20', '$2y$12$.u8Kz4O4WXsofVIuJWZkheGJY44epHFerTYN8a0vyvoJHcGL1v7PW', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369233', '../../public/etc/images/user/passer/153639114871536391148512.jpg', 0, '2018-09-08 06:56:21', 'Passer'),
+(13, 'syrel', 'prialde', '', NULL, 0, '', '', '', '', NULL, 'test@gmail.com', '0', 0, '', '0000-00-00', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', '', '', '', NULL, 0, '2018-09-09 03:12:00', 'Passer'),
+(14, 'Judith', 'Espiritu', 'L', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9434809647, 'espiritu@gmail.com', '1', 0, '12130302008762', '2018-09-28', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369232', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', 0, '2018-09-09 03:41:38', 'Passer');
 
 -- --------------------------------------------------------
 
@@ -660,9 +649,7 @@ CREATE TABLE `ratings` (
   `OfferJobID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
-  `PersonalityRate` int(11) DEFAULT NULL,
-  `WorkQualityRate` int(11) DEFAULT NULL,
-  `PunctualityRate` int(11) DEFAULT NULL,
+  `Rate` int(11) DEFAULT NULL,
   `Feedback` text,
   `ReviewBy` varchar(255) NOT NULL,
   `ReviewdOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -672,9 +659,21 @@ CREATE TABLE `ratings` (
 -- Dumping data for table `ratings`
 --
 
-INSERT INTO `ratings` (`RatingsID`, `OfferJobID`, `PasserID`, `SeekerID`, `PersonalityRate`, `WorkQualityRate`, `PunctualityRate`, `Feedback`, `ReviewBy`, `ReviewdOn`) VALUES
-(1, 2, 1, 3, 2, 2, 3, '', 'Seeker', '2018-09-15 12:52:47'),
-(2, 2, 1, 3, 3, 3, 5, '', 'Passer', '2018-09-15 12:53:08');
+INSERT INTO `ratings` (`RatingsID`, `OfferJobID`, `PasserID`, `SeekerID`, `Rate`, `Feedback`, `ReviewBy`, `ReviewdOn`) VALUES
+(1, 2, 1, 3, 5, 'asdadsqqew', 'Seeker', '2018-09-05 09:02:30'),
+(2, 2, 1, 3, 3, 'qwe', 'Seeker', '2018-09-05 09:09:55'),
+(3, 2, 1, 3, 2, 'he', 'Seeker', '2018-09-05 09:11:27'),
+(4, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 09:12:11'),
+(5, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 09:12:40'),
+(6, 2, 1, 3, 2, 'qwe', 'Seeker', '2018-09-05 09:13:50'),
+(7, 2, 1, 3, 2, 'qwe', 'Seeker', '2018-09-05 09:16:14'),
+(8, 2, 1, 3, 4, 'qwe', 'Seeker', '2018-09-05 09:17:32'),
+(9, 2, 1, 3, 5, '', 'Seeker', '2018-09-05 09:48:54'),
+(10, 2, 1, 3, 0, 'hehehe', 'Seeker', '2018-09-05 09:51:07'),
+(11, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 10:00:39'),
+(12, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 10:55:11'),
+(13, 2, 1, 3, 5, 'qwe', 'Seeker', '2018-09-05 10:55:44'),
+(14, 2, 3, 1, 0, '', 'Passer', '2018-09-05 12:08:51');
 
 -- --------------------------------------------------------
 
@@ -702,23 +701,25 @@ CREATE TABLE `seeker` (
   `SeekerStatus` varchar(255) DEFAULT '0',
   `SeekerProfile` varchar(255) NOT NULL,
   `SeekerUname` varchar(255) NOT NULL,
-  `SeekerPass` varchar(255) NOT NULL
+  `SeekerPass` varchar(255) NOT NULL,
+  `SeekerRegisterDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UserType` varchar(255) DEFAULT 'Seeker'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `seeker`
 --
 
-INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`) VALUES
-(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '1', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', ''),
-(2, 'Marvee Yofa', 'Franco', NULL, 0, 'Female', '', '', '', NULL, 'francoyochi@gmail.com', '', '1668043639982457', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEd2ejZA2eFlSV09zd3RadWJRRTEzdFRkWm1fVHlnczVCN1pqTnZA5QUJoNEkxeUlHNHd4YUliUldBWm02c09fMnZAYbDZAUUnJ5Mmc4cVpFYWRyUExPdHpMN2FZAeGxYajh4UjUwd25yZAWllZAkNDMmR0/', NULL, '', '1', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1668043639982457&amp;height=200&amp;width=200&amp;ext=1535530327&amp;hash=AeT60qKEE-Hc1jO0', '', ''),
-(3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 9154861084, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/153637989410153637989433.jpg', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW'),
-(4, 'May', 'Franco', '2018-08-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Suba', 2147483647, 'francoyogie@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15332818502153328185034.jpg', 'franco', '$2y$12$vhJF9oSUtFTE0zqf1PYifOFyGvqfMZA4ao8e7yW0VdOunHZU9Tw12'),
-(5, 'Syrel', 'Prialde', NULL, 0, 'Male', '', '', '', NULL, 'prialde01@gmail.com', '', NULL, NULL, '118416846115335852813', 'https://plus.google.com/118416846115335852813', '0', 'https://lh4.googleusercontent.com/-kYuWnXUzfcI/AAAAAAAAAAI/AAAAAAAAAAA/AAnnY7ry8ZDeqsrb-PjviuoLSg6sO99sIw/mo/photo.jpg', '', ''),
-(6, 'Marvee', 'Franco', '2018-09-12', 0, 'Female', 'General Gines St.', 'Cebu City', 'Cebu', 9154861084, 'marvee@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15358618518153586185156.jpg', 'marvee06', '$2y$12$75.SRlp1MxEUV4zk7FpqZ.y72CQB.cdR5Ho18FhDi6Cro0tuKoDgm'),
-(20, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy'),
-(21, 'Marimar', 'Franco', '1997-09-03', 21, 'Female', 'Mango Avenue', 'Cebu City', 'Region Vii', 9434809647, 'franco@gmail.com', '', NULL, NULL, NULL, '', '0', '', 'marimar', '$2y$12$Ku2hBTRAOTqFtlF9S4xhP.SXlxtHTzKC9CJhIB5f4ZZolksBUWO7y'),
-(22, 'Judith', 'Espiritu', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9434809647, 'espiritu@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', '', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46');
+INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `SeekerAge`, `SeekerGender`, `SeekerStreet`, `SeekerCity`, `SeekerAddress`, `SeekerCPNo`, `SeekerEmail`, `SeekerType`, `SeekerFacebookId`, `SeekerFacebookLink`, `SeekerGmailID`, `SeekerGmailLink`, `SeekerStatus`, `SeekerProfile`, `SeekerUname`, `SeekerPass`, `SeekerRegisterDateTime`, `UserType`) VALUES
+(1, 'Syrel', 'Prialde', '2018-07-18', 0, 'Male', 'Str', 'Cebu City', 'Add', 2147483647, 'syrelgm@gmail.com', '', '1416471571813746', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEdPQkRPZAjV5enQ2RzkxZA0lrNThxX1pQcGFDaGVFNGVjckE0ZAUU5cDBJQ2dvTVl2aTRRLVNoU1pXa2t2ZA0pFYTQyeWtzd2RvWVhMX2ZAmOVJaQkNVdm1zUnNnMW1NN3h6VzhQZAW94YzR6a1VDY18t/', NULL, '', '1', '../../public/etc/images/user/seeker/15324324264153243242611.jpg', '', '', '2018-09-17 17:57:19', 'Seeker'),
+(2, 'Marvee Yofa', 'Franco', NULL, 0, 'Female', '', '', '', NULL, 'francoyochi@gmail.com', '', '1668043639982457', 'https://www.facebook.com/app_scoped_user_id/YXNpZADpBWEd2ejZA2eFlSV09zd3RadWJRRTEzdFRkWm1fVHlnczVCN1pqTnZA5QUJoNEkxeUlHNHd4YUliUldBWm02c09fMnZAYbDZAUUnJ5Mmc4cVpFYWRyUExPdHpMN2FZAeGxYajh4UjUwd25yZAWllZAkNDMmR0/', NULL, '', '1', 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1668043639982457&amp;height=200&amp;width=200&amp;ext=1535530327&amp;hash=AeT60qKEE-Hc1jO0', '', '', '2018-09-17 17:57:19', 'Seeker'),
+(3, 'syrel', 'prialde', '1997-11-22', 21, 'Female', 'Qwe', 'Qwe', 'Qweqwe', 9154861084, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/153637989410153637989433.jpg', 'test01', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', '2018-09-17 17:57:19', 'Seeker'),
+(4, 'May', 'Franco', '2018-08-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Suba', 2147483647, 'francoyogie@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15332818502153328185034.jpg', 'franco', '$2y$12$vhJF9oSUtFTE0zqf1PYifOFyGvqfMZA4ao8e7yW0VdOunHZU9Tw12', '2018-09-17 17:57:19', 'Seeker'),
+(5, 'Syrel', 'Prialde', NULL, 0, 'Male', '', '', '', NULL, 'prialde01@gmail.com', '', NULL, NULL, '118416846115335852813', 'https://plus.google.com/118416846115335852813', '0', 'https://lh4.googleusercontent.com/-kYuWnXUzfcI/AAAAAAAAAAI/AAAAAAAAAAA/AAnnY7ry8ZDeqsrb-PjviuoLSg6sO99sIw/mo/photo.jpg', '', '', '2018-09-17 17:57:19', 'Seeker'),
+(6, 'Marvee', 'Franco', '2018-09-12', 0, 'Female', 'General Gines St.', 'Cebu City', 'Cebu', 9154861084, 'marvee@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/seeker/15358618518153586185156.jpg', 'marvee06', '$2y$12$75.SRlp1MxEUV4zk7FpqZ.y72CQB.cdR5Ho18FhDi6Cro0tuKoDgm', '2018-09-17 17:57:19', 'Seeker'),
+(20, 'Jodel', 'Adan', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/passer/15325417363153254173631.png', '', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy', '2018-09-17 17:57:19', 'Seeker'),
+(21, 'Marimar', 'Franco', '1997-09-03', 21, 'Female', 'Mango Avenue', 'Cebu City', 'Region Vii', 9434809647, 'franco@gmail.com', '', NULL, NULL, NULL, '', '0', '', 'marimar', '$2y$12$Ku2hBTRAOTqFtlF9S4xhP.SXlxtHTzKC9CJhIB5f4ZZolksBUWO7y', '2018-09-17 17:57:19', 'Seeker'),
+(22, 'Judith', 'Espiritu', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9434809647, 'espiritu@gmail.com', '', NULL, NULL, NULL, '', '1', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', '', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46', '2018-09-17 17:57:19', 'Seeker');
 
 -- --------------------------------------------------------
 
@@ -1062,163 +1063,136 @@ ALTER TABLE `switchaccount`
 --
 ALTER TABLE `admin`
   MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `agreement`
 --
 ALTER TABLE `agreement`
   MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `canceljob`
 --
 ALTER TABLE `canceljob`
   MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `canceljoboffer`
 --
 ALTER TABLE `canceljoboffer`
   MODIFY `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `certificateofemployment`
 --
 ALTER TABLE `certificateofemployment`
   MODIFY `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `disabledusers`
 --
 ALTER TABLE `disabledusers`
   MODIFY `DisableUserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `dispute`
 --
 ALTER TABLE `dispute`
   MODIFY `DisputeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `documents`
 --
 ALTER TABLE `documents`
   MODIFY `DocFormsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
   MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- AUTO_INCREMENT for table `multimedia`
 --
 ALTER TABLE `multimedia`
   MODIFY `MultimediaID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
-
+  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=127;
 --
 -- AUTO_INCREMENT for table `offerjob`
 --
 ALTER TABLE `offerjob`
-  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `offerjobform`
 --
 ALTER TABLE `offerjobform`
   MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `offerjobformused`
 --
 ALTER TABLE `offerjobformused`
   MODIFY `JobOfferFormUsedID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `passer`
 --
 ALTER TABLE `passer`
   MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
 --
 -- AUTO_INCREMENT for table `passereducation`
 --
 ALTER TABLE `passereducation`
   MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
 --
 -- AUTO_INCREMENT for table `passerskills`
 --
 ALTER TABLE `passerskills`
   MODIFY `PasserSkillsID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `passervalidate`
 --
 ALTER TABLE `passervalidate`
   MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- AUTO_INCREMENT for table `passerworkhistory`
 --
 ALTER TABLE `passerworkhistory`
   MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `RatingsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `RatingsID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `seeker`
 --
 ALTER TABLE `seeker`
   MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
 --
 -- AUTO_INCREMENT for table `seekervalidate`
 --
 ALTER TABLE `seekervalidate`
   MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `subscription`
 --
 ALTER TABLE `subscription`
   MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT for table `subscriptiontype`
 --
 ALTER TABLE `subscriptiontype`
   MODIFY `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `subskill`
 --
 ALTER TABLE `subskill`
   MODIFY `SubSkillsID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `switch`
 --
 ALTER TABLE `switch`
   MODIFY `SwitchID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `switchaccount`
 --
 ALTER TABLE `switchaccount`
   MODIFY `SwitchAccountID` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- Constraints for dumped tables
 --
@@ -1366,7 +1340,6 @@ ALTER TABLE `subskill`
 ALTER TABLE `switch`
   ADD CONSTRAINT `switch_ibfk_1` FOREIGN KEY (`PasserID`) REFERENCES `passer` (`PasserID`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `switch_ibfk_2` FOREIGN KEY (`SeekerID`) REFERENCES `seeker` (`SeekerID`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

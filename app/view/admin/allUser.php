@@ -1,3 +1,9 @@
+<?php 
+$domPasserUnverified = null;
+if(isset($data) && !empty($data)){
+    extract($data[0]);
+}
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -238,12 +244,7 @@
                             </ul>
                         </li>
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dispute" aria-expanded="false"><i class="fas fa-bullhorn"></i><span class="hide-menu">Dispute/Reports</span></a></li>
-                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Confirmation</span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="confirmPasser" class="sidebar-link"><i class=" fas fa-users"></i><span class="hide-menu"> Passer </span></a></li>
-                                <li class="sidebar-item"><a href="confirmSeeker" class="sidebar-link"><i class="fas fa-user-secret"></i><span class="hide-menu"> Seeker </span></a></li>
-                            </ul>
-                        </li>
+                           <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="confirmPasser" aria-expanded="false"><i class="fas fa-clipboard-check"></i><span class="hide-menu">Confirmation</span></a></li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -298,27 +299,10 @@
                                                 <th>User Type</th>
                                                 <th>Account Created</th>
                                                 <th>Status</th>
-                                                <th>Actions</th>
-
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><img src="../etc/admin/assets/images/users/1.png" style="width:40px;"></td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Passer</td>
-                                                <td>2016/11/06</td>
-                                                <td class="text-success">Active</td>
-                                                <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Deactivate">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            
+                                           <?php echo $users; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -393,57 +377,6 @@
     <script src="../etc/admin/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="../etc/admin/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
     <script src="../etc/admin/assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script>
-        /****************************************
-         *       Basic Table                   *
-         ****************************************/
-        $('#zero_config').DataTable();
-    </script>
-      <script src="../etc/admin/assets/libs/quill/dist/quill.min.js"></script>
-    <script>
-        //***********************************//
-        // For select 2
-        //***********************************//
-        $(".select2").select2();
-
-        /*colorpicker*/
-        $('.demo').each(function() {
-        //
-        // Dear reader, it's actually very easy to initialize MiniColors. For example:
-        //
-        //  $(selector).minicolors();
-        //
-        // The way I've done it below is just for the demo, so don't get confused
-        // by it. Also, data- attributes aren't supported at this time...they're
-        // only used for this demo.
-        //
-        $(this).minicolors({
-                control: $(this).attr('data-control') || 'hue',
-                position: $(this).attr('data-position') || 'bottom left',
-
-                change: function(value, opacity) {
-                    if (!value) return;
-                    if (opacity) value += ', ' + opacity;
-                    if (typeof console === 'object') {
-                        console.log(value);
-                    }
-                },
-                theme: 'bootstrap'
-            });
-
-        });
-        /*datwpicker*/
-        jQuery('.mydatepicker').datepicker();
-        jQuery('#datepicker-autoclose').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-
-    </script>
-    <script src="../etc/custom-js-Admin.js"></script>
 
 </body>
 

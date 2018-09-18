@@ -1,3 +1,9 @@
+<?php 
+    $domPasserUnverified = null;
+    if(isset($data) && !empty($data)){
+        extract($data[0]);
+    }
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -286,90 +292,65 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                     <div class="row el-element-overlay">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="el-card-item">
-                                <div class="el-card-avatar el-overlay-1"> <img src="../etc/admin/assets/images/big/img1.jpg" alt="user" />
-                                    <div class="el-overlay">
-                                        <ul class="list-style-none el-info">
-                                            <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="../etc/admin/assets/images/big/img1.jpg"><i class="mdi mdi-magnify-plus"></i></a></li>
-                                            <li class="el-item"><a class="btn default btn-outline el-link" href="javascript:void(0);" data-toggle="modal" data-target="#Modal1"><i class="fas fa-address-card"></i></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="el-card-content">
-                                    <h4 class="m-b-0">Marvee Yofa Franco</h4> <span class="text-muted">Chef</span>
-                                </div>
+                        <?=$dom;?>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-md-5"></div>
+                        <div class="col-sm-12 col-md-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+                                <?=$pagination;?>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="card">
-                            <div class="el-card-item">
-                                <div class="el-card-avatar el-overlay-1"> <img src="../etc/admin/assets/images/big/img2.jpg" alt="user" />
-                                    <div class="el-overlay">
-                                        <ul class="list-style-none el-info">
-                                            <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="../etc/admin/assets/images/big/img2.jpg"><i class="mdi mdi-magnify-plus"></i></a></li>
-                                            <li class="el-item"><a class="btn default btn-outline el-link" href="javascript:void(0);" data-toggle="modal" data-target="#Modal1"><i class="fas fa-address-card"></i></a></li>
-                                        </ul>
+                    <!-- Modal 1 -->
+                        <div class="modal fade " id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Passer's Details</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                </div>
-                                <div class="el-card-content">
-                                    <h4 class="m-b-0">Crimson Franco</h4> <span class="text-muted">Carpenter</span>
-                                </div>
-                            </div>
+                                    <div class="modal-body">
+                                       <div class="table-responsive">
+                                           <table  class="table table-striped table-bordered">
+                                            <thead class="text-center">
+                                                 <tr>
+                                                    <th>Image</th>
+                                                    <th>Full name</th>
+                                                    <th>Account Created</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            <tbody class="text-center">
+                                                    <tr>
+                                                        <td><img src="../etc/admin/assets/images/users/1.png" style="width:40px;"></td>
+                                                        <td>Marvee Franco</td>
+                                                        <td>2016/11/06</td>
+                                                        <td class="text-success">Active</td>
+                                                        <td>
+                                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
+                                                            <i class="mdi mdi-check text-success"></i>
+                                                             </a>
+                                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Deactivate">
+                                                            <i class="mdi mdi-close text-danger"></i>
+                                                            </a>     
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </thead>
+                                           </table>
+                                       </div>
+                                    </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
-                            <!-- Modal 1 -->
-                                <div class="modal fade " id="Modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Passer's Details</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                               <div class="table-responsive">
-                                                   <table  class="table table-striped table-bordered">
-                                                    <thead class="text-center">
-                                                         <tr>
-                                                            <th>Image</th>
-                                                            <th>Full name</th>
-                                                            <th>Account Created</th>
-                                                            <th>Status</th>
-                                                            <th>Actions</th>
-                                                        </tr>
-                                                    <tbody class="text-center">
-                                                            <tr>
-                                                                <td><img src="../etc/admin/assets/images/users/1.png" style="width:40px;"></td>
-                                                                <td>Marvee Franco</td>
-                                                                <td>2016/11/06</td>
-                                                                <td class="text-success">Active</td>
-                                                                <td>
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                                    <i class="mdi mdi-check text-success"></i>
-                                                                     </a>
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Deactivate">
-                                                                    <i class="mdi mdi-close text-danger"></i>
-                                                                    </a>     
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </thead>
-                                                   </table>
-                                               </div>
-                                            </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                        <!--End of  Modal -->
+                </div>
+                <!--End of  Modal -->
 
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
