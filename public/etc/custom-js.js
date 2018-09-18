@@ -549,38 +549,31 @@ function offerjobDynamic(id){
 					toastSuccess('You have successfully offered a Job!');
 				break;
 				case "noPasserSelected":
-					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-				  	'Please choose another passer again.'
+					toastError('Please choose another passer again.'
 					+'</div>');
 				break;
 				case "noDefaultJobOffer":
-					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-				  	'Sorry, Please create or set a default job offer form first <a href="../seeker/jobofferform">Here.</a>'
+					toastError('Sorry, Please create or set a default job offer form first <a href="../seeker/jobofferform">Here.</a>'
 					+'</div>');
 				break;
 				case "passerNotVerified":
-					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-				  	'Sorry, Current choosen passer is unverified and therefore, cannot be hired. <a href="../seeker/joboffer">Here.</a>'
+					toastError('Sorry, Current choosen passer is unverified and therefore, cannot be hired. <a href="../seeker/joboffer">Here.</a>'
 					+'</div>');
 				break;
 				case "seekerNotVerified":
-					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-				  	'Sorry, you are currently unverified and therefore, cannot hire any passer. Please verify your account <a href="../seeker/dashboard">Here.</a>'
+					toastError('Sorry, you are currently unverified and therefore, cannot hire any passer. Please verify your account <a href="../seeker/dashboard">Here.</a>'
 					+'</div>');
 				break;
 				case "notSubscribed":
-					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-				  	'Sorry, You have no active subscription. Please subscribe first <a href="subscription">Here.</a>'
+					toastError('Sorry, You have no active subscription. Please subscribe first <a href="subscription">Here.</a>'
 					+'</div>');
 				break;
 				case "notSeeker":
-					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-				  	'Please login as seeker first <a href="login">Here.</a>'
+					toastError('Please login as seeker first <a href="login">Here.</a>'
 					+'</div>');
 				break;
 				case "unfinishedBusiness":
-					modalBody.empty().html('<div class="alert alert-info" role="alert">'+
-				  	'You cannot rehire this passer because you still have pending Transaction! You can view it <a href="../seeker/joboffered">Here.</a>'
+					toastError('You cannot rehire this passer because you still have pending Transaction! You can view it <a href="../seeker/joboffered">Here.</a>'
 					+'</div>');
 				break;
 			}

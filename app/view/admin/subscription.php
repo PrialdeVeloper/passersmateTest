@@ -1,3 +1,9 @@
+<?php 
+    $domPasserUnverified = null;
+    if(isset($data) && !empty($data)){
+        extract($data[0]);
+    }
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -225,8 +231,7 @@
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="package" class="sidebar-link"><i class=" fas fa-gift"></i><span class="hide-menu"> Packages </span></a></li>
                                 <li class="sidebar-item"><a href="subscription" class="sidebar-link"><i class="fas fa-th-list"></i><span class="hide-menu"> Subscription </span></a></li>
-                                <li class="sidebar-item"><a href="gateaway" class="sidebar-link"><i class="fas fa-credit-card"></i><span class="hide-menu"> Payment Gateaways </span></a></li>
-                                <li class="sidebar-item"><a href="transaction" class="sidebar-link"><i class=" fas fa-exchange-alt"></i><span class="hide-menu"> Transactions </span></a></li>
+                                
                             </ul>
                         </li>
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Users</span></a>
@@ -296,237 +301,25 @@
                                                 <th>ID</th>
                                                 <th>Service Seeker</th>
                                                 <th>Package</th>
-                                                <th>Usage/Limit</th>
+                                                <th>Amount</th>
                                                 <th>Start date</th>
                                                 <th>End Date</th>
                                                 <th>Created</th>
                                                 <th>Status</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-success">Done</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>123456</td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>Basic</td>
-                                                <td>2/5 passers</td>
-                                                <td>2011/04/25</td>
-                                                <td>2011/11/06</td>
-                                                 <td>2011/04/25</td>
-                                                <td>
-                                                    <span class="badge badge-primary">Ongoing</span>
-                                                </td>
-                                                 <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
+                                            <?=$dom;?>
                                         </tbody>
                                     </table>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-5"></div>
+                                    <div class="col-sm-12 col-md-7">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+                                            <?=$pagination;?>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>
@@ -599,56 +392,6 @@
     <script src="../etc/admin/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="../etc/admin/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
     <script src="../etc/admin/assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script>
-        /****************************************
-         *       Basic Table                   *
-         ****************************************/
-        $('#zero_config').DataTable();
-    </script>
-      <script src="../etc/admin/assets/libs/quill/dist/quill.min.js"></script>
-    <script>
-        //***********************************//
-        // For select 2
-        //***********************************//
-        $(".select2").select2();
-
-        /*colorpicker*/
-        $('.demo').each(function() {
-        //
-        // Dear reader, it's actually very easy to initialize MiniColors. For example:
-        //
-        //  $(selector).minicolors();
-        //
-        // The way I've done it below is just for the demo, so don't get confused
-        // by it. Also, data- attributes aren't supported at this time...they're
-        // only used for this demo.
-        //
-        $(this).minicolors({
-                control: $(this).attr('data-control') || 'hue',
-                position: $(this).attr('data-position') || 'bottom left',
-
-                change: function(value, opacity) {
-                    if (!value) return;
-                    if (opacity) value += ', ' + opacity;
-                    if (typeof console === 'object') {
-                        console.log(value);
-                    }
-                },
-                theme: 'bootstrap'
-            });
-
-        });
-        /*datwpicker*/
-        jQuery('.mydatepicker').datepicker();
-        jQuery('#datepicker-autoclose').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-
-    </script>
     <script src="../etc/custom-js-Admin.js"></script>
 
 </body>

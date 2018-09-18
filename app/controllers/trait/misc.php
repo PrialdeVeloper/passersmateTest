@@ -89,6 +89,16 @@
 			}
 		}
 
+		public function getDetailsAjaxDynamic(){
+			 $user = $table = null;
+			if(isset($_POST['user'])){
+				$user = $_POST['user'];
+				$table =  $_POST['table'];
+				$unique = ($table == "Seeker"?"SeekerID":"PasserID");
+				echo json_encode($this->model->selectAllFromUser($table,$unique,array($user))[0]);	
+			}
+		}
+
 		public function getDetailsPasser($passer){
 			return $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($passer));
 		}
@@ -1657,6 +1667,38 @@
 				';
 			if(is_numeric($page)){
 				$result = $this->model->selectAllLimitSingleAll($table,$offset,$limit,$order,$sort);
+			}
+			return json_encode(array("pagination"=>$pagination,"data"=>$result));
+		}
+
+		public function paginationAllSubscription($table,$field,$page,$offset,$limit,$order,$sort,$add){
+			// $add = (!empty($add)?"&".$add:"");
+			$result = $totalPage = $totalPages = $offset = null;
+			$totalPage = $this->model->countAll($table,$field);
+			$totalPages = ceil($totalPage/$limit);
+			$totalPage = null;
+			$offset = ($page-1) * $limit;
+			$first = ($page <= 1)?"disabled":"";
+			$prevLI = ($page <= 1)?"disabled":"";
+			$prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1)."".$add;
+
+			$nextLI = ($page >= $totalPages)?"disabled":"";
+			$nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1)."".$add;
+			$lastLI = ($page >= $totalPages)?"disabled":"";
+			$lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages."".$add;
+
+			$pagination = '
+				<nav>
+				  <ul class="pagination">
+				    <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
+				    <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+				    <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+				    <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+				  </ul>
+				</nav>
+				';
+			if(is_numeric($page)){
+				$result = $this->model->joinSubscriptionAdmin($offset,$limit,$order,$sort);
 			}
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}

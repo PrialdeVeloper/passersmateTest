@@ -231,8 +231,7 @@ if(isset($data) && !empty($data)){
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="package" class="sidebar-link"><i class=" fas fa-gift"></i><span class="hide-menu"> Packages </span></a></li>
                                 <li class="sidebar-item"><a href="subscription" class="sidebar-link"><i class="fas fa-th-list"></i><span class="hide-menu"> Subscription </span></a></li>
-                                <li class="sidebar-item"><a href="gateaway" class="sidebar-link"><i class="fas fa-credit-card"></i><span class="hide-menu"> Payment Gateaways </span></a></li>
-                                <li class="sidebar-item"><a href="transaction" class="sidebar-link"><i class=" fas fa-exchange-alt"></i><span class="hide-menu"> Transactions </span></a></li>
+                                
                             </ul>
                         </li>
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Users</span></a>

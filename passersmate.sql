@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2018 at 08:06 AM
+-- Generation Time: Sep 18, 2018 at 08:47 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -302,7 +302,6 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (46, 3, NULL, 'cancellationSeeker', '1', 0),
 (47, 3, NULL, 'cancellationSeeker', '1', 0),
 (48, 3, NULL, 'cancellationSeeker', '1', 0),
-(49, NULL, 3, 'cancellationSeeker', '1', 1),
 (50, NULL, 5, 'cancellationSeeker', '1', 1),
 (51, 3, NULL, 'jobOfferSeeker', '3', 0),
 (52, 3, NULL, 'jobOfferSeeker', '3', 0),
@@ -323,10 +322,6 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (67, 3, NULL, 'jobOfferSeeker', '4', 0),
 (68, 3, NULL, 'jobOfferSeeker', '3', 0),
 (69, NULL, 1, 'cancellationSeeker', '1', 0),
-(70, NULL, 3, 'cancellationSeeker', '2', 1),
-(71, NULL, 3, 'cancellationSeeker', '2', 1),
-(72, NULL, 3, 'cancellationSeeker', '2', 1),
-(73, NULL, 3, 'cancellationSeeker', '2', 1),
 (74, NULL, 6, 'JobOffer', '1', 1),
 (75, NULL, 1, 'JobOffer', '1', 0),
 (76, 3, NULL, 'jobOfferSeeker', '3', 0),
@@ -348,9 +343,6 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (92, NULL, 9, 'JobOffer', '1', 0),
 (93, NULL, 9, 'JobOffer', '1', 1),
 (94, NULL, 9, 'JobOffer', '1', 1),
-(95, NULL, 3, 'cancellationSeeker', '2', 1),
-(96, NULL, 3, 'cancellationSeeker', '2', 1),
-(97, NULL, 3, 'dispute', '1', 1),
 (98, 3, NULL, 'dispute', '1', 0),
 (99, NULL, 1, 'JobOffer', '3', 0),
 (100, NULL, 1, 'JobOffer', '5', 0),
@@ -376,7 +368,6 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 (120, NULL, 14, 'updateUserStatus', '3', 0),
 (123, NULL, 14, 'updateUserStatus', '3', 0),
 (124, NULL, 14, 'updateUserStatus', '1', 0),
-(125, NULL, 7, 'JobOffer', '1', 1),
 (126, NULL, 2, 'JobOffer', '1', 1);
 
 -- --------------------------------------------------------
@@ -406,7 +397,6 @@ INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, 
 (4, 6, 6, 9, 'qwe', '2018-09-12 07:41:57', 9),
 (5, 6, 6, 9, '', '2018-09-12 07:41:57', 9),
 (6, 6, 6, 9, '', '2018-09-12 07:41:57', 9),
-(7, 7, 3, 7, '', '2018-09-12 07:41:57', 9),
 (8, 7, 3, 2, '', '2018-09-12 07:43:01', 1);
 
 -- --------------------------------------------------------
@@ -509,17 +499,11 @@ CREATE TABLE `passer` (
 INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserCOCExpiryDate`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`, `UserType`) VALUES
 (1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 3252321233, 'test@gmail.com', '1', 1, '13040102003962', '0000-00-00', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 728, '2018-07-22 15:12:46', 'Passer'),
 (2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 25, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9337752834, 'test2@gmail.com', '1', 0, '14130602029952', '0000-00-00', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 728, '2018-07-22 15:20:53', 'Passer'),
-(3, '', '', '', NULL, 0, '', '', '', '', NULL, '', '0', 0, '', '0000-00-00', '$2y$12$VaHA4bJ8u6qFfHGLiC8M4egPaLsd7koKBBvZKBQdcF6hsdEs974Um', '', '', '', NULL, 0, '2018-07-26 06:12:30', 'Passer'),
 (4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 25, 'Female', 'Qwe', 'Qwe', 'Qwe', 2323232323, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 728, '2018-07-26 09:39:02', 'Passer'),
 (5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', 0, '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16', 'Passer'),
 (6, 'Frederick', 'Lorenzana', 'F', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Suba', 9154861084, 'sheldon@gmail.com', '1', 0, '13131601010336', '2018-08-16', '$2y$12$EYhujIRajkByoky0ivzoj.bUnAZzOZLERoNjFd5VPliAHDxv3/0kK', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369231', '../../public/etc/images/user/passer/15340694706153406947026.jpg', 0, '2018-08-12 10:21:25', 'Passer'),
-(7, 'Bernard', 'Buhawe', 'P', NULL, 0, '', '', '', '', NULL, 'abugabayot@gmail.com', '1', 0, '16104302012735', '2018-08-21', '$2y$12$XR2/ml7jvtP5zFen5Iqt5.z8.n80/v7FHuSqjpaAJ57.dix3ziHGe', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369228', NULL, 0, '2018-08-12 20:00:24', 'Passer'),
-(8, 'Leonard', 'Lelis', 'P', NULL, 0, '', '', '', '', NULL, 'abugabayotkaayo@gmail.com', '0', 0, '16104302012746', '2018-07-31', '$2y$12$5HzXf2v2JaPtCQvieJISE.wj1ziVOvIsnml2kzbeQoiOTOgH8Pyky', 'Scaffold Erection NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369227', NULL, 0, '2018-08-12 20:03:15', 'Passer'),
 (9, 'Herminio J', 'Miranda', 'R', '2018-09-26', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'miranda@gmail.com', '1', 0, '15131403031982', '2018-09-26', '$2y$12$ol7yF94W.jMwiOp8wbOKVedJDEnnW3Fbey58.lOZfXnQlICj6LgK.', 'Plumbing NC III', 'NC III', 'http://www.tesda.gov.ph/Rwac/Details/7369234', '../../public/etc/images/user/passer/15358613606153586136039.jpg', 0, '2018-09-02 04:08:30', 'Passer'),
-(10, 'Ronnie', 'Taparan', 'A', NULL, 0, '', '', '', '', NULL, 'test12@gmail.com', '0', 0, '09060601003516', '2020-11-25', '$2y$12$sBPUi1iCwSlUv4009sDkp.nLx2/C2qekYF/0GzbEhcWRgXpWIdWsS', 'Shielded Metal Arc Welding (SMAW) NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369248', NULL, 0, '2018-09-08 03:01:22', 'Passer'),
-(11, 'Syrel', 'Prialde', '', NULL, 0, '', '', '', '', NULL, 'syrelgm@gmail.com', '0', 0, '', '0000-00-00', '', '', '', '', NULL, 0, '2018-09-08 05:29:46', 'Passer'),
 (12, 'Julieta', 'Lincuna', 'L', '2018-10-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'lincuna@gmail.com', '0', 0, '15130702030231', '2018-09-20', '$2y$12$.u8Kz4O4WXsofVIuJWZkheGJY44epHFerTYN8a0vyvoJHcGL1v7PW', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369233', '../../public/etc/images/user/passer/153639114871536391148512.jpg', 0, '2018-09-08 06:56:21', 'Passer'),
-(13, 'syrel', 'prialde', '', NULL, 0, '', '', '', '', NULL, 'test@gmail.com', '0', 0, '', '0000-00-00', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', '', '', '', NULL, 0, '2018-09-09 03:12:00', 'Passer'),
 (14, 'Judith', 'Espiritu', 'L', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9434809647, 'espiritu@gmail.com', '1', 0, '12130302008762', '2018-09-28', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369232', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', 0, '2018-09-09 03:41:38', 'Passer');
 
 -- --------------------------------------------------------
@@ -598,7 +582,6 @@ INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID
 (3, 1, '../../public/etc/images/userVerify/passer/15328746213153287462131.jpg', '../../public/etc/images/userVerify/passer/15328746213153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746215153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746218153287462141.jpg', 'Philippine Passport', 2323, '2018-07-20', '2018-07-29 14:30:21'),
 (4, 5, '../../public/etc/images/userVerify/passer/15329364978153293649755.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', '../../public/etc/images/userVerify/passer/15329364973153293649735.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', 'Student ID', 123123, '2018-06-04', '2018-07-30 07:41:37'),
 (5, 6, '../../public/etc/images/userVerify/passer/15340693224153406932246.jpg', '../../public/etc/images/userVerify/passer/15340693229153406932226.jpg', '../../public/etc/images/userVerify/passer/153406932210153406932216.jpg', '../../public/etc/images/userVerify/passer/15340693225153406932256.jpg', 'Student ID', 14281034, '2018-08-30', '2018-08-12 10:22:02'),
-(6, 7, '../../public/etc/images/userVerify/passer/153410407410153410407437.jpg', '../../public/etc/images/userVerify/passer/15341040747153410407417.jpg', '../../public/etc/images/userVerify/passer/15341040746153410407447.jpg', '../../public/etc/images/userVerify/passer/15341040747153410407467.jpg', 'Driver&rsquo;s License', 34342414, '2018-08-16', '2018-08-12 20:01:14'),
 (7, 9, '../../public/etc/images/userVerify/passer/15358614514153586145149.jpg', '../../public/etc/images/userVerify/passer/15358614517153586145129.jpg', '../../public/etc/images/userVerify/passer/15358614516153586145149.jpg', '../../public/etc/images/userVerify/passer/15358614518153586145159.jpg', 'TIN Card', 12345, '2018-09-26', '2018-09-02 04:10:51'),
 (8, 9, '../../public/etc/images/userVerify/passer/15358616572153586165759.jpg', '../../public/etc/images/userVerify/passer/15358616576153586165739.jpg', '../../public/etc/images/userVerify/passer/15358616571153586165769.jpg', '../../public/etc/images/userVerify/passer/15358616579153586165739.jpg', 'Philippine Passport', 123123, '2018-09-30', '2018-09-02 04:14:17'),
 (9, 14, '../../public/etc/images/userVerify/passer/153646859691536468596514.png', '../../public/etc/images/userVerify/passer/153646859641536468596114.png', '../../public/etc/images/userVerify/passer/153646859661536468596414.png', '../../public/etc/images/userVerify/passer/153646859641536468596514.png', 'Philippine Passport', 1231231, '2020-11-11', '2018-09-09 04:49:56'),
@@ -672,8 +655,7 @@ INSERT INTO `ratings` (`RatingsID`, `OfferJobID`, `PasserID`, `SeekerID`, `Rate`
 (10, 2, 1, 3, 0, 'hehehe', 'Seeker', '2018-09-05 09:51:07'),
 (11, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 10:00:39'),
 (12, 2, 1, 3, 0, '', 'Seeker', '2018-09-05 10:55:11'),
-(13, 2, 1, 3, 5, 'qwe', 'Seeker', '2018-09-05 10:55:44'),
-(14, 2, 3, 1, 0, '', 'Passer', '2018-09-05 12:08:51');
+(13, 2, 1, 3, 5, 'qwe', 'Seeker', '2018-09-05 10:55:44');
 
 -- --------------------------------------------------------
 
@@ -788,17 +770,18 @@ CREATE TABLE `subscriptiontype` (
   `SubscriptionTypeID` int(11) NOT NULL,
   `SubscriptionName` varchar(255) NOT NULL,
   `SubscriptionValidity` varchar(255) NOT NULL,
-  `SubscriptionPrice` int(11) NOT NULL
+  `SubscriptionPrice` int(11) NOT NULL,
+  `SubscriptionCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subscriptiontype`
 --
 
-INSERT INTO `subscriptiontype` (`SubscriptionTypeID`, `SubscriptionName`, `SubscriptionValidity`, `SubscriptionPrice`) VALUES
-(1, 'basic', 'day', 80),
-(2, 'silver', 'month', 2500),
-(3, 'gold', 'year', 5000);
+INSERT INTO `subscriptiontype` (`SubscriptionTypeID`, `SubscriptionName`, `SubscriptionValidity`, `SubscriptionPrice`, `SubscriptionCreated`) VALUES
+(1, 'basic', 'day', 80, '2018-09-18 18:01:25'),
+(2, 'silver', 'month', 2500, '2018-09-18 18:01:25'),
+(3, 'gold', 'year', 5000, '2018-09-18 18:01:25');
 
 -- --------------------------------------------------------
 
@@ -834,7 +817,6 @@ CREATE TABLE `switch` (
 
 INSERT INTO `switch` (`SwitchID`, `SeekerID`, `PasserID`, `Original`) VALUES
 (1, 20, 1, 'Passer'),
-(2, 3, 13, 'Seeker'),
 (3, 22, 14, 'Passer');
 
 -- --------------------------------------------------------

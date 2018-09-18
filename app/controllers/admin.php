@@ -187,7 +187,7 @@
                                     <ul class="list-style-none el-info">
                                         <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="'.$data['PasserProfile'].'"><i class="mdi mdi-magnify-plus"></i></a></li>
                                         <li class="el-item">
-                                        	<a class="btn default btn-outline el-link" href="javascript:void(0);" data-toggle="modal" data-passer="'.$data['PasserID'].'" data-target="#Modal1">
+                                        	<a class="btn default btn-outline el-link showMoreDetailPasser" href="javascript:void(0);" data-toggle="modal" data-user="'.$data['PasserID'].'" data-target="#Modal1">
                                         		<i class="fas fa-address-card"></i>
                                         	</a>
                                         </li>
@@ -234,7 +234,7 @@
                                     <ul class="list-style-none el-info">
                                         <li class="el-item"><a class="btn default btn-outline image-popup-vertical-fit el-link" href="'.$data['SeekerProfile'].'"><i class="mdi mdi-magnify-plus"></i></a></li>
                                         <li class="el-item">
-                                        	<a class="btn default btn-outline el-link" href="javascript:void(0);" data-toggle="modal" data-seeker="'.$data['SeekerID'].'" data-target="#Modal1">
+                                        	<a class="btn default btn-outline el-link showMoreDetailSeeker" href="javascript:void(0);" data-toggle="modal" data-user="'.$data['SeekerID'].'" data-target="#Modal1">
                                         		<i class="fas fa-address-card"></i>
                                         	</a>
                                         </li>
@@ -253,6 +253,49 @@
 			$pagination = $allUsers['pagination'];
 			$data[] = array("dom"=>$dom,"pagination"=>$pagination);
 			$this->controller->view("admin/seekers",$data);
+		}
+
+		public function subscription(){
+			$allUsers = $builder = $dom = $userStatus = $pagination = null;
+			$data = [];
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+			$allUsers = $this->paginationAllSubscription("subscription","SubscriptionID",$page,1,8,"SubscriptionID","DESC","");
+			$allUsers = json_decode($allUsers,true);
+			foreach ($allUsers['data'] as $data) {
+				$builder = 
+				'
+				<tr>
+                    <td>'.$data['SubscriptionID'].'</td>
+                    <td>'.$data['SeekerFN']." ".$data['SeekerFN'].'</td>
+                    <td>'.$data['SubscriptionName'].'</td>
+                    <td>'."Php ".$data['SubscriptionPrice'].".00".'</td>
+                    <td>'.date("F jS, Y",strtotime($data['SubscriptionStart'])).'</td>
+                    <td>'.date("F jS, Y",strtotime($data['SubscriptionEnd'])).'</td>
+                    <td>'.date("F jS, Y",strtotime($data['SubscriptionCreated'])).'</td>
+                    <td>
+                        <span class="badge badge-'.($data['SubscriptionStatus'] == "ongoing"?"primary":"success").'">'.ucfirst($data['SubscriptionStatus']).'
+                        </span>
+                    </td>
+                </tr>
+				';
+				$dom = $dom."".$builder;
+			}
+			$pagination = $allUsers['pagination'];
+			$data[] = array("dom"=>$dom,"pagination"=>$pagination);
+			$this->controller->view("admin/subscription",$data);
+		}
+
+		public function package(){
+			$allUsers = $builder = $dom = $userStatus = $pagination = null;
+			$data = [];
+			$this->controller->view("admin/package");
 		}
 
 		public function logout(){

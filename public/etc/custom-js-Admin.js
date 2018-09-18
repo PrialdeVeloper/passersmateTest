@@ -1,5 +1,14 @@
 "use strict";
 
+function formatDate(date){
+	var formattedDate = new Date(date);
+	var d = formattedDate.getDate();
+	var m =  formattedDate.getMonth();
+	m += 1;
+	var y = formattedDate.getFullYear();
+	return m + " / " + d + " / " + y;
+}
+
 function checkExistAny(table,field,data){
 	let returnValue;
 	$.ajax({
@@ -389,4 +398,101 @@ $(function(){
 			mySeekerID = "";
 		}
 	});
+});
+
+$(function(){
+	$("a.showMoreDetailPasser").click(function(){
+		let id = $(this).attr("data-user");
+		let image = $(".userImage");
+		let name = $(".userName");
+		let createDate = $(".accountCreated");
+		let status = $(".userStatus");
+		let userStatus;
+		$.ajax({
+			url: "getDetailsAjaxDynamic",
+			method: "POST",
+			async: false,
+			data: {"user":id,"table":"Passer"},
+			success: function(a){
+				let obj = JSON.parse(a);
+				switch(obj['PasserStatus']){
+					case "0":
+						userStatus = "Unverified";
+					break;
+
+					case "1":
+						userStatus = "Verified";
+					break;
+
+					case "2":
+						userStatus = "Pending";
+					break;
+
+					case "3":
+						userStatus = "Denied";
+					break;
+
+					case "4":
+						userStatus = "Deactivated(User Triggered)";
+					break;
+
+					case "5":
+						userStatus = "Deactivated(Admin Triggered)";
+					break;
+				}
+				image.empty().attr("src",obj['PasserProfile']);
+				name.empty().html(obj['PasserFN']+" "+obj['PasserLN']);
+				createDate.empty().html(formatDate(obj['passerRegisterTimeDate']));
+				status.empty().html(userStatus);
+			}
+		});
+	});
+
+	$("a.showMoreDetailSeeker").click(function(){
+		let id = $(this).attr("data-user");
+		let image = $(".userImage");
+		let name = $(".userName");
+		let createDate = $(".accountCreated");
+		let status = $(".userStatus");
+		let userStatus;
+		$.ajax({
+			url: "getDetailsAjaxDynamic",
+			method: "POST",
+			async: false,
+			data: {"user":id,"table":"Seeker"},
+			success: function(a){
+				let obj = JSON.parse(a);
+				switch(obj['SeekerStatus']){
+					case "0":
+						userStatus = "Unverified";
+					break;
+
+					case "1":
+						userStatus = "Verified";
+					break;
+
+					case "2":
+						userStatus = "Pending";
+					break;
+
+					case "3":
+						userStatus = "Denied";
+					break;
+
+					case "4":
+						userStatus = "Deactivated(User Triggered)";
+					break;
+
+					case "5":
+						userStatus = "Deactivated(Admin Triggered)";
+					break;
+				}
+				image.empty().attr("src",obj['SeekerProfile']);
+				name.empty().html(obj['SeekerFN']+" "+obj['SeekerLN']);
+				createDate.empty().html(formatDate(obj['SeekerRegisterDateTime']));
+				status.empty().html(userStatus);
+			}
+		});
+	});
+
 });

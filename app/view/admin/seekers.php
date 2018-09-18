@@ -232,8 +232,7 @@
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="package" class="sidebar-link"><i class=" fas fa-gift"></i><span class="hide-menu"> Packages </span></a></li>
                                 <li class="sidebar-item"><a href="subscription" class="sidebar-link"><i class="fas fa-th-list"></i><span class="hide-menu"> Subscription </span></a></li>
-                                <li class="sidebar-item"><a href="gateaway" class="sidebar-link"><i class="fas fa-credit-card"></i><span class="hide-menu"> Payment Gateaways </span></a></li>
-                                <li class="sidebar-item"><a href="transaction" class="sidebar-link"><i class=" fas fa-exchange-alt"></i><span class="hide-menu"> Transactions </span></a></li>
+                                
                             </ul>
                         </li>
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Users</span></a>
@@ -321,23 +320,16 @@
                                                             <th>Full name</th>
                                                             <th>Account Created</th>
                                                             <th>Status</th>
-                                                            <th>Actions</th>
                                                         </tr>
                                                     <tbody class="text-center">
-                                                            <tr>
-                                                                <td><img src="../etc/admin/assets/images/users/1.png" style="width:40px;"></td>
-                                                                <td>Marvee Franco</td>
-                                                                <td>2016/11/06</td>
-                                                                <td class="text-success">Active</td>
-                                                                <td>
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                                    <i class="mdi mdi-check text-success"></i>
-                                                                     </a>
-                                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Deactivate">
-                                                                    <i class="mdi mdi-close text-danger"></i>
-                                                                    </a>     
-                                                                </td>
-                                                            </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <img class="userImage" src="../etc/admin/assets/images/users/1.png" style="width:40px;">
+                                                            </td>
+                                                            <td class="userName">Marvee Franco</td>
+                                                            <td class="accountCreated">2016/11/06</td>
+                                                            <td class="text-success userStatus">Active</td>
+                                                        </tr>
                                                         </tbody>
                                                     </thead>
                                                    </table>

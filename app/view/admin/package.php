@@ -225,8 +225,7 @@
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="package" class="sidebar-link"><i class=" fas fa-gift"></i><span class="hide-menu"> Packages </span></a></li>
                                 <li class="sidebar-item"><a href="subscription" class="sidebar-link"><i class="fas fa-th-list"></i><span class="hide-menu"> Subscription </span></a></li>
-                                <li class="sidebar-item"><a href="gateaway" class="sidebar-link"><i class="fas fa-credit-card"></i><span class="hide-menu"> Payment Gateaways </span></a></li>
-                                <li class="sidebar-item"><a href="transaction" class="sidebar-link"><i class=" fas fa-exchange-alt"></i><span class="hide-menu"> Transactions </span></a></li>
+                                
                             </ul>
                         </li>
                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Users</span></a>
@@ -570,10 +569,10 @@
     <script src="../etc/admin/dist/js/jquery.ui.touch-punch-improved.js"></script>
     <script src="../etc/admin/dist/js/jquery-ui.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="../etc/admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../etc/admin/assets/libs/popper.js/dist/popper.min.js"></script>
     <script src="../etc/admin/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="../etc/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <!-- <script src="../etc/admin/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script> -->
     <script src="../etc/admin/assets/extra-libs/sparkline/sparkline.js"></script>
     <!--Wave Effects -->
     <script src="../etc/admin/dist/js/waves.js"></script>
@@ -586,14 +585,9 @@
     <script src="../etc/admin/dist/js/pages/mask/mask.init.js"></script>
     <script src="../etc/admin/assets/libs/select2/dist/js/select2.full.min.js"></script>
     <script src="../etc/admin/assets/libs/select2/dist/js/select2.min.js"></script>
-    <script src="../etc/admin/assets/libs/jquery-asColor/dist/jquery-asColor.min.js"></script>
-    <script src="../etc/admin/assets/libs/jquery-asGradient/dist/jquery-asGradient.js"></script>
-    <script src="../etc/admin/assets/libs/jquery-asColorPicker/dist/jquery-asColorPicker.min.js"></script>
-    <script src="../etc/admin/assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
-    <script src="../etc/admin/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
        <!-- this page js -->
-    <script src="../etc/admin/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
-    <script src="../etc/admin/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
+
     <script src="../etc/admin/assets/extra-libs/DataTables/datatables.min.js"></script>
     <script>
         /****************************************
@@ -643,7 +637,7 @@
         var quill = new Quill('#editor', {
             theme: 'snow'
         });
-
+        console.log(quill);
     </script>
     <script src="../etc/custom-js-Admin.js"></script>
 
