@@ -145,7 +145,6 @@
 			}
 			$allUsers = $this->paginationAll("admin","AdminID",$page,1,5,"AdminID","DESC","");
 			$allUsers = json_decode($allUsers,true);
-			print_r($allUsers);
 			foreach ($allUsers['data'] as $data) {
 				$builder = 
 				'
