@@ -123,6 +123,12 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function selectAllLimitSingleAll($table,$offset,$count,$order,$sort){
+			$this->stmt = $this->con->prepare("SELECT * FROM $table ORDER BY $order $sort LIMIT $offset,$count");
+			$this->stmt->execute();
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectSort($select,$table,$field,$data,$order,$sort,$limit){
 			$select = $this->addComma($select);
 			$return = null;

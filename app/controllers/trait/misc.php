@@ -1656,7 +1656,7 @@
 				</nav>
 				';
 			if(is_numeric($page)){
-				$result = $this->model->selectAllLimitSingle($table,$field,$offset,$limit,$order,$sort,array($field1Ans));
+				$result = $this->model->selectAllLimitSingleAll($table,$offset,$limit,$order,$sort);
 			}
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}

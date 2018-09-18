@@ -299,30 +299,13 @@ if(isset($data) && !empty($data)){
                                     <table id="zero_config" class="table table-striped table-bordered text-center">
                                         <thead>
                                             <tr>
-                                                <th>Image</th>
-                                                <th>Full name</th>
-                                                <th>Account Created</th>
-                                                <th>Status</th>
-                                                <th>Actions</th>
-
+                                                <th>Admin ID</th>
+                                                <th>Username</th>
+                                                <th>Email</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><img src="../etc/admin/assets/images/users/1.png" style="width:40px;"></td>
-                                                <td>Sheldon Cooper</td>
-                                                <td>2016/11/06</td>
-                                                <td class="text-success">Active</td>
-                                                <td>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                    <i class="mdi mdi-check text-success"></i>
-                                                     </a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="top" title="Deactivate">
-                                                    <i class="mdi mdi-close text-danger"></i>
-                                                    </a>     
-                                                </td>
-                                            </tr>
-                                            
+                                            <?=$dom;?>                                            
                                         </tbody>
                                     </table>
                                 </div>
@@ -330,8 +313,15 @@ if(isset($data) && !empty($data)){
                             </div>
                         </div>
                     </div>
-              
                 </div>  
+                <div class="row">
+                    <div class="col-sm-12 col-md-5"></div>
+                    <div class="col-sm-12 col-md-7">
+                        <div class="dataTables_paginate paging_simple_numbers" id="zero_config_paginate">
+                            <?=$pagination;?>
+                        </div>
+                    </div>
+                </div>
                 <!-- END MODAL -->
 
                 <!-- ============================================================== -->
@@ -397,57 +387,6 @@ if(isset($data) && !empty($data)){
     <script src="../etc/admin/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="../etc/admin/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
     <script src="../etc/admin/assets/extra-libs/DataTables/datatables.min.js"></script>
-    <script src="../etc/custom-js-Admin.js"></script>
-    <script>
-        /****************************************
-         *       Basic Table                   *
-         ****************************************/
-        $('#zero_config').DataTable();
-    </script>
-      <script src="../etc/admin/assets/libs/quill/dist/quill.min.js"></script>
-    <script>
-        //***********************************//
-        // For select 2
-        //***********************************//
-        $(".select2").select2();
-
-        /*colorpicker*/
-        $('.demo').each(function() {
-        //
-        // Dear reader, it's actually very easy to initialize MiniColors. For example:
-        //
-        //  $(selector).minicolors();
-        //
-        // The way I've done it below is just for the demo, so don't get confused
-        // by it. Also, data- attributes aren't supported at this time...they're
-        // only used for this demo.
-        //
-        $(this).minicolors({
-                control: $(this).attr('data-control') || 'hue',
-                position: $(this).attr('data-position') || 'bottom left',
-
-                change: function(value, opacity) {
-                    if (!value) return;
-                    if (opacity) value += ', ' + opacity;
-                    if (typeof console === 'object') {
-                        console.log(value);
-                    }
-                },
-                theme: 'bootstrap'
-            });
-
-        });
-        /*datwpicker*/
-        jQuery('.mydatepicker').datepicker();
-        jQuery('#datepicker-autoclose').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        });
-        var quill = new Quill('#editor', {
-            theme: 'snow'
-        });
-
-    </script>
     <script src="../etc/custom-js-Admin.js"></script>
 
 </body>

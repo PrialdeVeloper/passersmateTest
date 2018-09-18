@@ -133,7 +133,7 @@
 		}
 
 		public function admin(){
-			$allUsers = $builder = $dom = $userStatus = null;
+			$allUsers = $builder = $dom = $userStatus = $pagination = null;
 			$data = [];
 			if(!$this->checkSession('adminUser')){
 				header("location:index");
@@ -143,8 +143,22 @@
 			}else{
 				$page = $this->sanitize($_GET['page']);
 			}
-			$allUsers = $this->paginationScriptSingle("admin","AdminID","IS NOT NULL",$page,1,5,"AdminID","DESC","");
+			$allUsers = $this->paginationAll("admin","AdminID",$page,1,5,"AdminID","DESC","");
+			$allUsers = json_decode($allUsers,true);
 			print_r($allUsers);
+			foreach ($allUsers['data'] as $data) {
+				$builder = 
+				'
+				<tr>
+                    <td>'.$data['AdminID'].'</td>
+                    <td>'.$data['username'].'</td>
+                    <td>'.$data['email'].'</td>
+                </tr>
+				';
+				$dom = $dom."".$builder;
+			}
+			$pagination = $allUsers['pagination'];
+			$data[] = array("dom"=>$dom,"pagination"=>$pagination);
 			$this->controller->view("admin/admin",$data);
 
 		}
