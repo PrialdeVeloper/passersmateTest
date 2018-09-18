@@ -69,7 +69,6 @@
 				header("location:index");
 			}
 			$data = [];
-			$dom = 
 			$data[] = array("passerUnverified"=>$this->createPasserUnverified());
 			$this->controller->view("admin/confirmPasser",$data);
 		}
@@ -79,9 +78,75 @@
 				header("location:index");
 			}
 			$data = [];
-			$dom = 
 			$data[] = array("seekerUnverified"=>$this->createSeekerUnverified());
 			$this->controller->view("admin/confirmSeeker",$data);
+		}
+
+		public function alluser(){
+			$allUsers = $builder = $dom = $userStatus = null;
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			$data = [];
+			$allUsers = $this->model->joinPasserSeeker();
+			foreach ($allUsers as $users) {
+				switch ($users['PasserStatus']) {
+					case 0:
+						$userStatus = "Unverified";
+					break;
+
+					case 1:
+						$userStatus = "Verified";
+					break;
+
+					case 2:
+						$userStatus = "Pending";
+					break;
+
+					case 3:
+						$userStatus = "Denied";
+					break;
+
+					case 4:
+						$userStatus = "Deactivated(User Triggered)";
+					break;
+
+					case 5:
+						$userStatus = "Deactivated(Admin Triggered)";
+					break;
+				}
+				$builder = 
+				'
+					 <tr>
+	                    <td><img src="'.$users['PasserProfile'].'" style="width:40px;"></td>
+	                    <td>'.$users['fullname'].'</td>
+	                    <td>'.$users['UserType'].'</td>
+	                    <td>'.date("F jS, Y",strtotime($users['passerRegisterTimeDate'])).'</td>
+	                    <td class="text-success">'.$userStatus.'</td>
+	                </tr>
+				';
+				$dom = $dom."".$builder;
+			}
+			$data[] = array("users"=>$dom);
+			$this->controller->view("admin/allUser",$data);
+
+		}
+
+		public function admin(){
+			$allUsers = $builder = $dom = $userStatus = null;
+			$data = [];
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+			$allUsers = $this->paginationScriptSingle("admin","AdminID","IS NOT NULL",$page,1,5,"AdminID","DESC","");
+			print_r($allUsers);
+			$this->controller->view("admin/admin",$data);
+
 		}
 
 		public function logout(){

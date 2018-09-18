@@ -1,3 +1,9 @@
+<?php 
+$domPasserUnverified = null;
+if(isset($data) && !empty($data)){
+    extract($data[0]);
+}
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 

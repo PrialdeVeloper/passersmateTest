@@ -200,6 +200,12 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function countAll($table,$field){
+			$this->stmt = $this->con->prepare("SELECT COUNT(*) from $table WHERE $field IS NOT NULL");
+			$this->stmt->execute();
+			return $this->stmt->fetchColumn();
+		}
+
 
 		public function insertDB($table,$fields,$data){
 			$fieldsQ = $this->addComma($fields);
@@ -253,6 +259,21 @@
 			} catch (Exception $e) {
 				return $e->getMessage();
 			}
+		}
+
+		public function joinPasserSeeker(){
+			try {
+				$this->stmt = $this->con->prepare(
+					"SELECT `PasserID`,concat(`PasserFN`,' ',`PasserLN`) as `fullname`,`PasserStatus`,`PasserProfile`,`passerRegisterTimeDate`,`UserType` FROM `Passer`
+					UNION
+					select `SeekerID`,concat(`SeekerFN`,' ',`SeekerLN`) as `fullname`,`SeekerStatus`,`SeekerProfile`,`SeekerRegisterDateTime`,`UserType` FROM `Seeker`"
+				);
+				$this->stmt->execute();	
+				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+
 		}
 
 		public function joinAgreementCancel($unique,$data){
