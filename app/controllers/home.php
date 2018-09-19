@@ -132,10 +132,24 @@
 
 		public function searchCreateDom(){
 			if(isset($_POST['domCreate'])){
-				$passer = $builder = $dom = $unstructured = null;
+				$passer = $builder = $dom = $unstructured = $userUnique = $rating = $stars = $builderStar = null;
 				if(!empty($_POST['data'])){
 					$unstructured = $_POST['data'];
 					foreach ($unstructured as $data) {
+						$rating = (int)$this->model->rating($this->passerUnique,array($data['PasserID'],"Seeker",$data['PasserID'],"Seeker"));
+			 			if(!empty($rating)){
+							for ($i=0; $i < $rating ; $i++) { 
+								$builderStar = '<i class="fas fa-star text-warning"></i>';
+								$stars = $builderStar."".$stars;
+							}
+							for ($j=$i; $j < 5 ; $j++) { 
+								$stars = $stars.'<i class="fas fa-star"></i>';
+							}
+							unset($i,$j);
+						}
+						else{
+							$stars = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+						}
 						$builder = '
 						<div class="col-md-6">
       						<div class="card shadow animated1 flipInX" style="height:95%">
@@ -171,11 +185,7 @@
   												'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'
   											</label>
   											<div class="container">
-      											<span class="fa fa-star checked text-warning"></span>
-												<span class="fa fa-star checked text-warning"></span>
-												<span class="fa fa-star checked text-warning"></span>
-												<span class="fa fa-star text-warning"></span>
-												<span class="fa fa-star text-warning"></span>
+      											'.$stars.'
 											</div>
       									</div>
       								</div>
@@ -207,7 +217,7 @@
 		 	$data = [];
 		 	$details = null;
 		 	$table = null;
-		 	$userUnique = null;
+		 	$userUnique = $rating = $stars = $builderStar = null;
 		 	$sessionActive = $checkActiveWork = null;
 		 	if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
 		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
@@ -218,6 +228,20 @@
 		 	$passerList = $this->model->selectAllFromUser($this->passerTable,"PasserStatus",array(1));
 		 	if(!empty($passerList)){
 		 		foreach ($passerList as $data) {
+		 			$rating = (int)$this->model->rating($this->passerUnique,array($data['PasserID'],"Seeker",$data['PasserID'],"Seeker"));
+		 			if(!empty($rating)){
+						for ($i=0; $i < $rating ; $i++) { 
+							$builderStar = '<i class="fas fa-star text-warning"></i>';
+							$stars = $builderStar."".$stars;
+						}
+						for ($j=$i; $j < 5 ; $j++) { 
+							$stars = $stars.'<i class="fas fa-star"></i>';
+						}
+						unset($i,$j);
+					}
+					else{
+						$stars = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+					}
 		 			if($this->checkExistingWorkPasser($data[$this->passerUnique]) == false){
 			 			$builder = '
 							<div class="col-md-6">
@@ -242,11 +266,7 @@
       												'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'
       											</label>
       											<div class="container">
-	      											<span class="fa fa-star checked text-warning"></span>
-													<span class="fa fa-star checked text-warning"></span>
-													<span class="fa fa-star checked text-warning"></span>
-													<span class="fa fa-star text-warning"></span>
-													<span class="fa fa-star text-warning"></span>
+	      											'.$stars.'
 												</div>
           									</div>
           								</div>
@@ -264,6 +284,7 @@
           					</div>';
 			 			$dom = $dom."".$builder;
 			 		}
+			 		$rating = $stars = null;
 		 		}
 		 	}
 			$data[] = array("userDetails"=>$details,"passerListAll"=>$dom);

@@ -300,7 +300,7 @@
                        		<button type="button" class="btn btn-outline-danger" id="cancelJobOfferModal" data-toggle="modal" data-target="#cancel" title="Cancel the Job offer">Cancel</button>
 							<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
 							';
-							$update = '<small class="text-left "><b class="text-success">Officially Hired on:</b> </small>';
+							$update = '<small class="text-right "><b class="text-success text-right ">Officially Hired on:</b> </small>';
 							break;
 						case 6:
 							$cancelInitiator = $this->model->selectAllDynamic("canceljoboffer",array("*"),array("OfferJobID",$this->passerUnique),array($joinData['OfferJobID'],$this->passerSession))[0];
@@ -308,9 +308,10 @@
 								case 'Passer':
 									$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
 									$headerColor = 'bg-warning';
-									$employmentAgreement = 
-									'<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
-									';
+									// $employmentAgreement = 
+									// '<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+									// ';
+									$employmentAgreement = null;
 									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
 									break;
 								
@@ -331,10 +332,11 @@
 						case 7:
 							$status = '<a class="badge badge-danger text-white font-weight-bold float-right">Cancelled</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = 
-							'
-							<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
-							';
+							// $employmentAgreement = 
+							// '
+							// <button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+							// ';
+							$employmentAgreement = null;
 							$update = '<small class="text-left "><b class="text-black">Cancelled on:</b> </small>';
 							break;
 						case 8:

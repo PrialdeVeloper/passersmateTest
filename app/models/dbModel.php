@@ -76,6 +76,12 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function selectAllDynamicLikeLimitSearch($table,$data,$offset,$limit){
+			$this->stmt = $this->con->prepare("SELECT * from $table WHERE `PasserCertificate` LIKE ? AND `PasserGender` <> ? AND `PasserAge` >= ? AND `PasserRate` >= ? AND `PasserCity` LIKE ? AND `PasserStatus` = ? LIMIT $offset,$limit");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectAllDynamicLike($table,$field,$where,$data){
 			$select = $this->addComma($field);
 			$fieldsQ = $this->likeData($where);
@@ -215,6 +221,24 @@
 		public function countAll($table,$field){
 			$this->stmt = $this->con->prepare("SELECT COUNT(*) from $table WHERE $field IS NOT NULL");
 			$this->stmt->execute();
+			return $this->stmt->fetchColumn();
+		}
+
+		public function countAllUsers($table1,$table2){
+			$this->stmt = $this->con->prepare("SELECT ((SELECT COUNT(*) FROM $table1) + (SELECT COUNT(*) FROM $table2)) as sum");
+			$this->stmt->execute();
+			return $this->stmt->fetchColumn();
+		}
+
+		public function countAllCount($table1,$table2,$field1,$field2,$data){
+			$this->stmt = $this->con->prepare("SELECT ((SELECT COUNT(*) FROM $table1 WHERE $field1 = ?) + (SELECT COUNT(*) FROM $table2 WHERE $field2 = ?)) AS sum");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchColumn();
+		}
+
+		public function rating($userID,$data){
+			$this->stmt = $this->con->prepare("SELECT (SUM(`PersonalityRate`) + SUM(`PunctualityRate`) + SUM(`WorkQualityRate`)) / (SELECT COUNT(*) FROM `ratings` WHERE $userID = ? AND `ReviewBy` = ?)/3 as rating from `ratings` WHERE $userID = ? AND `ReviewBy` = ?");
+			$this->stmt->execute($data);
 			return $this->stmt->fetchColumn();
 		}
 

@@ -471,31 +471,29 @@ $(function(){
 		}
 
 		if (gender == "Any") {
-			gender = "%%";
-			gendertry = "any";
-		}else{
-			gendertry = gender;
+			gendertry = "";
+		}else if(gender == "Male"){
+			gendertry = "Female";
+		}else if(gender == "Female"){
+			gendertry = "Male";
 		}
 
 		if(checkEmpty(age)){
-			age = "%%";
-			agetry = "any";
+			agetry = Number(0);
 		}else{
-			agetry = age;
+			agetry = Number(age);
 		}
 
 		if(budget == "any"){
-			budget = "%%";
-			budgettry = "any";
+			budgettry = Number(0);
 		}else{
-			budgettry = budget;
+			budgettry = Number(budget);
 		}
 
 		if(checkEmpty(city)){
-			city = "%%";
-			citytry = "";
+			citytry = "%%";
 		}else{
-			citytry = city;
+			citytry = "%"+city+"%";
 		}
 
 		
@@ -504,14 +502,15 @@ $(function(){
 		}else{
 			page = getURLData("page");
 		}
-		fields = ['PasserCertificate','PasserFee','PasserGender','PasserAge','PasserCity','PasserStatus'];
-		data = ["%"+jobTitle+"%",budget,gender,age,city,1];
+		fields = ['PasserCertificate','PasserGender','PasserAge','PasserRate','PasserCity','PasserStatus'];
+		data = ["%"+jobTitle+"%",gender,age,budget,citytry,1];
 		history.pushState("","","?search=search&jobtitle="+jobTitle+"&budget="+budgettry+"&gender="+gendertry+"&age="+agetry+"&city="+citytry+"&page="+page);
 		$.ajax({
 			url: "paginationScriptOwnQuery",
 			method: "POST",
 			data: {"getData":"","field":fields,"data":data,"table":"passer","limit":passerNumber,"page":page},
 			success: function(a){
+				console.log(a);
 				let obj = JSON.parse(a);
 				maxpage.empty().html(obj.resultCount);
 				currentPage.empty().html(obj.page);
@@ -2837,7 +2836,7 @@ $(function(){
 	});
 
 	$("#approveCancel").click(function(){
-		console.log(othersideCancelJobOffer);
+		console.log(othersideCancelOtherUser);
 		$.ajax({
 			url: "updateJobOfferStatus",
 			method: "POST",

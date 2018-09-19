@@ -1,3 +1,8 @@
+<?php
+    if(isset($data) && !empty($data)){
+        extract($data[0]);
+    }
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -12,8 +17,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="../etc/admin/assets/images/logo-icon.png">
     <title>PassersMate Admin</title>
     <!-- Custom CSS -->
-    <link href="../etc/admin/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
-    <link href="../etc/admin/assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
     <link href="../etc/admin/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -138,39 +141,7 @@
                         <!-- ============================================================== -->
                         <!-- Messages -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="font-24 mdi mdi-comment-processing"></i>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
-                                <ul class="list-style-none">
-                                    <li>
-                                        <div class="">
-                                             <!-- Message -->
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Event today</h5> 
-                                                        <span class="mail-desc">Just a reminder that event</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                            <a href="javascript:void(0)" class="link border-top">
-                                                <div class="d-flex no-block align-items-center p-10">
-                                                    <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
-                                                    <div class="m-l-10">
-                                                        <h5 class="m-b-0">Settings</h5> 
-                                                        <span class="mail-desc">You can customize this template</span> 
-                                                    </div>
-                                                </div>
-                                            </a>
-                                            <!-- Message -->
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
+                        
                         <!-- ============================================================== -->
                         <!-- End Messages -->
                         <!-- ============================================================== -->
@@ -290,7 +261,7 @@
 
                         <div class="card card-hover">
                             <div class="box bg-cyan text-center">
-                                <h1 class="font-light text-white">111</h1>
+                                <h1 class="font-light text-white"><?=$registeredPasser?></h1>
                                 <h6 class="text-white">Registered Passers</h6>
                             </div>
                         </div>
@@ -299,7 +270,7 @@
                     <div class="col-md-6 col-lg-3">
                         <div class="card card-hover">
                             <div class="box bg-success text-center">
-                                <h1 class="font-light text-white">101</h1>
+                                <h1 class="font-light text-white"><?=$registeredSeeker?></h1>
                                 <h6 class="text-white">Registered Seekers</h6>
                             </div>
                         </div>
@@ -308,7 +279,7 @@
                     <div class="col-md-6 col-lg-3">
                         <div class="card card-hover">
                             <div class="box bg-warning text-center">
-                                <h1 class="font-light text-white">500</h1>
+                                <h1 class="font-light text-white"><?=$hiredPassers?></h1>
                                 <h6 class="text-white">Hired Passers</h6>
                             </div>
                         </div>
@@ -317,50 +288,8 @@
                     <div class="col-md-6 col-lg-3">
                         <div class="card card-hover">
                             <div class="box bg-danger text-center">
-                                <h1 class="font-light text-white">900</h1>
+                                <h1 class="font-light text-white"><?=$alluser;?></h1>
                                 <h6 class="text-white">All Users</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="card-title">Calendar</h5>
-                        <div class="card">
-                            <div class="">
-                                <div class="row">
-                                    <div class="col-lg-3 border-right p-r-0">
-                                        <div class="card-body border-bottom">
-                                            <h4 class="card-title m-t-10">Drag & Drop Event</h4>
-                                        </div>
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div id="calendar-events" class="">
-                                                        <div class="calendar-events m-b-20" data-class="bg-info"><i class="fa fa-circle text-info m-r-10"></i>Event One</div>
-                                                        <div class="calendar-events m-b-20" data-class="bg-success"><i class="fa fa-circle text-success m-r-10"></i> Event Two</div>
-                                                        <div class="calendar-events m-b-20" data-class="bg-danger"><i class="fa fa-circle text-danger m-r-10"></i>Event Three</div>
-                                                        <div class="calendar-events m-b-20" data-class="bg-warning"><i class="fa fa-circle text-warning m-r-10"></i>Event Four</div>
-                                                    </div>
-                                                    <!-- checkbox -->
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="drop-remove">
-                                                        <label class="custom-control-label" for="drop-remove">Remove after drop</label>
-                                                    </div>
-                                                    <a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
-                                                            <i class="ti-plus"></i> Add New Event
-                                                        </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-9">
-                                        <div class="card-body b-l calender-sidebar">
-                                            <div id="calendar"></div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -471,8 +400,6 @@
     <script src="../etc/admin/dist/js/custom.min.js"></script>
     <!-- this page js -->
     <script src="../etc/admin/assets/libs/moment/min/moment.min.js"></script>
-    <script src="../etc/admin/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script src="../etc/admin/dist/js/pages/calendar/cal-init.js"></script>
     <script src="../etc/custom-js-Admin.js"></script>
 
 </body>

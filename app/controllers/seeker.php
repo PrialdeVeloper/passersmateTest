@@ -369,15 +369,22 @@
 								case 'Seeker':
 									$status = '<a class="badge badge-warning text-black font-weight-bold float-right">Pending for cancellation</a>';
 									$headerColor = 'bg-warning';
-									$employmentAgreement = 
-									'
-									<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
-			                          Dispute
-			                        </button>
-									';
+									// $employmentAgreement = 
+									// '
+									// <button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
+			      //                     Dispute
+			      //                   </button>
+									// ';
+									$employmentAgreement = null;
 									$update = '<small class="text-left "><b class="text-black">Pending for cancellation started on:</b> </small>';
 									break;
 							}
+							break;
+						case 7:
+							$status = '<a class="badge badge-danger font-weight-bold ">Cancelled</a>';
+							$headerColor = 'bg-danger';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-black">Cancelled on:</b> </small>';
 							break;
 						case 8:
 							$status = '<a class="badge badge-danger font-weight-bold ">dispute</a>';

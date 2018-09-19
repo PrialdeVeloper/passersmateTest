@@ -22,10 +22,17 @@
 		}
 
 		public function index(){
+			$allUsers = $registeredPasser = $registeredSeeker = $hiredPassers = null;
+			$data = [];
 			if(!$this->checkSession('adminUser')){
 				header("location:login");
 			}
-			$this->controller->view("admin/index");	
+			$allUsers = $this->model->countAllUsers("passer","seeker");
+			$registeredSeeker = $this->model->checkExistSingle("seeker","SeekerStatus",array(1));
+			$registeredPasser = $this->model->checkExistSingle("passer","PasserStatus",array(1));
+			$hiredPassers = $this->model->countAllCount("offerjob","offerjob","OfferJobStatus","OfferJobStatus",array(5,9));
+			$data[] = array("alluser"=>$allUsers,"registeredSeeker"=>$registeredSeeker,"registeredPasser"=>$registeredPasser,"hiredPassers"=>$hiredPassers);
+			$this->controller->view("admin/index",$data);	
 		}
 
 		public function login(){
@@ -273,7 +280,7 @@
 				'
 				<tr>
                     <td>'.$data['SubscriptionID'].'</td>
-                    <td>'.$data['SeekerFN']." ".$data['SeekerFN'].'</td>
+                    <td>'.$data['SeekerFN']." ".$data['SeekerLN'].'</td>
                     <td>'.$data['SubscriptionName'].'</td>
                     <td>'."Php ".$data['SubscriptionPrice'].".00".'</td>
                     <td>'.date("F jS, Y",strtotime($data['SubscriptionStart'])).'</td>

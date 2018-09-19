@@ -150,7 +150,7 @@
            						<div class="col-md-3">
 	   								<h5>Age:</h5>
 	           					    <div class="input-group">
-						             	<input type="number" name="age" class="form-control border-secondary py-2 rounded">
+						             	<input type="number" value="0" name="age" class="form-control border-secondary py-2 rounded">
 						            </div>
            						</div>
 							</div>
@@ -159,9 +159,9 @@
        								<h5>Service fee between:</h5>
        								<div class="form-group">
 		           					   	<label for="budget">Average Service fee (Php)</label>
-		           					   	<input name="budget" class="ml-1 border-secondary rounded fee" value="any" type="text" style="width:50px" id="minimum">
+		           					   	<input name="budget" class="ml-1 border-secondary rounded fee" value="0" type="text" style="width:50px" id="minimum">
 	           					   	</div>
-									<input type="range" name="fee" class="custom-range" value="1" min="0" max="10000" >
+									<input type="range" name="fee" class="custom-range" value="0" min="0" max="10000" >
    								</div>
            					</div>
 						</form>
