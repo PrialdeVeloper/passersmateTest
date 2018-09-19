@@ -30,7 +30,7 @@
 		public $disputeTable = "dispute";
 		public $disputeDB = array("PasserID","SeekerID","JobOfferID","DisputeIssuer","DisputeReason");
 		public $ratingTable = "ratings";
-		public $ratingDB = array("OfferJobID","PasserID","SeekerID","PersonalityRate","WorkQualityRate","PunctualityRate","Feedback","ReviewBy");
+		public $ratingDB = array("OfferJobID","PasserID","SeekerID","PersonalityRate","PunctualityRate","WorkQualityRate","Feedback","ReviewBy");
 		public $switchTable = "switch";
 		public $switchDB = array("SeekerID","PasserID","Original");
 		public $seekerSwitchDB = array("SeekerFN","SeekerLN","SeekerBirthdate","SeekerAge","SeekerGender","SeekerStreet","SeekerCity","SeekerAddress","SeekerCPNo","SeekerEmail","SeekerPass","SeekerProfile","SeekerStatus");
@@ -68,6 +68,42 @@
 
 		public function getDetailsSeeker($seeker){
 			return $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($seeker));
+		}
+
+		public function sendSMS($number,$message){
+			$array_fields['phone_number'] = $number;
+			$array_fields['message'] = $message;
+			$array_fields['device_id'] = 102125;
+
+			$token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTUzNzI0NDU1OSwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjUwMjAxLCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.nc-a8NkAnKwWl-ipaGiI5drc3Geg69idg1P76h39GKA";
+
+			$curl = curl_init();
+
+			curl_setopt_array($curl, array(
+			    CURLOPT_URL => "https://smsgateway.me/api/v4/message/send",
+			    CURLOPT_RETURNTRANSFER => true,
+			    CURLOPT_ENCODING => "",
+			    CURLOPT_MAXREDIRS => 10,
+			    CURLOPT_TIMEOUT => 30,
+			    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			    CURLOPT_CUSTOMREQUEST => "POST",
+			    CURLOPT_POSTFIELDS => "[  " . json_encode($array_fields) . "]",
+			    CURLOPT_HTTPHEADER => array(
+			        "authorization: $token",
+			        "cache-control: no-cache"
+			    ),
+			));
+			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+			$response = curl_exec($curl);
+			$err = curl_error($curl);
+
+			curl_close($curl);
+
+			if ($err) {
+			    echo "cURL Error #:" . $err;
+			}
+			return true;
 		}
 
 		public function joinCancelJobOffer(){
@@ -350,6 +386,7 @@
 		}
 
 		public function createNotification($notifType,$to = []){
+			$number =  $message = null;
 			$execute = 1;
 			if($notifType == 'message'){
 				$checkExist = $this->model->checkExistSingle($this->notifDB,$to['sendTo'],array($to['id']));
@@ -357,8 +394,121 @@
 					$execute = 0;
 				}
 			}
-			($execute = 1?($to['sendTo'] == "PasserID")?$this->model->insertDB($this->notifDB,$this->notifTable,array($to['id'],NULL,$notifType,$to['message'])):$this->model->insertDB($this->notifDB,$this->notifTable,array(NULL,$to['id'],$notifType,$to['message'])):""); 
+			if($execute = 1){
+				if($to['sendTo'] == "PasserID"){
+					$this->model->insertDB($this->notifDB,$this->notifTable,array($to['id'],NULL,$notifType,$to['message']));
+					$number = $this->getDetailsPasser($to['id'])[0]['PasserCPNo'];
+					$message = $this->notificationMeaning($notifType,$to['message']);
+				}
+				else{
+					$this->model->insertDB($this->notifDB,$this->notifTable,array(NULL,$to['id'],$notifType,$to['message']));
+					$number = $this->getDetailsSeeker($to['id'])[0]['SeekerCPNo'];
+					$message = $this->notificationMeaning($notifType,$to['message']);
+				}
+				if(!empty($number) && $message != 'message'){
+					$number = "0".$number;
+					$this->sendSMS($number,$message);
+				}
+			}
+			// ($execute = 1?($to['sendTo'] == "PasserID")?$this->model->insertDB($this->notifDB,$this->notifTable,array($to['id'],NULL,$notifType,$to['message'])):$this->model->insertDB($this->notifDB,$this->notifTable,array(NULL,$to['id'],$notifType,$to['message'])):""); 
 			return true;
+		}
+
+
+		public function notificationMeaning($notifType,$message){
+			switch ($notifType) {
+				case 'updateUserStatus':
+					switch ($message) {
+						case '1':
+							$message = "verified your acount";
+							break;
+						case '3':
+							$message = "declined your request to be verified.";
+							break;
+					}
+					break;
+
+				case 'message':
+					$link = "message";
+					break;
+
+				case 'subscription':
+					switch ($message) {
+						case '0':
+							$message = "You may want to subscribe first!";
+							$link = "subscription";
+							break;
+						case '1':
+							$message = "You have successfully Subscribed. Login to Passersmate for more information.";
+							break;
+						case '2':
+							$message = "Your subscription has ended. Login to Passersmate for more information.";
+							break;
+					}
+					break;
+				case 'JobOffer':
+					switch ($message) {
+						case '1':
+							$message = "You have a job offer, Mate! Login to Passersmate for more information.";
+							break;
+						case '2':
+							$message = "A recent job offer you received was updated mate! Check it out! Login to Passersmate for more information.";
+							break;
+						case '3':
+							$message = "You have been hired! Login to Passersmate for more information.";
+							break;
+						case '4':
+							$message = "A seeker has requested to cancel a job. Login to Passersmate for more information.";
+							break;
+						case '5':
+							$message = "A job youv'e been hired has been marked done. Login to Passersmate for more information.";
+							break;
+					}
+					break;
+				case 'jobOfferSeeker':
+					switch ($message) {
+						case '3':
+							$message = "Your job offer has been accepted! Check it out mate! Login to Passersmate for more information.";
+							break;
+						case '4':
+							$message = "Unfortunately, your job offer has been rejected. Login to Passersmate for more information.";
+							break;
+						case '3':
+							$message = "A passer has requested to cancel a job. Login to Passersmate for more information.";
+							break;
+					}
+					break;
+				case 'cancellationSeeker':
+					switch ($message) {
+						case '1':
+							$message = "You have new job cancellation Request. Login to Passersmate for more information.";
+							break;
+						case '2':
+							$message = "Your job cancellation has been Approved. Login to Passersmate for more information.";
+							break;
+						case '3':
+							$message = "Your job cancellation has been declined. Login to Passersmate for more information.";
+							break;
+					}
+					break;
+
+				case 'dispute':
+					switch ($message) {
+						case '1':
+							$message = "You have new Disputed job. Login to Passersmate for more information.";
+							break;
+					}
+					break;
+
+				case 'disputeSeeker':
+					switch ($message) {
+						case '1':
+							$message = "You have new Disputed job. Login to Passersmate for more information.";
+							break;
+					}
+					break;
+			}
+			return $message;
 		}
 
 		public function addPasserToMessage(){
