@@ -392,6 +392,12 @@
 			return $this->stmt->fetchColumn();
 		}
 
+		public function agreementGenerate($data){
+			$this->stmt = $this->con->prepare("SELECT * FROM `agreement` a, `seeker` b, `passer` c, `offerjobformused` d WHERE a.`SeekerID` = b.`SeekerID` AND a.`PasserID` = c.`PasserID` AND a.`OfferJobFormUsedID` = d.`JobOfferFormUsedID` AND d.`OfferJobID` = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){
 			try {
 				$fieldsQ = $this->qDataUpdate($fields);

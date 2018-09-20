@@ -10,4 +10,5 @@
 	require_once 'core/Facebook/autoload.php';
 	require_once 'core/Google/vendor/autoload.php';
 	require_once 'core/SmsGateway/autoload.php';
+	require_once 'core/pdf/tcpdf.php';
 ?> 
