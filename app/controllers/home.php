@@ -562,7 +562,7 @@
 		 	if($this->checkSession('seekerUser')){
 		 		$dashboard = "../seeker/dashboard";
 		 		$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($_SESSION['seekerUser']));
-		 		$allUsers = $this->paginationReviews("SeekerID",array($_SESSION['seekerUser'],"Passer"),$page,1,2,"RatingsID","DESC","");
+		 		$allUsers = $this->paginationReviews("SeekerID",array($_SESSION['seekerUser'],"Passer"),$page,1,4,"RatingsID","DESC","");
 		 		$allUsers = json_decode($allUsers,true);
 		 		foreach ($allUsers['data'] as $d) {
 		 			switch ($d['PunctualityRate']) {
@@ -667,7 +667,7 @@
 			}elseif($this->checkSession('passerUser')){
 		 		$dashboard = "../passer/dashboard";
 		 		$details = $this->model->selectAllFromUser($this->passerTable,$this->passerUnique,array($_SESSION['passerUser']));
-		 		$allUsers = $this->paginationReviews("PasserID",array($_SESSION['passerUser'],"Seeker"),$page,1,2,"RatingsID","DESC","");
+		 		$allUsers = $this->paginationReviews("PasserID",array($_SESSION['passerUser'],"Seeker"),$page,1,4,"RatingsID","DESC","");
 		 		$allUsers = json_decode($allUsers,true);
 		 		foreach ($allUsers['data'] as $d) {
 		 			switch ($d['PunctualityRate']) {

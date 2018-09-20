@@ -176,7 +176,8 @@
 				</div>
 				<div class="row pt-1 border-bottom pt-3">
 					<div class="col-sm-1"><i class="fas fa-handshake"></i></div>
-					<div class="col-md-auto"><span data-toggle="modal" data-target="#agreementRecord">Employement Agreement Record</span></div>
+					<div class="col-md-auto"><label><a href="agreementRecord?user=<?=$PasserCOCNo;?>" class="text-dark">Employment Agreement Record</a></label></div>
+					<!-- <div class="col-md-auto"><span data-toggle="modal" data-target="#agreementRecord">Employement Agreement Record</span></div> -->
 				</div>
 				<div class="row pt-1 border-bottom pt-3">
 					<div class="col-sm-1"><i class="fas fa-file-alt"></i></div>

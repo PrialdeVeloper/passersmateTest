@@ -18,7 +18,7 @@ $rate = "Very Good!";
 			print_r($data);
 		}
 	} 
-	require "../public/header-footer/seeker/seekerHeader.marvee";
+	require "../public/header-footer/seeker/seekerHeader1.marvee";
 	require "modal/projectsModal.html";
 ?>
 <!-- content -->

@@ -1,0 +1,140 @@
+<!-- Agreement Modal -->
+              <div class="modal fade bd-example-modal-lg" id="agreement" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Employment Agreement Form</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>            
+                    </div>
+                    <div class="modal-body scroll1">
+                     
+                    <div class="row">
+            <div class="col-md-5 mx-auto text-center">
+              <img src="../etc/images/system/PMlogo.png" width="75px">
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <h5>This agreement is between</h5>
+            </div>
+            <div class="col-md-12">
+              <p style="font-size: 15px">(1) 
+                <u class="font-weight-bold"><?php echo $PasserFN." ".$PasserLN; ?></u> who reside in <u class="font-weight-bold"><?php echo $PasserAddress." ".$PasserStreet.", ".$PasserCity ?></u>, ("The Passer") and
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px">(2) 
+                <u class="font-weight-bold" id="passerFullname"></u> of <u class="font-weight-bold" id="passerFullAddress"></u>, ("The Passer")
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px">
+                IT IS AGREED that the Service Seeker will employ the Passer and the Passer will work for the Service Seeker on the following terms and conditions:
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" class="font-weight-bold">
+                1. Job Title
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" >
+                The Passer's position is that of <u class="font-weight-bold" id="jobtitle"></u>
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" class="font-weight-bold">
+                2. The start date of service
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" >
+                The Passer's service with the Service Seeker will start on 
+                <u class="font-weight-bold" id="makeAgreementStartDate">Start Date.</u>
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" class="font-weight-bold">
+                3. The estimated end of service
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" >
+                The Passer's service with the Service Seeker will estimatedly end on 
+                <u class="font-weight-bold" id="makeAgreementEndDate">End Date.</u>
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" class="font-weight-bold">
+                4. Place of work
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" >
+                The Passer's normal place of work will be 
+                <u class="font-weight-bold" id="makeAgreementWorkingAdress">Working Address.</u>
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" class="font-weight-bold">
+                5. Payment
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" >
+                Payment is at the rate of
+                <span class="font-weight-bold">&#8369;</span><u class="font-weight-bold" id="makeAgreementSalary">Salary.</u>
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" class="font-weight-bold">
+                6. Payment Method
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+                            Payment method is
+                             <select class="form-control" name="makeAgreementPaymentMethod"  disabled readonly>
+                              <option value="Onsite">In-Onsite</option>
+                              <option value="Online">Online</option>
+                            </select>
+            </div>
+            <div class="col-md-12 mt-3">
+              <p style="font-size: 15px" class="font-weight-bold">
+                7. Preferred Type of Accommodation
+              </p>
+            </div>
+            <div class="col-md-12 mt-3">
+                            The preferred type of accommodation is
+                            <select class="form-control" name="makeAgreementAccomodation" disabled readonly>
+                              <option value="In-House">In-House</option>
+                              <option value="Offsite">Offsite</option>
+                            </select>
+            </div>
+            <div class="form-group col-md-12 mt-3 form-check">
+            
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <img src="../etc/images/system/PMlogo.png" width="50" class="" style="margin-left: 85px;">
+              <p class="border-bottom border-dark"></p>
+              <p class="text-center">WITNESS</p>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4 mt-3">
+              <p></p>
+              <p class="text-center border-bottom border-dark font-weight-bold"  id="currentDate">CURRENT DATE</p>
+              <p class="text-center">DATE</p>
+            </div>
+          </div>
+                    </div>
+                    <div class="modal-footer">
+                     
+                      <button type="button" class="btn btn-primary" id="hirePasser">Hire the Passer</button>
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>

@@ -29,92 +29,12 @@
 <!-- TABCONTENTS -->
 
 <?php
-// project contents
-$project = 
-	'
-		<div class="row">
-			<div class="col-sm-12 text-center pt-4 pb-3">
-				<label><h3>Projects</h3></label>
-			</div>
-		</div>
-		<div class="">
-			<div class="row">
-				<div class="col-sm-4 cursor  p-3 form-group ">
-					<div class="border">
-						<img src="../../public/etc/images/system/background1.jpg" class="modalAddDetails w-100 h-25" data-toggle="modal" data-target="#project" id="">
-						<div class="p-3 justify-content-center clearfix">
-							<h5>Project Title</h5>
-							<small class="text-center" style="opacity: 0.5">subtitle of project</small>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4 cursor  p-3 form-group ">
-					<div class="border">
-						<img src="../../public/etc/images/system/background1.jpg" class="modalAddDetails w-100 h-25" data-toggle="modal" data-target="#project" id="">
-						<div class="p-3 justify-content-center clearfix">
-							<h5>Project Title</h5>
-							<small class="text-center" style="opacity: 0.5">subtitle of project</small>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4 cursor  p-3 form-group ">
-					<div class="border">
-						<img src="../../public/etc/images/system/background1.jpg" class="modalAddDetails w-100 h-25" data-toggle="modal" data-target="#project" id="">
-						<div class="p-3 justify-content-center clearfix">
-							<h5>Project Title</h5>
-							<small class="text-center" style="opacity: 0.5">subtitle of project</small>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm-4 cursor  p-3 form-group ">
-					<div class="border">
-						<img src="../../public/etc/images/system/background1.jpg" class="modalAddDetails w-100 h-25" data-toggle="modal" data-target="#project" id="">
-						<div class="p-3 justify-content-center clearfix">
-							<h5>Project Title</h5>
-							<small class="text-center" style="opacity: 0.5">subtitle of project</small>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4 cursor  p-3 form-group ">
-					<div class="border">
-						<img src="../../public/etc/images/system/background1.jpg" class="modalAddDetails w-100 h-25" data-toggle="modal" data-target="#project" id="">
-						<div class="p-3 justify-content-center clearfix">
-							<h5>Project Title</h5>
-							<small class="text-center" style="opacity: 0.5">subtitle of project</small>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-4 cursor  p-3 form-group ">
-					<div class="border">
-						<img src="../../public/etc/images/system/background1.jpg" class="modalAddDetails w-100 h-25" data-toggle="modal" data-target="#project" id="">
-						<div class="p-3 justify-content-center clearfix">
-							<h5>Project Title</h5>
-							<small class="text-center" style="opacity: 0.5">subtitle of project</small>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row justify-content-center">
-				<nav aria-label="Page navigation example" class="">
-					<ul class="pagination">
-						<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-						<li class="page-item"><a class="page-link" href="#">1</a></li>
-						<li class="page-item"><a class="page-link" href="#">2</a></li>
-						<li class="page-item"><a class="page-link" href="#">3</a></li>
-						<li class="page-item"><a class="page-link" href="#">Next</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>	
-	';
 // education contents
 $education = 
 	'
 		<div class="row ">
 			<div class="col-sm-12 text-center pt-4 pb-3">
-				<label><h3>Education</h3></label>
+				<label><h3>Highest Educational Attainment</h3></label>
 			</div>
 		</div>	
 		<div class="row justify-content-center">
@@ -150,17 +70,7 @@ $education =
 				</div>
 			</div>
 		</div>	
-		<div class="row justify-content-center pt-4">
-			<nav aria-label="Page navigation example ">
-				<ul class="pagination ">
-					<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-					<li class="page-item"><a class="page-link" href="#">1</a></li>
-					<li class="page-item"><a class="page-link" href="#">2</a></li>
-					<li class="page-item"><a class="page-link" href="#">3</a></li>
-					<li class="page-item"><a class="page-link" href="#">Next</a></li>
-				</ul>
-			</nav>
-		</div>	
+		
 	';
 
 // 
@@ -234,9 +144,7 @@ $education =
 								<button class="dropdown-item btn btn-link" data-toggle="tab" href="#rate1">Service Rate</button>			
 							</div>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="#project1">Projects</a>
-						</li>
+						
 						<li class="nav-item">
 							<a class="nav-link" data-toggle="tab" href="#review1">Reviews</a>
 						</li>
@@ -285,24 +193,11 @@ $education =
 										<div class="col-sm-8">
 											<label>kung Unsa Iyang Offsite amaw man diay ko</label>
 										</div>
-									</div>
-																	
+									</div>						
 								</div>
 							</div>
 						</div>	
-						<div class="row justify-content-center pt-4">
-							<nav aria-label="Page navigation example ">
-								<ul class="pagination ">
-									<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-									<li class="page-item"><a class="page-link" href="#">1</a></li>
-									<li class="page-item"><a class="page-link" href="#">2</a></li>
-									<li class="page-item"><a class="page-link" href="#">3</a></li>
-									<li class="page-item"><a class="page-link" href="#">Next</a></li>
-								</ul>
-							</nav>
-						</div>	
 					</div>
-					
 					<!-- end of accommodation content -->
 
 					<!-- rate content -->
@@ -315,15 +210,35 @@ $education =
 					</div>
 					<!-- end of rate content -->
 
-					<!-- project content -->
-					<div class="tab-pane container fade " id="project1">
-						<?=$project;?>
-					</div>
-					<!-- end of project content -->
 
 					<!-- review content -->
 					<div class="tab-pane container fade" id="review1">
-
+						<div class="row  py-3">
+							<div class="col-md-12 ">
+								<div class="row justify-content-center">
+									<div class="col-md-6">
+										<div class="card shadow">
+											<div class="card-header">
+												<small class="text-info font-weight-bold">Rated on: September 21, 2018</small>
+											</div>
+											<div class="card-body">
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="card shadow">
+											<div class="card-header">
+												
+											</div>
+											<div class="card-body">
+												
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<!-- end of review content -->
 				</div>
