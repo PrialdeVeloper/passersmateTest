@@ -57,7 +57,7 @@ li {
 					<span class="navbar-toggler-icon"></span>
 				</button> -->
 				<a class="navbar-brand" href="#">
-					<img src="../../public/etc/images/dashboard/header/header-logo.png" class="img-fluid header-image" style="width:230px;">
+					<img src="../../public/etc/images/dashboard/header/logo-3.png" class="img-fluid header-image" style="width:230px;">
 				</a>
 				<button type="button" class="navbar-toggler" data-target="#navbar-header" data-toggle="collapse">
 					<span class="navbar-toggler-icon"></span>

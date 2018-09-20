@@ -210,9 +210,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row justify-content-center pt-4">
-								'.$workHistory['pagination'].'
-							</div>
+							
 			 			';
 			 			$dom = $dom ." ".$builder;
 			 		}

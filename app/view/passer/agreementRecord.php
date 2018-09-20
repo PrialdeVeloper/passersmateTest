@@ -71,9 +71,9 @@ require "../public/header-footer/seeker/seekerHeader1.marvee";
                             </div>
                             <hr>
                             <div class="card-body">
-                              <div class="row justify-content-center">
+                              <div class="row justify-content-center p-auto">
                                 <div class="col-sm-12">
-                                  <img src="../../public/etc/images/system/passersmateLogo.png" class="cursor modalAddDetails rounded mx-auto d-block" data-toggle="modal" data-target="#agreement" id="" style="width:190px; height: 150px;">
+                                  <img src="../../public/etc/images/system/PMlogo.png" class="pb-4 cursor modalAddDetails rounded mx-auto d-block" data-toggle="modal" data-target="#agreement" id="" style="width:150px; height:150px; ">
                                   <!-- <h4 class="text-center pt-2"><label data-toggle="modal" data-target="#agreement" >PASSERSMATE AGREEMENT</label></h4> -->
                                 </div>
                               </div>

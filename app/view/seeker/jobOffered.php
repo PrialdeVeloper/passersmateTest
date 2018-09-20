@@ -382,12 +382,12 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
 					</div>
 					<div class="row">
 						<div class="col-md-4">
-							<img src="../etc/images/system/PMlogo.png" width="150" class="ml-3">
+							<img src="../etc/images/system/PMlogo.png" width="50" class="" style="margin-left: 85px;">
 							<p class="border-bottom border-dark"></p>
 							<p class="text-center">WITNESS</p>
 						</div>
 						<div class="col-md-4"></div>
-						<div class="col-md-4">
+						<div class="col-md-4 mt-3">
 							<p></p>
 							<p class="text-center border-bottom border-dark font-weight-bold"  id="currentDate">CURRENT DATE</p>
 							<p class="text-center">DATE</p>
