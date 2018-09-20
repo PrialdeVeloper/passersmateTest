@@ -55,9 +55,9 @@ if(isset($_SESSION['seekerUser'])){
 						</li>
 						<?php echo $extraLinks; ?>
 						<li class="navbar-item pr-5 n">
-							<a class="navbar-link text-dark" href="#">
-								<i class="fas fa-envelope"></i>
-								<!-- <span class="notification-message">1</span> -->
+							<a class="navbar-link text-dark" href="../home/messages">
+								<i class="fas fa-envelope" id="messageNotifClick"></i>
+								<span class="notification-message" id="messageNotif" style="position:absolute;top:12px;right:210px;">1</span>
 							</a>
 
 						</li>

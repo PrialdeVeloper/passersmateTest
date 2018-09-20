@@ -63,6 +63,19 @@
 			return implode($data," = ? and ");
 		}
 
+		public function queryOwn($sql){
+			$this->stmt = $this->con->query($sql);
+			$this->stmt->execute();
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+
+		public function countQueryOwn($sql){
+			$this->stmt = $this->con->query($sql);
+			$this->stmt->execute();
+			return $this->stmt->fetchColumn();
+		}
+
 		public function selectAll($from){
 			$this->stmt = $this->con->query("SELECT * FROM $from");
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -133,6 +146,18 @@
 			$this->stmt = $this->con->prepare("SELECT * FROM $table ORDER BY $order $sort LIMIT $offset,$count");
 			$this->stmt->execute();
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function JobOffer($table,$offset,$where,$user,$data,$count,$order,$sort){
+			$this->stmt = $this->con->prepare("SELECT * FROM $table a, `passer` b, `seeker` c WHERE a.`PasserID` = b.`PasserID`and a.`SeekerID` = c.`SeekerID` AND a.$where >= ? AND a.$user = ? ORDER BY $order $sort LIMIT $offset,$count");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function countJobOffer($table,$where,$user,$data){
+			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM $table WHERE $where >= ? AND $user = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchColumn();
 		}
 
 		public function joinSubscriptionAdmin($offset,$count,$order,$sort){
@@ -267,6 +292,40 @@
 			}
 		}
 
+		public function joinTransactionHistory($offset,$count,$order,$sort,$data){
+			try {
+				$this->stmt = $this->con->prepare("SELECT * FROM `transactionhistory` a, `offerjob` b, `seeker` c, `passer` d WHERE a.`OfferJobID` = b.`OfferJobID` AND b.`SeekerID` = c.`SeekerID` AND b.`PasserID` = d.`PasserID` AND b.`OfferJobStatus` >= ?");
+				$this->stmt->execute($data);
+				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
+		public function countAllTransactionHistory($data){
+			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM `transactionhistory` a, `offerjob` b, `seeker` c, `passer` d WHERE a.`OfferJobID` = b.`OfferJobID` AND b.`SeekerID` = c.`SeekerID` AND b.`PasserID` = d.`PasserID` AND b.`OfferJobStatus` >= ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchColumn();
+		}
+
+		// public function joinTransactionHistory($offset,$count,$order,$sort,$data){
+		// 	try {
+		// 		$this->stmt = $this->con->prepare("SELECT * FROM `transactionhistory` a, `offerjob` b, `seeker` c, `passer` d WHERE a.`OfferJobID` = b.`OfferJobID` AND b.`SeekerID` = c.`SeekerID` AND b.`PasserID` = d.`PasserID` AND b.`OfferJobStatus` >= ?");
+		// 		$this->stmt->execute($data);
+		// 		return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		// 	} catch (Exception $e) {
+		// 		return $e->getMessage();
+		// 	}
+		// }
+
+		// public function countAllTransactionHistory($data){
+		// 	$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM `transactionhistory` a, `offerjob` b, `seeker` c, `passer` d WHERE a.`OfferJobID` = b.`OfferJobID` AND b.`SeekerID` = c.`SeekerID` AND b.`PasserID` = d.`PasserID` AND b.`OfferJobStatus` >= ?");
+		// 	$this->stmt->execute($data);
+		// 	return $this->stmt->fetchColumn();
+		// }
+
+
+
 		public function joinSubscription($data){
 			try {
 				$this->stmt = $this->con->prepare("SELECT * FROM `subscription` a, `subscriptiontype` b WHERE a.`SubscriptionTypeID` = b.`SubscriptionTypeID` and a.`SubscriptionID` = ?");
@@ -309,7 +368,6 @@
 			} catch (Exception $e) {
 				return $e->getMessage();
 			}
-
 		}
 
 		public function joinAgreementCancel($unique,$data){

@@ -53,190 +53,138 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-              <div class="row">
-              <div class="col-md-12 mt-5">
-                <div class="col-md-10 mx-auto">
-                  <a href="dashboard"><h4><u>Back to Dashboard</u></h4></a>
-                  <hr>
+          <div class="row">
+            <div class="col-md-11 mx-auto">
+              <h4 class="mt-5 ml-4"><a href=""><u>Back to your Dashboard</u></a></h4>
+               <div class="mt-5 ml-4">
+                <p class="font-weight-bold">Filter by Job Status:</p>
+                <button class="btn btn-dark filter-button" data-filter="all">All</button>
+                <button class="btn btn-success filter-button" data-filter="done">Done</button>
+                <button class="btn btn-info filter-button" data-filter="ongoing">Ongoing</button>
+                <button class="btn btn-danger filter-button" data-filter="canceled">Canceled</button>
+                <button class="btn btn-warning filter-button" data-filter="pending">Pending</button>
+            </div>
+            <h3 class="text-center">Your Chosen Passers</h3>
+              <div class="row mt-5 ml-2 mr-2">
+                <?=$dom; ?>
+              </div>
+              <div class="row mt-2 ml-2 mr-2">
+                <div class="col-md-3 filter pending">
                   <div class="card shadow">
-                  <div class="card-header text-white" style="background:#84b3ff">
-                    <h5>MY CHOOSEN PASSERS</h5>
+                    <div class="card-header">
+                      <small class="font-weight-bold">Hired Date: August 6, 2018</small>
+                    </div>
+                    <div class="card-body" style="height:345px">
+                  <div class="container">
+                    <img src="pablo.jpg" alt="Avatar" class="image">
+                    <div class="overlay">
+                      <div class="text">Passer's Name: Pablo Franco</div>
+                    </div>
                   </div>
-                  <div class="card-body text-center bg-white">
-                    <div class="row font-weight-bold" style="font-size: 15px">
-                      <div class="col-sm-3">
-                        <p>Image</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Passer's Name</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Job Title</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Date of the Job Offered</p>
-                      </div>
-                      <div class="col-sm-1">
-                        <p>Status</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Action</p>
-                      </div>
+                  <p class="font-weight-bold text-center mt-3">
+                    Job title: <u>Chef</u>
+                      </p>
+                  <p class="font-weight-bold text-center mt-3">Job Status: 
+                        <span class="badge badge-warning font-weight-bold">PENDING FOR CANCELLATION</span>
+                      </p>
                     </div>
-                    <hr>
-                     <div class="row" style="font-size: 15px">
-                      <div class="col-sm-3">
-                        <img src="h1.png" width="60px">
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Marvee Yofa Franco</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Chef</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>11/06/2018</p>
-                      </div>
-                      <div class="col-sm-1">
-                        <p class="text-center"><span class="badge badge-success font-weight-bold">Hired</span></p>
-                      </div>
-                      <div class="col-sm-2">
-                       <a href="" data-toggle="modal" data-target="#update" title="Update Status"><h6><u>Update</u></h6></a>
-                       <a href="" data-toggle="modal" data-target="#delete" title="Remove"><h6><u>Delete</u></h6></a>
-                      </div>
-                    </div>
-                       <hr>
-                     <div class="row" style="font-size: 15px">
-                      <div class="col-sm-3">
-                        <img src="h1.png" width="60px">
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Marvee Yofa Franco</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Chef</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>11/06/2018</p>
-                      </div>
-                      <div class="col-sm-1">
-                        <p class="text-center"><span class="badge badge-warning font-weight-bold">Pending</span></p>
-                      </div>
-                      <div class="col-sm-2">
-                       <a href="" data-toggle="modal" data-target="#update" title="Update Status"><h6><u>Update</u></h6></a>
-                       <a href="" data-toggle="modal" data-target="#delete" title="Remove"><h6><u>Delete</u></h6></a>
-                      </div>
-                    </div>
-                    <hr>
-
-                     <div class="row" style="font-size: 15px">
-                      <div class="col-sm-3">
-                        <img src="h1.png" width="60px">
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Marvee Yofa Franco</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>Chef</p>
-                      </div>
-                      <div class="col-sm-2">
-                        <p>11/06/2018</p>
-                      </div>
-                      <div class="col-sm-1">
-                        <p class="text-center"><span class="badge badge-danger font-weight-bold">Cancelled</span></p>
-                      </div>
-                      <div class="col-sm-2">
-                       <a href="" data-toggle="modal" data-target="#update" title="Update Status"><h6><u>Update</u></h6></a>
-                       <a href="" data-toggle="modal" data-target="#delete" title="Remove"><h6><u>Delete</u></h6></a>
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row" style="font-size: 15px">
-                      <div class="col-md-12">
-                        <div class="alert alert-danger" role="alert">
-                          You haven't choose Passer at the moment.
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row float-right">
-                      <div class="col-md-12">
-                        <ul class="pagination">
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item active">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
+                    <div class="card-footer text-center pt-2" style="height:50px" >
+                      
                     </div>
                   </div>
                 </div>
+                <div class="col-md-3 filter pending">
+                  <div class="card shadow">
+                    <div class="card-header">
+                      <small class="font-weight-bold">Hired Date: August 6, 2018</small>
+                    </div>
+                    <div class="card-body" style="height:345px">
+                  <div class="container">
+                    <img src="pablo.jpg" alt="Avatar" class="image">
+                    <div class="overlay">
+                      <div class="text">Passer's Name: Pablo Franco</div>
+                    </div>
+                  </div>
+                  <p class="font-weight-bold text-center mt-3">
+                    Job title: <u>Chef</u>
+                      </p>
+                  <p class="font-weight-bold text-center mt-3">Job Status: 
+                        <span class="badge badge-warning font-weight-bold">PENDING FOR CANCELLATION</span>
+                      </p>
+                    </div>
+                    <div class="card-footer text-center pt-2" style="height:50px" >
+                      
+                    </div>
+                  </div>
+                </div>
+                  <div class="col-md-3 filter done">
+                  <div class="card shadow">
+                    <div class="card-header">
+                      <small class="font-weight-bold">Hired Date: August 6, 2018</small>
+                    </div>
+                    <div class="card-body" style="height:345px">
+                  <div class="container">
+                    <img src="marvee.jpg" alt="Avatar" class="image">
+                    <div class="overlay">
+                      <div class="text">Passer's Name: Pablo Franco</div>
+                    </div>
+                  </div>
+                  <p class="font-weight-bold text-center mt-3">
+                    Job title: <u>Chef</u>
+                      </p>
+                  <p class="font-weight-bold text-center mt-3">Job Status: 
+                        <span class="badge badge-success font-weight-bold">DONE</span>
+                      </p>
+                    </div>
+                    <div class="card-footer" style="height:50px">
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3 filter done">
+                  <div class="card shadow">
+                    <div class="card-header">
+                      <small class="font-weight-bold">Hired Date: August 6, 2018</small>
+                    </div>
+                    <div class="card-body" style="height:345px">
+                  <div class="container">
+                    <img src="marvee.jpg" alt="Avatar" class="image">
+                    <div class="overlay">
+                      <div class="text">Passer's Name: Pablo Franco</div>
+                    </div>
+                  </div>
+                  <p class="font-weight-bold text-center mt-3">
+                    Job title: <u>Chef</u>
+                      </p>
+                  <p class="font-weight-bold text-center mt-3">Job Status: 
+                        <span class="badge badge-success font-weight-bold">DONE</span>
+                      </p>
+                    </div>
+                    <div class="card-footer" style="height:50px">
+                      
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-             <!-- End Container flsuid  -->
-
-            <!-- MODALS -->
-        <!-- MODAL DELETE -->
-        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="delete" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header bg-danger">
-            </div>
-            <div class="modal-body font-weight-bold">
-              <p style="font-size:15px">Are you sure you want to remove this one?</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" onclick="toastr.success('You have successfully remove it');" data-dismiss="modal">Yes</button>
-              <button type="button" class="btn btn-primary" data-dismiss="modal">No</button>
-            </div>
+            </div>  
+              <ul class="pagination mx-auto mt-3 mb-5">
+            <li class="page-item disabled">
+              <span class="page-link">Previous</span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item active">
+              <span class="page-link">
+                2
+                <span class="sr-only">(current)</span>
+              </span>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
           </div>
-        </div>
-      </div>
-      <!-- END OF MODAL DELETE -->
-       <!-- MODAL UPDATE -->
-            <!-- Modal -->
-                <div class="modal fade bd-example-modal-sm" id="update" tabindex="-1" role="dialog" aria-labelledby="update" aria-hidden="true">
-                  <div class="modal-dialog modal-sm" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Update the Status</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <form>
-                          <div class="form-group col-md-12">
-                            <label for="inputState">Status</label>
-                            <select id="inputState" class="form-control">
-                              <option selected>Hired</option>
-                              <option>Pending</option>
-                              <option>Cancelled</option>
-                            </select>
-                          </div>
-                        </form> 
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="toastr.success('You have successfully update the status');">Save</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      </div>
-                    </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-            <!-- END OF MODAL UPDATE -->
-             
-         
+         </div>
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->

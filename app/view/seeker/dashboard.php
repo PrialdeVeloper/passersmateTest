@@ -107,7 +107,7 @@ $rate = "Very Good!";
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-people-carry text-white"></i></div>
-				<div class="col-md-auto"><label><a href="choosenPasser" class="text-white">My Choosen Partners</a></label></div>
+				<div class="col-md-auto"><label><a href="hiredpassers" class="text-white">My Choosen Passers</a></label></div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-star text-white"></i></div>

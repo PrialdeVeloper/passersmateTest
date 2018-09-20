@@ -4,7 +4,7 @@
 		public $seekerUnique = "SeekerID";
 		public $seekerFacebook = "seekerFacebookId";
 		public $seekDashboardPersonalDetails = array("SeekerAddress","SeekerStreet","SeekerCity","SeekerGender","SeekerCPNo","SeekerBirthdate","SeekerAge");
-		public $seekDashboardPersonalDetailsWithPhoto = array("SeekerAddress","SeekerStreet","SeekerCity","SeekerGender","SeekerCPNo","SeekerBirthdate","SeekerProfile");
+		public $seekDashboardPersonalDetailsWithPhoto = array("SeekerAddress","SeekerStreet","SeekerCity","SeekerGender","SeekerCPNo","SeekerBirthdate","SeekerProfile","SeekerAge");
 		public $seekerValidate = array("SeekerID","frontID","backID","selfie","idType","idNumber","expirationDate");
 		public $seekerDB = array("SeekerFN","SeekerLN","SeekerBirthdate","SeekerAge","SeekerGender","SeekerStreet","SeekerCity","SeekerAddress","SeekerCPNo","SeekerEmail","SeekerUname","SeekerPass");
 		protected $seekerSession;
@@ -197,14 +197,84 @@
 			$this->controller->view("seeker/jobOffer",$data);
 		}
 		
-		public function choosenpasser(){
+		public function hiredpassers(){
+			$allUsers = $flag = $builder = $dom = $element = $badge = $text = $builder = $dom = $date = null;
+			$data = [];
 			if(!$this->checkSession('seekerUser')){
 		 		header("location:../home/login");
 		 	}
-		 	$data = [];
+		 	if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+		 	$allUsers = $this->dynamicJobOffer("offerjob","OfferJobStatus",$this->seekerUnique,array(5,$this->seekerSession),$page,1,8,"OfferJobID","DESC","");
+		 	$allUsers = json_decode($allUsers,true);
+		 	if(empty($allUsers['data'])){
+		 		$dom = '<div class="container text-center alert alert-danger" role="alert">
+                    You haven\'t choosen any Passer at the moment.
+                  </div>';
+		 	}
+		 	else{
+			 	foreach ($allUsers['data'] as $d) {
+			 		if($d['OfferJobStatus'] != 8){
+				 		switch ($d['OfferJobStatus']) {
+				 			case 5:
+				 				$element = "ongoing";
+				 				$badge = "info";
+				 				$text = "ONGOING";
+				 			break;
+
+				 			case 6:
+				 				$element = "pending";
+				 				$badge = "warning";
+				 				$text = "PENDING FOR CANCELLATION";
+				 			break;
+
+				 			case 7:
+				 				$element = "canceled";
+				 				$badge = "danger";
+				 				$text = "CANCELLED";
+				 			break;
+
+				 			case 9:
+				 				$element = "done";
+				 				$badge = "success";
+				 				$text = "DONE";
+				 			break;
+				 		}
+				 		$date = ($d['OfferJobStatus'] == 5?$d['OfferJobDateTime']:$this->model->selectTwoCondition(array("TransactionDateTime"),"transactionhistory","NewStatus","OfferJobID",array(5,$d['OfferJobID']))[0]['TransactionDateTime']);
+				 		$builder = 
+				 		'
+				 		<div class="col-md-3 filter '.$element.'">
+						  <div class="card shadow">
+						    <div class="card-header">
+						      <small class="font-weight-bold">Hired Date: '.date("F jS, Y",strtotime($date)).'</small>
+						    </div>
+						    <div class="card-body" style="height:345px">
+						  <div class="container">
+						    <img src="'.$d['PasserProfile'].'" alt="Avatar" class="image w-100">
+						    <div class="overlay">
+						      <div class="text">Passer\'s Name: '.$d['PasserFN']." ".$d['PasserLN'].'</div>
+						    </div>
+						  </div>
+						  <p class="font-weight-bold text-center mt-3">
+						    Job title: <u>'.$d['PasserCertificate'].'</u>
+						      </p>
+						  <p class="font-weight-bold text-center mt-3">Job Status: 
+						        <span class="badge badge-'.$badge.' font-weight-bold">'.$text.'</span>
+						      </p>
+						    </div>
+						  </div>
+						</div>
+				 		';
+				 		$dom = $dom."".$builder;
+			 		}
+			 	}
+		 	}
 			$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
-			$data[] = array("userDetails"=>$details);
-			$this->controller->view("seeker/choosenPasser",$data);
+			$data[] = array("userDetails"=>$details,"dom"=>$dom,"pagination"=>$allUsers['pagination']);
+			$this->controller->view("seeker/hiredpassers",$data);
 		}
 
 		public function billing(){
@@ -409,6 +479,9 @@
                         <h5 class="text-white">Job Offer to <u class="text-white">'.$joinedJobOffers['PasserFN']." ".$joinedJobOffers['PasserLN'].'</u></h5>
                         '.$update.'<small class="text-left text-white"> '.date("F jS, Y",strtotime($joinedJobOffers['OfferJobDateTime'])).'</small>
                         '.$employmentAgreement.'
+                        <button type="button" class="btn btn-outline-light float-right" name="messagePasser">
+			            	Chat
+			            </button>
                       </div>
                       <div class="card-body">
                     	  <p style="font-size:13px">Working Address: 

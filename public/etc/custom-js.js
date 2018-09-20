@@ -312,6 +312,12 @@ $(function(){
     })
 });
 
+$(function(){
+    $("#notification").exists(function(){
+       getNotification();
+    })
+});
+
 function getNotification(){
 	let notifBody = $("#notification");
 	let notifCount = $(".notificationCount");
@@ -339,6 +345,45 @@ $(function(){
 				data: {"notifChange":""}
 			});
 		}
+	});
+})
+
+
+$(function(){
+    $("#notification").exists(function(){
+        setInterval(function(){getNotificationMessage()},5000);
+    })
+});
+
+$(function(){
+    $("#notification").exists(function(){
+       getNotificationMessage();
+    })
+});
+
+function getNotificationMessage(){
+	let notifCount = $("#messageNotif");
+	$.ajax({
+		url: "getNotificationMessage",
+		data: {"notificationGet":""},
+		method: "POST",
+		success: function(a){
+			let obj = JSON.parse(a);
+			notifCount.html(obj.count);
+		},
+		fail: function(){
+			alert("cannot connect to server");
+		}
+	});
+}
+
+$(function(){
+	$("#messageNotifClick").click(function(){
+		$.ajax({
+			url: "readAllNotificationMessage",
+			method: "POST",
+			data: {"notifChange":""}
+		});
 	});
 })
 
@@ -683,6 +728,33 @@ $(function(){
 	  });
 });
 
+$(function(){
+	let realtime = 0;
+	let chatBody = $(".inbox_chat");
+	$(".inbox_chat").exists(function(){
+		if(!checkEmpty(getURLData("t"))){
+			realtime = getChatSidebarData();
+		}
+	});
+
+	 $('.search-bar').keyup(function(){
+	 	let name = $(this).val();
+	 	if(checkEmpty(name) == false){
+	 		clearInterval(realtime);
+	 		$.ajax({
+	 			url: "searchSidebarMessage",
+	 			method: "POST",
+	 			data: {"searchSidebarData":"","name":name},
+	 			success: function(a){
+	 				chatBody.html(a);
+	 			}
+	 		});
+	 	}else{
+	 		realtime = setInterval(function(){getChatSidebarData()},2000);
+	 	}
+	  });
+});
+
 function getChatSidebarData(){
 	let chatBody = $(".inbox_chat");
 	$.ajax({
@@ -701,6 +773,14 @@ $(function(){
 	$("#chatmateOther").exists(function(){
 		if(!checkEmpty(getURLData("t"))){
 			setInterval(function(){getMessagesData(getURLData("t"))},2000);
+		}
+	});
+});
+
+$(function(){
+	$("#chatmateOther").exists(function(){
+		if(!checkEmpty(getURLData("t"))){
+			getMessagesData(getURLData("t"));
 		}
 	});
 });
@@ -1474,6 +1554,13 @@ $(function(){
 	$("input[name=fee]").mousemove(function(){
 		let fee = $(this).val();
 		$(".fee").val(fee);
+	});
+});
+
+$(function(){
+	$("input[name=fee]").mousemove(function(){
+		let fee = $(this).val();
+		$("input#fee").val(fee);
 	});
 });
 // end of passer Fee
@@ -2746,7 +2833,7 @@ $(function(){
 		});
 	});
 
-	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer]").click(function(){
+	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer], button[name=messagePasser]").click(function(){
 		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
 			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
 			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2760,6 +2847,37 @@ $(function(){
 			cancelOtherUser = otherUser;
 			currentHome = 'joboffered';
 		}
+	});
+
+	$("button[name=messagePasser]").click(function(){
+		$.ajax({
+			url: "addPasserToMessageJobOffer",
+			method: "POST",
+			data: {"addtomessage":"","seekerID":cancelOtherUser},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				if(obj.error == "notFound"){
+					showDivError(divErrorProfile,"Seeker not found. Please try to search again.");
+				}
+				if(obj.error == "notActivatedSeeker"){
+					showDivError(divErrorProfile,"Seeker is currently unavailable for chat or hire.");
+				}
+				if(obj.error == "notActivatedPasser"){
+					showDivError(divErrorProfile,"Please make sure you are already verify by Passersmate <a href=../seeker/dashboard> Here</a>");
+				}
+				if(obj.error == "noSubscription"){
+					showDivError(divErrorProfile,"Seeker Doesn't have active subscription for now.");
+				}
+				if(obj.error == "none"){
+					window.location ="../home/messages";
+				}
+				console.log(a);
+			},
+			fail: function(){
+				alert("cannot connect to server.");
+			}
+		});
 	});
 
 	$("form#cancelJobOffer").submit(function(event){
@@ -3154,3 +3272,24 @@ $(function(){
 	});
 });
 // end of switch
+
+// passerfee
+$(function(){
+	$("#passerRate").click(function(){
+		let fee = $(this).parent().parent().find("input[type=range]").val();
+		$.ajax({
+			url: "updateUserPasserFee",
+			method: "POST",
+			data: {"update":"","fee":fee},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				if(obj.error == "none"){
+					toastSuccess("Successfully Edited");
+					delayRedirect("dashboard");
+				}
+			}
+		});
+	});
+});
+// end of passerfee

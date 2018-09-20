@@ -2,9 +2,9 @@
 	class passer extends Controller{
 
 		public $passerReg = array("PasserCOCNo","PasserFN","PasserLN","PasserMname","PasserPass","PasserEmail","PasserCertificate","PasserCertificateTyPe","PasserTESDALink","PasserCOCExpiryDate");
-		public $passDashboardPersonalDetails = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate");
-		public $passDashboardPersonalDetailsWithPhoto = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserProfile");
-		public $passerWorkHistory = array("OfferJobID","PasserID","PasserJobTitle","PasserCompany","PasserCompanyNumber","PasserWorkHistoryDesc","PasserWorkHistoryStartDate","PasserWorkHistoryEndDate","PasserWorkHistoryWorkDays");
+		public $passDashboardPersonalDetails = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserAge");
+		public $passDashboardPersonalDetailsWithPhoto = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserProfile","PasserAge");
+		public $passerWorkHistory = array("OfferJobID","PasserID","PasserJobTitle","PasserCompany","PasserCompanyNumber","PasserWorkHistoryDesc","PasserWorkHistoryStartDate","PasserWorkHistoryEndDate","PasserWorkHistoryWorkDays","PasserAge");
 		public $passerEducation = array("passerID","educationAttainment","educationSchool","educationAccomplishment");
 		public $passerValidate = array("passerID","frontID","backID","selfie","COC","idType","idNumber","expirationDate");
 		protected $passerTable = 'passer';
@@ -352,14 +352,15 @@
 							if($checkCommented[0]["COUNT(*)"] <= 0){
 								$employmentAgreement = 
 								'
-								<button type="button" class="btn btn-outline-success" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+							
 								<button type="button" class="btn btn-outline-success" name="doneJobOffer" data-toggle="modal" data-target="#doneModal" title="Rate Seeker">Rate Seeker</button>
 								';
 							}else{
-								$employmentAgreement = 
-								'
-								<button type="button" class="btn btn-outline-success" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
-								';
+								// $employmentAgreement = 
+								// '
+								// <button type="button" class="btn btn-outline-success" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
+								// ';
+								$employmentAgreement = null;
 							}
 							
 							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
