@@ -420,6 +420,16 @@
 		public function searchTry(){
 			$this->controller->view("passer/search");
 		}	
+
+		public function agreementRecord(){
+			if(empty($_GET['user'])){
+		 		header("location:../home/login");
+		 	}
+		 	$coc = $this->sanitize($_GET['user']);
+		 	$details = $this->model->selectAllFromUser($this->passerTable,"PasserCOCNo",array($coc));
+		 	$data[] = array("userDetails"=>$details);
+			$this->controller->view("passer/agreementRecord",$data);
+		}
 	}
 ?>
 

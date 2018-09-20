@@ -5,7 +5,7 @@ if(isset($data) && !empty($data)){
       extract($userDetails[0]);
     }
 }  
-require "../public/header-footer/seeker/seekerHeader.marvee";
+require "../public/header-footer/seeker/seekerHeader1.marvee";
 ?>
 
 <head>

@@ -53,9 +53,9 @@ li {
 	<body class="bg-light">
 		<header>
 			<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigation">
-				<button type="button" class="navbar-toggler" data-target="#navWorks" data-toggle="collapse">
+				<!-- <button type="button" class="navbar-toggler" data-target="#navWorks" data-toggle="collapse">
 					<span class="navbar-toggler-icon"></span>
-				</button>
+				</button> -->
 				<a class="navbar-brand" href="#">
 					<img src="../../public/etc/images/dashboard/header/header-logo.png" class="img-fluid header-image" style="width:230px;">
 				</a>
