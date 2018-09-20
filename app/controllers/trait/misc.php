@@ -1900,6 +1900,37 @@
 			return json_encode(array("pagination"=>$pagination,"data"=>$result));
 		}
 
+		public function paginationReviews($unique,$data,$page,$offset,$limit,$order,$sort,$add){
+			// $add = (!empty($add)?"&".$add:"");
+			$result = $totalPage = $totalPages = $offset = null;
+			$totalPage = $this->model->joinRatingCount($unique,$data);
+			$totalPages = ceil($totalPage/$limit);
+			$offset = ($page-1) * $limit;
+			$first = ($page <= 1)?"disabled":"";
+			$prevLI = ($page <= 1)?"disabled":"";
+			$prevLink = ($prevLI == "disabled")?"#":"?page=".($page-1)."".$add;
+
+			$nextLI = ($page >= $totalPages)?"disabled":"";
+			$nextLink = ($nextLI == "disabled")?"#":"?page=".($page+1)."".$add;
+			$lastLI = ($page >= $totalPages)?"disabled":"";
+			$lastLink = ($lastLI == "disabled")?"#":"?page=".$totalPages."".$add;
+
+			$pagination = '
+				<nav>
+				  <ul class="pagination">
+				    <li class="page-item '.$first.'"><a class="page-link" href="?page=1'.$add.'">First</a></li>
+				    <li class="page-item '.$prevLI.'"><a class="page-link" href="'.$prevLink.'">Prev</a></li>
+				    <li class="page-item '.$nextLI.'"><a class="page-link" href="'.$nextLink.'">Next</a></li>
+				    <li class="page-item '.$lastLI.'"><a class="page-link" href="'.$lastLink.'">Last</a></li>
+				  </ul>
+				</nav>
+				';
+			if(is_numeric($page)){
+				$result = $this->model->joinRating($unique,$data,$order,$sort,$offset,$limit);
+			}
+			return json_encode(array("pagination"=>$pagination,"data"=>$result,"total"=>$totalPage));
+		}
+
 		public function paginationAllSubscription($table,$field,$page,$offset,$limit,$order,$sort,$add){
 			// $add = (!empty($add)?"&".$add:"");
 			$result = $totalPage = $totalPages = $offset = null;
@@ -2520,6 +2551,24 @@
 						echo json_encode(array("error"=>"none"));
 					}
 				}
+			}
+
+			public function createStar($rating){
+				$stars = $builderStar = null;
+				if(!empty($rating)){
+					for ($i=0; $i < $rating ; $i++) { 
+						$builderStar = '<i class="fas fa-star text-warning"></i>';
+						$stars = $builderStar."".$stars;
+					}
+					for ($j=$i; $j < 5 ; $j++) { 
+						$stars = $stars.'<i class="fas fa-star"></i>';
+					}
+					unset($i,$j);
+				}
+				else{
+					$stars = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+				}
+				return $stars;
 			}
 
 		}

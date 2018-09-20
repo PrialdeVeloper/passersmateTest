@@ -112,7 +112,7 @@ $rate = "Very Good!";
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-star text-white"></i></div>
 				<div class="col-md-auto">
-					<label class="text-white" data-toggle="modal" data-target="#reviewAndRating">My Reviews and Ratings
+					<label class="text-white"><a href="../home/reviews" class="text-white">My Reviews and Ratings</a>
 					</label>
 				</div>
 			</div>
