@@ -95,13 +95,13 @@
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-briefcase text-white"></i></div>
-				<div class="col-md-auto"><label><a href="projects?user=<?=$PasserCOCNo;?>" class="text-white">My Job Offers</a></label></div>
+				<div class="col-md-auto"><label><a href="jobofferlist?user=<?=$PasserCOCNo;?>" class="text-white">My Job Offers</a></label></div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-star text-white"></i></div>
 				<div class="col-md-auto">
-					<label class="text-white" data-toggle="modal" data-target="#reviewAndRating">My Reviews and Ratings
-					</label>
+					<a class="text-white" href="../home/reviews">My Reviews and Ratings
+					</a>
 				</div>
 			</div>
 		</div>

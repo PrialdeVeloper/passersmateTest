@@ -55,7 +55,7 @@ require "../public/header-footer/seeker/seekerHeader1.marvee";
             <div class="container-fluid">
           <div class="row">
             <div class="col-md-11 mx-auto">
-              <h4 class="mt-5 ml-4"><a href=""><u>Back to your Dashboard</u></a></h4>
+              <h4 class="mt-5 ml-4"><a href="<?=$destination;?>"><u>Back to your Dashboard</u></a></h4>
                <div class="mt-5 ml-4">
                 <p class="font-weight-bold">Filter by Job Status:</p>
                 <button class="btn btn-dark filter-button" data-filter="all">All</button>

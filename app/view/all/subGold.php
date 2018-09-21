@@ -61,10 +61,11 @@ require "../public/header-footer/header.marvee";
                 					<input type="hidden" name="checkout" value="gold">
 								  <div class="col-sm-12">
 								  <button id="paynow" class="btn btn-success font-weight-bold col-sm-12 d-none" type="submit">
-								  	<h5>PAY NOW</h5>
 								  </button>
 								  </div>
-								  <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+								 
+								  <div class="mt-4 text-center">
+								  	 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 
 <style>
     
@@ -130,15 +131,13 @@ require "../public/header-footer/header.marvee";
 
         onAuthorize: function(data, actions) {
             return actions.payment.execute().then(function() {
-                document.getElementById('paynow').click();
+                document.getElementById("paynow").click();
             });
         }
     
     }, '#paypal-button-container');
 
 </script>
-								  <div class="mt-4 text-center">
-								  	<img src="../etc/images/system/paypal2.png" width="250px">
 								  </div>
 								</form>
                 			</div>

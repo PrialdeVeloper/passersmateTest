@@ -363,7 +363,7 @@
 			$this->controller->view("passer/projects",$data);
 		}
 
-		public function joboffers(){
+		public function jobofferlist(){
 			$data = [];
 			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = $status = $employmentAgreement = $headerColor = $cancelInitiator = $checkCommented = null;
 

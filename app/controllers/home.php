@@ -292,7 +292,16 @@
 		}
 
 		public function subscription(){
-		 	$this->controller->view("all/subscription");
+			$table = $userUnique = $sessionActive = null;
+			$data = [];
+			if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
+		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+		 		$userUnique = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+		 		$sessionActive = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+		 		$details = $this->model->selectAllFromUser($table,$userUnique,array($sessionActive));
+			}
+			$data[] = array("userDetails"=>$details);
+		 	$this->controller->view("all/subscription",$data);
 		}
 
 		public function howitworks(){

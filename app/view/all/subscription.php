@@ -1,5 +1,15 @@
 <?php 
-require "../public/header-footer/header.marvee";
+if(isset($data) && !empty($data)){
+	extract($data[0]);
+	if(isset($userDetails) && !empty($userDetails)){
+		extract($userDetails[0]);
+	}
+}
+if(!empty($userDetails)){
+		require_once "../public/header-footer/seeker/seekerHeader.marvee";
+}else{
+	require "../public/header-footer/header.marvee";
+}
 
 
 ?>
@@ -126,7 +136,6 @@ require "../public/header-footer/header.marvee";
 				               <li><span class="fa-li"><i class="fas fa-check"></i></span>Read Passer Reviews</li>
 				               <li><span class="fa-li"><i class="fas fa-check"></i></span>Hire Passers</li>
 				               <li><span class="fa-li"><i class="fas fa-check"></i></span>Chat 24/7</li>
-				               
 				            </ul>
 				            <a href="basic" class="btn btn-block btn-primary text-uppercase">Subscribe Now</a>
 				          </div>
@@ -176,29 +185,6 @@ require "../public/header-footer/header.marvee";
 				  </div>
 				</section>
             </div>
-              <!-- End Container fluid  -->
-         
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
-
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="../etc/bootstrap/js/jquery-3.3.1.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="../etc/bootstrap/js/popper.min.js"></script>
-    <script src="../etc/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../etc/subscription/js/custom.min.js"></script>
-    <!--Custom JavaScript -->
-    <!-- this page js -->
-    <script src="../etc/subscription/build/toastr.min.js"></script>
 <?php
-	require "../public/header-footer/passer/passerFooter.marvee";
+	require "../public/header-footer/seeker/seekerFooter.marvee";
 ?>

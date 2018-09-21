@@ -1256,6 +1256,9 @@
 			elseif(isset($_SESSION['seekerUser'])){
 				unset($_SESSION['seekerUser']);
 			}
+			if(isset($_SESSION['switched'])){
+				unset($_SESSION['switched']);
+			}
 			header("location:../home/login");
 		}
 

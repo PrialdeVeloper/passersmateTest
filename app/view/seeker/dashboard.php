@@ -119,14 +119,14 @@ $rate = "Very Good!";
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fa fa-th-list text-white" aria-hidden="true"></i></i></div>
 				<div class="col-md-auto">
-					<label class="text-white"><a href="../home/reviews" class="text-white">My Job Offered</a>
+					<label class="text-white"><a href="joboffered" class="text-white">My Job Offered</a>
 					</label>
 				</div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fa fa-history text-white" aria-hidden="true"></i></i></i></div>
 				<div class="col-md-auto">
-					<label class="text-white"><a href="../home/reviews" class="text-white">Transaction Histories</a>
+					<label class="text-white"><a href="../home/transactionhistory" class="text-white">Transaction Histories</a>
 					</label>
 				</div>
 			</div>
@@ -148,22 +148,22 @@ $rate = "Very Good!";
 		</div>
 		<!-- end of 1st box 2nd row -->
 		<!-- 2nd box 2nd row -->
-		<div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv">
-		<div class="container mt-4 text-center">
+		<div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv d-none">
+		<div class="container mt-4 text-center d-none">
 			<label id="ashGray" class="lead text-center">
 			Your Action awaits, Mate!
 			</label>
   		</div>
 
-  		<div class="d-flex justify-content-center">
+  		<div class="d-flex justify-content-center d-none">
   			<div class="row pt-1 ">
-				<div class="col-sm-auto">
+				<div class="col-sm-auto d-none">
 					<label>Pending Actions</label>
 				</div>
 			</div>
   		</div>
 
-      	<div class="table-responsive-xl row mt-1">
+      	<div class="table-responsive-xl row mt-1 d-none">
       		<table class="table table-striped">
       			<thead class="skyblue text-white">
       				<tr>
@@ -250,7 +250,6 @@ $rate = "Very Good!";
       		</div>
 		</div>
 		<!-- end of 1st box 3rd row -->
-<<<<<<< HEAD
 		<!-- start of 2nd box 3rd row -->
 	<!-- <div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv">
 		<div class="container mt-4 text-center">
@@ -310,9 +309,6 @@ $rate = "Very Good!";
       	</div>
 	</div> -->
 	<!-- end of 2nd box 3rd row -->
-=======
-	
->>>>>>> 137be607971207338d31ca7a6ed4f1a82f1fb5e7
 	</div>
 	<!-- end of 3rd row -->
 </div>
