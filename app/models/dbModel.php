@@ -346,6 +346,12 @@
 			}
 		}
 
+		public function joinOfferJobFormUsed($user, $data){
+			$this->stmt = $this->con->prepare("SELECT * FROM `transactionhistory` a, `offerjob` b, `offerjobform` c, `seeker` d, `passer` e  WHERE a.`OfferJobID` = b.`OfferJobID` AND b.`OfferJobFormID` = c.`OfferJobFormID` AND b.`SeekerID` = d.`SeekerID` AND b.`PasserID` = e.`PasserID` AND b.$user = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function joinCancel($data){
 			try {
 				$this->stmt = $this->con->prepare("SELECT * FROM `canceljoboffer` a, `offerjob` b, `seeker` c, `passer` d WHERE a.`OfferJobID` = b.`OfferJobID` and a.`SeekerID` = c.`SeekerID` and a.`PasserID` = d.`PasserID` and a.`OfferJobID` = ?");
@@ -396,6 +402,12 @@
 			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM `ratings` a, `passer` b, `seeker` c WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.$unique = ? AND a.`ReviewBy` = ?");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchColumn();
+		}
+
+		public function agreementGenerate($data){
+			$this->stmt = $this->con->prepare("SELECT * FROM `agreement` a, `seeker` b, `passer` c, `offerjobformused` d WHERE a.`SeekerID` = b.`SeekerID` AND a.`PasserID` = c.`PasserID` AND a.`OfferJobFormUsedID` = d.`JobOfferFormUsedID` AND d.`OfferJobID` = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		public function updateDB($table,$fields,$data,$wherClause,$wherClauseAnswer){

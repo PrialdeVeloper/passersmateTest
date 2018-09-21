@@ -422,9 +422,9 @@
 						    <div class="card-header">
 						      <small class="font-weight-bold">Hired Date: '.date("F jS, Y",strtotime($date)).'</small>
 						    </div>
-						    <div class="card-body" style="height:345px">
+						    <div class="card-body" style="height:400px">
 						  <div class="container">
-						    <img src="'.$d['PasserProfile'].'" alt="Avatar" class="image w-100">
+						    <img src="'.$d['PasserProfile'].'" alt="Avatar" class="image w-100" style="height:200px;">
 						    <div class="overlay">
 						      <div class="text">Passer\'s Name: '.$d['PasserFN']." ".$d['PasserLN'].'</div>
 						    </div>
@@ -697,6 +697,17 @@
 			$details = $this->getDetailsSeeker($this->seekerSession);
 			$data[] = array("userDetails"=>$details,"offers"=>$dom,"pagination"=>$pagination);
 			$this->controller->view("seeker/jobOffered",$data);
+		}
+
+		public function transaction(){
+			$details = null;
+			$data = [];
+			if(!$this->checkSession("seekerUser")){
+				header("location: ../home/login");
+			}
+			$details = $this->getDetailsSeeker($this->seekerSession);
+			$data[] = array("userDetails"=>$details);
+			$this->controller->view("seeker/transactions",$data);
 		}
 		
 	}

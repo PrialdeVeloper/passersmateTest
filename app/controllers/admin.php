@@ -130,6 +130,7 @@
 	                    <td>'.$users['UserType'].'</td>
 	                    <td>'.date("F jS, Y",strtotime($users['passerRegisterTimeDate'])).'</td>
 	                    <td class="text-success">'.$userStatus.'</td>
+	                    <td style="cursor:pointer">'.($users['PasserStatus'] != 4 && $users['PasserStatus'] !=5?'<a data-toggle="tooltip" id="'.$users['PasserID'].'" name="deactivateUserAdmin" data-placement="top" title="Deactivate"><i class="mdi mdi-close text-danger"></i></a>':'<a data-toggle="tooltip" data-placement="top" id="'.$users['PasserID'].'" name="activateUserAdmin" title="Update"><i class="mdi mdi-check text-success"></i></a>').'</td>
 	                </tr>
 				';
 				$dom = $dom."".$builder;

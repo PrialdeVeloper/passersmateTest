@@ -494,5 +494,54 @@ $(function(){
 			}
 		});
 	});
+});
 
+$(function(){
+	$("a[name=deactivateUserAdmin]").click(function(){
+		let responseUser = confirm("Are you sure you want to Deactivate this user?");
+		let myPasserID = $(this).attr("id");
+		if(responseUser == true){
+			$.ajax({
+				url: "updateStatus",
+				method: "POST",
+				data: {"userStatus":"","table":"passer","field":"PasserStatus","id":myPasserID,"status":"5","userUnique":"PasserID"},
+				success: function(a){
+					let obj = JSON.parse(a);
+					if(obj.error == "none"){
+						window.location = "alluser";
+					}else{
+						alert(a);
+					}
+				},
+				fail: function(){
+					alert("Error connecting to server")
+				}
+			})
+		}
+	});
+});
+
+$(function(){
+	$("a[name=activateUserAdmin]").click(function(){
+		let responseUser = confirm("Are you sure you want to Activate this user?");
+		let myPasserID = $(this).attr("id");
+		if(responseUser == true){
+			$.ajax({
+				url: "updateStatus",
+				method: "POST",
+				data: {"userStatus":"","table":"passer","field":"PasserStatus","id":myPasserID,"status":"1","userUnique":"PasserID"},
+				success: function(a){
+					let obj = JSON.parse(a);
+					if(obj.error == "none"){
+						window.location = "alluser";
+					}else{
+						alert(a);
+					}
+				},
+				fail: function(){
+					alert("Error connecting to server")
+				}
+			})
+		}
+	});
 });

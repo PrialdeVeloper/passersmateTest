@@ -117,6 +117,20 @@ $rate = "Very Good!";
 				</div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
+				<div class="col-sm-1 ml-3"><i class="fa fa-th-list text-white" aria-hidden="true"></i></i></div>
+				<div class="col-md-auto">
+					<label class="text-white"><a href="../home/reviews" class="text-white">My Job Offered</a>
+					</label>
+				</div>
+			</div>
+			<div class="row pt-2 hoverAccountSeeker">
+				<div class="col-sm-1 ml-3"><i class="fa fa-history text-white" aria-hidden="true"></i></i></i></div>
+				<div class="col-md-auto">
+					<label class="text-white"><a href="../home/reviews" class="text-white">Transaction Histories</a>
+					</label>
+				</div>
+			</div>
+			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-handshake text-white"></i></div>
 				<!-- <div class="col-md-auto">
 					<label class="text-white" id="smaller">My Agreement Records
@@ -236,6 +250,7 @@ $rate = "Very Good!";
       		</div>
 		</div>
 		<!-- end of 1st box 3rd row -->
+<<<<<<< HEAD
 		<!-- start of 2nd box 3rd row -->
 	<!-- <div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv">
 		<div class="container mt-4 text-center">
@@ -295,6 +310,9 @@ $rate = "Very Good!";
       	</div>
 	</div> -->
 	<!-- end of 2nd box 3rd row -->
+=======
+	
+>>>>>>> 137be607971207338d31ca7a6ed4f1a82f1fb5e7
 	</div>
 	<!-- end of 3rd row -->
 </div>

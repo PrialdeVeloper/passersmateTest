@@ -59,67 +59,84 @@ require "../public/header-footer/header.marvee";
                 			<div class="card-body mt-3">
                 				<form class="needs-validation" method="POST" novalidate action="checkout">
                 					<input type="hidden" name="checkout" value="gold">
-								  <div class="form-row">
-								    <div class="col-md-6 mb-3">
-								      <label for="nameCard">Name on Card</label>
-								      <input type="text" class="form-control" id="nameCard" placeholder="Name" required>
-								      <div class="valid-feedback">
-								        Looks good!
-								      </div>
-								      <div class="invalid-feedback">
-								        Please fill in this field.
-								      </div>
-								    </div>
-								    <div class="col-md-6 mb-3">
-								      <label for="zipCode">Zip Code/Postal Code</label>
-								      <input type="text" class="form-control" id="zipCode" placeholder="Zip Code"  required>
-								      <div class="valid-feedback">
-								        Looks good!
-								      </div>
-								       <div class="invalid-feedback">
-								        Please fill in your zip code/postal code.
-								      </div>
-								    </div>
-								  </div>
-								   <div class="form-row">
-								    <div class="col-md-6 mb-3">
-								      <label for="cardNumber">Card Number</label>
-								      <input type="text" class="form-control" id="cardNumber" placeholder="Card Number" required>
-								      <div class="valid-feedback">
-								        Looks good!
-								      </div>
-								      <div class="invalid-feedback">
-								        Please fill in this field.
-								      </div>
-								    </div>
-								    <div class="col-md-6 mb-3">
-								      <label for="cvvNumber">CVV Number</label>
-								      <input type="text" class="form-control" id="cvvNumber" placeholder="CVV Number"  required>
-								      <div class="valid-feedback">
-								        Looks good!
-								      </div>
-								       <div class="invalid-feedback">
-								        Please fill in your CVV number.
-								      </div>
-								    </div>
-								  </div>
-								   <div class="form-row">
-								    <div class="col-md-6 mb-3">
-								      <label for="expiration">Expiration Date</label>
-								      <input type="date" class="form-control" id="expiration" placeholder="Name" required>
-								      <div class="valid-feedback">
-								        Looks good!
-								      </div>
-								      <div class="invalid-feedback">
-								        Please fill in the expiration date.
-								      </div>
-								    </div>
-								  </div>
 								  <div class="col-sm-12">
-								  <button class="btn btn-success font-weight-bold col-sm-12" type="submit">
+								  <button id="paynow" class="btn btn-success font-weight-bold col-sm-12 d-none" type="submit">
 								  	<h5>PAY NOW</h5>
 								  </button>
 								  </div>
+								  <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
+<style>
+    
+    /* Media query for mobile viewport */
+    @media screen and (max-width: 400px) {
+        #paypal-button-container {
+            width: 100%;
+        }
+    }
+    
+    /* Media query for desktop viewport */
+    @media screen and (min-width: 400px) {
+        #paypal-button-container {
+            width: 250px;
+            display: inline-block;
+        }
+    }
+    
+</style>
+
+<div class="container" id="paypal-button-container"></div>
+
+<script>
+
+    paypal.Button.render({
+        
+        // Set your environment
+
+        env: 'sandbox', // sandbox | production
+
+        // Specify the style of the button
+
+        style: {
+            label: 'checkout',  // checkout | credit | pay | buynow | generic
+            size:  'responsive', // small | medium | large | responsive
+            shape: 'pill',   // pill | rect
+            color: 'gold'   // gold | blue | silver | black
+        },
+
+        // PayPal Client IDs - replace with your own
+        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+        client: {
+            sandbox:    'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
+            production: '<insert production client id>'
+        },
+
+        // Wait for the PayPal button to be clicked
+
+        payment: function(data, actions) {
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: { total: '0.01', currency: 'USD' }
+                        }
+                    ]
+                }
+            });
+        },
+
+        // Wait for the payment to be authorized by the customer
+
+        onAuthorize: function(data, actions) {
+            return actions.payment.execute().then(function() {
+                document.getElementById('paynow').click();
+            });
+        }
+    
+    }, '#paypal-button-container');
+
+</script>
 								  <div class="mt-4 text-center">
 								  	<img src="../etc/images/system/paypal2.png" width="250px">
 								  </div>

@@ -68,6 +68,89 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
               </div>
                 <!-- End Accept Modal -->
 
+
+              <!-- view coe Modal -->
+              <div class="modal fade " id="viewCOE" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Accept Job Offer</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+
+
+
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-12 mx-auto mt-5">
+                                <div class="card">
+                                  <div class="card-header" id="cardHeader">
+                                     <a target="_blank" class="btn btn-success margin-5 float-right" id="print" href="">
+                                        <i class="fas fa-print"></i> Download as PDF
+                                    </a>
+                                  </div>
+                                  <form method="get" action="file.doc">
+                                  <div class="card-body border border-dark" style="background-image:url('../../public/etc/images/system/coe2.png');background-repeat: no-repeat;">
+                                    <div class="row">
+                                      <div class="col-md-12 text-center">
+                                        <img src="../../public/etc/images/system/logo-black1.png" class="" width="100">
+                                        <h1 class="text-info mt-3" style="font-family: 'Junction'; "><i>Certificate of Employment</i></h1>
+                                        <p class="mt-4" style="font-size: 20px">This is to certify that <span id="passerGreet"></span>.</p>
+                                        <h2 class="text-primary mt-5"><u id="passerNameCOE">Pablo Franco</u></h2>
+                                        <p class="mt-5" style="font-size: 20px">has been employed by <span id="seekerGreet"></span>.</p>
+                                        <h2 class="text-dark mt-5"><u id="seekerNameCOE">Gemma Prialde</u></h2>
+                                        <p class="mt-3" style="font-size: 20px">as a</p>
+                                        <p class="mt-3 font-weight-bold" style="font-size: 25px"><u id="passerJobTitleCOE"></u></p>
+                                        <p class=""> from 
+                                          <b style="font-size:18px"><u id="startDateCOE">Start Date</u></b> to 
+                                          <b style="font-size:18px"><u id="endDateCOE">End Date</u>.</b>
+                                        </p>
+                                        <p style="font-size: 13pt">This certification is being issued upon the request of the aforementioned name for whatever lawful purposes it may serve him/her best.</p>
+                                        <p style="font-size: 13pt">Given this <u><?php echo date("d"); ?></u> st day of <u><?php echo date("M Y");?></u></p>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-md-12 text-center" style="background: #68a2ff">
+                                      <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+                                        Certificate Tracking No: <u class="text-warning" id="trackingNumber">PM001</u>
+                                      </small>
+                                      <br>
+                                        <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+                                        PassersMate Tel.No: 266-81-34
+                                      </small>
+                                      <br>
+                                        <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+                                        Email address: <a href="" class="text-info">passersmate@gmail.com</a>
+                                       </small>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div> 
+                          </div>
+                        </div>
+
+
+
+                    </div>
+                    <div class="modal-footer">
+                     
+                      <button type="button" class="btn btn-primary" id="acceptJobOffer">Okay</button>
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <!-- end of view coe Modal -->
+
                   <!-- Decline Modal -->
               <div class="modal fade" id="decline" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">

@@ -7,6 +7,15 @@ $(function(){
 	});
 });
 
+function formatDate(date){
+	var formattedDate = new Date(date);
+	var d = formattedDate.getDate();
+	var m =  formattedDate.getMonth();
+	m += 1;
+	var y = formattedDate.getFullYear();
+	return m + " / " + d + " / " + y;
+}
+
 $(function(){
 	$(".hoverRating").mouseover(function () {
     	if($(this).hasClass("text-warning")){
@@ -2833,7 +2842,7 @@ $(function(){
 		});
 	});
 
-	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer], button[name=messagePasser]").click(function(){
+	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer], button[name=messagePasser], button[name=generateCOE]").click(function(){
 		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
 			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
 			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2847,6 +2856,37 @@ $(function(){
 			cancelOtherUser = otherUser;
 			currentHome = 'joboffered';
 		}
+	});
+
+	$("button[name=generateCOE]").click(function(){
+		let seekerGreet = $("#seekerGreet");
+		let seekerName = $("#seekerNameCOE");
+		let passerGreet = $("#passerGreet");
+		let passerName = $("#passerNameCOE");
+		let passerTitle = $("#passerJobTitleCOE");
+		let startDate = $("#startDateCOE");
+		let endDate = $("#endDateCOE");
+		let tracking = $("#trackingNumber");
+		let download = $("#print");
+		$.ajax({
+			url: "generateCOE",
+			method: "POST",
+			data: {"generate":"","seekerID":cancelOtherUser,"offerjobID":cancelJobOffer},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				let records = obj['records'];
+				seekerGreet.empty().html((records['SeekerGender'] == "Male"?"Mr":"Mrs"));
+				passerGreet.empty().html((records['PasserGender'] == "Male"?"Mr":"Mrs"));
+				seekerName.empty().html(records['SeekerFN']+" "+records['SeekerLN']);
+				passerName.empty().html(records['PasserFN']+" "+records['PasserLN']);
+				passerTitle.empty().html(records['PasserCertificate']);
+				startDate.empty().html(records['StartDate']);
+				endDate.empty().html(formatDate(records['AgreementDateandTime']));
+				tracking.empty().html(records['AgreementSerial']);
+				download.attr("href","generateCOEPDF?id="+records['AgreementSerial']+"&offerJobID="+cancelJobOffer);
+			}
+		});
 	});
 
 	$("button[name=messagePasser]").click(function(){
@@ -3293,3 +3333,52 @@ $(function(){
 	});
 });
 // end of passerfee
+
+// seeker history
+$(function(){
+	$("#jobOfferSearch, #fromDate, #toDate").on("change keyup",function(){
+		let search = $("#jobOfferSearch");
+		let fromDate = $("#fromDate");
+		let toDate = $("#toDate");
+
+
+	});
+});
+// end of seeker history
+
+
+// viewDetails
+$(function(){
+	$("button[name=viewDetailsWork]").click(function(){
+		let id = $(this).attr("id");
+		let jobSeekerName = $("#jobSeekerName");
+		let jobPasserName = $("#jobPasserName");
+		let jobWorkingAdrress = $("#jobWorkingAdrress");
+		let jobServiceRate = $("#jobServiceRate");
+		let jobStartDate = $("#jobStartDate");
+		let jobEndDate = $("#jobEndDate");
+		let jobPaymentMethod = $("#jobPaymentMethod");
+		let jobAccomodationType = $("#jobAccomodationType");
+		$.ajax({
+			url:"getDataJobForm",
+			method: "POST",
+			data: {"getData":"","id":id},
+			success: function(a){
+				let obj = JSON.parse(a);
+				console.log(obj);
+				if(obj.error == "none"){
+					let data = obj['data'];
+					jobSeekerName.empty().html(data['SeekerFN']+" "+data['SeekerFN']);
+					jobPasserName.empty().html(data['PasserCertificate']);
+					jobWorkingAdrress.empty().html(data['WorkingAddress']);
+					jobServiceRate.empty().html(data['Salary']);
+					jobStartDate.empty().html(data['StartDate']);
+					jobEndDate.empty().html(data['EndDate']);
+					jobPaymentMethod.empty().html(data['PaymentMethod']);
+					jobAccomodationType.empty().html(data['AccomodationType']);
+				}
+			}
+		});
+	});
+});
+// viewDetails
