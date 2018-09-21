@@ -2842,7 +2842,7 @@ $(function(){
 		});
 	});
 
-	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer], button[name=messagePasser], button[name=generateCOE]").click(function(){
+	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer], button[name=messagePasser], button[name=generateCOE], button[name=showDisputePasser], button[name=showDisputeSeeker], button[name=settle]").click(function(){
 		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
 			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
 			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2856,6 +2856,59 @@ $(function(){
 			cancelOtherUser = otherUser;
 			currentHome = 'joboffered';
 		}
+	});
+
+	$("button[name=showDisputePasser]").click(function(){
+		let disputeCancelName = $("#disputeCancelName");
+		let disputereasonName = $("#disputereasonName");
+		$.ajax({
+			url: "joinDisputeGet",
+			method: "POST",
+			data: {"id":"","userid":cancelOtherUser,"jobofferID":cancelJobOffer},
+			success: function(a){
+				let obj = JSON.parse(a);
+				let data = obj['data'][0];
+				disputeCancelName.empty().html(data['SeekerFN']+" "+data['SeekerLN']);
+				disputereasonName.empty().html(data['DisputeReason']);
+			}
+		});
+	});
+
+	$("button[name=settle]").click(function(){
+		let confirmTry = confirm("Are you sure you want to set this settled? This can't be reversed");
+		if(confirmTry == true){
+			$.ajax({
+				url: "settleDispute",
+				method: "POST",
+				data: {"dispute":"","id":cancelJobOffer},
+				success: function(a){
+					console.log(a);
+					let obj = JSON.parse(a);
+					if(obj.error == "none"){
+						toastSuccess("Successfully marked as settled.");
+						delayRedirect(currentHome);
+					}
+					
+				}
+			});
+		}
+	});
+
+	$("button[name=showDisputeSeeker]").click(function(){
+		let disputeCancelNames = $("#disputeCancelNames");
+		let disputereasonNames = $("#disputereasonNames");
+		$.ajax({
+			url: "joinDisputeGet",
+			method: "POST",
+			data: {"id":"","userid":cancelOtherUser,"jobofferID":cancelJobOffer},
+			success: function(a){
+				let obj = JSON.parse(a);
+				let data = obj['data'][0];
+				console.log(data);
+				disputeCancelNames.empty().html(data['PasserFN']+" "+data['PasserLN']);
+				disputereasonNames.empty().html(data['DisputeReason']);
+			}
+		});
 	});
 
 	$("button[name=generateCOE]").click(function(){

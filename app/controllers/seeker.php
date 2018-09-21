@@ -388,7 +388,7 @@
 		 	}
 		 	else{
 			 	foreach ($allUsers['data'] as $d) {
-			 		if($d['OfferJobStatus'] != 8){
+			 		if($d['OfferJobStatus'] != 8 && $d['OfferJobStatus'] !=10){
 				 		switch ($d['OfferJobStatus']) {
 				 			case 5:
 				 				$element = "ongoing";
@@ -508,7 +508,7 @@
 		}
 
 		public function joboffered(){
-			$details = $jobOffers = $joinedJobOffers = $page = $builder = $dom = $pagination = $paginationData = $checkTransaction = $status = $headerColor = $employmentAgreement = $update = $cancelInitiator = null;
+			$details = $jobOffers = $joinedJobOffers = $page = $builder = $dom = $pagination = $paginationData = $checkTransaction = $status = $headerColor = $employmentAgreement = $update = $cancelInitiator = $dispute = null;
 			$data = [];
 			if(!$this->checkSession("seekerUser")){
 				header("location: ../home/login");
@@ -565,12 +565,7 @@
 						case 4:
 							$status = '<a class="badge badge-danger text-white font-weight-bold ">Declined</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = 
-							'
-							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
-	                          Dispute
-	                        </button>
-							';
+							$employmentAgreement = null;
 							$update = null;
 							break;
 						case 5:
@@ -628,9 +623,10 @@
 							$update = '<small class="text-left "><b class="text-black">Cancelled on:</b> </small>';
 							break;
 						case 8:
+							$dispute = $this->model->selectAllDynamic("dispute",array("*"),array($this->seekerUnique,"DisputeIssuer"),array($this->seekerSession,"Passer"));
 							$status = '<a class="badge badge-danger font-weight-bold ">dispute</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = null;
+							$employmentAgreement = (!empty($dispute)?'<button type="button" id="showDispute" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#showDisputeSeeker" name="showDisputeSeeker">Show Dispute Details</button>':'<button type="button" class="btn btn-outline-light float-right" name="settle">Mark as Settled</button>');
 							$update = '<small class="text-left "><b class="text-black">disputed on:</b> </small>';
 							break;
 						case 9:
@@ -641,6 +637,12 @@
 	      //                     Dispute
 	      //                   </button>
 							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
+							break;
+						case 10:
+							$status = '<a class="badge badge-success font-weight-bold ">Settled</a>';
+							$headerColor = 'bg-success';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-black">Marked as settled on:</b> </small>';
 							break;
 					}
 					$builder = 

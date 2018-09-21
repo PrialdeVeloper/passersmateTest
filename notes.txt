@@ -37,6 +37,7 @@ offerjob(new)
 7 = cancelled
 8 = dispute
 9 = done
+10 = settled
 
 offerjobPasser
 1 = new job offer
@@ -61,6 +62,7 @@ agreement
 2 = done
 3 = cancelled
 4 = dispute
+5 = settled
 
 canceljoboffer
 1 = pending
@@ -69,7 +71,7 @@ canceljoboffer
 
 dispute(notif)
 1 = new dispute
-2 = respond
+2 = settled
 
 (bugs)
 budget range

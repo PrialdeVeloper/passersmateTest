@@ -845,6 +845,11 @@
 								$message = "Job is Done";
 								$badge = "success";
 								break;
+
+							case '10':
+								$message = "Dispute is Settled";
+								$badge = "success";
+								break;
 						}
 					}
 					else{

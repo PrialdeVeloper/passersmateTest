@@ -96,6 +96,31 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
           </div>
         </div> -->
 
+        <!-- CancelRequest Modal -->
+              <div class="modal fade" id="showDisputeSeeker" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-danger" id="exampleModalLabel">
+                         <i class="fas fa-exclamation-circle"></i> Dispute from Passer
+                      </h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <u class="font-weight-bold" id="disputeCancelNames"></u> who offered you a job<u class="font-weight-bold" id="disputeJobtitleName"></u> has a complain on you. Below is his/her reason:
+                       <textarea class="form-control mb-2" id="disputereasonNames" rows="3" disabled></textarea>
+                      You can try contacting the mentioned passer in the chat to try to resolve your issues
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END OF MODAL -->
+
 
         <!-- done modal -->
 

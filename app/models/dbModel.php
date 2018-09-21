@@ -111,6 +111,22 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function lessThan($table,$field,$field1,$where,$data){
+			$select = $this->addComma($field);
+			$fieldsQ = $this->andData($where);
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE ($fieldsQ) and $field1 <= ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function greaterThan($table,$field,$field1,$where,$data){
+			$select = $this->addComma($field);
+			$fieldsQ = $this->andData($where);
+			$this->stmt = $this->con->prepare("SELECT $select FROM $table WHERE ($fieldsQ) and $field1 >= ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function selectAllDynamicSort($table,$field,$where,$data,$order,$sort){
 			$select = $this->addComma($field);
 			$fieldsQ = $this->andData($where);
@@ -386,6 +402,16 @@
 			}
 		}
 
+		public function getIDAgreement($orderjobid){
+			try {
+				$this->stmt = $this->con->prepare("SELECT `AgreementID` FROM `agreement`a, `offerjobformused` b WHERE a.`OfferJobFormUsedID` = b.`JobOfferFormUsedID` AND b.`OfferJobID` = ?");
+				$this->stmt->execute($orderjobid);
+				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
 		public function joinRating($unique,$data,$order,$sort,$offset,$count){
 			$this->stmt = $this->con->prepare("SELECT * FROM `ratings` a, `passer` b, `seeker` c WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.$unique = ? AND a.`ReviewBy` = ? ORDER BY $order $sort LIMIT $offset,$count");
 			$this->stmt->execute($data);
@@ -402,6 +428,12 @@
 			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM `ratings` a, `passer` b, `seeker` c WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.$unique = ? AND a.`ReviewBy` = ?");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchColumn();
+		}
+
+		public function joinDispute($unique,$user){
+			$this->stmt = $this->con->prepare("SELECT * FROM `dispute` a, `passer` b, `seeker` c, `offerjob` d WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.`JobOfferID` = d.`OfferJobID` AND a.$unique = ? AND a.`JobOfferID` = ?");
+			$this->stmt->execute($user);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		public function agreementGenerate($data){

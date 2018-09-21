@@ -363,7 +363,7 @@
 			$this->controller->view("passer/projects",$data);
 		}
 
-		public function jobofferlist(){
+		public function joboffers(){
 			$data = [];
 			$details = $agreements = $agreementVerify = $page = $paginationData = $builder = $dom = $joinData = $paginationDOM = $seekerData = $passerData = $subscriptionDetails = $status = $employmentAgreement = $headerColor = $cancelInitiator = $checkCommented = null;
 
@@ -414,11 +414,7 @@
 						case 4:
 							$status = '<a class="badge badge-success text-white float-right ml-5">Declined</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = 
-							'
-							<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
-							'
-							;
+							$employmentAgreement = null;
 							$update = '<small class="text-left "><b class="text-success">Declined on:</b> </small>';
 							break;
 						case 5:
@@ -468,9 +464,10 @@
 							$update = '<small class="text-left "><b class="text-black">Cancelled on:</b> </small>';
 							break;
 						case 8:
+							$dispute = $this->model->selectAllDynamic("dispute",array("*"),array($this->passerUnique,"DisputeIssuer"),array($this->passerSession,"Seeker"));
 							$status = '<a class="badge badge-danger text-white font-weight-bold float-right">Dispute</a>';
 							$headerColor = 'bg-danger';
-							$employmentAgreement = null;
+							$employmentAgreement = (!empty($dispute)?'<button type="button" class="btn btn-outline-danger" name="showDisputePasser" data-toggle="modal" data-target="#showDisputePasser" title="Show Dispute">Show Dispute Details</button>':'<button type="button" class="btn btn-outline-success" name="settle" title="Mark Settled">Mark as Settled</button>');
 							$update = '<small class="text-left "><b class="text-black">Disputed on:</b> </small>';
 							break;
 						case 9:
@@ -493,6 +490,12 @@
 							$employmentAgreement .= '<button type="button" class="btn btn-outline-success" name="generateCOE" data-toggle="modal" data-target="#viewCOE" title="Rate Seeker">Request for COE</button>';
 							
 							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
+							break;
+						case 10:
+							$status = '<a class="badge badge-success text-white font-weight-bold float-right">Settled</a>';
+							$headerColor = 'bg-success';
+							$employmentAgreement = null;
+							$update = '<small class="text-left "><b class="text-black">Marked as settled on:</b> </small>';
 							break;
 					}
 					$builder = 

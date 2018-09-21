@@ -118,6 +118,38 @@
 			}
 		}
 
+		public function joinDisputeGet(){
+			$data = $unique = $userid = $jobofferID = null;
+			if(isset($_POST['id'])){
+				$userid = $this->sanitize($_POST['userid']);
+				$jobofferID = $this->sanitize($_POST['jobofferID']);
+				$unique = (isset($_SESSION['seekerUser'])?"PasserID":"SeekerID");
+				$data = $this->model->joinDispute($unique,array($userid,$jobofferID));
+				echo json_encode(array("data"=>$data));
+			}
+		}
+
+		public function settleDispute(){
+			$update = $settler = $agreementID = null;
+			if(isset($_POST['dispute'])){
+				$jobofferID = $this->sanitize($_POST['id']);
+				$settler = (isset($_SESSION['seekerUser'])?"Seeker":"Passer");
+				$update = $this->model->updateDB("dispute",array("DisputeStatus"),array(2),"JobOfferID",$jobofferID);
+				if($update){
+					unset($update);
+					$this->model->insertDB($this->transactionTable,$this->transactionDB,array($jobofferID,8,10,$settler,date("Y-m-d H:i:s")));
+					$update = $this->model->updateDB("offerjob",array("OfferJobStatus"),array(10),"OfferJobID",$jobofferID);
+					if($update){
+						unset($update);
+						$update = $this->model->updateDB("offerjob",array("OfferJobStatus"),array(10),"OfferJobID",$jobofferID);
+						$agreementID = $this->model->getIDAgreement(array($jobofferID))[0]['AgreementID'];
+						$update = $this->model->updateDB("agreement",array("AgreementStatus"),array(5),"AgreementID",$agreementID);
+						echo json_encode(array("error"=>"none"));
+					}
+				}
+			}
+		}
+
 		public function getDetailsAjax(){
 			 $user = $table = null;
 			if(isset($_POST['user'])){
@@ -196,14 +228,14 @@
 						if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
 							if($this->getDetailsPasser($passerID)[0]['PasserStatus'] == 1){
 								if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
-									// $offerJobCheck = $this->model->selectAllFromUser("offerjob",$this->passerUnique,array($passerID));
-									// if(!empty($offerJobCheck)){
-									// 	foreach ($offerJobCheck as $data) {
-									// 		if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
-									// 			$flag = 1;
-									// 		}
-									// 	}
-									// }
+									$offerJobCheck = $this->model->lessThan("offerjob",array("*"),"OfferJobStatus",array($this->passerUnique),array($passerID,8));
+									if(!empty($offerJobCheck)){
+										foreach ($offerJobCheck as $data) {
+											if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
+												$flag = 1;
+											}
+										}
+									}
 									if($flag == null){
 										$default = $this->getDefaultOfferJob($_SESSION['seekerUser']);
 										$default['formattedStartDate'] = date("F jS, Y", strtotime($default[0]['StartDate']));
@@ -245,14 +277,14 @@
 							if($this->getDetailsSeeker($_SESSION['seekerUser'])[0]['SeekerStatus'] == 1){
 								if($this->getDetailsPasser($_SESSION['passerJobOffer'])[0]['PasserStatus'] == 1){
 									if($this->getDefaultOfferJob($_SESSION['seekerUser'])){
-										// $offerJobCheck = $this->model->selectAllFromUser("offerjob",$this->passerUnique,array($_SESSION['passerJobOffer']));
-										// if(!empty($offerJobCheck)){
-										// 	foreach ($offerJobCheck as $data) {
-										// 		if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
-										// 			$flag = 1;
-										// 		}
-										// 	}
-										// }
+										$offerJobCheck = $this->model->selectAllFromUser("offerjob",$this->passerUnique,array($_SESSION['passerJobOffer']));
+										if(!empty($offerJobCheck)){
+											foreach ($offerJobCheck as $data) {
+												if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
+													$flag = 1;
+												}
+											}
+										}
 										if($flag == null){
 											$notes = (isset($_POST['notes'])?$this->sanitize($_POST['notes']):"");
 											$defaultJobOffer = $this->getDefaultOfferJob($_SESSION['seekerUser'])[0]['OfferJobFormID'];
@@ -1007,7 +1039,7 @@
 							}
 							break;
 						case 'cancellationSeeker':
-							$link = "joboffers";
+							$link = "joboffered";
 							switch ($data['notificationMessage']) {
 								case '1':
 									$message = "You have new job cancellation Request.";
@@ -1022,7 +1054,7 @@
 							break;
 
 						case 'cancellationPasser':
-							$link = "joboffered";
+							$link = "joboffers";
 							switch ($data['notificationMessage']) {
 								case '1':
 									$message = "You have new job cancellation Request.";
@@ -2390,6 +2422,10 @@
 												$this->model->insertDB($this->transactionTable,$this->transactionDB,array($OfferJobID,$OfferJobStatus,$newStatus,"Seeker",$OfferJobDateTime));
 												$update = $this->model->updateDBDynamic("offerjob",array("OfferJobStatus"),array($newStatus,$jobofferID),array("OfferJobID"));
 												if($update){
+													$agreementCheck = $this->model->joinAgreementCancel($this->seekerUnique,array($this->seekerSession));
+													if(!empty($agreementCheck) && $agreementCheck[0]['OfferJobID'] == $jobofferID){
+														$update = $this->model->updateDBDynamic("agreement",array("AgreementStatus"),array(3,$agreementCheck[0]['AgreementID']),array("AgreementID"));
+													}
 													$this->createNotification("cancellationPasser",array("sendTo"=>"SeekerID","id"=>$otherUserID,"message"=>"2"));
 													$this->model->updateDB($this->cancelTable,array("CancellationStatus"),array(2),"OfferJobID",$jobofferID);
 													echo json_encode(array("error"=>"none"));
