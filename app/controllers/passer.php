@@ -85,7 +85,7 @@
 			if(empty($_GET['user'])){
 		 		header("location:../home/login");
 		 	}
-		 	$builder = $table = $userUnique = $id = null;
+		 	$builder = $table = $userUnique = $id =  $education = $serviceFee = null;
 		 	$dom = $page = null;
 		 	$errorDiv = $reviews = null;
 		 	$seekerError = null;
@@ -215,8 +215,66 @@
 			 			$dom = $dom ." ".$builder;
 			 		}
 			 	}
+			 											 //($table,$field,$data,$wherClause)
+			 	//$returnPassword = $this->model->selectSingleUser("passer","PasserPass",array($email),"PasserEmail");
+			 	$serviceFeeDate = $this->model->selectSingleUser("passer","passerFee",array($this->passerSession),$this->passerUnique);
+		
+			 	$builder =
+			 	'
+			 		<div class="row ">
+						<div class="col-sm-12 text-center pt-4 pb-3">
+							<label><h3>Your Service Rate is &#8369;'.$serviceFeeDate.'</h3></label>
+						</div>
+					</div>
+						
 
-			 	// $education = $this->model->
+			 	';
+				$serviceFee = $serviceFee ." ". $builder;
+
+			 	$educationData = $this->model->selectAllFromUser("passerEducation",$this->passerUnique,array($this->passerSession))[0];
+
+			 	$builder = 
+			 	'
+			 		<div class="row ">
+						<div class="col-sm-12 text-center pt-4 pb-3">
+							<label><h3>Highest Educational Attainment</h3></label>
+						</div>
+					</div>	
+					<div class="row justify-content-center">
+						<div class="card shadowDiv col-sm-10">
+							<div class="card-header bg-white">
+								<i class="fas fa-graduation-cap h2" style="color: darkblue;"></i>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-5">
+										<label>Highest Educational Attainment</label>
+									</div>
+									<div class="col-sm-7">
+										<label>'.$educationData['educationAttainment'].'</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-5">
+										<label>School/University</label>
+									</div>
+									<div class="col-sm-7">
+										<label>'.$educationData['educationSchool'].'</label>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-5">
+										<label>Accomplishments or descriptions <small style="opacity: 0.5">(optional)</small></label>
+									</div>
+									<div class="col-sm-7">
+										<label>'.$educationData['educationAccomplishment'].'</label>
+									</div>
+								</div>									
+							</div>
+						</div>
+					</div>
+			 	';
+			 	$education = $education ." ".$builder;
 
 			 	$reviewData = $this->model->joinRatingNoLimit("PasserID",array($PasserID,"Seeker"),"RatingsID","DESC");
 			 	foreach ($reviewData as $d) {
@@ -345,7 +403,7 @@
 			 		$reviews = $reviews ." ".$builder;
 			 	}
 
-			 	$data[] = array("passerDetails"=>$details,"userDetails"=>$userDetails,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError,"reviews"=>$reviews);
+			 	$data[] = array("passerDetails"=>$details,"userDetails"=>$userDetails,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError,"reviews"=>$reviews,"education"=>$education,"serviceFee"=>$serviceFee);
 				$this->controller->view("passer/profile",$data);
 			}
 			else{

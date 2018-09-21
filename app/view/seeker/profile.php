@@ -85,8 +85,13 @@
 			<!-- Tab panes -->
 				<div class="tab-content">
 					<!-- Overview content -->
-					<div class="tab-pane container active" id="overview">
-												
+					<div class="tab-pane container scrollable-menu py-4 active" style="max-height: 600px;" id="overview">
+						<div class="row ">
+							<div class="col-sm-12 text-center pt-4 pb-3">
+								<label><h3>Company Overview</h3></label>
+							</div>
+						</div>	
+						<?php echo $overview; ?>
 					</div>
 					<!-- end of Overview content -->
 

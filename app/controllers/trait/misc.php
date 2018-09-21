@@ -1618,19 +1618,21 @@
 			}
 		}
 
-		// public function addSeekerCompany(){
-		// 	if(isset($_POST['seekerCompany'])){
-		// 		try {
-		// 		$companyName = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['companyName']));
-		// 		$companyNumber = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['companyNumber']));
-		// 		$res = !empty($_POST["companyDesc"])? $this->model->insertDB("seekerCompany",$this->seekerCompany,array($this->seekerSession,
-		// 		$companyName,$companyNumber,$this->sanitize($_POST["companyDesc"]))): $this->model->insertDB("seekerCompany",$this->seekerCompany,array($this->seekerSession,$companyName,$companyNumber,""));
-		// 		echo json_encode(array("error"=>"none"));
-		// 		} catch (Exception $e) {
-		// 			echo $e->getMessage();
-		// 		}
-		// 	}
-		// }
+		public function addSeekerCompany(){
+			if(isset($_POST['seekerCompany'])){
+				try {
+				$companyName = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['companyName']));
+				$companyNumber = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['companyNumber']));
+				$res =  $this->sanitize($this->upperFirstOnlySpecialChars($_POST['companyDesc']));;
+				$insert = $this->model->insertDB("seekerCompany",array("seekerID","companyName","companyNumber","companyDesc"),array($this->seekerSession,$companyName, $companyNumber, $res));
+				if($insert){
+					echo json_encode(array("error"=>"none"));
+				}
+				} catch (Exception $e) {
+					echo $e->getMessage();
+				}
+			}
+		}
 
 		public function addEducation(){
 			if(isset($_POST['passerEducation'])){
