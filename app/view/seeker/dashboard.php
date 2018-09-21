@@ -117,6 +117,20 @@ $rate = "Very Good!";
 				</div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
+				<div class="col-sm-1 ml-3"><i class="fa fa-th-list text-white" aria-hidden="true"></i></i></div>
+				<div class="col-md-auto">
+					<label class="text-white"><a href="../home/reviews" class="text-white">My Job Offered</a>
+					</label>
+				</div>
+			</div>
+			<div class="row pt-2 hoverAccountSeeker">
+				<div class="col-sm-1 ml-3"><i class="fa fa-history text-white" aria-hidden="true"></i></i></i></div>
+				<div class="col-md-auto">
+					<label class="text-white"><a href="../home/reviews" class="text-white">Transaction Histories</a>
+					</label>
+				</div>
+			</div>
+			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-handshake text-white"></i></div>
 				<div class="col-md-auto">
 					<label class="text-white" id="smaller">My Agreement Records
@@ -178,65 +192,7 @@ $rate = "Very Good!";
       		</div>
 		</div>
 		<!-- end of 1st box 3rd row -->
-		<!-- start of 2nd box 3rd row -->
-	<div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv">
-		<div class="container mt-4 text-center">
-			<label id="ashGray" class="lead text-center">
-			Your Action awaits, Mate!
-			</label>
-  		</div>
-
-  		<div class="d-flex justify-content-center">
-  			<div class="row pt-1 ">
-				<div class="col-sm-auto">
-					<label>Pending Actions</label>
-				</div>
-			</div>
-  		</div>
-
-      	<div class="table-responsive-xl row mt-1">
-      		<table class="table table-striped">
-      			<thead class="skyblue text-white">
-      				<tr>
-      					<th>Image</th>
-      					<th>Passers Name</th>
-      					<th>Job Title</th>
-      					<th>Start Date</th>
-      					<th>End Date</th>
-      					<th>Action</th>
-      				</tr>
-      			</thead>
-      			<tbody>
-      				<tr>
-      					<td class="pt-5">
-      						<img class="img-fluid tableImage" src="../../public/etc/images/user/marvee.jpg" alt="image">
-      					</td>
-      					<td class="pt-5">
-      						<?=$Name;?>
-      					</td>
-      					<td class="pt-5">
-      						<?=$jtitle;?>
-      					</td>
-      					<td class="pt-5">
-      						<?=$sd;?>
-      					</td>
-      					<td class="pt-5">
-      						<?=$ed;?>
-      					</td>
-      					<td>
-  							<div class="row">
-  								<button class="btn btn-outline-success" data-toggle="modal" data-target="#jobDone">Job Done</button>
-  							</div>
-  							<div class="row pt-1">
-  								<button class="btn btn-outline-danger" data-toggle="modal" data-target="#dispute">Dispute</button>
-  							</div>
-      					</td>
-      				</tr>
-      			</tbody>
-      		</table>
-      	</div>
-	</div>
-	<!-- end of 2nd box 3rd row -->
+	
 	</div>
 	<!-- end of 3rd row -->
 </div>

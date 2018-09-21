@@ -258,6 +258,7 @@
 											$defaultJobOffer = $this->getDefaultOfferJob($_SESSION['seekerUser'])[0]['OfferJobFormID'];
 											$insert = $this->model->insertDB($this->offerJobAddTable,$this->offerJobAddDB,array($defaultJobOffer,$_SESSION['seekerUser'],$_SESSION['passerJobOffer'],$notes));
 											if($insert){
+											$this->model->insertDB($this->transactionTable,$this->transactionDB,array($insert,0,1,"Seeker",date("Y-m-d H:i:s")));
 												$this->model->updateDBDynamic($this->offerJobDB,array("uneditable"),array(2,$_SESSION['seekerUser'],$defaultJobOffer),array($this->seekerUnique,"OfferJobFormID"));
 												$this->createNotification("JobOffer",array("sendTo"=>"PasserID","id"=>$_SESSION['passerJobOffer'],"message"=>1));
 												unset($_SESSION['passerJobOffer']);
@@ -422,10 +423,16 @@
 				case 'updateUserStatus':
 					switch ($message) {
 						case '1':
-							$message = "Hurray! PassersMate verified your acount. Please login your account for more information.";
+							$message = "Hurray! PassersMate verified or activated your acount. Please login your account for more information.";
 							break;
 						case '3':
 							$message = "Your verification request has been declined, it maybe caused one of your passed documents. Please check and login your account for more information.";
+							break;
+						case '4':
+							$message = "You have disabled your account If this is not you please check and login your account for more information.";
+							break;
+						case '5':
+							$message = "Passersmate has disabled your account. Please check and login your account for more information.";
 							break;
 					}
 					break;
@@ -932,10 +939,16 @@
 							$link = "dashboard";
 							switch ($data['notificationMessage']) {
 								case '1':
-									$message = "verified your acount";
+									$message = "verified or activated your acount";
 									break;
 								case '3':
 									$message = "declined your request to be verified.";
+									break;
+								case '4':
+									$message = "You have disabled your account.";
+									break;
+								case '5':
+									$message = "disabled your account.";
 									break;
 							}
 							break;
@@ -2611,9 +2624,9 @@
     <div class="col-md-6 text-center">
       <img src="../public/etc/images/system/logo-black1.png" class="" width="100">
       <h1 class="text-success" style="font-family: \'Junction\'; "><i>Certificate of Employment</i></h1>
-      <p style="font-size: 20px">This is to certify that '.($PasserGender == "male"?"Mr":"Mrs").'.</p>
+      <p style="font-size: 20px">This is to certify that '.($PasserGender == "Male"?"Mr":"Mrs").'.</p>
       <h2 class="text-primary"><u>'.$PasserFN." ".$PasserLN.'</u></h2>
-      <p style="font-size: 20px">has been employed by '.($SeekerGender == "male"?"Mr":"Mrs").'.</p>
+      <p style="font-size: 20px">has been employed by '.($SeekerGender == "Male"?"Mr":"Mrs").'.</p>
       <h2 class="text-dark "><u>'.$SeekerFN." ".$SeekerLN.'</u></h2>
       <p style="font-size: 20px">as a</p>
       <p class="font-weight-bold" style="font-size: 25px"><u>'.$PasserCertificate.'</u></p>
@@ -2657,6 +2670,15 @@
 				 ob_end_flush(); 
 				 }
 				 }
+			}
+
+			public function getDataJobForm(){
+				if(isset($_POST['getData'])){
+					$user = (isset($_SESSION['seekerUser'])?$this->seekerUnique:$this->passerUnique);
+					$data = $this->sanitize($_POST['id']);
+					$dbData = $this->model->joinOfferJobFormUsed($user,array($data))[0];
+					echo json_encode(array("error"=>"none","data"=>$dbData));
+				}
 			}
 
 		}

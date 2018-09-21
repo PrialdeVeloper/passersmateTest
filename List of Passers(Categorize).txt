@@ -11,10 +11,6 @@ Address: Pasil C.C
 espiritu@g.com
 Address: Jones Avenue
 ---------------------
-3.CAPULOT, ROSALIE C.	11130502021151
-capulot@g.com
-Address: Pasil C.C
----------------------
 4.VIOLA, VENUS F.	16130602003606
 violau@g.com
 Address: Duljo C.C
@@ -26,10 +22,6 @@ Address: Pasil C.C
 6.MOYA, JUDY ANN D.	11130502021197
 moya@g.com
 Address: Padre Burgos Street C.C
----------------------
-7.BABA, MAYPRIL C.	15100302003306
-baba@g.com
-Address: Lahug C.C
 ---------------------
 JAPSAY, ROSE ANN B.	15120502006644
 japsay@g.com
@@ -364,9 +356,6 @@ Sta. Barbara Zamboanga City
 Commonwealth	Quezon City
 ------------------------------------
 Login Passer
-1.BABA, MAYPRIL C.	15100302003306
-baba@g.com
-Address: Lahug C.C
 
 2.LINCUNA, JULIETA L.	15130702030231	
 lincuna@g.com

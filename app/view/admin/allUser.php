@@ -216,11 +216,7 @@ if(isset($data) && !empty($data)){
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav" class="p-t-30">
                         <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="index" aria-expanded="false"><i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Dashboard</span></a></li>
-                        <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu">Contents </span></a>
-                            <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="form-basic" class="sidebar-link"><i class=" fas fa-question"></i><span class="hide-menu"> F.A.Q </span></a></li>
-                            </ul>
-                        </li>
+                        
                          <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="fas fa-cog"></i><span class="hide-menu">Job Title </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item"><a href="jobcategories" class="sidebar-link"><i class=" fas fa-briefcase"></i><span class="hide-menu"> Categories </span></a></li>
@@ -298,6 +294,7 @@ if(isset($data) && !empty($data)){
                                                 <th>User Type</th>
                                                 <th>Account Created</th>
                                                 <th>Status</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -376,6 +373,7 @@ if(isset($data) && !empty($data)){
     <script src="../etc/admin/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="../etc/admin/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
     <script src="../etc/admin/assets/extra-libs/DataTables/datatables.min.js"></script>
+    <script src="../etc/custom-js-Admin.js"></script>
 
 </body>
 

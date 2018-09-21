@@ -91,7 +91,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                                 <div class="card">
                                   <div class="card-header" id="cardHeader">
                                      <a target="_blank" class="btn btn-success margin-5 float-right" id="print" href="">
-                                        <i class="fas fa-print"></i> Print this COE
+                                        <i class="fas fa-print"></i> Download as PDF
                                     </a>
                                   </div>
                                   <form method="get" action="file.doc">

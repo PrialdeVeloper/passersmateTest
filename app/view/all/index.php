@@ -114,39 +114,7 @@ if(isset($data) && !empty($data)){
 				</div>
 				<!-- /Section header -->
 
-				<!-- about -->
-				<div class="col-md-4">
-					<div class="about">
-						<i class="fa fa-cogs"></i>
-						<h3>Fully Customizible</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
-						<a href="#">Read more</a>
-					</div>
-				</div>
-				<!-- /about -->
-
-				<!-- about -->
-				<div class="col-md-4">
-					<div class="about">
-						<i class="fa fa-magic"></i>
-						<h3>Awesome Features</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
-						<a href="#">Read more</a>
-					</div>
-				</div>
-				<!-- /about -->
-
-				<!-- about -->
-				<div class="col-md-4">
-					<div class="about">
-						<i class="fa fa-mobile"></i>
-						<h3>Fully Responsive</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero sit amet.</p>
-						<a href="#">Read more</a>
-					</div>
-				</div>
-				<!-- /about -->
-
+			
 			</div>
 			<!-- /Row -->
 
@@ -156,259 +124,6 @@ if(isset($data) && !empty($data)){
 	</div>
 	<!-- /About -->
 
-
-	<!-- Portfolio -->
-	<div id="portfolio" class="section md-padding bg-grey">
-
-		<!-- Container -->
-		<div class="container">
-
-			<!-- Row -->
-			<div class="row">
-
-				<!-- Section header -->
-				<div class="section-header text-center">
-					<h2 class="title">Featured Passers</h2>
-				</div>
-				<!-- /Section header -->
-
-				<!-- Work -->
-				<div class="col-md-4 col-xs-6 work">
-					<img class="img-responsive" src="../../public/etc/images/system/mary.jpg" alt="">
-					<div class="overlay"></div>
-					<div class="work-content">
-						<span>Category</span>
-						<h3>Lorem ipsum dolor</h3>
-						<div class="work-link">
-							<a href="#"><i class="fa fa-external-link"></i></a>
-							<a class="lightbox" href="../../public/etc/images/system/mary.jpg"><i class="fa fa-search"></i></a>
-						</div>
-					</div>
-				</div>
-				<!-- /Work -->
-
-				<!-- Work -->
-				<div class="col-md-4 col-xs-6 work">
-					<img class="img-responsive" src="../../public/etc/images/system/male.png" alt="">
-					<div class="overlay"></div>
-					<div class="work-content">
-						<span>Category</span>
-						<h3>Lorem ipsum dolor</h3>
-						<div class="work-link">
-							<a href="#"><i class="fa fa-external-link"></i></a>
-							<a class="lightbox" href="../../public/etc/images/system/male.png"><i class="fa fa-search"></i></a>
-						</div>
-					</div>
-				</div>
-				<!-- /Work -->
-
-				<!-- Work -->
-				<div class="col-md-4 col-xs-6 work">
-					<img class="img-responsive" src="../../public/etc/images/system/pablo1.jpg" alt="">
-					<div class="overlay"></div>
-					<div class="work-content">
-						<span>Category</span>
-						<h3>Lorem ipsum dolor</h3>
-						<div class="work-link">
-							<a href="#"><i class="fa fa-external-link"></i></a>
-							<a class="lightbox" href="../../public/etc/images/system/pablo1.jpg"><i class="fa fa-search"></i></a>
-						</div>
-					</div>
-				</div>
-				<!-- /Work -->
-
-				<!-- Work -->
-				<div class="col-md-4 col-xs-6 work">
-					<img class="img-responsive" src="../../public/etc/images/system/jemarie.jpg" alt="">
-					<div class="overlay"></div>
-					<div class="work-content">
-						<span>Category</span>
-						<h3>Lorem ipsum dolor</h3>
-						<div class="work-link">
-							<a href="#"><i class="fa fa-external-link"></i></a>
-							<a class="lightbox" href="../../public/etc/images/system/jemarie.jpg"><i class="fa fa-search"></i></a>
-						</div>
-					</div>
-				</div>
-				<!-- /Work -->
-
-				<!-- Work -->
-				<div class="col-md-4 col-xs-6 work">
-					<img class="img-responsive" src="../../public/etc/images/system/female.png" alt="">
-					<div class="overlay"></div>
-					<div class="work-content">
-						<span>Category</span>
-						<h3>Lorem ipsum dolor</h3>
-						<div class="work-link">
-							<a href="#"><i class="fa fa-external-link"></i></a>
-							<a class="lightbox" href="../../public/etc/images/system/female.png"><i class="fa fa-search"></i></a>
-						</div>
-					</div>
-				</div>
-				<!-- /Work -->
-
-				<!-- Work -->
-				<div class="col-md-4 col-xs-6 work">
-					<img class="img-responsive" src="../../public/etc/images/system/icon.png" alt="">
-					<div class="overlay"></div>
-					<div class="work-content">
-						<span>Category</span>
-						<h3>Lorem ipsum dolor</h3>
-						<div class="work-link">
-							<a href="#"><i class="fa fa-external-link"></i></a>
-							<a class="lightbox" href="../../public/etc/images/system/icon.png"><i class="fa fa-search"></i></a>
-						</div>
-					</div>
-				</div>
-				<!-- /Work -->
-
-			</div>
-			<!-- /Row -->
-
-		</div>
-		<!-- /Container -->
-
-	</div>
-	<!-- /Portfolio -->
-
-	<!-- Service -->
-	<div id="service" class="section md-padding">
-
-		<!-- Container -->
-		<div class="container">
-
-			<!-- Row -->
-			<div class="row">
-
-				<!-- Section header -->
-				<div class="section-header text-center">
-					<h2 class="title">What we offer</h2>
-				</div>
-				<!-- /Section header -->
-
-				<!-- service -->
-				<div class="col-md-4 col-sm-6">
-					<div class="service">
-						<i class="fa fa-diamond"></i>
-						<h3>App Development</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
-					</div>
-				</div>
-				<!-- /service -->
-
-				<!-- service -->
-				<div class="col-md-4 col-sm-6">
-					<div class="service">
-						<i class="fa fa-rocket"></i>
-						<h3>Graphic Design</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
-					</div>
-				</div>
-				<!-- /service -->
-
-				<!-- service -->
-				<div class="col-md-4 col-sm-6">
-					<div class="service">
-						<i class="fa fa-cogs"></i>
-						<h3>Creative Idea</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
-					</div>
-				</div>
-				<!-- /service -->
-
-				<!-- service -->
-				<div class="col-md-4 col-sm-6">
-					<div class="service">
-						<i class="fa fa-diamond"></i>
-						<h3>Marketing</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
-					</div>
-				</div>
-				<!-- /service -->
-
-				<!-- service -->
-				<div class="col-md-4 col-sm-6">
-					<div class="service">
-						<i class="fa fa-pencil"></i>
-						<h3>Awesome Support</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
-					</div>
-				</div>
-				<!-- /service -->
-
-				<!-- service -->
-				<div class="col-md-4 col-sm-6">
-					<div class="service">
-						<i class="fa fa-flask"></i>
-						<h3>Brand Design</h3>
-						<p>Maecenas tempus tellus eget condimentum rhoncus sem quam semper libero.</p>
-					</div>
-				</div>
-				<!-- /service -->
-
-			</div>
-			<!-- /Row -->
-
-		</div>
-		<!-- /Container -->
-
-	</div>
-	<!-- /Service -->
-
-
-	<!-- Why Choose Us -->
-	<div id="features" class="section md-padding bg-grey">
-
-		<!-- Container -->
-		<div class="container">
-
-			<!-- Row -->
-			<div class="row">
-
-				<!-- why choose us content -->
-				<div class="col-md-6">
-					<div class="section-header">
-						<h2 class="title">Why Choose Us</h2>
-					</div>
-					<p>Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris. Ultrices sagittis orci a scelerisque purus.</p>
-					<div class="feature">
-						<i class="fa fa-check"></i>
-						<p>Quis varius quam quisque id diam vel quam elementum.</p>
-					</div>
-					<div class="feature">
-						<i class="fa fa-check"></i>
-						<p>Mauris augue neque gravida in fermentum.</p>
-					</div>
-					<div class="feature">
-						<i class="fa fa-check"></i>
-						<p>Orci phasellus egestas tellus rutrum.</p>
-					</div>
-					<div class="feature">
-						<i class="fa fa-check"></i>
-						<p>Nec feugiat nisl pretium fusce id velit ut tortor pretium.</p>
-					</div>
-				</div>
-				<!-- /why choose us content -->
-
-				<!-- About slider -->
-				<div class="col-md-6">
-					<div id="about-slider" class="owl-carousel owl-theme">
-						<img class="img-responsive" src="../../public/etc/images/system/about1.jpg" alt="">
-						<img class="img-responsive" src="../../public/etc/images/system/about2.jpg" alt="">
-						<img class="img-responsive" src="../../public/etc/images/system/about1.jpg" alt="">
-						<img class="img-responsive" src="../../public/etc/images/system/about2.jpg" alt="">
-					</div>
-				</div>
-				<!-- /About slider -->
-
-			</div>
-			<!-- /Row -->
-
-		</div>
-		<!-- /Container -->
-
-	</div>
-	<!-- /Why Choose Us -->
 
 
 	<!-- Numbers -->
@@ -603,22 +318,22 @@ if(isset($data) && !empty($data)){
 						<!-- testimonial -->
 						<div class="testimonial">
 							<div class="testimonial-meta">
-								<img src="../../public/etc/images/system/perso1.jpg" alt="">
-								<h3 class="white-text">John Doe</h3>
-								<span>Web Designer</span>
+								<img src="../../public/etc/images/system/mary.jpg" alt="">
+								<h3 class="white-text">Mary Sy</h3>
+								<span>Service Seeker</span>
 							</div>
-							<p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
+							<p class="white-text">PassersMate helps me choose what preffered passer I want. And the TESDA Passer are so professional on their work.</p>
 						</div>
 						<!-- /testimonial -->
 
 						<!-- testimonial -->
 						<div class="testimonial">
 							<div class="testimonial-meta">
-								<img src="../../public/etc/images/system/perso2.jpg" alt="">
-								<h3 class="white-text">John Doe</h3>
-								<span>Web Designer</span>
+								<img src="../../public/etc/images/system/pablo1.jpg" alt="">
+								<h3 class="white-text">Pablo Franco</h3>
+								<span>Carpenter</span>
 							</div>
-							<p class="white-text">Molestie at elementum eu facilisis sed odio. Scelerisque in dictum non consectetur a erat. Aliquam id diam maecenas ultricies mi eget mauris.</p>
+							<p class="white-text">Dali ra kaayo mangitag trabaho sa PassersMate, ubay2x nasad kong naay customer. The Best jud ni sila, makatabang jud namo.</p>
 						</div>
 						<!-- /testimonial -->
 

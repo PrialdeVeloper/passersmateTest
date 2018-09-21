@@ -22,12 +22,12 @@
 			$username = "root";
 			$password = "";
 			try {
-				$this->con = new PDO("mysql: host=$host; port=$port; dbname=$dbname",$username,$password);
+				$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
 				$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 				return $this->con;
 			} catch (PDOException $e) {
 				try {
-					$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
+					$this->con = new PDO("mysql: host=$host; port=$port; dbname=$dbname",$username,$password);
 					$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 					return $this->con;
 				} catch (Exception $e) {
@@ -344,6 +344,12 @@
 			} catch (Exception $e) {
 				return $e->getMessage();
 			}
+		}
+
+		public function joinOfferJobFormUsed($user, $data){
+			$this->stmt = $this->con->prepare("SELECT * FROM `transactionhistory` a, `offerjob` b, `offerjobform` c, `seeker` d, `passer` e  WHERE a.`OfferJobID` = b.`OfferJobID` AND b.`OfferJobFormID` = c.`OfferJobFormID` AND b.`SeekerID` = d.`SeekerID` AND b.`PasserID` = e.`PasserID` AND b.$user = ?");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
 		public function joinCancel($data){

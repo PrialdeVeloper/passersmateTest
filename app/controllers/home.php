@@ -776,6 +776,149 @@
 			$this->controller->view("all/reviews",$data);
 		}
 
+
+		public function transactionhistory(){
+			$details = $userData = $formUsed = $builder = $dom = $badge = $message = $jobStart = $unique = $user = $table = null;
+			$data = [];
+			if(!$this->checkSession('seekerUser') && !$this->checkSession('passerUser')){
+		 		header("location:login");
+		 	}
+		 	$table = (isset($_SESSION['passerUser'])?"passer":"seeker");
+			$unique = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+			$user = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+
+			$userData = $this->model->joinOfferJobFormUsed($unique,array($user));
+			foreach ($userData as $d) {
+				if($d['OfferJobStatus'] != 2){
+					$jobStart = $d['TransactionDateTime'];
+					if(isset($_SESSION['seekerUser'])){
+						switch ($d['NewStatus']) {
+							case '1':
+								$message = "Waiting for passer response";
+								$badge = "success";
+								break;
+
+							case '3':
+								$message = "Accepted Job Offer";
+								$badge = "info";
+								break;
+
+							case '4':
+								$message = "Declined Job Offer";
+								$badge = "danger";
+								break;
+
+							case '5':
+								$message = "Hired";
+								$badge = "success";
+								break;
+
+							case '6':
+								$message = "Pending for Cancellation";
+								$badge = "warning";
+								break;
+
+							case '7':
+								$message = "Cancelled";
+								$badge = "danger";
+								break;
+
+							case '8':
+								$message = "Dispute";
+								$badge = "danger";
+								break;
+							
+							case '9':
+								$message = "Job is Done";
+								$badge = "success";
+								break;
+						}
+					}
+					else{
+						switch ($d['NewStatus']) {
+							case '1':
+								$message = "Waiting for your response";
+								$badge = "success";
+								break;
+
+							case '3':
+								$message = "You accepted the Job Offer";
+								$badge = "info";
+								break;
+
+							case '4':
+								$message = "You declined Job Offer";
+								$badge = "danger";
+								break;
+
+							case '5':
+								$message = "You were Hired";
+								$badge = "success";
+								break;
+
+							case '6':
+								$message = "Pending for Cancellation";
+								$badge = "warning";
+								break;
+
+							case '7':
+								$message = "Cancelled";
+								$badge = "danger";
+								break;
+
+							case '8':
+								$message = "Dispute";
+								$badge = "danger";
+								break;
+							
+							case '9':
+								$message = "Your Job is Done";
+								$badge = "success";
+								break;
+						}
+					}
+					if($d['OfferJobStatus'] >= 5){
+						$formUsed = $this->model->selectAllFromUser("offerjobformused","OfferJobID",array($d['OfferJobID']))[0];
+						$builder = 
+						'
+							<tr>
+								<td>
+									<h6>
+										<span class="badge badge-'.$badge.'">'.$message.'</span>
+									</h6>
+									<small class="font-weight-bold">'.date("F jS, Y",strtotime($jobStart)).' | '.date("g:i A",strtotime($jobStart)).'</small>
+								</td>
+								<td>
+									<button class="btn btn-primary" data-toggle="modal" name="viewDetailsWork" id='.$d['OfferJobID'].' data-target="#update">View Details</button>
+								</td>
+							</tr>
+						';
+					}
+					else{
+						$builder = 
+						'
+							<tr>
+								<td>
+									<h6>
+										<span class="badge badge-'.$badge.'">'.$message.'</span>
+									</h6>
+									<small class="font-weight-bold"'.date("F jS, Y",strtotime($jobStart)).' | '.date("g:i A",strtotime($jobStart)).'</small>
+								</td>
+								<td>
+									<button class="btn btn-primary" data-toggle="modal" name="viewDetailsWork" id='.$d['OfferJobID'].' data-target="#update">View Details</button>
+								</td>
+							</tr>
+						';
+					}
+					$dom .=$builder;
+				}
+			}
+
+			$details = $this->model->selectAllFromUser($table,$unique,array($user));
+			$data[] = array("userDetails"=>$details,"dom"=>$dom);
+			$this->controller->view("all/transactions",$data);
+		}
+
 	}
 
 ?>

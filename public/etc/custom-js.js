@@ -3333,3 +3333,52 @@ $(function(){
 	});
 });
 // end of passerfee
+
+// seeker history
+$(function(){
+	$("#jobOfferSearch, #fromDate, #toDate").on("change keyup",function(){
+		let search = $("#jobOfferSearch");
+		let fromDate = $("#fromDate");
+		let toDate = $("#toDate");
+
+
+	});
+});
+// end of seeker history
+
+
+// viewDetails
+$(function(){
+	$("button[name=viewDetailsWork]").click(function(){
+		let id = $(this).attr("id");
+		let jobSeekerName = $("#jobSeekerName");
+		let jobPasserName = $("#jobPasserName");
+		let jobWorkingAdrress = $("#jobWorkingAdrress");
+		let jobServiceRate = $("#jobServiceRate");
+		let jobStartDate = $("#jobStartDate");
+		let jobEndDate = $("#jobEndDate");
+		let jobPaymentMethod = $("#jobPaymentMethod");
+		let jobAccomodationType = $("#jobAccomodationType");
+		$.ajax({
+			url:"getDataJobForm",
+			method: "POST",
+			data: {"getData":"","id":id},
+			success: function(a){
+				let obj = JSON.parse(a);
+				console.log(obj);
+				if(obj.error == "none"){
+					let data = obj['data'];
+					jobSeekerName.empty().html(data['SeekerFN']+" "+data['SeekerFN']);
+					jobPasserName.empty().html(data['PasserCertificate']);
+					jobWorkingAdrress.empty().html(data['WorkingAddress']);
+					jobServiceRate.empty().html(data['Salary']);
+					jobStartDate.empty().html(data['StartDate']);
+					jobEndDate.empty().html(data['EndDate']);
+					jobPaymentMethod.empty().html(data['PaymentMethod']);
+					jobAccomodationType.empty().html(data['AccomodationType']);
+				}
+			}
+		});
+	});
+});
+// viewDetails

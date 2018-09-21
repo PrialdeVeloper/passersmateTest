@@ -352,7 +352,6 @@
 								'
 							
 								<button type="button" class="btn btn-outline-success" name="doneJobOffer" data-toggle="modal" data-target="#doneModal" title="Rate Seeker">Rate Seeker</button>
-								<button type="button" class="btn btn-outline-success" name="generateCOE" data-toggle="modal" data-target="#viewCOE" title="Rate Seeker">Request for COE</button>
 								';
 							}else{
 								// $employmentAgreement = 
@@ -361,6 +360,7 @@
 								// ';
 								$employmentAgreement = null;
 							}
+							$employmentAgreement .= '<button type="button" class="btn btn-outline-success" name="generateCOE" data-toggle="modal" data-target="#viewCOE" title="Rate Seeker">Request for COE</button>';
 							
 							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
 							break;
