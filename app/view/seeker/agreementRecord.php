@@ -67,7 +67,7 @@ require "../public/header-footer/seeker/seekerHeader1.marvee";
                         <div class="col-md-4 mx-auto   mt-5">                      
                           <div class="card shadow">
                             <div class="card-header">
-                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $PasserFN." ".$PasserLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
+                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $SeekerFN." ".$SeekerLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
                             </div>
                             <hr>
                             <div class="card-body">
@@ -84,7 +84,7 @@ require "../public/header-footer/seeker/seekerHeader1.marvee";
                         <div class="col-md-4 mx-auto   mt-5">                      
                           <div class="card shadow">
                             <div class="card-header">
-                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $PasserFN." ".$PasserLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
+                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $SeekerFN." ".$SeekerLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
                             </div>
                             <hr>
                             <div class="card-body">
@@ -101,7 +101,7 @@ require "../public/header-footer/seeker/seekerHeader1.marvee";
                         <div class="col-md-4 mx-auto   mt-5">                      
                           <div class="card shadow">
                             <div class="card-header">
-                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $PasserFN." ".$PasserLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
+                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $SeekerFN." ".$SeekerLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
                             </div>
                             <hr>
                             <div class="card-body">
@@ -118,7 +118,7 @@ require "../public/header-footer/seeker/seekerHeader1.marvee";
                         <div class="col-md-4 mx-auto   mt-5">                      
                           <div class="card shadow">
                             <div class="card-header">
-                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $PasserFN." ".$PasserLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
+                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $SeekerFN." ".$SeekerLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
                             </div>
                             <hr>
                             <div class="card-body">
@@ -135,7 +135,7 @@ require "../public/header-footer/seeker/seekerHeader1.marvee";
                         <div class="col-md-4 mx-auto   mt-5">                      
                           <div class="card shadow">
                             <div class="card-header">
-                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $PasserFN." ".$PasserLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
+                              <h5><i class="fas fa-user"></i> Employment Agreement with <?php echo $SeekerFN." ".$SeekerLN; ?> <small class="text-success"><h5>Created August 06, 2018</h5></small></h5>
                             </div>
                             <hr>
                             <div class="card-body">

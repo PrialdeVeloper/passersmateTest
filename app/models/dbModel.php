@@ -386,6 +386,12 @@
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function joinRatingNoLimit($unique,$data,$order,$sort){
+			$this->stmt = $this->con->prepare("SELECT * FROM `ratings` a, `passer` b, `seeker` c WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.$unique = ? AND a.`ReviewBy` = ? ORDER BY $order $sort");
+			$this->stmt->execute($data);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
 		public function joinRatingCount($unique,$data){
 			$this->stmt = $this->con->prepare("SELECT COUNT(*) FROM `ratings` a, `passer` b, `seeker` c WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.$unique = ? AND a.`ReviewBy` = ?");
 			$this->stmt->execute($data);

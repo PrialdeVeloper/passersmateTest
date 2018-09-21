@@ -295,6 +295,10 @@
 		 	$this->controller->view("all/subscription");
 		}
 
+		public function howitworks(){
+		 	$this->controller->view("all/howitworks");
+		}
+
 		public function basic(){
 			if(!$this->checkSession('seekerUser')){
 		 		header("location:login");

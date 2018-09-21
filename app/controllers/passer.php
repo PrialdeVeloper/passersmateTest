@@ -87,7 +87,7 @@
 		 	}
 		 	$builder = $table = $userUnique = $id = null;
 		 	$dom = $page = null;
-		 	$errorDiv = null;
+		 	$errorDiv = $reviews = null;
 		 	$seekerError = null;
 		 	$coc = $this->sanitize($_GET['user']);
 		 	$userDetails = null;
@@ -215,7 +215,137 @@
 			 			$dom = $dom ." ".$builder;
 			 		}
 			 	}
-			 	$data[] = array("passerDetails"=>$details,"userDetails"=>$userDetails,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError);
+
+			 	// $education = $this->model->
+
+			 	$reviewData = $this->model->joinRatingNoLimit("PasserID",array($PasserID,"Seeker"),"RatingsID","DESC");
+			 	foreach ($reviewData as $d) {
+			 		switch ($d['PunctualityRate']) {
+		 				case 1:
+		 					$pLabel = '<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>';
+		 				break;
+		 				case 2:
+		 					$pLabel = '<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>';
+		 				break;
+		 				case 3:
+		 					$pLabel = '<span class="badge badge-primary font-weight-bold"><small>Good</small></span>';
+		 				break;
+		 				case 4:
+		 					$pLabel = '<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>';
+		 				break;
+		 				case 5:
+		 					$pLabel = '<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>';
+		 				break;
+		 				
+		 			}
+		 			switch ($d['WorkQualityRate']) {
+		 				case 1:
+		 					$wLabel = '<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>';
+		 				break;
+		 				case 2:
+		 					$wLabel = '<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>';
+		 				break;
+		 				case 3:
+		 					$wLabel = '<span class="badge badge-primary font-weight-bold"><small>Good</small></span>';
+		 				break;
+		 				case 4:
+		 					$wLabel = '<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>';
+		 				break;
+		 				case 5:
+		 					$wLabel = '<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>';
+		 				break;
+		 				
+		 			}
+		 			switch ($d['PersonalityRate']) {
+		 				case 1:
+		 					$perLabel = '<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>';
+		 				break;
+		 				case 2:
+		 					$perLabel = '<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>';
+		 				break;
+		 				case 3:
+		 					$perLabel = '<span class="badge badge-primary font-weight-bold"><small>Good</small></span>';
+		 				break;
+		 				case 4:
+		 					$perLabel = '<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>';
+		 				break;
+		 				case 5:
+		 					$perLabel = '<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>';
+		 				break;
+		 				
+		 			}
+
+		 			$punctualityRate = $this->createStar($d['PunctualityRate']);
+		 			$WorkQualityRate = $this->createStar($d['WorkQualityRate']);
+		 			$PersonalityRate = $this->createStar($d['PersonalityRate']);
+
+		 			$builder = 
+			 		'
+		 			<div class="row py-3">
+						<div class="col-md-12">
+							<div class="row justify-content-center">
+								<div class="col-md-9">
+									<div class="card shadow">
+										<div class="card-header">
+											<small class="text-info font-weight-bold" > Rated on: '.date("F jS, Y",strtotime($d['ReviewdOn'])).'</small>
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="row ">
+														<div class="col-md-3">
+															<img src="'.$d['PasserProfile'].'" class="w-100 h-100 border border-info">
+														</div>
+														<div class="col-md-9">
+															<label><h3 >'.$d['PasserFN']." ".$d['PasserLN'].'</h3></label>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">
+																					
+														</div>
+														<div class="col-md-9">
+															<label><strong>Personality : '.$PersonalityRate." ".$perLabel.' </strong></label>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">
+																													
+														</div>
+														<div class="col-md-9">
+															<label><strong>Punctuality : '.$punctualityRate." ".$perLabel.' </strong></label>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">
+																				
+														</div>
+														<div class="col-md-9">
+															<label><strong>Work Quality : '.$WorkQualityRate." ".$perLabel.' </strong></label>
+														</div>	
+													</div>
+													<div class="row form-group">
+														<div class="col-md-3">
+																				
+														</div>
+														<div class="col-md-9">
+															<label><b>Feedbacks</b></label>
+															<textarea class="form-control" rows="3" disabled="">'.$d['Feedback'].'</textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+			 		';
+			 		$reviews = $reviews ." ".$builder;
+			 	}
+
+			 	$data[] = array("passerDetails"=>$details,"userDetails"=>$userDetails,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError,"reviews"=>$reviews);
 				$this->controller->view("passer/profile",$data);
 			}
 			else{

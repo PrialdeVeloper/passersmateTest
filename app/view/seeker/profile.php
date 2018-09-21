@@ -1,86 +1,105 @@
 <?php 
-$Name = 'Marvee Franco';
-$address = 'Sitio Gines (Wak Wak)';
-$birthdate = 'August 01, 1522';
-$contact = '126-2634-252';
-$jtitle = "Asawa";
-$sd = "Nov 6, 2017";
-$ed = "Infinty";
-$reviewer = "Pablo";
-$rate = "Very Good!";
+	$offerJob = '<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#offer">
+				 Offer Job
+				</button>';
+	$messageMe = '<button type="button" id="chatPasser" class="btn btn-primary btn-block">Message Me</button>';
 ?>
-<?php 
-	require "../public/header-footer/seeker/seekerHeader.marvee";
+<?php
+	if(isset($data) && !empty($data)){
+		extract($data[0]);
+		if(isset($seekerDetails) && !empty($seekerDetails)){
+			extract($seekerDetails[0]);
+			if(isset($userDetails) && !empty($userDetails)){
+				extract($userDetails[0]);
+			}
+		}
+	} 
+	if(isset($passerStatus) && !empty($passerStatus) || isset($seekerError) && !empty($seekerError)){
+		$offerJob = $messageMe = null;
+	}
+	if(!empty($userDetails)){
+		require_once "../public/header-footer/seeker/seekerHeader.marvee";
+	}else{
+		require "../public/header-footer/header.marvee";
+	}
 	require "../public/header-footer/jobsNav.marvee";
+	require "modal/profileModal.html";
 ?>
-
 
 <!-- content -->
-<div class="container-fluid mt-5">
+<div class="container-fluid my-5">
+	<!-- <?=$passerStatus;?>
+	<?=$seekerError;?> -->
+	<div class="alert alert-danger col text-center hidethis" id="passerProfileError" role="alert">
+				
+	</div>
 	<!-- start of 1st row -->
 	<div class="row">
 		<!-- 1st box -->
 		<div class="col-md-4 bg-white border border rounded mx-5 shadowDiv">
 			<div class="d-flex justify-content-center">
-				<img class="fluid seekerProfile" src="../../public/etc/images/user/dashboardSample.png" alt="Profile"></img>
+				<img class="fluid seekerProfile rounded-circle" src="<?=$SeekerProfile;?>" alt="Profile"></img>
 			</div>
 			<hr>
 			<div class="container">
 				<div class="row pt-1">
 					<div class="col-sm-1"><i class="fas fa-user ashGray"></i></div>
-					<div class="col-md-auto"><?=$Name;?></div>
+					<div class="col-md-auto"> <?=$SeekerFN." ".$SeekerLN;?> </div>
 				</div>
 				<div class="row pt-2">
 					<div class="col-sm-1"><i class="fas fa-home ashGray"></i></div>
-					<div class="col-md-auto"><?=$address;?></div>
+					<div class="col-md-auto"><?=isset($SeekerAddress)?$SeekerAddress:"<span class='text-muted'>Undefined</span>"?></div>
 				</div>
-				<div class="row pt-2">
-					<div class="col-sm-1"><i class="fas fa-birthday-cake ashGray"></i></div>
-					<div class="col-md-auto"><?=$birthdate;?></div>
+				<div class="row pt-2 pb-5">
+					<div class="col-sm-1 "><i class="fas fa-birthday-cake ashGray"></i></div>
+					<div class="col-md-auto "><?=isset($SeekerBirthdate)?date("F jS, Y",strtotime($SeekerBirthdate)):"<span class='text-muted'>Undefined</span>"?></div>
 				</div>
-				<hr>
-				<div class="row justify-content-center pt-3">
-					<div class="col-md-auto">
-						<button type="button" class="btn btn-success">Message Me Now!</button>
-					</div>
+				<div class=" row py-5">
+					
+				</div>
+				<div class=" row py-5">
+				<!-- 	<?=$messageMe?> -->
 				</div>
 			</div>
 		</div>
 		<!-- end of firstbox -->
+
 		<!-- second box -->
-		<div class="col offset-sm-1 bg-white mx-5 shadowDiv">
-			<ul class="nav nav-tabs pt-1">
-			  <li class="nav-item">
-			    <a class="nav-link active" href="#"><b>Profile</b></a>
-			  </li>
-			  <li class="nav-item">
-			    <a class="nav-link" href="#"><b>Reviews</b></a>
-			  </li>
-			</ul>
-			<div class="container shadowDiv mt-3">
-				<div class="text-center">
-					<label class="profileTitle"><i class="green fas fa-briefcase"></i><span class="pl-3 lead">Company</span></label>
+		<div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv">
+			<nav class="navbar navbar-expand-md navbar-light bg-white p-0" role="navigationWorks">
+				<button type="button" class="navbar-toggler" data-target="#navTabs" data-toggle="collapse">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navTabs"">
+					<ul class="nav nav-tabs justify-content-center">
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#overview">Overview</a>
+						</li>
+						
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="#review1">Reviews</a>
+						</li>
+					</ul>
 				</div>
-				<div>
-					<hr>
+			</nav>
+			<!-- Tab panes -->
+				<div class="tab-content">
+					<!-- Overview content -->
+					<div class="tab-pane container active" id="overview">
+												
+					</div>
+					<!-- end of Overview content -->
+
+					<!-- review content -->
+					<div class="tab-pane container fade scrollable-menu py-4" style="max-height: 600px;" id="review1">
+						<?php echo $reviews; ?>
+					</div>
+					<!-- end of review content -->
 				</div>
-				<div class="text-center">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-				</div>
-			</div>
+
 		</div>
 		<!-- end of second box -->
-	</div>
-	<!-- end of 1st row -->
-</div>
 
-
-<!-- content -->
 <?php
 	require "../public/header-footer/seeker/seekerFooter.marvee";
 ?>

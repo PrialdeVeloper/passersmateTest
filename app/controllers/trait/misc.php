@@ -1480,11 +1480,12 @@
 				$SeekerCity = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['SeekerCity']));
 				$SeekerAddress = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['SeekerAddress']));
 				$SeekerCPNo = $this->sanitize($_POST['SeekerCPNo']);
+				$SeekerCompany = $this->sanitize($_POST['seekerCompany']);
 				$SeekerEmail = $this->sanitize($_POST['SeekerEmail']);
 				$SeekerUname = $this->sanitize($_POST['SeekerUname']);
 				$SeekerPass = $this->hashPassword($this->sanitize($_POST['SeekerPass']));
 				$insert = $this->model->insertDB($this->seekerTable,$this->seekerDB,array($SeekerFN,$SeekerLN,$SeekerBirthdate,$SeekerAge,
-					$SeekerGender,$SeekerStreet,$SeekerCity,$SeekerAddress,$SeekerCPNo,$SeekerEmail,$SeekerUname,$SeekerPass));
+					$SeekerGender,$SeekerStreet,$SeekerCity,$SeekerAddress,$SeekerCPNo,$SeekerCompany,$SeekerEmail,$SeekerUname,$SeekerPass));
 				if($insert){
 					$_SESSION['seekerUser'] = $insert;
 					echo json_encode(array("error"=>"none"));
@@ -1568,6 +1569,20 @@
 				}
 			}
 		}
+
+		// public function addSeekerCompany(){
+		// 	if(isset($_POST['seekerCompany'])){
+		// 		try {
+		// 		$companyName = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['companyName']));
+		// 		$companyNumber = $this->sanitize($this->upperFirstOnlySpecialChars($_POST['companyNumber']));
+		// 		$res = !empty($_POST["companyDesc"])? $this->model->insertDB("seekerCompany",$this->seekerCompany,array($this->seekerSession,
+		// 		$companyName,$companyNumber,$this->sanitize($_POST["companyDesc"]))): $this->model->insertDB("seekerCompany",$this->seekerCompany,array($this->seekerSession,$companyName,$companyNumber,""));
+		// 		echo json_encode(array("error"=>"none"));
+		// 		} catch (Exception $e) {
+		// 			echo $e->getMessage();
+		// 		}
+		// 	}
+		// }
 
 		public function addEducation(){
 			if(isset($_POST['passerEducation'])){

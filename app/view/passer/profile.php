@@ -210,35 +210,9 @@ $education =
 					</div>
 					<!-- end of rate content -->
 
-
 					<!-- review content -->
-					<div class="tab-pane container fade" id="review1">
-						<div class="row  py-3">
-							<div class="col-md-12 ">
-								<div class="row justify-content-center">
-									<div class="col-md-6">
-										<div class="card shadow">
-											<div class="card-header">
-												<small class="text-info font-weight-bold">Rated on: September 21, 2018</small>
-											</div>
-											<div class="card-body">
-												
-											</div>
-										</div>
-									</div>
-									<div class="col-md-6">
-										<div class="card shadow">
-											<div class="card-header">
-												
-											</div>
-											<div class="card-body">
-												
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<div class="tab-pane container fade scrollable-menu py-4" style="max-height: 600px;" id="review1">
+						<?php echo $reviews; ?>
 					</div>
 					<!-- end of review content -->
 				</div>

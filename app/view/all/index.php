@@ -57,7 +57,7 @@ if(isset($data) && !empty($data)){
 					<li><a href="home">Home</a></li>
 					<li><a href="subscription">Pricing</a></li>
 					<li><a href="search">Passers</a></li>
-					<li><a href="faq">How it works</a></li>
+					<li><a href="howitworks">How it works</a></li>
 					<?php echo $loginDynamic; ?>
 						</ul>
 					</li>

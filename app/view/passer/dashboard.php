@@ -132,15 +132,7 @@
 									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#accommodation1">Service Accommodation</button>
 									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#rate1">Service Rate</button>	
 
-									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#work1">Work Experience</button>
-									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#educational1">Educational</button>
-									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#accommodation1">Service Accommodation</button>
-									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#rate1">Service Rate</button>			
-
-									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#work1">Work Experience</button>
-									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#educational1">Educational</button>
-									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#accommodation1">Service Accommodation</button>
-									<button class="dropdown-item btn btn-link" data-toggle="tab" href="#rate1">Service Rate</button>					
+												
 								</div>
 							</li>	
 						</ul>		

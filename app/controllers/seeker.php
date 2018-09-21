@@ -82,7 +82,178 @@
 		}
 
 		public function profile(){
-			$this->controller->view("seeker/profile");
+			if(empty($_GET['user'])){
+		 		header("location:../home/login");
+		 	}
+		 	$builder = $table = $userUnique = $id = null;
+		 	$dom = $page = null;
+		 	$errorDiv = $reviews = null;
+		 	$passerError = null;
+		 	$id = $this->sanitize($_GET['user']);
+		 	$userDetails = null;
+	 		if(!isset($_GET['page']) || $_GET['page'] <=0 || !is_numeric($_GET['page'])){
+				$page = 1;
+			}else{
+				$page = $this->sanitize($_GET['page']);
+			}
+		 	$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
+		 	if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
+		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+				$userUnique = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+				$userDetails = $this->model->selectAllFromUser($table,$userUnique,array($id));
+		 	}
+
+
+		 	$reviewData = $this->model->joinRatingNoLimit("SeekerID",array($_SESSION['seekerUser'],"Passer"),"RatingsID","DESC");
+			 	foreach ($reviewData as $d) {
+			 		switch ($d['PunctualityRate']) {
+		 				case 1:
+		 					$pLabel = '<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>';
+		 				break;
+		 				case 2:
+		 					$pLabel = '<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>';
+		 				break;
+		 				case 3:
+		 					$pLabel = '<span class="badge badge-primary font-weight-bold"><small>Good</small></span>';
+		 				break;
+		 				case 4:
+		 					$pLabel = '<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>';
+		 				break;
+		 				case 5:
+		 					$pLabel = '<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>';
+		 				break;
+		 				
+		 			}
+		 			switch ($d['WorkQualityRate']) {
+		 				case 1:
+		 					$wLabel = '<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>';
+		 				break;
+		 				case 2:
+		 					$wLabel = '<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>';
+		 				break;
+		 				case 3:
+		 					$wLabel = '<span class="badge badge-primary font-weight-bold"><small>Good</small></span>';
+		 				break;
+		 				case 4:
+		 					$wLabel = '<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>';
+		 				break;
+		 				case 5:
+		 					$wLabel = '<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>';
+		 				break;
+		 				
+		 			}
+		 			switch ($d['PersonalityRate']) {
+		 				case 1:
+		 					$perLabel = '<span class="badge badge-danger font-weight-bold"><small>Bad</small></span>';
+		 				break;
+		 				case 2:
+		 					$perLabel = '<span class="badge badge-warning font-weight-bold"><small>Fair</small></span>';
+		 				break;
+		 				case 3:
+		 					$perLabel = '<span class="badge badge-primary font-weight-bold"><small>Good</small></span>';
+		 				break;
+		 				case 4:
+		 					$perLabel = '<span class="badge badge-info font-weight-bold"><small>Very Good</small></span>';
+		 				break;
+		 				case 5:
+		 					$perLabel = '<span class="badge badge-success font-weight-bold"><small>Excellent</small></span>';
+		 				break;
+		 				
+		 			}
+
+		 			$punctualityRate = $this->createStar($d['PunctualityRate']);
+		 			$WorkQualityRate = $this->createStar($d['WorkQualityRate']);
+		 			$PersonalityRate = $this->createStar($d['PersonalityRate']);
+
+		 			$builder = 
+			 		'
+		 			<div class="row py-3">
+						<div class="col-md-12">
+							<div class="row justify-content-center">
+								<div class="col-md-9">
+									<div class="card shadow">
+										<div class="card-header">
+											<small class="text-info font-weight-bold" > Rated on: '.date("F jS, Y",strtotime($d['ReviewdOn'])).'</small>
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="row ">
+														<div class="col-md-3">
+															<img src="'.$d['PasserProfile'].'" class="w-100 h-100 border border-info">
+														</div>
+														<div class="col-md-9">
+															<label><h3 >'.$d['PasserFN']." ".$d['PasserLN'].'</h3></label>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">
+																					
+														</div>
+														<div class="col-md-9">
+															<label><strong>Personality : '.$PersonalityRate." ".$perLabel.' </strong></label>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">
+																													
+														</div>
+														<div class="col-md-9">
+															<label><strong>Punctuality : '.$punctualityRate." ".$perLabel.' </strong></label>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-3">
+																				
+														</div>
+														<div class="col-md-9">
+															<label><strong>Work Quality : '.$WorkQualityRate." ".$perLabel.' </strong></label>
+														</div>	
+													</div>
+													<div class="row form-group">
+														<div class="col-md-3">
+																				
+														</div>
+														<div class="col-md-9">
+															<label><b>Feedbacks</b></label>
+															<textarea class="form-control" rows="3" disabled="">'.$d['Feedback'].'</textarea>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+			 		';
+			 		$reviews = $reviews ." ".$builder;
+			 	}
+		 	// $data[] = array("passerDetails"=>$details,"userDetails"=>$userDetails,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError,"reviews"=>$reviews);
+		 	$data[] = array("seekerDetails"=>$details,"userDetails"=>$userDetails,"seekerStatus"=>$errorDiv,"passerError"=>$passerError,"reviews"=>$reviews);
+		 // 	$data[] = array("userDetails"=>$details,"paginationDom"=>$paginationData['pagination'],"jobOfferFormDom"=>$dom);
+			// $this->controller->view("seeker/jobOffer",$data);
+			$this->controller->view("seeker/profile",$data);
+		}
+
+		public function agreementRecord(){
+			
+			if(empty($_GET['user'])){
+		 		header("location:../home/login");
+		 	}
+		 	$id = $this->sanitize($_GET['user']);
+		 	$details = $this->model->selectAllFromUser($this->seekerTable,$this->seekerUnique,array($this->seekerSession));
+		 	if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
+		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+				$userUnique = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+				$id = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+				$userDetails = $this->model->selectAllFromUser($table,$userUnique,array($id));
+		 	}
+
+		 	$data[] = array("userDetails"=>$details);
+			$this->controller->view("seeker/agreementRecord",$data);
 		}
 
 		public function register(){
