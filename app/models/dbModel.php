@@ -412,6 +412,16 @@
 			}
 		}
 
+		public function joinAgreement($unique,$user){
+				try {
+				$this->stmt = $this->con->prepare("SELECT * FROM `agreement` a, `seeker` b, `passer` c, `offerjobformused` d WHERE a.`SeekerID` = b.`SeekerID` AND a.`PasserID` = c.`PasserID` AND a.`OfferJobFormUsedID` = d.`JobOfferFormUsedID` AND a.$unique = ?");
+				$this->stmt->execute($user);
+				return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+			} catch (Exception $e) {
+				return $e->getMessage();
+			}
+		}
+
 		public function joinRating($unique,$data,$order,$sort,$offset,$count){
 			$this->stmt = $this->con->prepare("SELECT * FROM `ratings` a, `passer` b, `seeker` c WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.$unique = ? AND a.`ReviewBy` = ? ORDER BY $order $sort LIMIT $offset,$count");
 			$this->stmt->execute($data);

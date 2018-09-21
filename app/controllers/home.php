@@ -217,7 +217,7 @@
 		 	$data = [];
 		 	$details = null;
 		 	$table = null;
-		 	$userUnique = $rating = $stars = $builderStar = null;
+		 	$userUnique = $rating = $stars = $currentUnique = $currentSession = $builderStar = $ownBIO = $sameID = null;
 		 	$sessionActive = $checkActiveWork = null;
 		 	if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
 		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
@@ -225,66 +225,72 @@
 		 		$sessionActive = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
 		 		$details = $this->model->selectAllFromUser($table,$userUnique,array($sessionActive));
 			}
+			$currentUnique = (isset($_SESSION['seekerUser'])?"SeekerID":"PasserID");
+			$currentSession = (isset($_SESSION['seekerUser'])?$_SESSION['seekerUser']:$_SESSION['passerUser']);
 		 	$passerList = $this->model->selectAllFromUser($this->passerTable,"PasserStatus",array(1));
+		 	$ownBIO = $this->model->selectAllFromUser("switch",$currentUnique,array($currentSession));
+		 	if(!empty($ownBIO)){$sameID = $ownBIO[0]["PasserID"];}
 		 	if(!empty($passerList)){
 		 		foreach ($passerList as $data) {
-		 			$rating = (int)$this->model->rating($this->passerUnique,array($data['PasserID'],"Seeker",$data['PasserID'],"Seeker"));
-		 			if(!empty($rating)){
-						for ($i=0; $i < $rating ; $i++) { 
-							$builderStar = '<i class="fas fa-star text-warning"></i>';
-							$stars = $builderStar."".$stars;
+		 			if($data['PasserID'] != $sameID){
+			 			$rating = (int)$this->model->rating($this->passerUnique,array($data['PasserID'],"Seeker",$data['PasserID'],"Seeker"));
+			 			if(!empty($rating)){
+							for ($i=0; $i < $rating ; $i++) { 
+								$builderStar = '<i class="fas fa-star text-warning"></i>';
+								$stars = $builderStar."".$stars;
+							}
+							for ($j=$i; $j < 5 ; $j++) { 
+								$stars = $stars.'<i class="fas fa-star"></i>';
+							}
+							unset($i,$j);
 						}
-						for ($j=$i; $j < 5 ; $j++) { 
-							$stars = $stars.'<i class="fas fa-star"></i>';
+						else{
+							$stars = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
 						}
-						unset($i,$j);
-					}
-					else{
-						$stars = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
-					}
-		 			if($this->checkExistingWorkPasser($data[$this->passerUnique]) == false){
-			 			$builder = '
-							<div class="col-md-6">
-          						<div class="card shadow animated1 flipInX" style="height:95%">
-          							<div class="card-body">
-          								<div class="row">
-          									<div class="col-md-5 text-center hoverable">
-          										<a title="Jodel Adan">
-          											<img src="'.$this->sanitize($data["PasserProfile"]).'" class="rounded-circle border border-primary wow fadeInUp" width="150" height="150">
-          											<br>
-          											<a class="badge badge-success mt-3 font-weight-bold text-white">
-          												<i class="fas fa-check"></i> Verified Passer 
-          											</a>
-          									</div>
-          									<div class="col-md-7 text-center" style="font-family: Georgia, Times, Times New Roman, serif;">
-          										<a href="">
-          											<p class="text-info" style="font-size:30px">
-          											'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'
-          											</p>
-          										</a>
-      											<label class="trebuchet" style="font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height: 26.4px;font-size: 18px">
-      												'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'
-      											</label>
-      											<div class="container">
-	      											'.$stars.'
-												</div>
-          									</div>
-          								</div>
-          								<div class="row">
-          									<div class="col-md-12 text-center mt-3 text-primary">
-          										<p style="font-size: 15px; color: blue">Education, Trainings & Organizations</p>
-          										<p class="text-dark" style="font-size: 15px;">'.$this->sanitize($data["PasserCertificateType"]).'</p>
-          									</div>
-          								</div>
-          							</div>
-          							<div class=" card-footer  text-center" style="height:90px">
-          								<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn-change1 btn btn-lg text-white" style="background:#0062cc">View profile</a>
-          							</div>
-          						</div>
-          					</div>';
-			 			$dom = $dom."".$builder;
-			 		}
-			 		$rating = $stars = null;
+			 			if($this->checkExistingWorkPasser($data[$this->passerUnique]) == false){
+				 			$builder = '
+								<div class="col-md-6">
+	          						<div class="card shadow animated1 flipInX" style="height:95%">
+	          							<div class="card-body">
+	          								<div class="row">
+	          									<div class="col-md-5 text-center hoverable">
+	          										<a title="Jodel Adan">
+	          											<img src="'.$this->sanitize($data["PasserProfile"]).'" class="rounded-circle border border-primary wow fadeInUp" width="150" height="150">
+	          											<br>
+	          											<a class="badge badge-success mt-3 font-weight-bold text-white">
+	          												<i class="fas fa-check"></i> Verified Passer 
+	          											</a>
+	          									</div>
+	          									<div class="col-md-7 text-center" style="font-family: Georgia, Times, Times New Roman, serif;">
+	          										<a href="">
+	          											<p class="text-info" style="font-size:30px">
+	          											'.$this->sanitize($data["PasserFN"])." ".$this->sanitize($data["PasserMname"]).". ". $this->decodeISO($this->sanitize($data["PasserLN"])).'
+	          											</p>
+	          										</a>
+	      											<label class="trebuchet" style="font-family: Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif;line-height: 26.4px;font-size: 18px">
+	      												'. $this->decodeISO($this->sanitize($data["PasserCertificate"])) .'
+	      											</label>
+	      											<div class="container">
+		      											'.$stars.'
+													</div>
+	          									</div>
+	          								</div>
+	          								<div class="row">
+	          									<div class="col-md-12 text-center mt-3 text-primary">
+	          										<p style="font-size: 15px; color: blue">Education, Trainings & Organizations</p>
+	          										<p class="text-dark" style="font-size: 15px;">'.$this->sanitize($data["PasserCertificateType"]).'</p>
+	          									</div>
+	          								</div>
+	          							</div>
+	          							<div class=" card-footer  text-center" style="height:90px">
+	          								<a href="../passer/profile?user='.$this->sanitize($data["PasserCOCNo"]).'" class="btn-change1 btn btn-lg text-white" style="background:#0062cc">View profile</a>
+	          							</div>
+	          						</div>
+	          					</div>';
+				 			$dom = $dom."".$builder;
+				 		}
+				 		$rating = $stars = null;
+				 	}
 		 		}
 		 	}
 			$data[] = array("userDetails"=>$details,"passerListAll"=>$dom);
@@ -907,7 +913,7 @@
 									<small class="font-weight-bold">'.date("F jS, Y",strtotime($jobStart)).' | '.date("g:i A",strtotime($jobStart)).'</small>
 								</td>
 								<td>
-									<button class="btn btn-primary" data-toggle="modal" name="viewDetailsWork" id='.$d['OfferJobID'].' data-target="#update">View Details</button>
+									<button class="btn btn-primary" data-toggle="modal" name="viewDetailsWork" id='.(isset($_SESSION['seekerUser'])?$d['SeekerID']:$d['PasserID']).' data-target="#update">View Details</button>
 								</td>
 							</tr>
 						';
@@ -935,6 +941,74 @@
 			$details = $this->model->selectAllFromUser($table,$unique,array($user));
 			$data[] = array("userDetails"=>$details,"dom"=>$dom);
 			$this->controller->view("all/transactions",$data);
+		}
+
+		public function agreementrecords(){
+			$details = $userData = $formUsed = $builder = $dom = $badge = $message = $jobStart = $unique = $user = $table = null;
+			$data = [];
+			if(!$this->checkSession('seekerUser') && !$this->checkSession('passerUser')){
+		 		header("location:login");
+		 	}
+			if($this->checkSession('passerUser') || $this->checkSession('seekerUser')){
+		 		$table = (isset($_SESSION['passerUser'])?$this->passerTable:$this->seekerTable);
+		 		$userUnique = (isset($_SESSION['passerUser'])?$this->passerUnique:$this->seekerUnique);
+		 		$sessionActive = (isset($_SESSION['passerUser'])?$_SESSION['passerUser']:$_SESSION['seekerUser']);
+		 		$details = $this->model->selectAllFromUser($table,$userUnique,array($sessionActive));
+			}
+			$user = (isset($_SESSION['seekerUser'])?$_SESSION['seekerUser']:$_SESSION['passerUser']);
+			$unique = (isset($_SESSION['seekerUser'])?"SeekerID":"PasserID");
+			$userData = $this->model->joinAgreement($unique,array($user));
+				foreach ($userData as $d) {
+					if($this->checkSession('passerUser')){
+					$builder = 
+					'
+					<div class="col-md-4 mx-auto mt-5">                      
+                      <div class="card shadow">
+                        <div class="card-header">
+                          <h5><i class="fas fa-user"></i> Employment Agreement with '.$d['SeekerFN']." ".$d['SeekerLN'].' <small class="text-success"><h5>Created '.date("F jS, Y",strtotime($d['AgreementDateandTime'])).'</h5></small></h5>
+                        </div>
+                        <hr>
+                        <div class="card-body">
+                          <div class="row justify-content-center p-auto">
+                            <div class="col-sm-12">
+                              <img src="../../public/etc/images/system/PMlogo.png" class="pb-4 cursor modalAddDetails rounded mx-auto d-block" data-toggle="modal" data-target="#agreement" id="" style="width:150px; height:150px; ">
+                              <!-- <h4 class="text-center pt-2"><label data-toggle="modal" data-target="#agreement" >PASSERSMATE AGREEMENT</label></h4> -->
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+					';
+					}
+					else{
+						$builder = 
+						'
+						<div class="col-md-4 mx-auto mt-5">                      
+	                      <div class="card shadow">
+	                        <div class="card-header">
+	                          <h5><i class="fas fa-user"></i> Employment Agreement with '.$d['PasserFN']." ".$d['PasserLN'].' <small class="text-success"><h5>Created '.date("F jS, Y",strtotime($d['AgreementDateandTime'])).'</h5></small></h5>
+	                        </div>
+	                        <hr>
+	                        <div class="card-body">
+	                          <div class="row justify-content-center p-auto">
+	                            <div class="col-sm-12">
+	                              <img src="../../public/etc/images/system/PMlogo.png" class="pb-4 cursor modalAddDetails rounded mx-auto d-block" data-toggle="modal" data-target="#agreement" id="" style="width:150px; height:150px; ">
+	                              <!-- <h4 class="text-center pt-2"><label data-toggle="modal" data-target="#agreement" >PASSERSMATE AGREEMENT</label></h4> -->
+	                            </div>
+	                          </div>
+	                        </div>
+	                      </div>
+	                    </div>
+
+						';
+					}
+					$dom.=$builder;
+				}
+
+			$data[] = array("userDetails"=>$details,"dom"=>$dom);
+
+			$this->controller->view("all/agreementRecord",$data);
 		}
 
 	}

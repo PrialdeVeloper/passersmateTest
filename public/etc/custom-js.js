@@ -3418,9 +3418,8 @@ $(function(){
 			data: {"getData":"","id":id},
 			success: function(a){
 				let obj = JSON.parse(a);
-				console.log(obj);
 				if(obj.error == "none"){
-					let data = obj['data'];
+					let data = obj['data'][1];
 					jobSeekerName.empty().html(data['SeekerFN']+" "+data['SeekerFN']);
 					jobPasserName.empty().html(data['PasserCertificate']);
 					jobWorkingAdrress.empty().html(data['WorkingAddress']);

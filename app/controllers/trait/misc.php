@@ -2730,7 +2730,7 @@
 				if(isset($_POST['getData'])){
 					$user = (isset($_SESSION['seekerUser'])?$this->seekerUnique:$this->passerUnique);
 					$data = $this->sanitize($_POST['id']);
-					$dbData = $this->model->joinOfferJobFormUsed($user,array($data))[0];
+					$dbData = $this->model->joinOfferJobFormUsed($user,array($data));
 					echo json_encode(array("error"=>"none","data"=>$dbData));
 				}
 			}

@@ -4,6 +4,7 @@
 3 - denied
 4 - (user)deactivate
 5 - (admin)deactivate
+6 - switched
 
 
 format sa pagcreate notification
