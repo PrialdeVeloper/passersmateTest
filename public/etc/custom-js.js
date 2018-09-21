@@ -1550,6 +1550,50 @@ $(function(){
 	});
 });
 
+$(function(){
+	$("#addCompanyModal").submit(function(event){
+		event.preventDefault();
+		let companyName = $("input[name=companyName]").val();
+		let companyNumber = $("input[name=companyNumber").val();
+		let companyDesc = $("textarea[name=companyDesc").val();
+		if(checkEmpty(companyName) || checkEmpty(companyNumber) || checkEmpty(companyDesc)){
+				$("#addCompanyModalError").empty();
+				if(checkEmpty(companyName)){
+					showDivError("#addCompanyModalError","Please enter company name");
+				}
+				if(checkEmpty(companyNumber)){
+					showDivError("#addCompanyModalError","Please enter a Valid Number");
+				}
+				if(checkEmpty(companyDesc)){
+					showDivError("#addCompanyModalError","Please enter company description");
+				}
+		}else{
+			let formData = new FormData(this);
+			formData.append("seekerCompany","");
+			$.ajax({
+				url: "addSeekerCompany",
+				method: "POST",
+				data: formData,
+				processData: false,
+    			contentType: false,
+				success: function(dataRet){
+					
+					let obj = JSON.parse(dataRet);
+					if(obj.error == "none"){
+						window.location='dashboard';
+					}
+					else{
+						showDivError("#addCompanyModalError","There was an error inserting your data. Please try again later");
+					}
+				},
+				fail: function(){
+					alert("cannot connect to server");
+				}
+			});
+		}
+	});
+});
+
 // passer Fee
 
 $(function(){

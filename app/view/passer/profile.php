@@ -30,48 +30,6 @@
 
 <?php
 // education contents
-$education = 
-	'
-		<div class="row ">
-			<div class="col-sm-12 text-center pt-4 pb-3">
-				<label><h3>Highest Educational Attainment</h3></label>
-			</div>
-		</div>	
-		<div class="row justify-content-center">
-			<div class="card shadowDiv col-sm-10">
-				<div class="card-header bg-white">
-					<i class="fas fa-graduation-cap h2" style="color: darkblue;"></i>
-				</div>
-				<div class="card-body">
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Highest Educational Attainment</label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung Unsa Iyang Highest Education amaw man diay ko</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<label>School/University</label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung Unsa Iyang Skuylahan amaw man diay ko</label>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-sm-4">
-							<label>Accomplishments or descriptions <small style="opacity: 0.5">(optional)</small></label>
-						</div>
-						<div class="col-sm-8">
-							<label>kung Unsa Iyang ContactNumber amaw man diay ko</label>
-						</div>
-					</div>									
-				</div>
-			</div>
-		</div>	
-		
-	';
 
 // 
 
@@ -140,7 +98,6 @@ $education =
 							<div class="dropdown-menu scrollable-menu" role="menu">
 								<button class="dropdown-item btn btn-link" data-toggle="tab" href="#work1">Work Experience</button>
 								<button class="dropdown-item btn btn-link" data-toggle="tab" href="#educational1">Educational</button>
-								<button class="dropdown-item btn btn-link" data-toggle="tab" href="#accommodation1">Service Accommodation</button>
 								<button class="dropdown-item btn btn-link" data-toggle="tab" href="#rate1">Service Rate</button>			
 							</div>
 						</li>
@@ -160,53 +117,16 @@ $education =
 					<!-- end of workExperience content -->
 
 					<!-- educational content -->
-					<div class="tab-pane container fade" id="educational1">
+					<div class="tab-pane container fade scrollable-menu py-4" style="max-height: 600px;" id="educational1">
 						<?=$education;?>
 					</div>
 					<!-- end of educational content -->
 
-					<!-- accommodation content -->
-					<div class="tab-pane container fade" id="accommodation1">
-						<div class="row ">
-							<div class="col-sm-12 text-center pt-4 pb-3">
-								<label><h3>Service Accommodation</h3></label>
-							</div>
-						</div>
-						<div class="row justify-content-center">
-							<div class="card shadowDiv col-sm-10">
-								<div class="card-header bg-white">
-									<i class="fas fa-cog h2" style="color: darkblue;"></i>									
-								</div>
-								<div class="card-body">
-									<div class="row">
-										<div class="col-sm-4">
-											<label>Onsite</label>
-										</div>
-										<div class="col-sm-8">
-											<label>kung Unsa Iyang Onsite amaw man diay ko</label>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-4">
-											<label>Offsite</label>
-										</div>
-										<div class="col-sm-8">
-											<label>kung Unsa Iyang Offsite amaw man diay ko</label>
-										</div>
-									</div>						
-								</div>
-							</div>
-						</div>	
-					</div>
-					<!-- end of accommodation content -->
+					
 
 					<!-- rate content -->
 					<div class="tab-pane container fade" id="rate1">
-						<div class="row ">
-							<div class="col-sm-12 text-center pt-4 pb-3">
-								<label><h3>Service Rate</h3></label>
-							</div>
-						</div>
+						<?php echo $serviceFee; ?>
 					</div>
 					<!-- end of rate content -->
 

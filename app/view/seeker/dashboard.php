@@ -96,7 +96,7 @@ $rate = "Very Good!";
 	<!-- 2nd row -->
 	<div class="row mt-4">
 		<!-- start of 1st box 2nd row -->
-		<div class="col-md-4 bg-secondary border border rounded mx-5" id="myQuickLinks">
+		<div class="col-md-4 bg-secondary border border rounded mx-5" id="">
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-user text-white"></i></div>
 				<div class="col-md-auto"><label><a href="profile?user=<?=$SeekerID;?>" class="text-white">My Profile</a></label></div>
@@ -107,7 +107,7 @@ $rate = "Very Good!";
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-people-carry text-white"></i></div>
-				<div class="col-md-auto"><label><a href="hiredpassers" class="text-white">My Choosen Passers</a></label></div>
+				<div class="col-md-auto"><label><a href="hiredpassers" class="text-white">My Chosen Passers</a></label></div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-star text-white"></i></div>
@@ -205,7 +205,7 @@ $rate = "Very Good!";
       		</table>
       	</div>
 	</div>
-		<!-- <div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv">
+		<div class="col offset-sm-1 border rounded bg-white mx-5 shadowDiv">
 			<div class="d-flex justify-content-center mt-4">
 				<label id="ashGray" class="lead text-center">
 				Add your Company
@@ -218,12 +218,11 @@ $rate = "Very Good!";
 						<label>PassersMate will help your company to find a trusted and skilled passer</label>
 					</div>
 				</div>
-      		</div>
-      		<hr>
+      		</div><hr>
       		<div class="container d-flex justify-content-center blue font-weight-bold">
-      			<label class="text-center"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Company</span></label>
+      			<label class="text-center"  data-toggle="modal" data-target="#addCompany"><i class="fas fa-plus-circle"></i>&nbsp;<span>Add Company</span></label>
       		</div>
-		</div> -->
+		</div>
 		<!-- end of 2nd box 2nd row -->
 	</div>
 	<!-- end of 2nd row -->

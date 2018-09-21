@@ -85,7 +85,7 @@
 			if(empty($_GET['user'])){
 		 		header("location:../home/login");
 		 	}
-		 	$builder = $table = $userUnique = $id = null;
+		 	$builder = $table = $userUnique = $id = $overview = null;
 		 	$dom = $page = null;
 		 	$errorDiv = $reviews = null;
 		 	$passerError = null;
@@ -104,6 +104,48 @@
 				$userDetails = $this->model->selectAllFromUser($table,$userUnique,array($id));
 		 	}
 
+		 	$overviewData = $this->model->selectAllFromUser("seekerCompany", $this->seekerUnique, array($this->seekerSession))[0];
+		 	foreach ($overviewData as $d) {
+		 	$builder = 
+		 	'
+		 		
+				<div class="row justify-content-center py-2">
+					<div class="card shadowDiv col-sm-10">
+						<div class="card-header bg-white">
+							<i class="fas fa-graduation-cap h2" style="color: darkblue;"></i>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-5">
+									<label>Seeker Company</label>
+								</div>
+								<div class="col-sm-7">
+									<label>'.$overviewData['companyName'].'</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-5">
+									<label>Seeker Number</label>
+								</div>
+								<div class="col-sm-7">
+									<label>'.$overviewData['companyNumber'].'</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-5">
+									<label>Seeker Descriptions <small style="opacity: 0.5">(optional)</small></label>
+								</div>
+								<div class="col-sm-7">
+									<label>'.$overviewData['companyDesc'].'</label>
+								</div>
+							</div>									
+						</div>
+					</div>
+				</div>		
+		 	';
+
+		 	$overview = $overview ." ".$builder;
+		 }
 
 		 	$reviewData = $this->model->joinRatingNoLimit("SeekerID",array($_SESSION['seekerUser'],"Passer"),"RatingsID","DESC");
 			 	foreach ($reviewData as $d) {
@@ -230,9 +272,9 @@
 					</div>	
 			 		';
 			 		$reviews = $reviews ." ".$builder;
-			 	}
+	 			}
 		 	// $data[] = array("passerDetails"=>$details,"userDetails"=>$userDetails,"passerStatus"=>$errorDiv,"workHistory"=>$dom,"seekerError"=>$seekerError,"reviews"=>$reviews);
-		 	$data[] = array("seekerDetails"=>$details,"userDetails"=>$userDetails,"seekerStatus"=>$errorDiv,"passerError"=>$passerError,"reviews"=>$reviews);
+		 	$data[] = array("seekerDetails"=>$details,"userDetails"=>$userDetails,"seekerStatus"=>$errorDiv,"passerError"=>$passerError,"reviews"=>$reviews,"overview"=>$overview);
 		 // 	$data[] = array("userDetails"=>$details,"paginationDom"=>$paginationData['pagination'],"jobOfferFormDom"=>$dom);
 			// $this->controller->view("seeker/jobOffer",$data);
 			$this->controller->view("seeker/profile",$data);
