@@ -2428,7 +2428,7 @@
 													if(!empty($agreementCheck) && $agreementCheck[0]['OfferJobID'] == $jobofferID){
 														$update = $this->model->updateDBDynamic("agreement",array("AgreementStatus"),array(3,$agreementCheck[0]['AgreementID']),array("AgreementID"));
 													}
-													$this->createNotification("cancellationPasser",array("sendTo"=>"SeekerID","id"=>$otherUserID,"message"=>"2"));
+													$this->createNotification("cancellationPasser",array("sendTo"=>"PasserID","id"=>$otherUserID,"message"=>"2"));
 													$this->model->updateDB($this->cancelTable,array("CancellationStatus"),array(2),"OfferJobID",$jobofferID);
 													echo json_encode(array("error"=>"none"));
 												}

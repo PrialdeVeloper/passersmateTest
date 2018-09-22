@@ -556,7 +556,7 @@ $(function(){
 		}else{
 			page = getURLData("page");
 		}
-		fields = ['PasserCertificate','PasserGender','PasserAge','PasserRate','PasserCity','PasserStatus'];
+		fields = ['PasserCertificate','PasserGender','PasserAge','PasserFee','PasserCity','PasserStatus'];
 		data = ["%"+jobTitle+"%",gender,age,budget,citytry,1];
 		history.pushState("","","?search=search&jobtitle="+jobTitle+"&budget="+budgettry+"&gender="+gendertry+"&age="+agetry+"&city="+citytry+"&page="+page);
 		$.ajax({
@@ -1577,7 +1577,7 @@ $(function(){
 				processData: false,
     			contentType: false,
 				success: function(dataRet){
-					
+					console.log(dataRet);
 					let obj = JSON.parse(dataRet);
 					if(obj.error == "none"){
 						window.location='dashboard';
@@ -3028,6 +3028,7 @@ $(function(){
 				method:"POST",
 				data:{"cancel":"","offerJobID":cancelJobOffer,"reason":reason,"otherUser":cancelOtherUser},
 				success: function(a){
+					console.log(a);
 					let obj = JSON.parse(a);
 					switch(obj.error){
 						case "noActiveOfferJob":
@@ -3101,7 +3102,7 @@ $(function(){
 				let obj = JSON.parse(a);
 				switch(obj.error){
 					case "none":
-						toastSuccess("You have successfully Accepted the job offered.");
+						toastSuccess("You have successfully cancelled the job offered.");
 						delayRedirect(currentHome);
 						jobofferIDPasser = "";
 						jobofferIDSender = "";

@@ -104,48 +104,52 @@
 				$userDetails = $this->model->selectAllFromUser($table,$userUnique,array($id));
 		 	}
 
-		 	$overviewData = $this->model->selectAllFromUser("seekerCompany", $this->seekerUnique, array($this->seekerSession))[0];
-		 	foreach ($overviewData as $d) {
-		 	$builder = 
-		 	'
-		 		
-				<div class="row justify-content-center py-2">
-					<div class="card shadowDiv col-sm-10">
-						<div class="card-header bg-white">
-							<i class="fas fa-graduation-cap h2" style="color: darkblue;"></i>
-						</div>
-						<div class="card-body">
-							<div class="row">
-								<div class="col-sm-5">
-									<label>Seeker Company</label>
-								</div>
-								<div class="col-sm-7">
-									<label>'.$overviewData['companyName'].'</label>
-								</div>
+		 	$overviewData = $this->model->selectAllFromUser("seekerCompany", $this->seekerUnique, array($this->seekerSession));
+		 	if(!empty($overviewData)){
+			 	foreach ($overviewData as $d) {
+			 	$builder = 
+			 	'
+			 		
+					<div class="row justify-content-center py-2">
+						<div class="card shadowDiv col-sm-10">
+							<div class="card-header bg-white">
+								<i class="fas fa-graduation-cap h2" style="color: darkblue;"></i>
 							</div>
-							<div class="row">
-								<div class="col-sm-5">
-									<label>Seeker Number</label>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-sm-5">
+										<label>Seeker Company</label>
+									</div>
+									<div class="col-sm-7">
+										<label>'.$overviewData['companyName'].'</label>
+									</div>
 								</div>
-								<div class="col-sm-7">
-									<label>'.$overviewData['companyNumber'].'</label>
+								<div class="row">
+									<div class="col-sm-5">
+										<label>Seeker Number</label>
+									</div>
+									<div class="col-sm-7">
+										<label>'.$overviewData['companyNumber'].'</label>
+									</div>
 								</div>
+								<div class="row">
+									<div class="col-sm-5">
+										<label>Seeker Descriptions <small style="opacity: 0.5">(optional)</small></label>
+									</div>
+									<div class="col-sm-7">
+										<label>'.$overviewData['companyDesc'].'</label>
+									</div>
+								</div>									
 							</div>
-							<div class="row">
-								<div class="col-sm-5">
-									<label>Seeker Descriptions <small style="opacity: 0.5">(optional)</small></label>
-								</div>
-								<div class="col-sm-7">
-									<label>'.$overviewData['companyDesc'].'</label>
-								</div>
-							</div>									
 						</div>
-					</div>
-				</div>		
-		 	';
+					</div>		
+			 	';
 
-		 	$overview = $overview ." ".$builder;
-		 }
+			 	$overview = $overview ." ".$builder;
+			 }
+			}else{
+				$overview = "No company to show";
+			}
 
 		 	$reviewData = $this->model->joinRatingNoLimit("SeekerID",array($_SESSION['seekerUser'],"Passer"),"RatingsID","DESC");
 			 	foreach ($reviewData as $d) {

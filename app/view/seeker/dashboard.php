@@ -136,7 +136,7 @@ $rate = "Very Good!";
 					<label class="text-white" id="smaller">My Agreement Records
 					</label>
 				</div> -->
-				<div class="col-md-auto"><label><a href="agreementRecord" class="text-white">Employment Agreement Record</a></label></div>
+				<div class="col-md-auto"><label><a href="../home/agreementrecords" class="text-white">Employment Agreement Record</a></label></div>
 			</div>
 			<div class="row pt-2 hoverAccountSeeker">
 				<div class="col-sm-1 ml-3"><i class="fas fa-money-bill-wave-alt text-white"></i></div>

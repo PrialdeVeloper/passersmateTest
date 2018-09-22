@@ -114,7 +114,7 @@ require "../public/header-footer/seeker/seekerHeader.marvee";
                       You can try contacting the mentioned passer in the chat to try to resolve your issues
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Done</button>
                     </div>
                   </div>
                 </div>

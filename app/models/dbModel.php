@@ -90,7 +90,7 @@
 		}
 
 		public function selectAllDynamicLikeLimitSearch($table,$data,$offset,$limit){
-			$this->stmt = $this->con->prepare("SELECT * from $table WHERE `PasserCertificate` LIKE ? AND `PasserGender` <> ? AND `PasserAge` >= ? AND `PasserRate` >= ? AND `PasserCity` LIKE ? AND `PasserStatus` = ? LIMIT $offset,$limit");
+			$this->stmt = $this->con->prepare("SELECT * from $table WHERE `PasserCertificate` LIKE ? AND `PasserGender` <> ? AND `PasserAge` >= ? AND `PasserFee` >= ? AND `PasserCity` LIKE ? AND `PasserStatus` = ? LIMIT $offset,$limit");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
@@ -363,7 +363,7 @@
 		}
 
 		public function joinOfferJobFormUsed($user, $data){
-			$this->stmt = $this->con->prepare("SELECT * FROM `transactionhistory` a, `offerjob` b, `offerjobform` c, `seeker` d, `passer` e  WHERE a.`OfferJobID` = b.`OfferJobID` AND b.`OfferJobFormID` = c.`OfferJobFormID` AND b.`SeekerID` = d.`SeekerID` AND b.`PasserID` = e.`PasserID` AND b.$user = ?");
+			$this->stmt = $this->con->prepare("SELECT * FROM `transactionhistory` a, `offerjob` b, `offerjobform` c, `seeker` d, `passer` e  WHERE a.`OfferJobID` = b.`OfferJobID` AND b.`OfferJobFormID` = c.`OfferJobFormID` AND b.`SeekerID` = d.`SeekerID` AND b.`PasserID` = e.`PasserID` AND b.$user = ? ORDER BY `TransactionDateTime` DESC");
 			$this->stmt->execute($data);
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}

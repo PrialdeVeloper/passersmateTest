@@ -19,9 +19,7 @@ Address: Duljo C.C
 penaso@g.com
 Address: Pasil C.C
 ---------------------
-6.MOYA, JUDY ANN D.	11130502021197
-moya@g.com
-Address: Padre Burgos Street C.C
+
 ---------------------
 JAPSAY, ROSE ANN B.	15120502006644
 japsay@g.com
@@ -356,6 +354,9 @@ Sta. Barbara Zamboanga City
 Commonwealth	Quezon City
 ------------------------------------
 Login Passer
+6.MOYA, JUDY ANN D.	11130502021197
+moya@g.com
+Address: Padre Burgos Street C.C
 
 2.LINCUNA, JULIETA L.	15130702030231	
 lincuna@g.com
@@ -369,6 +370,20 @@ Expiration: 11/11/2020
 ID: 1231231
 ------------------------------------
 Login Seeker
+2. Gemma Prialde
+Commonwealth	Quezon City
+Job Title: CARPENTRY
+gemma@gmail.com
+password:seeker101
+Salary:Hourly Rate	PHP 66.00 Hourly Rate PHP 3,006
+Start Date: September 25- October 12
+NOTES:
+Build closets, counters, shelves, cabinets, doors, bulletin boards, windows, wall panels and other related finish carpentry items.
+Dismantle or demolish and remove designated items prior to the commencement of repairs.
+Select lumber, materials and supplies.
+Work from blueprints, sketches and drawings in addition to verbal and written descriptions to accomplish the job.
+
+
 1. Remegia Abuga
 Job Title:HOUSEHOLD SERVICES
 Carlock Street C.C	
@@ -383,18 +398,7 @@ Fill cart with supplies and transport cart to assigned area.
 Disinfect and wash beds and trash cans as scheduled.
 Perform deep cleaning of rooms as assigned.
 
-2. Gemma Prialde
-Commonwealth	Quezon City
-Job Title: CARPENTRY
-gemma@gmail.com
-password:seeker101
-Salary:Hourly Rate	PHP 66.00 Hourly Rate PHP 3,006
-Start Date: September 25- October 12
-NOTES:
-Build closets, counters, shelves, cabinets, doors, bulletin boards, windows, wall panels and other related finish carpentry items.
-Dismantle or demolish and remove designated items prior to the commencement of repairs.
-Select lumber, materials and supplies.
-Work from blueprints, sketches and drawings in addition to verbal and written descriptions to accomplish the job.
+
 -------------------------------------
 Admin Login
 franco101

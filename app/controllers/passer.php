@@ -231,7 +231,8 @@
 			 	';
 				$serviceFee = $serviceFee ." ". $builder;
 
-			 	$educationData = $this->model->selectAllFromUser("passerEducation",$this->passerUnique,array($this->passerSession))[0];
+			 	$educationData = $this->model->selectAllFromUser("passerEducation",$this->passerUnique,array($this->passerSession));
+			 	if(!empty($educationData)){
 
 			 	$builder = 
 			 	'
@@ -275,6 +276,9 @@
 					</div>
 			 	';
 			 	$education = $education ." ".$builder;
+			 }else{
+			 	$education = '<div class="container">No data to display.</div>';
+			 }
 
 			 	$reviewData = $this->model->joinRatingNoLimit("PasserID",array($PasserID,"Seeker"),"RatingsID","DESC");
 			 	foreach ($reviewData as $d) {
@@ -352,10 +356,10 @@
 												<div class="col-md-12">
 													<div class="row ">
 														<div class="col-md-3">
-															<img src="'.$d['PasserProfile'].'" class="w-100 h-100 border border-info">
+															<img src="'.$d['SeekerProfile'].'" class="w-100 h-100 border border-info">
 														</div>
 														<div class="col-md-9">
-															<label><h3 >'.$d['PasserFN']." ".$d['PasserLN'].'</h3></label>
+															<label><h3 >'.$d['SeekerFN']." ".$d['SeekerLN'].'</h3></label>
 														</div>
 													</div>
 													<div class="row">
@@ -535,7 +539,7 @@
 							if($checkCommented[0]["COUNT(*)"] <= 0){
 								$employmentAgreement = 
 								'
-							
+								<button type="button" class="btn btn-outline-danger" name="disputeJobOffer" data-toggle="modal" data-target="#dispute" title="Dispute the Job offer">Dispute</button>
 								<button type="button" class="btn btn-outline-success" name="doneJobOffer" data-toggle="modal" data-target="#doneModal" title="Rate Seeker">Rate Seeker</button>
 								';
 							}else{

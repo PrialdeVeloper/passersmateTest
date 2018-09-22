@@ -130,22 +130,7 @@
 						            </div>
            						</div>
 
-           						<div class="col-md-4 mt-2">
-       								<h6>Highest Educational Attainment:</h6>
-	           					    <div class="input-group">
-						             	<select class="custom-select border-secondary">
-										  <option selected>Any</option>
-										  <option value="kinder">Kinder</option>
-										  <option value="elementary">Elementary</option>
-										  <option value="hlevel">High School Level</option>
-										  <option value="hgraduate">High School Graduate</option>
-										  <option value="clevel">College Level</option>
-										  <option value="cgraduate">College Graduate</option>
-										  <option value="mdegree">Master Degree</option>
-										  <option value="phd">PhD</option>
-										</select>
-						            </div>
-           						</div>
+           						
 
            						<div class="col-md-3">
 	   								<h5>Age:</h5>
@@ -174,7 +159,7 @@
 				</div>
 				<div class="collapse" id="show">
 					<div class="row mt-4pt-4 bg-light">	
-						<div class="col-md-5 mt-2">
+						<div class="col-md-5 mt-2 mx-auto">
 							<h5>Location:</h5>
 						    <div class="input-group">
 				             	<input list="cities" name="citySearch" class="form-control">
@@ -326,23 +311,13 @@
 									</datalist>
 			            	</div>
 						</div>
-						<div class="col-md-3 mb-3 mt-2">
+						<div class="col-md-3 mb-3 mt-2 d-none">
 							<h5>Number of Passers:</h5>
 							 <div class="input-group">
 		               		<input  name="numberPasser" class="form-control border-secondary py-2 rounded" type="number" min="1">
 		           		 </div>
 						</div>
-						<div class="col-md-4">
-							<h5>Sort by:</h5>
-						    <div class="input-group">
-				             	<select class="custom-select border-secondary">
-								  <option selected>Relevance</option>
-								  <option value="female">Date</option>
-								  <option value="male">Service Fee</option>
-								  <option value="male">Ratings</option>
-								</select>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>
