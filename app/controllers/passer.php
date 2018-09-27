@@ -4,7 +4,7 @@
 		public $passerReg = array("PasserCOCNo","PasserFN","PasserLN","PasserMname","PasserPass","PasserEmail","PasserCertificate","PasserCertificateTyPe","PasserTESDALink","PasserCOCExpiryDate");
 		public $passDashboardPersonalDetails = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserAge");
 		public $passDashboardPersonalDetailsWithPhoto = array("PasserAddress","PasserStreet","PasserCity","PasserGender","PasserCPNo","PasserBirthdate","PasserProfile","PasserAge");
-		public $passerWorkHistory = array("OfferJobID","PasserID","PasserJobTitle","PasserCompany","PasserCompanyNumber","PasserWorkHistoryDesc","PasserWorkHistoryStartDate","PasserWorkHistoryEndDate","PasserWorkHistoryWorkDays","PasserAge");
+		public $passerWorkHistory = array("OfferJobID","PasserID","PasserJobTitle","PasserCompany","PasserCompanyNumber","PasserWorkHistoryDesc","PasserWorkHistoryStartDate","PasserWorkHistoryEndDate","PasserWorkHistoryWorkDays");
 		public $passerEducation = array("passerID","educationAttainment","educationSchool","educationAccomplishment");
 		public $passerValidate = array("passerID","frontID","backID","selfie","COC","idType","idNumber","expirationDate");
 		protected $passerTable = 'passer';
@@ -252,7 +252,7 @@
 										<label>Highest Educational Attainment</label>
 									</div>
 									<div class="col-sm-7">
-										<label>'.$educationData['educationAttainment'].'</label>
+										<label>'.$educationData[0]['educationAttainment'].'</label>
 									</div>
 								</div>
 								<div class="row">
@@ -260,7 +260,7 @@
 										<label>School/University</label>
 									</div>
 									<div class="col-sm-7">
-										<label>'.$educationData['educationSchool'].'</label>
+										<label>'.$educationData[0]['educationSchool'].'</label>
 									</div>
 								</div>
 								<div class="row">
@@ -268,7 +268,7 @@
 										<label>Accomplishments or descriptions <small style="opacity: 0.5">(optional)</small></label>
 									</div>
 									<div class="col-sm-7">
-										<label>'.$educationData['educationAccomplishment'].'</label>
+										<label>'.$educationData[0]['educationAccomplishment'].'</label>
 									</div>
 								</div>									
 							</div>

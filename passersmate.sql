@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 21, 2018 at 04:25 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Host: 127.0.0.1:3307
+-- Generation Time: Sep 27, 2018 at 07:17 AM
+-- Server version: 10.2.8-MariaDB
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,12 +28,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `admin`
 --
 
-CREATE TABLE `admin` (
-  `AdminID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `admin`;
+CREATE TABLE IF NOT EXISTS `admin` (
+  `AdminID` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`AdminID`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `admin`
@@ -54,14 +56,29 @@ INSERT INTO `admin` (`AdminID`, `username`, `email`, `password`) VALUES
 -- Table structure for table `agreement`
 --
 
-CREATE TABLE `agreement` (
-  `AgreementID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `agreement`;
+CREATE TABLE IF NOT EXISTS `agreement` (
+  `AgreementID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
   `OfferJobFormUsedID` int(11) NOT NULL,
-  `AgreementDateandTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `AgreementStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `AgreementDateandTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  `AgreementSerial` varchar(255) NOT NULL,
+  `AgreementStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`AgreementID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`),
+  KEY `OfferJobFormID` (`OfferJobFormUsedID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `agreement`
+--
+
+INSERT INTO `agreement` (`AgreementID`, `SeekerID`, `PasserID`, `OfferJobFormUsedID`, `AgreementDateandTime`, `AgreementSerial`, `AgreementStatus`) VALUES
+(1, 3, 1, 1, '2018-09-22 00:23:00', '', 4),
+(2, 3, 6, 2, '2018-09-22 03:40:32', 'PM6781736', 2),
+(3, 3, 17, 3, '2018-09-22 05:24:30', '', 5);
 
 -- --------------------------------------------------------
 
@@ -69,13 +86,16 @@ CREATE TABLE `agreement` (
 -- Table structure for table `canceljob`
 --
 
-CREATE TABLE `canceljob` (
-  `CancelJobID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `canceljob`;
+CREATE TABLE IF NOT EXISTS `canceljob` (
+  `CancelJobID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) NOT NULL,
   `CancelDate` date NOT NULL,
-  `CancelTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `CancelTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `CancelReason` varchar(255) NOT NULL,
-  `CancelStatus` varchar(255) NOT NULL
+  `CancelStatus` varchar(255) NOT NULL,
+  PRIMARY KEY (`CancelJobID`),
+  KEY `OfferJobID` (`OfferJobID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -84,14 +104,19 @@ CREATE TABLE `canceljob` (
 -- Table structure for table `canceljoboffer`
 --
 
-CREATE TABLE `canceljoboffer` (
-  `CancelJobOfferID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `canceljoboffer`;
+CREATE TABLE IF NOT EXISTS `canceljoboffer` (
+  `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
   `CancellationInitiator` varchar(255) NOT NULL,
   `CancelReason` text NOT NULL,
-  `CancellationStatus` int(11) NOT NULL DEFAULT '1'
+  `CancellationStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`CancelJobOfferID`),
+  KEY `OfferJobID` (`OfferJobID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -100,11 +125,15 @@ CREATE TABLE `canceljoboffer` (
 -- Table structure for table `certificateofemployment`
 --
 
-CREATE TABLE `certificateofemployment` (
-  `CertificateOfEmploymentID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `certificateofemployment`;
+CREATE TABLE IF NOT EXISTS `certificateofemployment` (
+  `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) NOT NULL,
   `AdminID` int(11) NOT NULL,
-  `GeneratedKey` varchar(255) NOT NULL
+  `GeneratedKey` varchar(255) NOT NULL,
+  PRIMARY KEY (`CertificateOfEmploymentID`),
+  KEY `OfferJobID` (`OfferJobID`),
+  KEY `AdminID` (`AdminID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -113,12 +142,16 @@ CREATE TABLE `certificateofemployment` (
 -- Table structure for table `disabledusers`
 --
 
-CREATE TABLE `disabledusers` (
-  `DisableUserID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `disabledusers`;
+CREATE TABLE IF NOT EXISTS `disabledusers` (
+  `DisableUserID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserID` int(11) DEFAULT NULL,
   `SeekerID` int(11) DEFAULT NULL,
-  `DeactivateReason` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `DeactivateReason` text NOT NULL,
+  PRIMARY KEY (`DisableUserID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `disabledusers`
@@ -136,16 +169,30 @@ INSERT INTO `disabledusers` (`DisableUserID`, `PasserID`, `SeekerID`, `Deactivat
 -- Table structure for table `dispute`
 --
 
-CREATE TABLE `dispute` (
-  `DisputeID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `dispute`;
+CREATE TABLE IF NOT EXISTS `dispute` (
+  `DisputeID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `JobOfferID` int(11) NOT NULL,
   `DisputeIssuer` varchar(255) NOT NULL,
   `DisputeReason` text NOT NULL,
-  `DisputeIssued` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `DisputeStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `DisputeIssued` timestamp NOT NULL DEFAULT current_timestamp(),
+  `DisputeStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`DisputeID`),
+  KEY `JobOfferID` (`JobOfferID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dispute`
+--
+
+INSERT INTO `dispute` (`DisputeID`, `PasserID`, `SeekerID`, `JobOfferID`, `DisputeIssuer`, `DisputeReason`, `DisputeIssued`, `DisputeStatus`) VALUES
+(1, 1, 3, 1, 'Passer', 'Way tarung seldo', '2018-09-22 00:26:13', 1),
+(2, 12, 3, 3, 'Seeker', 'Nangawat ug planggana', '2018-09-22 03:31:40', 1),
+(3, 17, 3, 4, 'Passer', 'di mo bayad', '2018-09-22 05:28:43', 2);
 
 -- --------------------------------------------------------
 
@@ -153,11 +200,13 @@ CREATE TABLE `dispute` (
 -- Table structure for table `documents`
 --
 
-CREATE TABLE `documents` (
-  `DocFormsID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `documents`;
+CREATE TABLE IF NOT EXISTS `documents` (
+  `DocFormsID` int(11) NOT NULL AUTO_INCREMENT,
   `DocFormsName` varchar(255) NOT NULL,
   `DocFormsType` varchar(255) NOT NULL,
-  `DocFormsStatus` varchar(255) NOT NULL
+  `DocFormsStatus` varchar(255) NOT NULL,
+  PRIMARY KEY (`DocFormsID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -166,15 +215,35 @@ CREATE TABLE `documents` (
 -- Table structure for table `message`
 --
 
-CREATE TABLE `message` (
-  `MessageID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE IF NOT EXISTS `message` (
+  `MessageID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
-  `MessageContent` text,
+  `MessageContent` text DEFAULT NULL,
   `MessageSender` varchar(255) DEFAULT NULL,
-  `MessageTimeAndDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `MessageStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `MessageTimeAndDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `MessageStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`MessageID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`MessageID`, `PasserID`, `SeekerID`, `MessageContent`, `MessageSender`, `MessageTimeAndDate`, `MessageStatus`) VALUES
+(1, 1, 3, '', '', '2018-09-22 00:28:02', 0),
+(2, 6, 3, '', '', '2018-09-22 03:23:21', 0),
+(3, 6, 3, 'hoy', 'Seeker', '2018-09-22 03:23:32', 0),
+(4, 12, 3, '', '', '2018-09-22 03:32:36', 0),
+(5, 12, 3, 'Halooo', 'Seeker', '2018-09-22 03:44:16', 0),
+(6, 17, 3, '', '', '2018-09-22 05:20:48', 0),
+(7, 17, 3, 'hey dude', 'Passer', '2018-09-22 05:21:05', 0),
+(8, 17, 3, 'dawat naka', 'Seeker', '2018-09-22 05:21:37', 0),
+(9, 17, 3, 'ka perfect ba', 'Seeker', '2018-09-22 05:21:49', 0),
+(10, 17, 3, 'sure oy?', 'Seeker', '2018-09-22 05:29:33', 0);
 
 -- --------------------------------------------------------
 
@@ -182,13 +251,17 @@ CREATE TABLE `message` (
 -- Table structure for table `multimedia`
 --
 
-CREATE TABLE `multimedia` (
-  `MultimediaID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `multimedia`;
+CREATE TABLE IF NOT EXISTS `multimedia` (
+  `MultimediaID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `Multimedia` blob NOT NULL,
   `MultimediaDateUploaded` varchar(255) NOT NULL,
-  `MultimediaDesc` varchar(255) NOT NULL
+  `MultimediaDesc` varchar(255) NOT NULL,
+  PRIMARY KEY (`MultimediaID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -197,22 +270,47 @@ CREATE TABLE `multimedia` (
 -- Table structure for table `notification`
 --
 
-CREATE TABLE `notification` (
-  `notificationID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `notification`;
+CREATE TABLE IF NOT EXISTS `notification` (
+  `notificationID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) DEFAULT NULL,
   `PasserID` int(11) DEFAULT NULL,
   `notificationType` varchar(255) NOT NULL,
   `notificationMessage` text NOT NULL,
-  `notificationStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `notificationStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`notificationID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `notification`
 --
 
 INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificationType`, `notificationMessage`, `notificationStatus`) VALUES
-(1, 3, NULL, 'subscription', '1', 0),
-(2, 3, NULL, 'subscription', '1', 0);
+(1, NULL, 1, 'JobOffer', '1', 0),
+(2, 3, NULL, 'jobOfferSeeker', '3', 0),
+(3, NULL, 1, 'JobOffer', '3', 0),
+(4, NULL, 1, 'JobOffer', '5', 0),
+(5, 3, NULL, 'dispute', '1', 0),
+(6, NULL, 4, 'updateUserStatus', '5', 1),
+(7, NULL, 4, 'updateUserStatus', '1', 1),
+(8, NULL, 4, 'updateUserStatus', '5', 1),
+(9, NULL, 4, 'updateUserStatus', '1', 1),
+(10, NULL, 6, 'JobOffer', '1', 0),
+(11, NULL, 12, 'JobOffer', '1', 0),
+(12, 3, NULL, 'jobOfferSeeker', '3', 0),
+(13, NULL, 12, 'disputeSeeker', '1', 0),
+(14, 3, NULL, 'jobOfferSeeker', '3', 0),
+(15, NULL, 6, 'JobOffer', '3', 0),
+(16, NULL, 6, 'JobOffer', '5', 0),
+(17, 3, NULL, 'subscription', '1', 0),
+(18, NULL, 17, 'updateUserStatus', '1', 0),
+(19, NULL, 17, 'JobOffer', '1', 0),
+(20, 3, NULL, 'jobOfferSeeker', '3', 0),
+(21, NULL, 17, 'JobOffer', '3', 1),
+(22, NULL, 17, 'JobOffer', '5', 1),
+(23, 3, NULL, 'dispute', '1', 0);
 
 -- --------------------------------------------------------
 
@@ -220,15 +318,30 @@ INSERT INTO `notification` (`notificationID`, `SeekerID`, `PasserID`, `notificat
 -- Table structure for table `offerjob`
 --
 
-CREATE TABLE `offerjob` (
-  `OfferJobID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `offerjob`;
+CREATE TABLE IF NOT EXISTS `offerjob` (
+  `OfferJobID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobFormID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
-  `Notes` text,
-  `OfferJobDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `OfferJobStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Notes` text DEFAULT NULL,
+  `OfferJobDateTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `OfferJobStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`OfferJobID`),
+  KEY `SeekerID` (`SeekerID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `OfferJobFormID` (`OfferJobFormID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offerjob`
+--
+
+INSERT INTO `offerjob` (`OfferJobID`, `OfferJobFormID`, `SeekerID`, `PasserID`, `Notes`, `OfferJobDateTime`, `OfferJobStatus`) VALUES
+(1, 1, 3, 1, 'No free snacks', '2018-09-22 02:53:38', 10),
+(2, 1, 3, 6, 'qwe', '2018-09-22 03:41:40', 9),
+(3, 1, 3, 12, 'Limpyo balay', '2018-09-22 03:31:41', 8),
+(4, 2, 3, 17, 'Free meal everyday', '2018-09-22 05:30:28', 10);
 
 -- --------------------------------------------------------
 
@@ -236,8 +349,9 @@ CREATE TABLE `offerjob` (
 -- Table structure for table `offerjobform`
 --
 
-CREATE TABLE `offerjobform` (
-  `OfferJobFormID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `offerjobform`;
+CREATE TABLE IF NOT EXISTS `offerjobform` (
+  `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) NOT NULL,
   `WorkingAddress` text NOT NULL,
   `StartDate` date NOT NULL,
@@ -245,10 +359,20 @@ CREATE TABLE `offerjobform` (
   `Salary` double NOT NULL,
   `PaymentMethod` varchar(255) NOT NULL,
   `AccomodationType` varchar(255) NOT NULL,
-  `offerjobformDefault` int(11) NOT NULL DEFAULT '0',
-  `uneditable` int(11) NOT NULL DEFAULT '0',
-  `OfferJobFormStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `offerjobformDefault` int(11) NOT NULL DEFAULT 0,
+  `uneditable` int(11) NOT NULL DEFAULT 0,
+  `OfferJobFormStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`OfferJobFormID`),
+  KEY `offerjobform_ibfk_1` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offerjobform`
+--
+
+INSERT INTO `offerjobform` (`OfferJobFormID`, `SeekerID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `offerjobformDefault`, `uneditable`, `OfferJobFormStatus`) VALUES
+(1, 3, 'General Gines St. Suba Cebu City', '2018-09-25', '2018-12-25', 7000, 'Onsite', 'Offsite', 0, 2, 1),
+(2, 3, 'Carlock Street Cebu City', '2018-09-06', '2018-09-20', 5000, 'Online', 'In-House', 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -256,8 +380,9 @@ CREATE TABLE `offerjobform` (
 -- Table structure for table `offerjobformused`
 --
 
-CREATE TABLE `offerjobformused` (
-  `JobOfferFormUsedID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `offerjobformused`;
+CREATE TABLE IF NOT EXISTS `offerjobformused` (
+  `JobOfferFormUsedID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) NOT NULL,
   `WorkingAddress` text NOT NULL,
   `StartDate` date NOT NULL,
@@ -266,8 +391,19 @@ CREATE TABLE `offerjobformused` (
   `PaymentMethod` varchar(255) NOT NULL,
   `AccomodationType` varchar(255) NOT NULL,
   `Notes` text NOT NULL,
-  `OfferJobFormStatus` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `OfferJobFormStatus` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`JobOfferFormUsedID`),
+  KEY `OfferJobID` (`OfferJobID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `offerjobformused`
+--
+
+INSERT INTO `offerjobformused` (`JobOfferFormUsedID`, `OfferJobID`, `WorkingAddress`, `StartDate`, `EndDate`, `Salary`, `PaymentMethod`, `AccomodationType`, `Notes`, `OfferJobFormStatus`) VALUES
+(1, 1, 'General Gines St. Suba Cebu City', '2018-09-25', '2018-12-25', 7000, 'Onsite', 'Offsite', 'No free snacks', 1),
+(2, 2, 'General Gines St. Suba Cebu City', '2018-09-25', '2018-12-25', 7000, 'Onsite', 'Offsite', 'qwe', 1),
+(3, 4, 'Carlock Street Cebu City', '2018-09-06', '2018-09-20', 5000, 'Online', 'In-House', 'Free meal everyday', 1);
 
 -- --------------------------------------------------------
 
@@ -275,8 +411,9 @@ CREATE TABLE `offerjobformused` (
 -- Table structure for table `passer`
 --
 
-CREATE TABLE `passer` (
-  `PasserID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passer`;
+CREATE TABLE IF NOT EXISTS `passer` (
+  `PasserID` int(11) NOT NULL AUTO_INCREMENT,
   `PasserFN` varchar(255) NOT NULL,
   `PasserLN` varchar(255) NOT NULL,
   `PasserMname` varchar(100) NOT NULL,
@@ -289,7 +426,6 @@ CREATE TABLE `passer` (
   `PasserCPNo` bigint(20) DEFAULT NULL,
   `PasserEmail` varchar(255) NOT NULL,
   `PasserStatus` varchar(255) NOT NULL DEFAULT '0',
-  `PasserRate` int(11) NOT NULL,
   `PasserCOCNo` varchar(255) NOT NULL,
   `PasserCOCExpiryDate` date NOT NULL,
   `PasserPass` varchar(255) NOT NULL,
@@ -298,23 +434,25 @@ CREATE TABLE `passer` (
   `PasserTESDALink` varchar(255) NOT NULL,
   `PasserProfile` varchar(255) DEFAULT NULL,
   `PasserFee` bigint(20) NOT NULL,
-  `passerRegisterTimeDate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UserType` varchar(255) DEFAULT 'Passer'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `passerRegisterTimeDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `UserType` varchar(255) DEFAULT 'Passer',
+  PRIMARY KEY (`PasserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passer`
 --
 
-INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserRate`, `PasserCOCNo`, `PasserCOCExpiryDate`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`, `UserType`) VALUES
-(1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 9154861084, 'test@gmail.com', '1', 1, '13040102003962', '0000-00-00', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 728, '2018-07-22 15:12:46', 'Passer'),
-(2, 'Jerry J', 'Gayas', 'R', '2018-07-16', 25, 'Male', 'Kalunasan', 'Cebu City', 'Guadalupe', 9154861084, 'test2@gmail.com', '1', 0, '14130602029952', '0000-00-00', '$2y$12$y/lrpu3KBhaRlWsKMzM2oOdwjXvEA45eBjR5Xqb3MhIcVdZf0zEUC', 'Ships&#39; Catering Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369193', '../../public/etc/images/user/passer/15325451388153254513812.jpg', 728, '2018-07-22 15:20:53', 'Passer'),
-(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 25, 'Female', 'Qwe', 'Qwe', 'Qwe', 9154861084, 'test3@gmail.com', '1', 0, '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 728, '2018-07-26 09:39:02', 'Passer'),
-(5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', 0, '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16', 'Passer'),
-(6, 'Frederick', 'Lorenzana', 'F', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Suba', 9154861084, 'sheldon@gmail.com', '1', 0, '13131601010336', '2018-08-16', '$2y$12$EYhujIRajkByoky0ivzoj.bUnAZzOZLERoNjFd5VPliAHDxv3/0kK', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369231', '../../public/etc/images/user/passer/15340694706153406947026.jpg', 0, '2018-08-12 10:21:25', 'Passer'),
-(9, 'Herminio J', 'Miranda', 'R', '2018-09-26', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'miranda@gmail.com', '1', 0, '15131403031982', '2018-09-26', '$2y$12$ol7yF94W.jMwiOp8wbOKVedJDEnnW3Fbey58.lOZfXnQlICj6LgK.', 'Plumbing NC III', 'NC III', 'http://www.tesda.gov.ph/Rwac/Details/7369234', '../../public/etc/images/user/passer/15358613606153586136039.jpg', 0, '2018-09-02 04:08:30', 'Passer'),
-(12, 'Julieta', 'Lincuna', 'L', '2018-10-01', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'lincuna@gmail.com', '0', 0, '15130702030231', '2018-09-20', '$2y$12$.u8Kz4O4WXsofVIuJWZkheGJY44epHFerTYN8a0vyvoJHcGL1v7PW', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369233', '../../public/etc/images/user/passer/153639114871536391148512.jpg', 0, '2018-09-08 06:56:21', 'Passer'),
-(14, 'Judith', 'Espiritu', 'L', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9154861084, 'espiritu@gmail.com', '1', 0, '12130302008762', '2018-09-28', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369232', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', 0, '2018-09-09 03:41:38', 'Passer');
+INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `PasserBirthdate`, `PasserAge`, `PasserGender`, `PasserStreet`, `PasserCity`, `PasserAddress`, `PasserCPNo`, `PasserEmail`, `PasserStatus`, `PasserCOCNo`, `PasserCOCExpiryDate`, `PasserPass`, `PasserCertificate`, `PasserCertificateType`, `PasserTESDALink`, `PasserProfile`, `PasserFee`, `passerRegisterTimeDate`, `UserType`) VALUES
+(1, 'Jodel', 'Adan', 'B', '1997-09-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Cebu', 9154861084, 'test@gmail.com', '1', '13040102003962', '0000-00-00', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy', 'CNC MILLING MACHINE OPERATION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369195', '../../public/etc/images/user/passer/15325417363153254173631.png', 728, '2018-07-22 15:12:46', 'Passer'),
+(4, 'Jester Jo', 'Ong Chuan', 'B', '2018-07-25', 25, 'Female', 'Qwe', 'Qwe', 'Qwe', 9154861084, 'test3@gmail.com', '1', '15130602192809', '2018-07-11', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', 'BREAD AND PASTRY PRODUCTION NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369205', '../../public/etc/images/user/passer/15325998525153259985214.jpg', 728, '2018-07-26 09:39:02', 'Passer'),
+(5, 'Darwin', 'Agena', 'R', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'marva@gmail.com', '1', '14131201015492', '2018-07-06', '$2y$12$uwzaJ/ua6UxUKAF.T0DXKehZhOcf5W9DfgdejYRgfx878aQ4BjzY.', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369204', '../../public/etc/images/user/passer/15329363549153293635415.jpg', 0, '2018-07-30 07:22:16', 'Passer'),
+(6, 'Frederick', 'Lorenzana', 'F', '2018-08-01', 0, 'Male', 'General Gines St.', 'Cebu City', 'Suba', 9154861084, 'sheldon@gmail.com', '1', '13131601010336', '2018-08-16', '$2y$12$c8IJg1yqxeT8kwdtFNg1a.vJI3aRp6LDHpBNzLFzehwYULvzhP1wy', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369231', '../../public/etc/images/user/passer/15340694706153406947026.jpg', 3097, '2018-08-12 10:21:25', 'Passer'),
+(9, 'Herminio J', 'Miranda', 'R', '2018-09-26', 0, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'miranda@gmail.com', '1', '15131403031982', '2018-09-26', '$2y$12$ol7yF94W.jMwiOp8wbOKVedJDEnnW3Fbey58.lOZfXnQlICj6LgK.', 'Plumbing NC III', 'NC III', 'http://www.tesda.gov.ph/Rwac/Details/7369234', '../../public/etc/images/user/passer/15358613606153586136039.jpg', 0, '2018-09-02 04:08:30', 'Passer'),
+(12, 'Julieta', 'Lincuna', 'L', '1979-07-29', 39, 'Female', 'General Gines St.', 'Cebu City', 'Region Vii', 9154861084, 'lincuna@gmail.com', '1', '15130702030231', '2018-09-20', '$2y$12$.u8Kz4O4WXsofVIuJWZkheGJY44epHFerTYN8a0vyvoJHcGL1v7PW', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369233', '../../public/etc/images/user/passer/153639114871536391148512.jpg', 0, '2018-09-08 06:56:21', 'Passer'),
+(14, 'Judith', 'Espiritu', 'L', '1997-09-09', 0, 'Female', 'Jones Avenue', 'Cebu City', 'Region Vii', 9154861084, 'espiritu@gmail.com', '1', '12130302008762', '2018-09-28', '$2y$12$oEjML/qaz3Ok3V72J.htY.ay98YKc8JqfqPSEaIZrNQ83060wji46', 'Household Services NC II', 'NC II', 'http://www.tesda.gov.ph/Rwac/Details/7369232', '../../public/etc/images/user/passer/1536468691101536468691314.jpg', 0, '2018-09-09 03:41:38', 'Passer'),
+(16, 'syrel', 'prialde', '', NULL, 0, '', '', '', '', NULL, 'test@gmail.com', '0', '', '0000-00-00', '$2y$12$zlFNjRLgMXptGbJ6QrrkNeroqmsro9FgqHGqy4EVynbOwtt0TSlzW', '', '', '', NULL, 0, '2018-09-22 03:03:57', 'Passer'),
+(17, 'Jowie', 'Manalo', 'S', '1997-11-22', 21, 'Male', 'Kamparang', 'Cebu City', 'Region Vii', 9154861084, 'manalo@gmail.com', '1', '13130601156635', '2018-12-13', '$2y$12$aQPCU4zGCCGeZ02vXp0.Yu8aMAFAF21OEwxUFjc7QurL4x7cy/3uS', 'Ships&#39; Catering Services NC I', 'NC I', 'http://www.tesda.gov.ph/Rwac/Details/7369281', '../../public/etc/images/user/passer/1537593397101537593397517.png', 0, '2018-09-22 05:03:59', 'Passer');
 
 -- --------------------------------------------------------
 
@@ -322,13 +460,16 @@ INSERT INTO `passer` (`PasserID`, `PasserFN`, `PasserLN`, `PasserMname`, `Passer
 -- Table structure for table `passereducation`
 --
 
-CREATE TABLE `passereducation` (
-  `educationID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passereducation`;
+CREATE TABLE IF NOT EXISTS `passereducation` (
+  `educationID` int(11) NOT NULL AUTO_INCREMENT,
   `passerID` int(11) NOT NULL,
   `educationAttainment` varchar(255) NOT NULL,
   `educationSchool` varchar(255) NOT NULL,
-  `educationAccomplishment` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `educationAccomplishment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`educationID`),
+  KEY `passerID` (`passerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passereducation`
@@ -348,7 +489,9 @@ INSERT INTO `passereducation` (`educationID`, `passerID`, `educationAttainment`,
 (11, 5, 'Highschool', 'Access Computer College', 'qwe'),
 (12, 5, 'Elementary', 'Access Computer College', ''),
 (13, 5, 'Nursery', 'Aie College', 'BOGO'),
-(14, 9, 'Highschool', 'Aie College', 'Valedictorian');
+(14, 9, 'Highschool', 'Aie College', 'Valedictorian'),
+(15, 1, 'Highschool', 'Aces Tagum College (atc)', 'qweqwe'),
+(16, 6, 'Highschool', 'Abe International College Of Business And Accountancy', 'ghgf');
 
 -- --------------------------------------------------------
 
@@ -356,8 +499,9 @@ INSERT INTO `passereducation` (`educationID`, `passerID`, `educationAttainment`,
 -- Table structure for table `passervalidate`
 --
 
-CREATE TABLE `passervalidate` (
-  `passerValidateId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passervalidate`;
+CREATE TABLE IF NOT EXISTS `passervalidate` (
+  `passerValidateId` int(11) NOT NULL AUTO_INCREMENT,
   `passerID` int(11) NOT NULL,
   `frontID` varchar(255) NOT NULL,
   `backID` varchar(255) NOT NULL,
@@ -366,25 +510,17 @@ CREATE TABLE `passervalidate` (
   `idType` varchar(255) NOT NULL,
   `idNumber` bigint(20) NOT NULL,
   `expirationDate` date NOT NULL,
-  `passerValidateDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `passerValidateDateTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`passerValidateId`),
+  KEY `passerID` (`passerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passervalidate`
 --
 
 INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID`, `selfie`, `COC`, `idType`, `idNumber`, `expirationDate`, `passerValidateDateTime`) VALUES
-(1, 1, '../../public/etc/images/userVerify/passer/153257913210153257913221.jpg', '../../public/etc/images/userVerify/passer/15325791329153257913221.png', '../../public/etc/images/userVerify/passer/15325791323153257913211.jpg', '../../public/etc/images/userVerify/passer/15325791325153257913251.jpg', 'Philippine Passport', 2323, '2018-07-18', '2018-07-26 04:25:32'),
-(2, 4, '../../public/etc/images/userVerify/passer/153259840010153259840034.jpg', '../../public/etc/images/userVerify/passer/15325984003153259840024.jpg', '../../public/etc/images/userVerify/passer/15325984006153259840044.jpg', '../../public/etc/images/userVerify/passer/15325984005153259840034.jpg', 'Philippine Passport', 123, '2018-07-10', '2018-07-26 09:46:40'),
-(3, 1, '../../public/etc/images/userVerify/passer/15328746213153287462131.jpg', '../../public/etc/images/userVerify/passer/15328746213153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746215153287462121.jpg', '../../public/etc/images/userVerify/passer/15328746218153287462141.jpg', 'Philippine Passport', 2323, '2018-07-20', '2018-07-29 14:30:21'),
-(4, 5, '../../public/etc/images/userVerify/passer/15329364978153293649755.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', '../../public/etc/images/userVerify/passer/15329364973153293649735.jpg', '../../public/etc/images/userVerify/passer/15329364971153293649725.jpg', 'Student ID', 123123, '2018-06-04', '2018-07-30 07:41:37'),
-(5, 6, '../../public/etc/images/userVerify/passer/15340693224153406932246.jpg', '../../public/etc/images/userVerify/passer/15340693229153406932226.jpg', '../../public/etc/images/userVerify/passer/153406932210153406932216.jpg', '../../public/etc/images/userVerify/passer/15340693225153406932256.jpg', 'Student ID', 14281034, '2018-08-30', '2018-08-12 10:22:02'),
-(7, 9, '../../public/etc/images/userVerify/passer/15358614514153586145149.jpg', '../../public/etc/images/userVerify/passer/15358614517153586145129.jpg', '../../public/etc/images/userVerify/passer/15358614516153586145149.jpg', '../../public/etc/images/userVerify/passer/15358614518153586145159.jpg', 'TIN Card', 12345, '2018-09-26', '2018-09-02 04:10:51'),
-(8, 9, '../../public/etc/images/userVerify/passer/15358616572153586165759.jpg', '../../public/etc/images/userVerify/passer/15358616576153586165739.jpg', '../../public/etc/images/userVerify/passer/15358616571153586165769.jpg', '../../public/etc/images/userVerify/passer/15358616579153586165739.jpg', 'Philippine Passport', 123123, '2018-09-30', '2018-09-02 04:14:17'),
-(9, 14, '../../public/etc/images/userVerify/passer/153646859691536468596514.png', '../../public/etc/images/userVerify/passer/153646859641536468596114.png', '../../public/etc/images/userVerify/passer/153646859661536468596414.png', '../../public/etc/images/userVerify/passer/153646859641536468596514.png', 'Philippine Passport', 1231231, '2020-11-11', '2018-09-09 04:49:56'),
-(10, 14, '../../public/etc/images/userVerify/passer/1536468995101536468995214.png', '../../public/etc/images/userVerify/passer/153646899571536468995214.png', '../../public/etc/images/userVerify/passer/153646899531536468995114.png', '../../public/etc/images/userVerify/passer/153646899591536468995414.png', 'Philippine Passport', 1231231, '2020-11-11', '2018-09-09 04:56:35'),
-(11, 14, '../../public/etc/images/userVerify/passer/153646912611536469126214.png', '../../public/etc/images/userVerify/passer/153646912621536469126114.png', '../../public/etc/images/userVerify/passer/153646912691536469126514.png', '../../public/etc/images/userVerify/passer/153646912661536469126214.png', 'Student ID', 1231231, '2020-11-11', '2018-09-09 04:58:46'),
-(12, 14, '../../public/etc/images/userVerify/passer/153646929871536469298214.png', '../../public/etc/images/userVerify/passer/153646929871536469298614.png', '../../public/etc/images/userVerify/passer/153646929811536469298114.png', '../../public/etc/images/userVerify/passer/153646929861536469298614.png', 'Student ID', 1231231, '2020-11-11', '2018-09-09 05:01:38');
+(1, 17, '../../public/etc/images/userVerify/passer/1537592743101537592744117.png', '../../public/etc/images/userVerify/passer/153759274461537592744217.png', '../../public/etc/images/userVerify/passer/153759274491537592744417.png', '../../public/etc/images/userVerify/passer/153759274461537592744517.jpg', 'Student ID', 14277743, '2018-09-14', '2018-09-22 05:05:44');
 
 -- --------------------------------------------------------
 
@@ -392,8 +528,9 @@ INSERT INTO `passervalidate` (`passerValidateId`, `passerID`, `frontID`, `backID
 -- Table structure for table `passerworkhistory`
 --
 
-CREATE TABLE `passerworkhistory` (
-  `PasserWorkHistoryID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `passerworkhistory`;
+CREATE TABLE IF NOT EXISTS `passerworkhistory` (
+  `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) DEFAULT NULL,
   `PasserID` int(11) NOT NULL,
   `PasserJobTitle` varchar(255) NOT NULL,
@@ -403,20 +540,18 @@ CREATE TABLE `passerworkhistory` (
   `PasserWorkHistoryStartDate` date NOT NULL,
   `PasserWorkHistoryEndDate` date NOT NULL,
   `PasserWorkHistoryWorkDays` int(11) DEFAULT NULL,
-  `passerWorkHistoryDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `passerWorkHistoryDateTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`PasserWorkHistoryID`),
+  KEY `OfferJobID` (`OfferJobID`),
+  KEY `PasserID` (`PasserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `passerworkhistory`
 --
 
 INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`, `PasserJobTitle`, `PasserCompany`, `PasserCompanyNumber`, `PasserWorkHistoryDesc`, `PasserWorkHistoryStartDate`, `PasserWorkHistoryEndDate`, `PasserWorkHistoryWorkDays`, `passerWorkHistoryDateTime`) VALUES
-(1, NULL, 1, 'Qe', 'Q', 0, 'qwe', '1970-01-01', '1970-01-01', NULL, '2018-07-23 08:25:11'),
-(2, NULL, 5, 'Singer', 'Waterfront', 0, 'Dako kug kita. HAHAH', '2018-07-17', '2018-07-18', NULL, '2018-07-30 07:34:59'),
-(3, NULL, 1, 'Qwe', 'Qwe', 0, 'qweq', '2018-08-01', '0000-00-00', 2018, '2018-08-12 15:56:21'),
-(4, NULL, 1, 'Qwe', 'Qwe', 1323, 'qwe', '2018-08-01', '0000-00-00', 2018, '2018-08-12 15:57:27'),
-(5, NULL, 1, 'Qwe', 'Qwe', 232, 'qwe', '2018-08-01', '2018-08-16', NULL, '2018-08-12 15:59:06'),
-(6, NULL, 9, 'Carpenter', 'Techmahindra', 456123, 'Naay free coffee', '2018-09-25', '2018-09-28', NULL, '2018-09-02 04:11:42');
+(1, NULL, 6, 'Qwe', 'Qwe', 323232323, 'qwe', '2018-09-12', '2018-09-21', NULL, '2018-09-22 04:42:15');
 
 -- --------------------------------------------------------
 
@@ -424,18 +559,33 @@ INSERT INTO `passerworkhistory` (`PasserWorkHistoryID`, `OfferJobID`, `PasserID`
 -- Table structure for table `ratings`
 --
 
-CREATE TABLE `ratings` (
-  `RatingsID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `ratings`;
+CREATE TABLE IF NOT EXISTS `ratings` (
+  `RatingsID` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `PersonalityRate` int(11) DEFAULT NULL,
   `PunctualityRate` int(11) NOT NULL,
   `WorkQualityRate` int(11) NOT NULL,
-  `Feedback` text,
+  `Feedback` text DEFAULT NULL,
   `ReviewBy` varchar(255) NOT NULL,
-  `ReviewdOn` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `ReviewdOn` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`RatingsID`),
+  KEY `OfferJobID` (`OfferJobID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ratings`
+--
+
+INSERT INTO `ratings` (`RatingsID`, `OfferJobID`, `PasserID`, `SeekerID`, `PersonalityRate`, `PunctualityRate`, `WorkQualityRate`, `Feedback`, `ReviewBy`, `ReviewdOn`) VALUES
+(1, 1, 1, 3, 5, 5, 5, 'Awesome', 'Seeker', '2018-09-22 00:23:31'),
+(2, 2, 6, 3, 5, 5, 5, 'Good', 'Seeker', '2018-09-22 03:41:40'),
+(3, 2, 6, 3, 5, 5, 5, 'Awesome', 'Passer', '2018-09-22 03:42:06'),
+(4, 4, 17, 3, 4, 5, 5, 'okay ra tanan', 'Seeker', '2018-09-22 05:26:32');
 
 -- --------------------------------------------------------
 
@@ -443,8 +593,9 @@ CREATE TABLE `ratings` (
 -- Table structure for table `seeker`
 --
 
-CREATE TABLE `seeker` (
-  `SeekerID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `seeker`;
+CREATE TABLE IF NOT EXISTS `seeker` (
+  `SeekerID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerFN` varchar(255) NOT NULL,
   `SeekerLN` varchar(255) NOT NULL,
   `SeekerBirthdate` date DEFAULT NULL,
@@ -464,9 +615,10 @@ CREATE TABLE `seeker` (
   `SeekerProfile` varchar(255) NOT NULL,
   `SeekerUname` varchar(255) NOT NULL,
   `SeekerPass` varchar(255) NOT NULL,
-  `SeekerRegisterDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `UserType` varchar(255) DEFAULT 'Seeker'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `SeekerRegisterDateTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  `UserType` varchar(255) DEFAULT 'Seeker',
+  PRIMARY KEY (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `seeker`
@@ -486,11 +638,36 @@ INSERT INTO `seeker` (`SeekerID`, `SeekerFN`, `SeekerLN`, `SeekerBirthdate`, `Se
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `seekercompany`
+--
+
+DROP TABLE IF EXISTS `seekercompany`;
+CREATE TABLE IF NOT EXISTS `seekercompany` (
+  `companyID` int(11) NOT NULL AUTO_INCREMENT,
+  `seekerID` int(11) NOT NULL,
+  `companyName` varchar(255) NOT NULL,
+  `companyNumber` int(11) NOT NULL,
+  `companyDesc` text NOT NULL,
+  PRIMARY KEY (`companyID`),
+  KEY `seekercompany_ibfk_1` (`seekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `seekercompany`
+--
+
+INSERT INTO `seekercompany` (`companyID`, `seekerID`, `companyName`, `companyNumber`, `companyDesc`) VALUES
+(1, 3, 'Mrs.clean', 2147483647, 'Clean');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `seekervalidate`
 --
 
-CREATE TABLE `seekervalidate` (
-  `SeekerValidateId` int(11) NOT NULL,
+DROP TABLE IF EXISTS `seekervalidate`;
+CREATE TABLE IF NOT EXISTS `seekervalidate` (
+  `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) NOT NULL,
   `frontID` varchar(255) NOT NULL,
   `backID` varchar(255) NOT NULL,
@@ -498,7 +675,9 @@ CREATE TABLE `seekervalidate` (
   `idType` varchar(255) NOT NULL,
   `idNumber` bigint(20) NOT NULL,
   `expirationDate` date NOT NULL,
-  `seekerValidateDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `seekerValidateDateTime` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`SeekerValidateId`),
+  KEY `passerID` (`SeekerID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -507,23 +686,27 @@ CREATE TABLE `seekervalidate` (
 -- Table structure for table `subscription`
 --
 
-CREATE TABLE `subscription` (
-  `SubscriptionID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `subscription`;
+CREATE TABLE IF NOT EXISTS `subscription` (
+  `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT,
   `SubscriptionTypeID` int(11) NOT NULL,
   `SeekerID` int(11) NOT NULL,
   `SubscriptionStart` date NOT NULL,
   `SubscriptionEnd` date NOT NULL,
   `PaymentMethod` varchar(255) DEFAULT NULL,
-  `SubscriptionStatus` varchar(255) NOT NULL DEFAULT 'ongoing'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `SubscriptionStatus` varchar(255) NOT NULL DEFAULT 'ongoing',
+  PRIMARY KEY (`SubscriptionID`),
+  KEY `SeekerID` (`SeekerID`),
+  KEY `SubscriptionTypeID` (`SubscriptionTypeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subscription`
 --
 
 INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, `SubscriptionStart`, `SubscriptionEnd`, `PaymentMethod`, `SubscriptionStatus`) VALUES
-(1, 2, 3, '2018-09-21', '2018-10-21', 'paypal', 'ongoing'),
-(2, 1, 3, '2018-09-21', '2018-09-22', 'paypal', 'ongoing');
+(1, 3, 3, '2018-09-22', '2019-09-22', 'paypal', 'ongoing'),
+(2, 2, 3, '2018-09-22', '2018-10-22', 'paypal', 'ongoing');
 
 -- --------------------------------------------------------
 
@@ -531,13 +714,15 @@ INSERT INTO `subscription` (`SubscriptionID`, `SubscriptionTypeID`, `SeekerID`, 
 -- Table structure for table `subscriptiontype`
 --
 
-CREATE TABLE `subscriptiontype` (
-  `SubscriptionTypeID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `subscriptiontype`;
+CREATE TABLE IF NOT EXISTS `subscriptiontype` (
+  `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT,
   `SubscriptionName` varchar(255) NOT NULL,
   `SubscriptionValidity` varchar(255) NOT NULL,
   `SubscriptionPrice` int(11) NOT NULL,
-  `SubscriptionCreated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `SubscriptionCreated` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`SubscriptionTypeID`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `subscriptiontype`
@@ -554,20 +739,23 @@ INSERT INTO `subscriptiontype` (`SubscriptionTypeID`, `SubscriptionName`, `Subsc
 -- Table structure for table `switch`
 --
 
-CREATE TABLE `switch` (
-  `SwitchID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `switch`;
+CREATE TABLE IF NOT EXISTS `switch` (
+  `SwitchID` int(11) NOT NULL AUTO_INCREMENT,
   `SeekerID` int(11) NOT NULL,
   `PasserID` int(11) NOT NULL,
-  `Original` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Original` varchar(255) NOT NULL,
+  PRIMARY KEY (`SwitchID`),
+  KEY `PasserID` (`PasserID`),
+  KEY `SeekerID` (`SeekerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `switch`
 --
 
 INSERT INTO `switch` (`SwitchID`, `SeekerID`, `PasserID`, `Original`) VALUES
-(1, 20, 1, 'Passer'),
-(3, 22, 14, 'Passer');
+(1, 3, 16, 'Seeker');
 
 -- --------------------------------------------------------
 
@@ -575,360 +763,53 @@ INSERT INTO `switch` (`SwitchID`, `SeekerID`, `PasserID`, `Original`) VALUES
 -- Table structure for table `transactionhistory`
 --
 
-CREATE TABLE `transactionhistory` (
-  `TransactionHistory` int(11) NOT NULL,
+DROP TABLE IF EXISTS `transactionhistory`;
+CREATE TABLE IF NOT EXISTS `transactionhistory` (
+  `TransactionHistory` int(11) NOT NULL AUTO_INCREMENT,
   `OfferJobID` int(11) NOT NULL,
   `OldStatus` int(11) NOT NULL,
   `NewStatus` int(11) NOT NULL,
   `Triggerer` varchar(255) NOT NULL,
-  `TransactionDateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `TransactionDateTime` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`TransactionHistory`),
+  KEY `OfferJobID` (`OfferJobID`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 
 --
--- Indexes for dumped tables
+-- Dumping data for table `transactionhistory`
 --
 
---
--- Indexes for table `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`AdminID`);
-
---
--- Indexes for table `agreement`
---
-ALTER TABLE `agreement`
-  ADD PRIMARY KEY (`AgreementID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`),
-  ADD KEY `OfferJobFormID` (`OfferJobFormUsedID`);
-
---
--- Indexes for table `canceljob`
---
-ALTER TABLE `canceljob`
-  ADD PRIMARY KEY (`CancelJobID`),
-  ADD KEY `OfferJobID` (`OfferJobID`);
-
---
--- Indexes for table `canceljoboffer`
---
-ALTER TABLE `canceljoboffer`
-  ADD PRIMARY KEY (`CancelJobOfferID`),
-  ADD KEY `OfferJobID` (`OfferJobID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `certificateofemployment`
---
-ALTER TABLE `certificateofemployment`
-  ADD PRIMARY KEY (`CertificateOfEmploymentID`),
-  ADD KEY `OfferJobID` (`OfferJobID`),
-  ADD KEY `AdminID` (`AdminID`);
-
---
--- Indexes for table `disabledusers`
---
-ALTER TABLE `disabledusers`
-  ADD PRIMARY KEY (`DisableUserID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `dispute`
---
-ALTER TABLE `dispute`
-  ADD PRIMARY KEY (`DisputeID`),
-  ADD KEY `JobOfferID` (`JobOfferID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `documents`
---
-ALTER TABLE `documents`
-  ADD PRIMARY KEY (`DocFormsID`);
-
---
--- Indexes for table `message`
---
-ALTER TABLE `message`
-  ADD PRIMARY KEY (`MessageID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `multimedia`
---
-ALTER TABLE `multimedia`
-  ADD PRIMARY KEY (`MultimediaID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `notification`
---
-ALTER TABLE `notification`
-  ADD PRIMARY KEY (`notificationID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `offerjob`
---
-ALTER TABLE `offerjob`
-  ADD PRIMARY KEY (`OfferJobID`),
-  ADD KEY `SeekerID` (`SeekerID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `OfferJobFormID` (`OfferJobFormID`);
-
---
--- Indexes for table `offerjobform`
---
-ALTER TABLE `offerjobform`
-  ADD PRIMARY KEY (`OfferJobFormID`),
-  ADD KEY `offerjobform_ibfk_1` (`SeekerID`);
-
---
--- Indexes for table `offerjobformused`
---
-ALTER TABLE `offerjobformused`
-  ADD PRIMARY KEY (`JobOfferFormUsedID`),
-  ADD KEY `OfferJobID` (`OfferJobID`);
-
---
--- Indexes for table `passer`
---
-ALTER TABLE `passer`
-  ADD PRIMARY KEY (`PasserID`);
-
---
--- Indexes for table `passereducation`
---
-ALTER TABLE `passereducation`
-  ADD PRIMARY KEY (`educationID`),
-  ADD KEY `passerID` (`passerID`);
-
---
--- Indexes for table `passervalidate`
---
-ALTER TABLE `passervalidate`
-  ADD PRIMARY KEY (`passerValidateId`),
-  ADD KEY `passerID` (`passerID`);
-
---
--- Indexes for table `passerworkhistory`
---
-ALTER TABLE `passerworkhistory`
-  ADD PRIMARY KEY (`PasserWorkHistoryID`),
-  ADD KEY `OfferJobID` (`OfferJobID`),
-  ADD KEY `PasserID` (`PasserID`);
-
---
--- Indexes for table `ratings`
---
-ALTER TABLE `ratings`
-  ADD PRIMARY KEY (`RatingsID`),
-  ADD KEY `OfferJobID` (`OfferJobID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `seeker`
---
-ALTER TABLE `seeker`
-  ADD PRIMARY KEY (`SeekerID`);
-
---
--- Indexes for table `seekervalidate`
---
-ALTER TABLE `seekervalidate`
-  ADD PRIMARY KEY (`SeekerValidateId`),
-  ADD KEY `passerID` (`SeekerID`);
-
---
--- Indexes for table `subscription`
---
-ALTER TABLE `subscription`
-  ADD PRIMARY KEY (`SubscriptionID`),
-  ADD KEY `SeekerID` (`SeekerID`),
-  ADD KEY `SubscriptionTypeID` (`SubscriptionTypeID`);
-
---
--- Indexes for table `subscriptiontype`
---
-ALTER TABLE `subscriptiontype`
-  ADD PRIMARY KEY (`SubscriptionTypeID`);
-
---
--- Indexes for table `switch`
---
-ALTER TABLE `switch`
-  ADD PRIMARY KEY (`SwitchID`),
-  ADD KEY `PasserID` (`PasserID`),
-  ADD KEY `SeekerID` (`SeekerID`);
-
---
--- Indexes for table `transactionhistory`
---
-ALTER TABLE `transactionhistory`
-  ADD PRIMARY KEY (`TransactionHistory`),
-  ADD KEY `OfferJobID` (`OfferJobID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `AdminID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `agreement`
---
-ALTER TABLE `agreement`
-  MODIFY `AgreementID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `canceljob`
---
-ALTER TABLE `canceljob`
-  MODIFY `CancelJobID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `canceljoboffer`
---
-ALTER TABLE `canceljoboffer`
-  MODIFY `CancelJobOfferID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `certificateofemployment`
---
-ALTER TABLE `certificateofemployment`
-  MODIFY `CertificateOfEmploymentID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `disabledusers`
---
-ALTER TABLE `disabledusers`
-  MODIFY `DisableUserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `dispute`
---
-ALTER TABLE `dispute`
-  MODIFY `DisputeID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `documents`
---
-ALTER TABLE `documents`
-  MODIFY `DocFormsID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `message`
---
-ALTER TABLE `message`
-  MODIFY `MessageID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `multimedia`
---
-ALTER TABLE `multimedia`
-  MODIFY `MultimediaID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `notification`
---
-ALTER TABLE `notification`
-  MODIFY `notificationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `offerjob`
---
-ALTER TABLE `offerjob`
-  MODIFY `OfferJobID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `offerjobform`
---
-ALTER TABLE `offerjobform`
-  MODIFY `OfferJobFormID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `offerjobformused`
---
-ALTER TABLE `offerjobformused`
-  MODIFY `JobOfferFormUsedID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `passer`
---
-ALTER TABLE `passer`
-  MODIFY `PasserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `passereducation`
---
-ALTER TABLE `passereducation`
-  MODIFY `educationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
--- AUTO_INCREMENT for table `passervalidate`
---
-ALTER TABLE `passervalidate`
-  MODIFY `passerValidateId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `passerworkhistory`
---
-ALTER TABLE `passerworkhistory`
-  MODIFY `PasserWorkHistoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `ratings`
---
-ALTER TABLE `ratings`
-  MODIFY `RatingsID` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `seeker`
---
-ALTER TABLE `seeker`
-  MODIFY `SeekerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `seekervalidate`
---
-ALTER TABLE `seekervalidate`
-  MODIFY `SeekerValidateId` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `subscription`
---
-ALTER TABLE `subscription`
-  MODIFY `SubscriptionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `subscriptiontype`
---
-ALTER TABLE `subscriptiontype`
-  MODIFY `SubscriptionTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `switch`
---
-ALTER TABLE `switch`
-  MODIFY `SwitchID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `transactionhistory`
---
-ALTER TABLE `transactionhistory`
-  MODIFY `TransactionHistory` int(11) NOT NULL AUTO_INCREMENT;
+INSERT INTO `transactionhistory` (`TransactionHistory`, `OfferJobID`, `OldStatus`, `NewStatus`, `Triggerer`, `TransactionDateTime`) VALUES
+(1, 1, 0, 1, 'Seeker', '2018-09-21 23:33:35'),
+(2, 1, 1, 3, 'Passer', '2018-09-21 23:33:35'),
+(3, 1, 6, 7, 'Seeker', '2018-09-21 23:34:03'),
+(4, 1, 6, 7, 'Seeker', '2018-09-21 23:38:41'),
+(5, 1, 6, 7, 'Seeker', '2018-09-21 23:45:07'),
+(6, 1, 6, 7, 'Seeker', '2018-09-21 23:47:07'),
+(7, 1, 6, 7, 'Seeker', '2018-09-21 23:47:49'),
+(8, 1, 6, 7, 'Seeker', '2018-09-21 23:48:40'),
+(9, 1, 6, 7, 'Seeker', '2018-09-21 23:49:33'),
+(10, 1, 6, 7, 'Seeker', '2018-09-21 23:50:20'),
+(11, 1, 6, 7, 'Seeker', '2018-09-21 23:57:49'),
+(12, 1, 5, 9, 'Seeker', '2018-09-21 23:58:39'),
+(13, 1, 0, 1, 'Seeker', '2018-09-22 00:21:04'),
+(14, 1, 1, 3, 'Passer', '2018-09-22 00:21:04'),
+(15, 1, 3, 5, 'Seeker', '2018-09-22 00:22:01'),
+(16, 1, 5, 9, 'Seeker', '2018-09-22 00:23:00'),
+(17, 1, 9, 8, 'Passer', '2018-09-22 00:23:31'),
+(18, 2, 0, 1, 'Seeker', '2018-09-22 03:18:58'),
+(19, 3, 0, 1, 'Seeker', '2018-09-22 03:30:11'),
+(20, 3, 1, 3, 'Passer', '2018-09-22 03:30:11'),
+(21, 3, 3, 8, 'Seeker', '2018-09-22 03:30:54'),
+(22, 2, 1, 3, 'Passer', '2018-09-22 03:18:58'),
+(23, 2, 3, 5, 'Seeker', '2018-09-22 03:39:48'),
+(24, 2, 5, 9, 'Seeker', '2018-09-22 03:40:32'),
+(25, 4, 0, 1, 'Seeker', '2018-09-22 05:19:28'),
+(26, 4, 1, 3, 'Passer', '2018-09-22 05:19:28'),
+(27, 4, 3, 5, 'Seeker', '2018-09-22 05:22:20'),
+(28, 4, 5, 9, 'Seeker', '2018-09-22 05:24:30'),
+(29, 4, 9, 8, 'Passer', '2018-09-22 05:26:32'),
+(30, 4, 8, 10, 'Passer', '2018-09-22 05:30:28');
 
 --
 -- Constraints for dumped tables

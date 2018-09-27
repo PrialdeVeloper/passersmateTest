@@ -143,7 +143,9 @@
 						unset($update);
 						$update = $this->model->updateDB("offerjob",array("OfferJobStatus"),array(10),"OfferJobID",$jobofferID);
 						$agreementID = $this->model->getIDAgreement(array($jobofferID))[0]['AgreementID'];
-						$update = $this->model->updateDB("agreement",array("AgreementStatus"),array(5),"AgreementID",$agreementID);
+						if(!empty($agreementID)){
+							$update = $this->model->updateDB("agreement",array("AgreementStatus"),array(5),"AgreementID",$agreementID);
+						}
 						echo json_encode(array("error"=>"none"));
 					}
 				}

@@ -902,7 +902,8 @@
 						}
 					}
 					if($d['OfferJobStatus'] >= 5){
-						$formUsed = $this->model->selectAllFromUser("offerjobformused","OfferJobID",array($d['OfferJobID']))[0];
+						// $formUsed = $this->model->selectAllFromUser("offerjobformused","OfferJobID",array($d['OfferJobID']))[0];
+						// print_r($formUsed);
 						$builder = 
 						'
 							<tr>

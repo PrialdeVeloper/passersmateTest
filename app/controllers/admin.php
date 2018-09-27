@@ -300,6 +300,49 @@
 			$this->controller->view("admin/subscription",$data);
 		}
 
+		public function dispute(){
+			$allUsers = $builder = $dom = null;
+			$data = [];
+			if(!$this->checkSession('adminUser')){
+				header("location:index");
+			}
+			$allUsers = $this->model->joinDisputeAdmin();
+			if(!empty($allUsers)){
+				foreach ($allUsers as $d) {
+					switch ($d['DisputeIssuer']) {
+						case 'Passer':
+							$builder = 
+							'
+								<tr>
+				                    <td>'.$d['SeekerFN']." ".$d['SeekerLN'].'</td>
+				                    <td>'.$d['PasserFN']." ".$d['PasserLN'].'</td>
+				                    <td>'.date("F jS, Y",strtotime($d['DisputeIssued'])).'</td>
+				                    <td>'.$d['DisputeReason'].'</td>
+
+				                </tr>
+							';
+							break;
+						case 'Seeker':
+							$builder = 
+							'
+								<tr>
+				                    <td>'.$d['PasserFN']." ".$d['PasserLN'].'</td>
+				                    <td>'.$d['SeekerFN']." ".$d['SeekerLN'].'</td>
+				                    <td>'.date("F jS, Y",strtotime($d['DisputeIssued'])).'</td>
+				                    <td>'.$d['DisputeReason'].'</td>
+
+				                </tr>
+							';
+							break;
+					}
+					$dom .=$builder;
+				}
+			}
+			$data[] = array("dom"=>$dom);
+			
+			$this->controller->view("admin/dispute",$data);
+		}
+
 		public function package(){
 			$allUsers = $builder = $dom = $userStatus = $pagination = null;
 			$data = [];

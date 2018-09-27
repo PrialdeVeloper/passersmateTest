@@ -1,3 +1,9 @@
+<?php 
+$domPasserUnverified = null;
+if(isset($data) && !empty($data)){
+    extract($data[0]);
+}
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -275,128 +281,32 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                 <div class="row">
-                    <div class="col-md-6 col-sm-12">
-                         <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title m-b-0">List of Disputes</h4>
-                            </div>
-                            <div class="comment-widgets scrollable">
-                                <!-- Dispute Row -->
-                                <div class="d-flex flex-row comment-row m-t-0">
-                                    <div class="p-2"><img src="../etc/admin/assets/images/users/3.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text w-100">
-                                        <h6 class="font-medium">Syrel Prialde reported <a href="" class="text-danger"><u>Marvee Franco</u></a></h6>
-                                        <span class="m-b-15 d-block">Hurot na akong kwarta kay dako cyag kaon </span>
-                                        <div class="comment-footer">
-                                            <span class="text-muted float-right">July, 24, 2018</span> 
-                                             <button type="button" class="btn btn-success btn-sm">Confirm</button>
-                                             <button type="button" class="btn btn-cyan btn-sm">Notify</button>
-                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <!--END  Dispute Row -->
-                                <!-- Dispute Row -->
-                                <div class="d-flex flex-row comment-row m-t-0">
-                                    <div class="p-2"><img src="../etc/admin/assets/images/users/3.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text w-100">
-                                        <h6 class="font-medium">Syrel Prialde reported <a href="" class="text-danger"><u>Marvee Franco</u></a></h6>
-                                        <span class="m-b-15 d-block">Hurot na akong kwarta kay dako cyag kaon </span>
-                                        <div class="comment-footer">
-                                            <span class="text-muted float-right">July, 24, 2018</span> 
-                                            <button type="button" class="btn btn-success btn-sm">Confirm</button>
-                                             <button type="button" class="btn btn-cyan btn-sm">Notify</button>
-                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                             <!--END  Dispute Row -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-12">
-                         <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title m-b-0">Responds</h4>
-                            </div>
-                            <div class="comment-widgets scrollable">
-                                <!-- Dispute Row -->
-                                <div class="d-flex flex-row comment-row m-t-0">
-                                    <div class="p-2"><img src="../etc/admin/assets/images/users/1.png" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text w-100">
-                                        <h6 class="font-medium">Marvee Franco responded<a href="" class="text-danger"><u> Syrel Prialde's report</u></a></h6>
-                                        <span class="m-b-15 d-block">Dili man gud, wa juddd</span>
-                                        <div class="comment-footer">
-                                            <span class="text-muted float-right">July, 24, 2018</span> 
-                                             <button type="button" class="btn btn-success btn-sm">Confirm</button>
-                                             <button type="button" class="btn btn-cyan btn-sm">Notify</button>
-                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                 <!--END  Dispute Row -->
-                                <!-- Dispute Row -->
-                                <div class="d-flex flex-row comment-row m-t-0">
-                                    <div class="p-2"><img src="../etc/admin/assets/images/users/3.jpg" alt="user" width="50" class="rounded-circle"></div>
-                                    <div class="comment-text w-100">
-                                        <h6 class="font-medium">Syrel Prialde reported <a href="" class="text-danger"><u>Marvee Franco</u></a></h6>
-                                        <span class="m-b-15 d-block">Hurot na akong kwarta kay dako cyag kaon </span>
-                                        <div class="comment-footer">
-                                            <span class="text-muted float-right">July, 24, 2018</span> 
-                                            <button type="button" class="btn btn-success btn-sm">Confirm</button>
-                                             <button type="button" class="btn btn-cyan btn-sm">Notify</button>
-                                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                                        </div>
-                                    </div>
-                                </div>
-                             <!--END  Dispute Row -->
-                            </div>
-                        </div>
-                    </div>
-         
-                </div>
                 <div class="row">
                     <div class="col-md-12 col-sm-12">
-                    <div class="card">
+                     <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title m-b-0">Reports</h5>
-                            </div>
-                            <div class="table-responsive">
-                            <table id="zero_config" class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Dispute ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Reported User</th>
-                                        <th>Status</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="">1</td>
-                                        <td class="">Syrel Prialde</td>
-                                        <td class="">Marvee Franco</td>
-                                        <td class="text-success">Progress</td>
-                                        <td>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Update">
-                                                <i class="mdi mdi-check"></i>
-                                            </a>
-                                            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                </i><i class="mdi mdi-close"></i>
-                                            </a>     
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                <h5 class="card-title">View All Users</h5>
+                                <div class="table-responsive">
+                                    <table id="zero_config" class="table table-striped table-bordered text-center">
+                                        <thead>
+                                            <tr>
+                                                <th>Reported User</th>
+                                                <th>Reported By</th>
+                                                <th>Date Disputed</th>
+                                                <th>Reason</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?=$dom;?>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> 
+            </div>
 
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
@@ -456,13 +366,6 @@
     <script src="../etc/admin/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
     <script src="../etc/admin/assets/extra-libs/DataTables/datatables.min.js"></script>
     <script src="../etc/custom-js-Admin.js"></script>
-    <script>
-        /****************************************
-         *       Basic Table                   *
-         ****************************************/
-        $('#zero_config').DataTable();
-    </script>
-
 
 </body>
 

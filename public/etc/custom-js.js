@@ -1490,6 +1490,7 @@ $(function(){
 				processData: false,
     			contentType: false,
 				success: function(dataRet){
+					console.log(dataRet);
 					let obj = JSON.parse(dataRet);
 					if(obj.error == "none"){
 						window.location='dashboard';

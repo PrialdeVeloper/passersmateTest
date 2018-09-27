@@ -22,12 +22,12 @@
 			$username = "root";
 			$password = "";
 			try {
-				$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
+				$this->con = new PDO("mysql: host=$host; port=$port; dbname=$dbname",$username,$password);
 				$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 				return $this->con;
 			} catch (PDOException $e) {
 				try {
-					$this->con = new PDO("mysql: host=$host; port=$port; dbname=$dbname",$username,$password);
+					$this->con = new PDO("mysql: host=$host; dbname=$dbname",$username,$password);
 					$this->con->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 					return $this->con;
 				} catch (Exception $e) {
@@ -443,6 +443,12 @@
 		public function joinDispute($unique,$user){
 			$this->stmt = $this->con->prepare("SELECT * FROM `dispute` a, `passer` b, `seeker` c, `offerjob` d WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.`JobOfferID` = d.`OfferJobID` AND a.$unique = ? AND a.`JobOfferID` = ?");
 			$this->stmt->execute($user);
+			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
+
+		public function joinDisputeAdmin(){
+			$this->stmt = $this->con->prepare("SELECT * FROM `dispute` a, `passer` b, `seeker` c, `offerjob` d WHERE a.`PasserID` = b.`PasserID` AND a.`SeekerID` = c.`SeekerID` AND a.`JobOfferID`  = d.`OfferJobID` AND a.`DisputeStatus` = 1 ORDER BY `DisputeIssued` DESC");
+			$this->stmt->execute();
 			return $this->stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
