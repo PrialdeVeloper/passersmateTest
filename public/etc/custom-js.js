@@ -2887,7 +2887,7 @@ $(function(){
 		});
 	});
 
-	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer], button[name=messagePasser], button[name=generateCOE], button[name=showDisputePasser], button[name=showDisputeSeeker], button[name=settle]").click(function(){
+	$("#cancelJobOfferModal, button[name=declineJobOffer], button[name=disputeJobOffer], button[name=doneJobOffer], button[name=messagePasser], button[name=generateCOE], button[name=showDisputePasser], button[name=showDisputeSeeker], button[name=settle], button[name=generateCompletion]").click(function(){
 		if($(this).parent().prev().find("input[name=offerJobID]").length > 0){
 			let jobofferID = $(this).parent().prev().find("input[name=offerJobID]").val();
 			let otherUser = $(this).parent().prev().find("input[name=seekerID]").val();
@@ -2971,7 +2971,6 @@ $(function(){
 			method: "POST",
 			data: {"generate":"","seekerID":cancelOtherUser,"offerjobID":cancelJobOffer},
 			success: function(a){
-				console.log(a);
 				let obj = JSON.parse(a);
 				let records = obj['records'];
 				seekerGreet.empty().html((records['SeekerGender'] == "Male"?"Mr":"Mrs"));
@@ -2983,6 +2982,37 @@ $(function(){
 				endDate.empty().html(formatDate(records['AgreementDateandTime']));
 				tracking.empty().html(records['AgreementSerial']);
 				download.attr("href","generateCOEPDF?id="+records['AgreementSerial']+"&offerJobID="+cancelJobOffer);
+			}
+		});
+	});
+
+	$("button[name=generateCompletion]").click(function(){
+		let seekerGreet = $("#seekerGreetCompletion");
+		let seekerName = $("#seekerNameConfirmation");
+		let passerGreet = $("#passerGreetCompletion");
+		let passerName = $("#passerNameCompletion");
+		let passerTitle = $("#passerJobTitleCompletion");
+		let startDate = $("#startDateCompletion");
+		let endDate = $("#endDateCompletion");
+		let tracking = $("#trackingNumberCompletion");
+		let download = $("#printCompletion");
+		$.ajax({
+			url: "generateCompletion",
+			method: "POST",
+			data: {"generate":"","seekerID":cancelOtherUser,"offerjobID":cancelJobOffer},
+			success: function(a){
+				console.log(a);
+				let obj = JSON.parse(a);
+				let records = obj['records'];
+				seekerGreet.empty().html((records['SeekerGender'] == "Male"?"Mr":"Mrs"));
+				passerGreet.empty().html((records['PasserGender'] == "Male"?"Mr":"Mrs"));
+				seekerName.empty().html(records['SeekerFN']+" "+records['SeekerLN']);
+				passerName.empty().html(records['PasserFN']+" "+records['PasserLN']);
+				passerTitle.empty().html(records['PasserCertificate']);
+				startDate.empty().html(records['StartDate']);
+				endDate.empty().html(formatDate(records['AgreementDateandTime']));
+				tracking.empty().html(records['CompletionSerial']);
+				download.attr("href","generateCompletionPDF?id="+records['CompletionSerial']+"&offerJobID="+cancelJobOffer);
 			}
 		});
 	});

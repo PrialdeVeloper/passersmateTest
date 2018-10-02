@@ -1,10 +1,5 @@
-<?php 
-	$offerJob = '<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#offer">
-				 Offer Job
-				</button>';
-	$messageMe = '<button type="button" id="chatPasser" class="btn btn-primary btn-block">Message Me</button>';
-?>
 <?php
+$messageMe = '<button type="button" name="messageSeeker" class="btn btn-primary btn-block">Message Me</button>';
 	if(isset($data) && !empty($data)){
 		extract($data[0]);
 		if(isset($seekerDetails) && !empty($seekerDetails)){
@@ -14,7 +9,7 @@
 			}
 		}
 	} 
-	if(isset($passerStatus) && !empty($passerStatus) || isset($seekerError) && !empty($seekerError)){
+	if(!isset($_SESSION['passerUser'])){
 		$offerJob = $messageMe = null;
 	}
 	if(!empty($userDetails)){
@@ -53,12 +48,10 @@
 				<div class="row pt-2 pb-5">
 					<div class="col-sm-1 "><i class="fas fa-birthday-cake ashGray"></i></div>
 					<div class="col-md-auto "><?=isset($SeekerBirthdate)?date("F jS, Y",strtotime($SeekerBirthdate)):"<span class='text-muted'>Undefined</span>"?></div>
+					<input type="hidden" name="seekerID" value="<?php echo !empty($_GET['user'])?$_GET['user']:""; ?>">
 				</div>
 				<div class=" row py-5">
-					
-				</div>
-				<div class=" row py-5">
-				<!-- 	<?=$messageMe?> -->
+				<?=$messageMe?>
 				</div>
 			</div>
 		</div>

@@ -282,7 +282,7 @@
 										$offerJobCheck = $this->model->selectAllFromUser("offerjob",$this->passerUnique,array($_SESSION['passerJobOffer']));
 										if(!empty($offerJobCheck)){
 											foreach ($offerJobCheck as $data) {
-												if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8){
+												if($data['OfferJobStatus'] != 7 && $data['OfferJobStatus'] != 8 && $data['OfferJobStatus'] != 10){
 													$flag = 1;
 												}
 											}
@@ -2662,7 +2662,6 @@
 				}
 			}
 
-
 			public function generateCOEPDF(){
 				if(isset($_GET['id'])){
 					$check = $this->model->selectTwoCondition(array("*"),"agreement","PasserID","AgreementSerial",array($_SESSION['passerUser'],$this->sanitize($_GET['id'])));
@@ -2671,63 +2670,142 @@
 						$offerJobID = $this->model->agreementGenerate(array($offerJobID));
 						extract($offerJobID[0]);
 						$agreementRecords = $this->model->agreementGenerate(array($offerJobID));
-				$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-				ob_start();
-				$html = '<style type="text/css">
+						$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+						ob_start();
+						$html = '<style type="text/css">
+							  '.file_get_contents("../public/etc/bootstrap/css/bootstrap.min.css").'
+							</style>
+							<form method="get" action="file.doc">
+							<div class="card-body border border-dark" style="background-image:url(../public/etc/images/system/coe2.png);background-repeat: no-repeat;">
+							    <div class="col-md-6 text-center">
+							      <img src="../public/etc/images/system/logo-black1.png" class="" width="100">
+							      <h1 class="text-success" style="font-family: \'Junction\'; "><i>Certificate of Employment</i></h1>
+							      <p style="font-size: 20px">This is to certify that '.($PasserGender == "Male"?"Mr":"Mrs").'.</p>
+							      <h2 class="text-primary"><u>'.$PasserFN." ".$PasserLN.'</u></h2>
+							      <p style="font-size: 20px">has been employed by '.($SeekerGender == "Male"?"Mr":"Mrs").'.</p>
+							      <h2 class="text-dark "><u>'.$SeekerFN." ".$SeekerLN.'</u></h2>
+							      <p style="font-size: 20px">as a</p>
+							      <p class="font-weight-bold" style="font-size: 25px"><u>'.$PasserCertificate.'</u></p>
+							      <p class=""> from 
+							        <b style="font-size:18px"><u>'.date("F jS, Y",strtotime($StartDate)).'</u></b> to 
+							        <b style="font-size:18px"><u>'.date("F jS, Y",strtotime($AgreementDateandTime)).'</u>.</b>
+							      </p>
+							      <p style="font-size: 13pt">This certification is being issued upon the request of the aforementioned name for whatever lawful purposes it may serve him/her best.</p>
+							      <p style="font-size: 13pt">Given this <u>'.date("d").'</u>st day of <u>'.date("m Y").'</u></p>
+							    </div>
+							  </div>
 
-  '.file_get_contents("../public/etc/bootstrap/css/bootstrap.min.css").'
-</style>
-<form method="get" action="file.doc">
-<div class="card-body border border-dark" style="background-image:url(../public/etc/images/system/coe2.png);background-repeat: no-repeat;">
-    <div class="col-md-6 text-center">
-      <img src="../public/etc/images/system/logo-black1.png" class="" width="100">
-      <h1 class="text-success" style="font-family: \'Junction\'; "><i>Certificate of Employment</i></h1>
-      <p style="font-size: 20px">This is to certify that '.($PasserGender == "Male"?"Mr":"Mrs").'.</p>
-      <h2 class="text-primary"><u>'.$PasserFN." ".$PasserLN.'</u></h2>
-      <p style="font-size: 20px">has been employed by '.($SeekerGender == "Male"?"Mr":"Mrs").'.</p>
-      <h2 class="text-dark "><u>'.$SeekerFN." ".$SeekerLN.'</u></h2>
-      <p style="font-size: 20px">as a</p>
-      <p class="font-weight-bold" style="font-size: 25px"><u>'.$PasserCertificate.'</u></p>
-      <p class=""> from 
-        <b style="font-size:18px"><u>'.date("F jS, Y",strtotime($StartDate)).'</u></b> to 
-        <b style="font-size:18px"><u>'.date("F jS, Y",strtotime($AgreementDateandTime)).'</u>.</b>
-      </p>
-      <p style="font-size: 13pt">This certification is being issued upon the request of the aforementioned name for whatever lawful purposes it may serve him/her best.</p>
-      <p style="font-size: 13pt">Given this <u>'.date("d").'</u>st day of <u>'.date("m Y").'</u></p>
-    </div>
-  </div>
+							    <div class="col-md-12 text-center" style="background: #68a2ff">
+							    <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+							      Certificate Tracking No: <u class="text-warning">'.$AgreementSerial.'</u>
+							    </small>
+							    <br>
+							      <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+							      PassersMate Tel.No: 266-81-34
+							    </small>
+							    <br>
+							      <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+							      Email address: <a href="" class="text-info">passersmate@gmail.com</a>
+							     </small>
 
-    <div class="col-md-12 text-center" style="background: #68a2ff">
-    <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
-      Certificate Tracking No: <u class="text-warning">'.$AgreementSerial.'</u>
-    </small>
-    <br>
-      <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
-      PassersMate Tel.No: 266-81-34
-    </small>
-    <br>
-      <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
-      Email address: <a href="" class="text-info">passersmate@gmail.com</a>
-     </small>
+							</div>
+							</form>';
+						$pdf = new TCPDF();
+						$pdf->SetCreator("PassersMate");
+						$pdf->SetAuthor('PassersMate Admin');
+						$pdf->SetTitle('COE for Passers');
+						$pdf->SetSubject('COE');
+						$pdf->SetKeywords('PassersMate');
+						$pdf->AddPage('P');
+						$pdf->Image('../public/etc/images/system/coe2.png', 0, 0, 0, 0, 'PNG', '', '', false, 0, '', false, false, "", false, false, false);
+						$pdf->writeHTML($html);
+						$pdf->Output('PassersmateCOE.pdf');
+						 ob_end_flush(); 
+					}
+				}
+			}
 
-</div>
-</form>';
-				$pdf = new TCPDF();
-				$pdf->SetCreator("PassersMate");
-				$pdf->SetAuthor('PassersMate Admin');
-				$pdf->SetTitle('COE for Passers');
-				$pdf->SetSubject('COE');
-				$pdf->SetKeywords('PassersMate');
-				$pdf->AddPage('P');
-				// $border = array('LRTB' => array('width' => 0.1, 'cap' => 'square', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
-				$pdf->Image('../public/etc/images/system/coe2.png', 0, 0, 0, 0, 'PNG', '', '', false, 0, '', false, false, "", false, false, false);
-				// $pdf->SetDrawColor(128, 0, 0);
-				$pdf->writeHTML($html);
-				// ob_end_clean();
-				$pdf->Output('PassersmateCOE.pdf');
-				 ob_end_flush(); 
-				 }
-				 }
+			public function generateCompletion(){
+				$seeker = $offerJobID = $completion = $generatedCOE = null;
+				if(isset($_POST['generate'])){
+					$seeker = $this->sanitize($_POST['seekerID']);
+					$offerJobID = $this->sanitize($_POST['offerjobID']);
+					$completion = $this->model->agreementGenerate(array($offerJobID));
+					extract($completion[0]);
+					if(!empty($CompletionSerial)){
+						echo json_encode(array("error"=>"none","records"=>$completion[0]));
+					}
+					else{
+						$generatedCOE = "PM678".rand(1,19).$SeekerID.$PasserID;
+						$this->model->updateDBDynamic("agreement",array("CompletionSerial"),array($generatedCOE,$AgreementID),array("AgreementID"));
+						$completion = null;
+						$completion = $this->model->agreementGenerate(array($offerJobID))[0];
+						echo json_encode(array("error"=>"none","records"=>$completion));
+					}
+				}
+			}
+
+			public function generateCompletionPDF(){
+				if(isset($_GET['id'])){
+					$check = $this->model->selectTwoCondition(array("*"),"agreement","PasserID","CompletionSerial",array($_SESSION['passerUser'],$this->sanitize($_GET['id'])));
+					if(!empty($check)){
+						$offerJobID = $this->sanitize($_GET['offerJobID']);
+						$offerJobID = $this->model->agreementGenerate(array($offerJobID));
+						extract($offerJobID[0]);
+						$agreementRecords = $this->model->agreementGenerate(array($offerJobID));
+						$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+						ob_start();
+						$html = '<style type="text/css">
+							  '.file_get_contents("../public/etc/bootstrap/css/bootstrap.min.css").'
+							</style>
+							<form method="get" action="file.doc">
+							<div class="card-body border border-dark" style="background-image:url(../public/etc/images/system/coe2.png);background-repeat: no-repeat;">
+							    <div class="col-md-6 text-center">
+							      <img src="../public/etc/images/system/logo-black1.png" class="" width="100">
+							      <h1 class="text-success" style="font-family: \'Junction\'; "><i>Certificate of Job Completion</i></h1>
+							      <p style="font-size: 20px">In Recognition of successful completion of job offered by '.($PasserGender == "Male"?"Mr":"Mrs").'.</p>
+							      <h2 class="text-primary"><u>'.$PasserFN." ".$PasserLN.'</u></h2>
+							      <p style="font-size: 20px">has been employed by '.($SeekerGender == "Male"?"Mr":"Mrs").'.</p>
+							      <h2 class="text-dark "><u>'.$SeekerFN." ".$SeekerLN.'</u></h2>
+							      <p style="font-size: 20px">as a</p>
+							      <p class="font-weight-bold" style="font-size: 25px"><u>'.$PasserCertificate.'</u></p>
+							      <p class=""> from 
+							        <b style="font-size:18px"><u>'.date("F jS, Y",strtotime($StartDate)).'</u></b> to 
+							        <b style="font-size:18px"><u>'.date("F jS, Y",strtotime($AgreementDateandTime)).'</u>.</b>
+							      </p>
+							      <p style="font-size: 13pt">This certification is being issued upon the request of the aforementioned name for whatever lawful purposes it may serve him/her best.</p>
+							      <p style="font-size: 13pt">Given this <u>'.date("jS").'</u> day of <u>'.date("m Y").'</u></p>
+							    </div>
+							  </div>
+
+							    <div class="col-md-12 text-center" style="background: #68a2ff">
+							    <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+							      Certificate Tracking No: <u class="text-warning">'.$CompletionSerial.'</u>
+							    </small>
+							    <br>
+							      <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+							      PassersMate Tel.No: 266-81-34
+							    </small>
+							    <br>
+							      <small class="text-white font-weight-bold" style="font-size:12px; font-family: "Comic Sans MS", cursive, sans-serif">
+							      Email address: <a href="" class="text-info">passersmate@gmail.com</a>
+							     </small>
+
+							</div>
+							</form>';
+						$pdf = new TCPDF();
+						$pdf->SetCreator("PassersMate");
+						$pdf->SetAuthor('PassersMate Admin');
+						$pdf->SetTitle('Completion Certificate for Passers');
+						$pdf->SetSubject('Completion Certificate');
+						$pdf->SetKeywords('PassersMate');
+						$pdf->AddPage('P');
+						$pdf->Image('../public/etc/images/system/coe2.png', 0, 0, 0, 0, 'PNG', '', '', false, 0, '', false, false, "", false, false, false);
+						$pdf->writeHTML($html);
+						$pdf->Output('Passersmate_Completion.pdf');
+						 ob_end_flush(); 
+					}
+				}
 			}
 
 			public function getDataJobForm(){

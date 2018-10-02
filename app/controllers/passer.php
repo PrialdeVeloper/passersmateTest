@@ -143,10 +143,9 @@
 			 		';
 		 		}
 
-			 	$workHistory = $this->paginationScriptSingle("passerworkhistory","PasserID",$PasserID,$page,1,1,"PasserWorkHistoryID","DESC","user=".$coc);
-			 	$workHistory = json_decode($workHistory,true);
+			 	$workHistory = $this->model->selectDataFromOtherDB("passerworkhistory","passer","PasserID","PasserCOCNo",array($coc));
 			 	if(!empty($workHistory)){
-			 		foreach ($workHistory['data'] as $data) {
+			 		foreach ($workHistory as $data) {
 			 			$builder = '
 			 				<div class="row ">
 								<div class="col-sm-12 text-center pt-4 pb-3">
@@ -214,24 +213,32 @@
 			 			';
 			 			$dom = $dom ." ".$builder;
 			 		}
+			 	}else{
+			 		$dom = "No Work history to show";
 			 	}
-			 											 //($table,$field,$data,$wherClause)
-			 	//$returnPassword = $this->model->selectSingleUser("passer","PasserPass",array($email),"PasserEmail");
-			 	$serviceFeeDate = $this->model->selectSingleUser("passer","passerFee",array($this->passerSession),$this->passerUnique);
-		
-			 	$builder =
+			 	$serviceFeeDate = $this->model->selectSingleUser("passer","passerFee",array($coc),"PasserCOCNo");
+			 	if(!empty($serviceFeeDate)){
+			 	$serviceFee =
 			 	'
 			 		<div class="row ">
 						<div class="col-sm-12 text-center pt-4 pb-3">
-							<label><h3>Your Service Rate is &#8369;'.$serviceFeeDate.'</h3></label>
+							<label><h3>Passer\'s Service Rate is &#8369;'.$serviceFeeDate.'</h3></label>
 						</div>
 					</div>
 						
 
 			 	';
-				$serviceFee = $serviceFee ." ". $builder;
-
-			 	$educationData = $this->model->selectAllFromUser("passerEducation",$this->passerUnique,array($this->passerSession));
+			 	}else{
+			 		$serviceFeeDate = 
+			 		'
+			 		<div class="row ">
+						<div class="col-sm-12 text-center pt-4 pb-3">
+							<label><h3>Passer\'s Service Rate is not yet defined</h3></label>
+						</div>
+					</div>
+			 		';
+			 	}
+			 	$educationData = $this->model->selectDataFromOtherDB("passereducation","passer","PasserID","PasserCOCNo",array($coc));
 			 	if(!empty($educationData)){
 
 			 	$builder = 
@@ -549,7 +556,8 @@
 								// ';
 								$employmentAgreement = null;
 							}
-							$employmentAgreement .= '<button type="button" class="btn btn-outline-success" name="generateCOE" data-toggle="modal" data-target="#viewCOE" title="Rate Seeker">Request for COE</button>';
+							$employmentAgreement .= '<button type="button" class="btn btn-outline-success" name="generateCOE" data-toggle="modal" data-target="#viewCOE" title="Request for COE">Request for COE</button>
+							<button type="button" class="btn btn-outline-success" name="generateCompletion" data-toggle="modal" data-target="#viewCOECompletion" title="Rate Seeker">Request for Completion Certificate</button>';
 							
 							$update = '<small class="text-left "><b class="text-black">Completed on:</b> </small>';
 							break;
