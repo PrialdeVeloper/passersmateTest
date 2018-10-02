@@ -238,11 +238,33 @@ s<?php
                                 <li class="sidebar-item"><a href="seekers" class="sidebar-link"><i class=" fas fa-user-circle"></i><span class="hide-menu"> Seekers </span></a></li>
                             </ul>
                         </li>
-                        <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dispute" aria-expanded="false"><i class="fas fa-bullhorn"></i><span class="hide-menu">Dispute/Reports</span></a></li>
-                           <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" fas fa-user"></i><span class="hide-menu">Confirmation</span></a>
+                                                <li class="sidebar-item"> 
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="dispute" aria-expanded="false">
+                                <i class="fas fa-bullhorn"></i>
+                                <span class="hide-menu mr-5">Dispute/Reports</span>
+                                <span class="badge badge-danger"><b id="disputeCount"> 4</b></span>
+                            </a>
+                        </li>
+                           <li class="sidebar-item"> 
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class=" fas fa-user"></i>
+                                <span class="hide-menu mr-5">Confirmation</span>
+                                <span class="badge badge-danger" id="confirmCount"><b> 4</b></span>
+                            </a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="confirmPasser" class="sidebar-link"><i class=" fas fa-users"></i><span class="hide-menu"> Passer </span></a></li>
-                                <li class="sidebar-item"><a href="confirmSeeker" class="sidebar-link"><i class="fas fa-user-secret"></i><span class="hide-menu"> Seeker </span></a></li>
+                                <li class="sidebar-item"><a href="confirmPasser" class="sidebar-link">
+                                    <i class=" fas fa-users"></i>
+                                    <span class="hide-menu mr-5"> Passer </span>
+                                    <span class="badge badge-danger"><b id="passerVerifyCount"> 4</b></span>
+                                </a>
+                            </li>
+                                <li class="sidebar-item">
+                                    <a href="confirmSeeker" class="sidebar-link">
+                                        <i class="fas fa-user-secret"></i>
+                                        <span class="hide-menu mr-5"> Seeker </span>
+                                        <span class="badge badge-danger"><b id="seekerVerifyCount"> 4</b></span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

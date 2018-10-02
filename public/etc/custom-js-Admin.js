@@ -570,3 +570,50 @@ $(function(){
 		}
 	});
 });
+
+
+$(function(){
+	let countAll = $("#confirmCount");
+	let dispute = $("#disputeCount");
+	let passerVerifyCount = $("#passerVerifyCount");
+	let seekerVerifyCount = $("#seekerVerifyCount");
+	setInterval(
+		$.ajax({
+			url:"countAllPendingUsers",
+			method: "POST",
+			data: "countAll",
+			success: function(a){
+				countAll.empty().html(a);
+			}
+		}),5000);
+
+		setInterval(
+		$.ajax({
+			url:"checkExist",
+			method: "POST",
+			data: {dataSend: "marveegwapa",table: "passer", field:"PasserStatus", data: 2},
+			success: function(a){
+				passerVerifyCount.empty().html(a);
+			}
+		}),5000);
+
+		setInterval(
+		$.ajax({
+			url:"checkExist",
+			method: "POST",
+			data: {dataSend: "marveegwapa",table: "seeker", field:"SeekerStatus", data: 2},
+			success: function(a){
+				seekerVerifyCount.empty().html(a);
+			}
+		}),5000);
+
+		setInterval(
+		$.ajax({
+			url:"checkExist",
+			method: "POST",
+			data: {dataSend: "marveegwapa",table: "dispute", field:"DisputeStatus", data: 1},
+			success: function(a){
+				dispute.empty().html(a);
+			}
+		}),5000);
+});

@@ -271,6 +271,12 @@
 			return $this->stmt->fetchColumn();
 		}
 
+		public function countAllUsersUnverified(){
+			$this->stmt = $this->con->prepare("SELECT ((SELECT COUNT(*) FROM `passer` WHERE `PasserStatus` = 2) + (SELECT COUNT(*) FROM `seeker` WHERE `SeekerStatus` = 2)) as sum");
+			$this->stmt->execute();
+			return $this->stmt->fetchColumn();
+		}
+
 		public function countAllCount($table1,$table2,$field1,$field2,$data){
 			$this->stmt = $this->con->prepare("SELECT ((SELECT COUNT(*) FROM $table1 WHERE $field1 = ?) + (SELECT COUNT(*) FROM $table2 WHERE $field2 = ?)) AS sum");
 			$this->stmt->execute($data);

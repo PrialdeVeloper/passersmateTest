@@ -2817,5 +2817,13 @@
 				}
 			}
 
+
+			public function countAllPendingUsers(){
+				if(isset($_POST['countAll'])){
+					$count = $this->model->countAllUsersUnverified();
+					echo $count;
+				}
+			}
+
 		}
 ?>
