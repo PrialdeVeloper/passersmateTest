@@ -621,7 +621,12 @@
 						case 9:
 							$status = '<a class="badge badge-success font-weight-bold ">Completed</a>';
 							$headerColor = 'bg-success';
-							$employmentAgreement = null;
+							$employmentAgreement = 
+							'
+							<button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
+	                          Dispute
+	                        </button>
+							';
 							// <button type="button" class="btn btn-outline-light float-right" data-toggle="modal" data-target="#dispute" name="disputeJobOffer">
 	      //                     Dispute
 	      //                   </button>

@@ -564,7 +564,8 @@
 						case 10:
 							$status = '<a class="badge badge-success text-white font-weight-bold float-right">Settled</a>';
 							$headerColor = 'bg-success';
-							$employmentAgreement = null;
+							$employmentAgreement .= '<button type="button" class="btn btn-outline-success" name="generateCOE" data-toggle="modal" data-target="#viewCOE" title="Request for COE">Request for COE</button>
+							<button type="button" class="btn btn-outline-success" name="generateCompletion" data-toggle="modal" data-target="#viewCOECompletion" title="Rate Seeker">Request for Completion Certificate</button>';
 							$update = '<small class="text-left "><b class="text-black">Marked as settled on:</b> </small>';
 							break;
 					}
